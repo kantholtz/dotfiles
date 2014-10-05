@@ -1,0 +1,35 @@
+
+function g \
+	-d 'shortcuts for git'
+
+	set -l cmd $argv[1]
+	set -l args
+
+	if test 1 -lt (count $argv)
+		set args $argv[2..-1]
+	end
+
+	if test -z cmd
+		echo "you must provide a command"
+	end
+
+	switch $cmd
+		case a
+			git add $args
+		case s
+			git status
+		case c
+			git commit $args
+		case l
+			git log
+		case r
+			git rm $args
+		case p
+			git push $args
+		case d
+			git diff $args
+		case m
+			git mv $args
+	end
+
+end

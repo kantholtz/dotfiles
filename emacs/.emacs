@@ -9,9 +9,13 @@
 (package-initialize)
 
 
-;; generally desired modes
+;; generally desired modes and configurations
 (show-paren-mode t)
 (ido-mode t)
+
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 2)
+
 
 ;; for faster reactions
 (fset 'yes-or-no-p 'y-or-n-p)

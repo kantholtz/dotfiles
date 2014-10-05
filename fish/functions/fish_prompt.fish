@@ -4,11 +4,11 @@ function display_username
   set_color red
 	set -l usr (whoami)
 
-	if [ 'felix.hamann' = $usr ]
+	if [ 'felix.hamann' = "$usr" ]
 		set usr 'fh'
 	end
 
-  printf '%s' $usr
+  printf '%s' "$usr"
 
 end
 
@@ -17,7 +17,7 @@ function display_hostname
 
 	set -l host (hostname|cut -d . -f 1)
 
-	if [ 'nb-fhamann' = $host ]
+	if [ 'nb-fhamann' = "$host" ]
 		set host 'home'
 	end
 
@@ -36,26 +36,26 @@ function parse_git_branch
 	set -l branch (
 	  git branch 2>/dev/null |\
 	  grep -e '\*'           |\
-		sed 's/..\(.*\)/\1/')
+	  sed 's/..\(.*\)/\1/')
 
-	if [ -n (git diff) ]
-		set_color magenta
-	else
-		set_color green
-	end
+  if [ -n "(git diff)" ]
+    set_color magenta
+  else
+    set_color green
+  end
 
-	printf ' [%s]' $branch
-	set_color normal
+  printf ' [%s]' $branch
+  set_color normal
 
 end
 
 
 function display_rvm
 
-	if [ -n (which ruby | grep -e '.rvm') ]
-		set -l rversion (ruby -v | sed 's/ruby \([0-9.p]*\) .*/\1/')
-		printf ' (%s)' $rversion
-	end
+  if [ -n (which ruby | grep -e '.rvm') ]
+    set -l rversion (ruby -v | sed 's/ruby \([0-9.p]*\) .*/\1/')
+    printf ' (%s)' $rversion
+  end
 
 end
 
@@ -77,9 +77,9 @@ function fish_prompt
 
   # git indicator
   git status >/dev/null 2>&1
-	if [ 0 -eq $status ]
-		parse_git_branch
-		display_rvm
+  if [ 0 -eq "$status" ]
+    parse_git_branch
+    display_rvm
   end
 
 

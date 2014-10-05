@@ -13,7 +13,7 @@ To change the $PATH environmental variable simply
 set/change `$fish_user_paths`:
 
 ```
-set -U fish_user_paths your/own/path $fish_user_path
+set -U fish_user_paths your/own/path $fish_user_paths
 ```
 
 Further information can be found with `help set`.

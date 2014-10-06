@@ -32,4 +32,7 @@ function xing \
   case '*'
     echo "Error: '$argv' was not found"
 
+  end
+
+
 end

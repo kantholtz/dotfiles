@@ -1,4 +1,3 @@
-
 function g \
 	-d 'shortcuts for git'
 
@@ -20,6 +19,8 @@ function g \
 			git status
 		case c
 			git commit $args
+		case co
+			git checkout $args
 		case l
 			git log
 		case r

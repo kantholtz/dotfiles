@@ -31,6 +31,8 @@ function g \
 			git diff $args
 		case m
 			git mv $args
+		case mg
+			git merge $args
 	end
 
 end

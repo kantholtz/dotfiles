@@ -25,8 +25,10 @@ function g \
 			git log
 		case r
 			git rm $args
-		case p
+		case ps
 			git push $args
+		case pl
+			git pull $args
 		case d
 			git diff $args
 		case m

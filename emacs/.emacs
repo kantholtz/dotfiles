@@ -32,3 +32,4 @@
 
 ;; aggregate all backups in one place
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(put 'dired-find-alternate-file 'disabled nil)

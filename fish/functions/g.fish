@@ -15,6 +15,8 @@ function g \
 	switch $cmd
 		case a
 			git add $args
+		case b
+			git branch $args
 		case s
 			git status
 		case c

@@ -9,6 +9,12 @@
 (package-initialize)
 
 
+;; for the sandbox
+(load-theme 'manoj-dark t)
+(set-face-background 'mode-line "black")
+(set-face-background 'mode-line-buffer-id "black")
+
+
 ;; generally desired modes and configurations
 (show-paren-mode t)
 (ido-mode t)
@@ -32,3 +38,4 @@
 
 ;; aggregate all backups in one place
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(put 'dired-find-alternate-file 'disabled nil)

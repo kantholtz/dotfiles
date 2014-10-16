@@ -37,6 +37,10 @@ function g \
 			git mv $args
 		case mg
 			git merge $args
+		case rm
+			git rm $args
+		case mv
+			git mv $args
 	end
 
 end

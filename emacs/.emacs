@@ -13,11 +13,13 @@
 (load-theme 'manoj-dark t)
 (set-face-background 'mode-line "black")
 (set-face-background 'mode-line-buffer-id "black")
+(set-face-background 'mode-line-inactive "black")
 
 
 ;; generally desired modes and configurations
 (show-paren-mode t)
 (ido-mode t)
+(column-marker-1 80)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)

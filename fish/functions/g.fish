@@ -15,6 +15,8 @@ function g \
 	switch $cmd
 		case a
 			git add $args
+		case b
+			git branch $args
 		case s
 			git status
 		case c
@@ -25,12 +27,16 @@ function g \
 			git log
 		case r
 			git rm $args
-		case p
+		case ps
 			git push $args
+		case pl
+			git pull $args
 		case d
 			git diff $args
 		case m
 			git mv $args
+		case mg
+			git merge $args
 	end
 
 end

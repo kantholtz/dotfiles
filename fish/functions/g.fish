@@ -43,6 +43,8 @@ function g \
 			git rm $args
 		case mv
 			git mv $args
+		case *
+			echo "g: could not find command $args[1]"
 	end
 
 end

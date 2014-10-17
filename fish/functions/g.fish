@@ -21,6 +21,8 @@ function g \
 			git status
 		case c
 			git commit $args
+		case cl
+			git clone $args
 		case co
 			git checkout $args
 		case l

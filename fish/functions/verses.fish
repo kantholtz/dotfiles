@@ -7,11 +7,7 @@ function verses
   set -l verses (ls $pdir)
 
   # choose one poem randomly
-  set -l rand (od -A d -t u -N 2 /dev/urandom | head -c 25 | tail -c 4)
-  set -l i (expr $rand \% (count $verses))
-
-  # fish counts its arrays from 1 up
-  set -l i (expr $i + 1)
+  set -l i (expr (random) \% (count $verses) + 1)
 
   # debug
   # echo "verses, found "(count $verses)" verses, chose "$i

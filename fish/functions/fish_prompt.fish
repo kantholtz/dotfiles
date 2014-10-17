@@ -79,7 +79,7 @@ function fish_prompt
   git status >/dev/null 2>&1
   if [ 0 -eq "$status" ]
     parse_git_branch
-    display_rvm
+    # display_rvm
   end
 
 

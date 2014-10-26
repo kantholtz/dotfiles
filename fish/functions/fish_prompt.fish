@@ -1,14 +1,10 @@
 
 function display_username
 
-  set_color red
+  set_color magenta
 	set -l usr (whoami)
-
-	if [ 'felix.hamann' = "$usr" ]
-		set usr 'fh'
-	end
-
   printf '%s' "$usr"
+  set_color -b normal
 
 end
 
@@ -17,13 +13,9 @@ function display_hostname
 
 	set -l host (hostname|cut -d . -f 1)
 
-	if [ 'nb-fhamann' = "$host" ]
-		set host 'home'
-	end
-
-	set_color blue
-	printf ' at '
-	set_color red
+  set_color yellow
+	printf ' ⬝ '
+	set_color magenta
   printf '%s' $host
 
 end
@@ -38,12 +30,7 @@ function parse_git_branch
 	  grep -e '\*'           |\
 	  sed 's/..\(.*\)/\1/')
 
-  if [ -n "(git diff)" ]
-    set_color magenta
-  else
-    set_color green
-  end
-
+  set_color yellow
   printf ' [%s]' $branch
   set_color normal
 
@@ -67,11 +54,11 @@ function fish_prompt
 
   # hostname
   display_hostname
-  set_color blue
-  printf ' in '
+  set_color yellow
+  printf ' ⬝ '
 
   # location
-  set_color red
+  set_color magenta
   printf '%s' (prompt_pwd)
   set_color normal
 
@@ -84,8 +71,8 @@ function fish_prompt
 
 
   # decoration
-  set_color blue
-  printf ' > '
+  set_color yellow
+  printf ' ▸ '
   set_color normal
 
 end

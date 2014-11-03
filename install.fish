@@ -34,7 +34,7 @@ for tup in $srcs
   set -l backup "$backdir/$bdir/$srcdir"
 
   mkdir -p "$backup"
-  cp -a "$src" "$backup"; or exit
+  cp -a "$src" "$backup"
 
   echo "linking $bfile"
   rm -fr "$src"

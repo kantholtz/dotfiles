@@ -1,3 +1,9 @@
+#
+#  TODO
+#    remove redundancy from the -d and -e code
+#    handle non-existant files [ ! -d $input ]
+#    document the different options
+#
 
 function out -a q msg
   if [ $q -ne 0 ]
@@ -13,8 +19,8 @@ function is_in -a needle haystack
 end
 
 function crypt \
-  -d "crypt -(d|e|q) input [output]" \
-  -a op input output                 \
+  -d "crypt -(d|e|q|z) input [output]" \
+  -a op input output                   \
 
   set -l op (echo "\"$op\"" | tr -d "-" | xargs echo)
   set -l input "$input"
@@ -35,24 +41,44 @@ function crypt \
     return 1
   end
 
-  if is_in "d" $op
+  if is_in $op "d"
     if [ -z $output ]
       set output (echo $input | sed 's/\(.*\)\.aes256$/\1/')
     end
 
     out $q "decrypting $input -> $output"
     openssl aes-256-cbc -d -salt -in $input -out $output
+    if [ $status -ne 0 ]
+      out $q "something went wrong, aborting"
+      return 1      
+    end
+
+    if is_in $op "$z"
+      out $q "removing original file $input"
+      rm $input
+    end
+
+    out $q "done, exiting"
     return $status
   end
 
-  if is_in "e" $op
+  if is_in $op "$e"
     if [ -z $output ]
       set output $input".aes256"
     end
 
     out $q "encrypting $input -> $output"
     openssl aes-256-cbc -salt -in $input -out $output
+    if [ $status -ne 0 ]
+      out $q "something went wrong, aborting"
+    end
 
+    if is_in $op "$z"
+      out $q "removing original file $input"
+      rm $input
+    end
+
+    out $q "done, exiting"
     return $status
   end
 

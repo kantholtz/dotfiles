@@ -21,7 +21,7 @@ function crypt \
   set -l output "$output"  
 
   set -l q 1
-  if in "q" $op
+  if is_in "q" $op
     set q 0
   end
 

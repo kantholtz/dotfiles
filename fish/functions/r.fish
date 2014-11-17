@@ -1,11 +1,38 @@
+
+
+function r_map_action \
+  -a cmd action
+
+  switch $action
+    case c
+      echo controller
+
+    case it
+      echo integration_test
+
+    case md
+      echo model
+
+    case mg
+      echo migration
+
+    case v
+      echo view
+
+    case '*'
+      echo $action
+  end
+end
+
+
 function r \
-  -a cmd   \
-	-d 'shortcuts for rails'
+	-d 'shortcuts for rails' \
+  -a cmd
 
   set -l args
   set -l vers
 
-  # catch ruby _VERSION_ command args
+  # catch rails _VERSION_ command args
   if echo "$cmd" | grep -E '_.*_' >/dev/null
     set vers $cmd
     set cmd $argv[2]
@@ -29,14 +56,30 @@ function r \
 	switch $cmd
     case c
       rails $vers console $args
+
 		case g
-			rails $vers generate $args
+      set args[1] (r_map_action $cmd $args[1])
+      if [ -n $args[1] ]
+			  rails $vers generate $args
+      end
+
+    case d
+      set args[1] (r_map_action $cmd $args[1])
+      if [ -n $args[1] ]
+        rails $vers destroy $args
+      end
+
     case gs
       rails $vers generate scaffold $args
+
     case n
       rails $vers new $args
+
+    case s
+      rails $vers server $args
+
 		case '*'
-			echo "r: could not find command $cmd"
+			echo "r: could not find command $cmd" 1>&2
 	end
 
 end

@@ -11,6 +11,7 @@
 # note: sourcedir must have trailing slashes
 set -l srcs \
   "emacs .emacs" \
+  "tmux .tmux.conf" \
   "emacs dreadworks-theme.el .emacs.d/" \
   "fish config.fish .config/fish/" \
   "fish functions .config/fish/"
@@ -34,7 +35,10 @@ for tup in $srcs
   set -l backup "$backdir/$bdir/$srcdir"
 
   mkdir -p "$backup"
-  cp -a "$src" "$backup"
+  if [ -f "$src" ]
+    echo "backing up $src"
+    cp -a "$src" "$backup"
+  end
 
   echo "linking $bfile"
   rm -fr "$src"

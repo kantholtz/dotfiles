@@ -53,7 +53,7 @@ function crypt \
       return 1      
     end
 
-    if is_in $op "$z"
+    if is_in $op "z"
       out $q "removing original file $input"
       rm $input
     end
@@ -73,7 +73,7 @@ function crypt \
       out $q "something went wrong, aborting"
     end
 
-    if is_in $op "$z"
+    if is_in $op "z"
       out $q "removing original file $input"
       rm $input
     end

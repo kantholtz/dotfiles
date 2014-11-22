@@ -39,6 +39,8 @@ function g \
 			git merge $args
 		case rm
 			git rm $args
+    case rt      
+      git remote $args      
 		case mv
 			git mv $args
 	end

@@ -1,9 +1,9 @@
 
 ;; include package repos
 (require 'package)
-(add-to-list 'package-archives 
-    '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
+;; (add-to-list 'package-archives 
+;;     '("marmalade" .
+;;       "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
 	'("melpa" .
 	  "http://melpa.milkbox.net/packages/") t)
@@ -13,11 +13,9 @@
 ;; for the iTerm2 theme "mona lisa"
 (load-theme 'dreadworks t)
 
-
 ;; generally desired modes and configurations
 (show-paren-mode t)
 (ido-mode t)
-(column-marker-1 80)
 
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
@@ -35,6 +33,10 @@
 
 ;; magit config
 (global-set-key (kbd "C-x g") 'magit-status)
+
+;; multiple cursors config
+(require 'multiple-cursors)
+(global-set-key (kbd "C-x n") 'mc/mark-next-like-this)
 
 ;; aggregate all backups in one place
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))

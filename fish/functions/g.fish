@@ -21,6 +21,8 @@ function g \
 			git status
 		case c
 			git commit $args
+		case cl
+			git clone $args
 		case co
 			git checkout $args
 		case l
@@ -43,6 +45,8 @@ function g \
       git remote $args      
 		case mv
 			git mv $args
+		case '*'
+			echo "g: could not find command $args[1]"
 	end
 
 end

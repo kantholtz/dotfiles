@@ -39,23 +39,27 @@ end
 
 function display_rvm
 
+  set_color magenta
   if [ -n (which ruby | grep -e '.rvm') ]
     set -l rversion (ruby -v | sed 's/ruby \([0-9.p]*\) .*/\1/')
     printf ' (%s)' $rversion
   end
+  set_color normal
 
 end
 
 
 function fish_prompt
 
-  # username
-  display_username
+  if not git status >/dev/null 2>&1
+    # username
+    display_username
 
-  # hostname
-  display_hostname
-  set_color yellow
-  printf ' ⬝ '
+    # hostname
+    display_hostname
+    set_color yellow
+    printf ' ⬝ '
+  end
 
   # location
   set_color magenta
@@ -63,10 +67,9 @@ function fish_prompt
   set_color normal
 
   # git indicator
-  git status >/dev/null 2>&1
-  if [ 0 -eq "$status" ]
+  if git status >/dev/null 2>&1
     parse_git_branch
-    # display_rvm
+    display_rvm
   end
 
 

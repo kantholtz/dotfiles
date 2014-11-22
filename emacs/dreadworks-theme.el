@@ -1,5 +1,5 @@
 (deftheme dreadworks
-  "Created 2014-10-26.")
+  "Created 2014-10-27.")
 
 (custom-theme-set-faces
  'dreadworks
@@ -11,7 +11,7 @@
  '(highlight ((t (:background "black"))))
  '(region ((t (:background "black"))))
  '(shadow ((((class color grayscale) (min-colors 88) (background light)) (:foreground "grey50")) (((class color grayscale) (min-colors 88) (background dark)) (:foreground "grey70")) (((class color) (min-colors 8) (background light)) (:foreground "green")) (((class color) (min-colors 8) (background dark)) (:foreground "yellow"))))
- '(secondary-selection ((t (:background "brightwhite" :foreground "black"))))
+ '(secondary-selection ((t (:foreground "black"))))
  '(trailing-whitespace ((((class color) (background light)) (:background "red1")) (((class color) (background dark)) (:background "red1")) (t (:inverse-video t))))
  '(font-lock-builtin-face ((((class grayscale) (background light)) (:weight bold :foreground "LightGray")) (((class grayscale) (background dark)) (:weight bold :foreground "DimGray")) (((class color) (min-colors 88) (background light)) (:foreground "dark slate blue")) (((class color) (min-colors 88) (background dark)) (:foreground "LightSteelBlue")) (((class color) (min-colors 16) (background light)) (:foreground "Orchid")) (((class color) (min-colors 16) (background dark)) (:foreground "LightSteelBlue")) (((class color) (min-colors 8)) (:weight bold :foreground "blue")) (t (:weight bold))))
  '(font-lock-comment-delimiter-face ((default (:inherit (font-lock-comment-face)))))
@@ -34,17 +34,14 @@
  '(fringe ((t nil)))
  '(header-line ((t (:inherit mode-line :inverse-video nil :underline t))))
  '(tooltip ((((class color)) (:inherit (variable-pitch) :foreground "black" :background "lightyellow")) (t (:inherit (variable-pitch)))))
- '(mode-line ((t (:foreground "white"))))
- '(mode-line-buffer-id ((t (:foreground "magenta" :weight bold))))
- '(mode-line-emphasis ((t (:weight bold))))
- '(mode-line-highlight ((((class color) (min-colors 88)) (:box (:line-width 2 :color "grey40" :style released-button))) (t (:inherit (highlight)))))
- '(mode-line-inactive ((t (:inherit mode-line :foreground "yellow" :box (:line-width -1 :color "grey75") :weight light))))
  '(isearch ((((class color) (min-colors 88) (background light)) (:foreground "lightskyblue1" :background "magenta3")) (((class color) (min-colors 88) (background dark)) (:foreground "brown4" :background "palevioletred2")) (((class color) (min-colors 16)) (:foreground "cyan1" :background "magenta4")) (((class color) (min-colors 8)) (:foreground "cyan1" :background "magenta4")) (t (:inverse-video t))))
  '(isearch-fail ((((class color) (min-colors 88) (background light)) (:background "RosyBrown1")) (((class color) (min-colors 88) (background dark)) (:background "red4")) (((class color) (min-colors 16)) (:background "red")) (((class color) (min-colors 8)) (:background "red")) (((class color grayscale)) (:foreground "grey")) (t (:inverse-video t))))
  '(lazy-highlight ((t (:background "yellow"))))
- '(match ((((class color) (min-colors 88) (background light)) (:background "yellow1")) (((class color) (min-colors 88) (background dark)) (:background "RoyalBlue3")) (((class color) (min-colors 8) (background light)) (:foreground "black" :background "yellow")) (((class color) (min-colors 8) (background dark)) (:foreground "white" :background "blue")) (((type tty) (class mono)) (:inverse-video t)) (t (:background "gray"))))
+ '(match ((t (:background "yellow1"))))
  '(next-error ((t (:inherit (region)))))
  '(query-replace ((t (:inherit (isearch)))))
- '(default ((t (:family "default" :foundry "default" :width normal :height 1 :weight normal :slant normal :underline nil :overline nil :strike-through nil :box nil :inverse-video nil :foreground "unspecified-fg" :background "unspecified-bg" :stipple nil :inherit nil)))))
+ '(default ((t (:family "default" :foundry "default" :width normal :height 1 :weight normal :slant normal :underline nil :overline nil :strike-through nil :box nil :inverse-video nil :foreground "unspecified-fg" :background "unspecified-bg" :stipple nil :inherit nil))))
+ '(mode-line ((t (:background "black" :foreground "brightwhite"))))
+ '(mode-line-inactive ((t (:inherit mode-line :background "black" :foreground "white")))))
 
 (provide-theme 'dreadworks)

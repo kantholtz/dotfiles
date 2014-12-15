@@ -18,7 +18,7 @@ function g \
 		case b
 			git branch $args
 		case s
-			git status
+			git status $args
 		case c
 			git commit $args
 		case cl
@@ -26,17 +26,24 @@ function g \
 		case co
 			git checkout $args
 		case l
-			git log
-		case r
-			git rm $args
+			git log $args
+
 		case ps
 			git push $args
+    case gps
+      for rt in (g rt)
+        g ps $rt $args
+      end
+
 		case pl
 			git pull $args
+    case gpl
+      for rt in (g rt)
+        g pl $rt $args
+      end
+
 		case d
 			git diff $args
-		case m
-			git mv $args
 		case mg
 			git merge $args
 		case rm

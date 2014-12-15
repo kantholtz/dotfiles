@@ -14,6 +14,7 @@
 (load-theme 'dreadworks t)
 
 ;; generally desired modes and configurations
+(auto-fill-mode t)
 (column-number-mode t)
 (show-paren-mode t)
 (ido-mode t)

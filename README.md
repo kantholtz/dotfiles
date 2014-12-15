@@ -2,7 +2,14 @@
 
 ## Description ##
 
-General configurations and fish functions.
+General configurations and fish functions. The installer script
+automatically installs these files:
+
+* `~/.emacs`
+* `~/.tmux.conf`
+* `~/.emacs.d/dreadworks-theme.el`
+* `.config/fish/config.fish`
+* `.config/fish/functions/*`
 
 
 ## Installation ##
@@ -10,7 +17,7 @@ General configurations and fish functions.
 Run `./install.fish` from a fish instance.
 
 
-## Documentation (incomplete) ##
+## Documentation ##
 
 
 ### be.fish ###

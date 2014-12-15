@@ -19,7 +19,7 @@ Shortcuts for `bundle exec` and `bundle exec rake`.
 If there is a local `./bin/rake` it is used instead.
 
 | Command        | Equivalent                |
-----------------------------------------------
+|----------------|---------------------------|
 | `be <args>`    | `bundle exec <args>`      |
 | `be r <args>`  | `bundle exec rake <args>` |
 
@@ -62,24 +62,24 @@ Shortcut for `ls -lAp`
 Shortcut for `rails`. The version number `<vers>` is always
 optional. `<args>` may be optional
 
-| Command                 | Equivalent                                    |
-|-------------------------|-----------------------------------------------|
-| r <vers> c <args>       | rails <vers> console <args>                   |
-| r <vers> g <args>       | rails <vers> generate <args>                  |
-| r <vers> g c <args>     | rails <vers> generate controller <args>       |
-| r <vers> g it <args>    | rails <vers> generate integration_test <args> |
-| r <vers> g md <args>    | rails <vers> generate model <args>            |
-| r <vers> g mg <args>    | rails <vers> generate migration <args>        |
-| r <vers> g v <args>     | rails <vers> generate view <args>             |
-| r <vers> d <args>       | rails <vers> destroy <args>                   |
-| r <vers> d c <args>     | rails <vers> destroy controller <args>        |
-| r <vers> d it <args>    | rails <vers> destroy integration_test <args>  |
-| r <vers> d md <args>    | rails <vers> destroy model <args>             |
-| r <vers> d mg <args>    | rails <vers> destroy migration <args>         |
-| r <vers> d v <args>     | rails <vers> destroy view <args>              |
-| r <vers> gs <args>      | rails <vers> generate scaffold <args>         |
-| r <vers> n <args>       | rails <vers> new <args>                       |
-| r <vers> s <args>       | rails <vers> server <args>                    |
+| Command                 | Equivalent                                      |
+|-------------------------|-------------------------------------------------|
+| `r <vers> c <args>`     | `rails <vers> console <args>`                   |
+| `r <vers> g <args>`     | `rails <vers> generate <args>`                  |
+| `r <vers> g c <args>`   | `rails <vers> generate controller <args>`       |
+| `r <vers> g it <args>`  | `rails <vers> generate integration_test <args>` |
+| `r <vers> g md <args>`  | `rails <vers> generate model <args>`            |
+| `r <vers> g mg <args>`  | `rails <vers> generate migration <args>`        |
+| `r <vers> g v <args>`   | `rails <vers> generate view <args>`             |
+| `r <vers> d <args>`     | `rails <vers> destroy <args>`                   |
+| `r <vers> d c <args>`   | `rails <vers> destroy controller <args>`        |
+| `r <vers> d it <args>`  | `rails <vers> destroy integration_test <args>`  |
+| `r <vers> d md <args>`  | `rails <vers> destroy model <args>`             |
+| `r <vers> d mg <args>`  | `rails <vers> destroy migration <args>`         |
+| `r <vers> d v <args>`   | `rails <vers> destroy view <args>`              |
+| `r <vers> gs <args>`    | `rails <vers> generate scaffold <args>`         |
+| `r <vers> n <args>`     | `rails <vers> new <args>`                       |
+| `r <vers> s <args>`     | `rails <vers> server <args>`                    |
 
 
 ### g.fish ###

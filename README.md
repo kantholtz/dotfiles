@@ -45,7 +45,7 @@ crypt -(d|e|q|z) input [output]
     -q quiet mode
     -z delete source file
 
-  -d and -e are mutually exclusive
+  -d and -e exclude each other
 
   input: Input file
   output: (Optional) output file

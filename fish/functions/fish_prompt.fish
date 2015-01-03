@@ -1,5 +1,6 @@
 
-function display_username
+
+function fish_prompt_display_username
 
   set_color magenta
 	set -l usr (whoami)
@@ -9,7 +10,7 @@ function display_username
 end
 
 
-function display_hostname
+function fish_prompt_display_hostname
 
 	set -l host (hostname|cut -d . -f 1)
 
@@ -21,7 +22,7 @@ function display_hostname
 end
 
 
-function parse_git_branch
+function fish_prompt_parse_git_branch
 
 	# try to recieve the branch and
 	# cut away the "* "
@@ -37,7 +38,7 @@ function parse_git_branch
 end
 
 
-function display_rvm
+function fish_prompt_display_rvm
 
   set_color magenta
   if [ -n (which ruby | grep -e '.rvm') ]
@@ -53,10 +54,10 @@ function fish_prompt
 
   if not git status >/dev/null 2>&1
     # username
-    display_username
+    fish_prompt_display_username
 
     # hostname
-    display_hostname
+    fish_prompt_display_hostname
     set_color yellow
     printf ' ⬝ '
   end
@@ -68,8 +69,8 @@ function fish_prompt
 
   # git indicator
   if git status >/dev/null 2>&1
-    parse_git_branch
-    display_rvm
+    fish_prompt_parse_git_branch
+    # fish_prompt_display_rvm
   end
 
 

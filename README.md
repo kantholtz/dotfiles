@@ -20,7 +20,7 @@ Run `./install.fish` from a fish instance.
 ## Documentation ##
 
 
-### be.fish ###
+### be.fish - Bundle shortcuts ###
 
 Shortcuts for `bundle exec` and `bundle exec rake`.
 If there is a local `./bin/rake` it is used instead.
@@ -32,7 +32,7 @@ If there is a local `./bin/rake` it is used instead.
 
 
 
-### crypt.fish ###
+### crypt.fish - Encrypt files ###
 
 Small and rudimentary shortcut to easily encrypt and decrypt single
 files. Uses openssl's 256bit aes encryption.
@@ -59,12 +59,12 @@ file and removes this suffix for decrypted files.
 `crypt -d foo.tar.gz.aes256` produces `foo.tar.gz`.
 
 
-### ll.fish ###
+### ll.fish - List a directory ###
 
 Shortcut for `ls -lAp`
 
 
-### r.fish ###
+### r.fish - Ruby shortcuts ###
 
 Shortcut for `rails`. The version number `<vers>` is always
 optional. `<args>` may be optional
@@ -89,7 +89,7 @@ optional. `<args>` may be optional
 | `r <vers> s <args>`     | `rails <vers> server <args>`                    |
 
 
-### g.fish ###
+### g.fish - Git shortcuts ###
 
 Shortcuts for `git`. `args` may be optional.
 

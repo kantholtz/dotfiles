@@ -1,6 +1,50 @@
 
 
-function fish_prompt_display_username
+function __mode_toggle \
+  -a var
+  
+  if set -q $var
+    set -eg $var
+    echo "deactivated"
+  else
+    set -g $var
+    echo "activated"
+  end
+
+end
+
+
+function mode \
+  -d "set the mode for the prompt" \
+  -a m_name
+
+  switch $m_name
+    case rb
+      __mode_toggle __MODE_RB
+    case py
+      __mode_toggle __MODE_PY
+
+    case display
+      if set -q __MODE_RB
+        __fish_prompt_display_rvm
+      end
+
+      if set -q __MODE_PY
+        __fish_prompt_display_vf
+      end
+
+    case toggle
+      __mode_toggle __MODE
+
+    case '*'
+      echo "this mode does not exist"
+
+  end
+
+end
+
+
+function __fish_prompt_display_username
 
   set_color magenta
 	set -l usr (whoami)
@@ -10,7 +54,7 @@ function fish_prompt_display_username
 end
 
 
-function fish_prompt_display_hostname
+function __fish_prompt_display_hostname
 
 	set -l host (hostname|cut -d . -f 1)
 
@@ -22,7 +66,7 @@ function fish_prompt_display_hostname
 end
 
 
-function fish_prompt_parse_git_branch
+function __fish_prompt_parse_git_branch
 
 	# try to recieve the branch and
 	# cut away the "* "
@@ -38,12 +82,25 @@ function fish_prompt_parse_git_branch
 end
 
 
-function fish_prompt_display_rvm
+function __fish_prompt_display_rvm
 
   set_color magenta
   if [ -n (which ruby | grep -e '.rvm') ]
     set -l rversion (ruby -v | sed 's/ruby \([0-9.p]*\) .*/\1/')
-    printf ' (%s)' $rversion
+    printf '(%s)' $rversion
+  end
+  set_color normal
+
+end
+
+
+function __fish_prompt_display_vf
+
+  set_color magenta
+  if set -q VIRTUAL_ENV
+    set -l py_env (basename "$VIRTUAL_ENV")
+    set -l py_vers (python --version 2>&1 | sed 's/Python //')
+    printf '(%s | %s)' $py_env $py_vers
   end
   set_color normal
 
@@ -51,13 +108,14 @@ end
 
 
 function fish_prompt
+  echo
 
   if not git status >/dev/null 2>&1
     # username
-    fish_prompt_display_username
+    __fish_prompt_display_username
 
     # hostname
-    fish_prompt_display_hostname
+    # __fish_prompt_display_hostname
     set_color yellow
     printf ' ⬝ '
   end
@@ -69,12 +127,17 @@ function fish_prompt
 
   # git indicator
   if git status >/dev/null 2>&1
-    fish_prompt_parse_git_branch
-    # fish_prompt_display_rvm
+    __fish_prompt_parse_git_branch
   end
 
+  if set -q __MODE
+    set_color yellow
+    printf ' ⬝ '
+    mode display
+  end
 
   # decoration
+  echo  
   set_color yellow
   printf ' ▸ '
   set_color normal

@@ -48,6 +48,13 @@ function g -d "Aliases for git"
 end
 
 #
+#  rails shortcuts
+#
+function r -d "Aliases for rails"
+  __alias_exec r $argv
+end
+
+#
 #  tmux shortcuts
 #
 function t -d "Aliases for tmux"

@@ -8,7 +8,11 @@ function __alias_exec
 end  
 
 
+function g -d "Aliases for git"
+  __alias_exec g $argv
+end  
+
+
 function t -d "Aliases for tmux"
   __alias_exec t $argv
 end
-

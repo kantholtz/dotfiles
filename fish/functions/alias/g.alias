@@ -1,0 +1,21 @@
+#
+#  files used by ../lib/alias
+#  aliases for `git`
+#
+
+a   [0]  :  git add [0]
+b   [0]  :  git branch [0]
+s   [0]  :  git status [0]
+cl  [0]  :  git clone [0]
+ci  [0]  :  git commit [0]
+co  [0]  :  git checkout [0]
+l   [0]  :  git log [0]
+ps  [0]  :  git push [0]
+gps [0]  :  __g_gps [0]
+pl  [0]  :  git pull [0]
+gpl [0]  :  __g_gpl [0]
+d   [0]  :  git diff [0]
+mg  [0]  :  git merge [0]
+rm  [0]  :  git rm [0]
+rt  [0]  :  git remote [0]
+mv  [0]  :  git mv [0]

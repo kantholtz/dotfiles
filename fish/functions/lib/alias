@@ -34,7 +34,7 @@ class Rule (object):
         pos  += 1
 
     except IndexError:
-      raise "Not enough positional arguments"
+      raise Exception ("Not enough positional arguments")
 
     # optional
     pos  = 0
@@ -47,7 +47,7 @@ class Rule (object):
         pos += 1
 
     elif len(args):
-      raise "More arguments than expected"
+      raise Exception ("More arguments than expected")
 
     args.reverse ()
     return cmd.replace (mark (pos - 1), ' '.join (args))
@@ -89,7 +89,7 @@ def read_file (alias):
       return rules;
 
   except FileNotFoundError:
-    raise "No rules found"
+    raise Exception ("No rules found")
 
 
 def find_rule (rules, args):
@@ -108,7 +108,7 @@ def find_rule (rules, args):
 
     cmd = cmd.rsplit (' ', maxsplit=1)
     if len(cmd) == 1 and cmd[0] not in rules:
-      raise "Rule not found"
+      raise Exception ("Rule '%s' not found" % cmd[0])
     cmd, arg = cmd
     args = [arg] + args
 
@@ -126,8 +126,8 @@ def main (alias, args):
     rules = read_file (alias)
     cmd, args = find_rule (rules, args)
     rules[cmd].execute (args)
-  except Error as e:
-    print ('Error: %s' % e)
+  except Exception as e:
+    print ('Alias error: %s' % e)
     exit (2)
 
 

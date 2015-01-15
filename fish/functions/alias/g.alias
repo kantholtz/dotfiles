@@ -5,8 +5,8 @@
 
 a   [0]  :  git add [0]
 b   [0]  :  git branch [0]
+c   [0]  :  git commit [0]
 cl  [0]  :  git clone [0]
-ci  [0]  :  git commit [0]
 co  [0]  :  git checkout [0]
 d   [0]  :  git diff [0]
 h   [0]  :  git help [0]

@@ -19,8 +19,12 @@ Run `./install.fish` from a fish instance.
 
 ## Documentation ##
 
+### alias.fish - Alias framework ###
 
-### be.fish - Bundle shortcuts ###
+#### be - Bundle shortcuts ####
+
+_not ported to alias.fish currently: missing strategy regarding the
+dynamic switch to ./bin/rake_
 
 Shortcuts for `bundle exec` and `bundle exec rake`.
 If there is a local `./bin/rake` it is used instead.
@@ -30,6 +34,76 @@ If there is a local `./bin/rake` it is used instead.
 | `be <args>`    | `bundle exec <args>`      |
 | `be r <args>`  | `bundle exec rake <args>` |
 
+
+### ll - List a directory ###
+
+_not ported to alias.fish since the computational overhead is not
+worth it_
+
+Shortcut for `ls -lAp`
+
+
+### r - Ruby shortcuts ###
+
+Shortcut for `rails`, `<args>` may be optional
+
+| Command          | Equivalent                               |
+|------------------|------------------------------------------|
+| `r v`            | `rails --version`                        |
+| `r h`            | `rails --help`                           |
+| `r c    <args>`  | `rails console <args>`                   |
+| `r g    <args>`  | `rails generate <args>`                  |
+| `r g c  <args>`  | `rails generate controller <args>`       |
+| `r g it <args>`  | `rails generate integration_test <args>` |
+| `r g md <args>`  | `rails generate model <args>`            |
+| `r g mg <args>`  | `rails generate migration <args>`        |
+| `r g v  <args>`  | `rails generate view <args>`             |
+| `r d    <args>`  | `rails destroy <args>`                   |
+| `r d c  <args>`  | `rails destroy controller <args>`        |
+| `r d it <args>`  | `rails destroy integration_test <args>`  |
+| `r d md <args>`  | `rails destroy model <args>`             |
+| `r d mg <args>`  | `rails destroy migration <args>`         |
+| `r d v  <args>`  | `rails destroy view <args>`              |
+| `r gs   <args>`  | `rails generate scaffold <args>`         |
+| `r n    <args>`  | `rails new <args>`                       |
+| `r s    <args>`  | `rails server <args>`                    |
+
+
+#### g - Git shortcuts ####
+
+Shortcuts for `git`. `args` may be optional.
+
+| Command        | Equivalent              | Description           |
+|----------------|-------------------------|-----------------------|
+| `g a   <args>` | `git add <args>`        | `git help add`        |
+| `g b   <args>` | `git branch <args>`     | `git help branch`     |
+| `g ci  <args>` | `git commit <args>`     | `git help commit`     |
+| `g cl  <args>` | `git clone <args>`      | `git help clone`      |
+| `g co  <args>` | `git checkout <args>`   | `git help checkout`   |
+| `g d   <args>` | `git diff <args>`       | `git help diff`       |
+| `g gpl <args>` | -                       | pull from all remotes |
+| `g gps <args>` | -                       | push to all remotes   |
+| `g h   <args>` | `git help <args>`       | `git help`            |
+| `g l   <args>` | `git log <args>`        | `git help log`        |
+| `g mg  <args>` | `git merge <args>`      | `git help merge`      |
+| `g mv  <args>` | `git mv <args>`         | `git help mv`         |
+| `g ps  <args>` | `git push <args> <args>`| `git help push <args>`|
+| `g pl  <args>` | `git pull <args>`       | `git help pull`       |
+| `g rm  <args>` | `git rm <args>`         | `git help rm`         |
+| `g rt  <args>` | `git remote <args>`     | `git help remote`     |
+| `g s   <args>` | `git status <args>`     | `git help status`     |
+| `g v`          | `git version`           | -                     |
+
+
+#### t - tmux shortcuts ####
+
+Shortcuts for `tmux`. `args` may be optional.
+
+| Command                         | Equivalent                                     | Description                |
+|---------------------------------|------------------------------------------------|----------------------------|
+| `t ls`                          | `tmux list-sessions`                           | List current tmux sessions |
+| `t a [<session-name>] [<args>]` | `tmux attach-session <args> -t <session-name>` | Create new client          |
+| `t n [<session-name>] [<args>]` | `tmux new-session <args> -s <session-name>`    | Create new sessions        |
 
 
 ### crypt.fish - Encrypt files ###
@@ -59,62 +133,7 @@ file and removes this suffix for decrypted files.
 `crypt -d foo.tar.gz.aes256` produces `foo.tar.gz`.
 
 
-### ll.fish - List a directory ###
-
-Shortcut for `ls -lAp`
-
-
-### r.fish - Ruby shortcuts ###
-
-Shortcut for `rails`. The version number `<vers>` is always
-optional. `<args>` may be optional
-
-| Command                 | Equivalent                                      |
-|-------------------------|-------------------------------------------------|
-| `r <vers> c <args>`     | `rails <vers> console <args>`                   |
-| `r <vers> g <args>`     | `rails <vers> generate <args>`                  |
-| `r <vers> g c <args>`   | `rails <vers> generate controller <args>`       |
-| `r <vers> g it <args>`  | `rails <vers> generate integration_test <args>` |
-| `r <vers> g md <args>`  | `rails <vers> generate model <args>`            |
-| `r <vers> g mg <args>`  | `rails <vers> generate migration <args>`        |
-| `r <vers> g v <args>`   | `rails <vers> generate view <args>`             |
-| `r <vers> d <args>`     | `rails <vers> destroy <args>`                   |
-| `r <vers> d c <args>`   | `rails <vers> destroy controller <args>`        |
-| `r <vers> d it <args>`  | `rails <vers> destroy integration_test <args>`  |
-| `r <vers> d md <args>`  | `rails <vers> destroy model <args>`             |
-| `r <vers> d mg <args>`  | `rails <vers> destroy migration <args>`         |
-| `r <vers> d v <args>`   | `rails <vers> destroy view <args>`              |
-| `r <vers> gs <args>`    | `rails <vers> generate scaffold <args>`         |
-| `r <vers> n <args>`     | `rails <vers> new <args>`                       |
-| `r <vers> s <args>`     | `rails <vers> server <args>`                    |
-
-
-### g.fish - Git shortcuts ###
-
-Shortcuts for `git`. `args` may be optional.
-
-| Command        | Equivalent              | Description           |
-|----------------|-------------------------|-----------------------|
-| `g a <args>`   | `git add <args>`        | `git help add`        |
-| `g b <args>`   | `git branch <args>`     | `git help branch`     |
-| `g s <args>`   | `git status <args>`     | `git help status`     |
-| `g c <args>`   | `git commit <args>`     | `git help commit`     |
-| `g c <args>`   | `git clone <args>`      | `git help clone`      |
-| `g co <args>`  | `git checkout <args>`   | `git help checkout`   |
-| `g l <args>`   | `git log <args>`        | `git help log`        |
-| `g ps <args>`  | `git push <args> <args>`| `git help push <args>`|
-| `g gps <args>` | -                       | push to all remotes   |
-| `g pl <args>`  | `git pull <args>`       | `git help pull`       |
-| `g gpl <args>` | -                       | pull from all remotes |
-| `g d <args>`   | `git diff <args>`       | `git help diff`       |
-| `g mg <args>`  | `git merge <args>`      | `git help merge`      |
-| `g rm <args>`  | `git rm <args>`         | `git help rm`         |
-| `g rt <args>`  | `git remote <args>`     | `git help remote`     |
-| `g mv <args>`  | `git mv <args>`         | `git help mv`         |
-
-
-Notes:
-------
+## Notes ##
 
 Used instance of fish is the brewed one.  To change the $PATH
 environmental variable simply set/change `$fish_user_paths`:

@@ -1,0 +1,8 @@
+#
+#  files used by ../lib/alias
+#  aliases for `tmux`
+#
+
+ls         :  tmux list-sessions
+a [0] [1]  :  tmux attach-session [1] -t {0}
+n [0] [1]  :  tmux new-session [1] -s {0}

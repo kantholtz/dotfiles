@@ -1,0 +1,144 @@
+#!/usr/bin/env python3
+
+import re
+import sys
+from subprocess import call
+
+
+class Rule (object):
+  """
+  Wrapper class for rules. Saves a command template
+  and handles parsing, transformation and execution
+  of said template.
+  """
+
+  @property
+  def cmd_template (self):
+    return self._cmd_template
+
+  def _parse (self, args):
+    """
+    The basic idea is to replace all {\d+} (positional) and all [\d+]
+    (optional) afterwards. All remaining arguments are concatenated
+    and put in to the last optional place found.
+    """
+    cmd = self._cmd_template
+    args.reverse ()
+
+    # positional
+    mark = lambda i: '{%d}' % i
+    try:
+      pos  = 0
+      while mark (pos) in cmd:
+        print ("replacing positional arg %d" % pos)
+        cmd  = cmd.replace (mark (pos), args.pop ())
+        pos  += 1
+
+    except IndexError:
+      raise "Not enough positional arguments"
+
+    # optional
+    pos  = 0
+    mark = lambda i: '[%d]' % i
+    if mark (pos) in cmd:
+      pos += 1
+      while mark (pos) in cmd:
+        arg = "" if not len (args) else args.pop ()
+        cmd = cmd.replace (mark (pos - 1), arg)
+        pos += 1
+
+    elif len(args):
+      raise "More arguments than expected"
+
+    args.reverse ()
+    return cmd.replace (mark (pos - 1), ' '.join (args))
+
+
+  def __init__ (self, cmd_template):
+    self._cmd_template = cmd_template
+    
+  def execute (self, args):
+    """
+    Execute command based on the saved template.
+    """
+    cmd = self._parse(args)
+    print ("executing [%s]" % cmd)
+    # call (cmd.split ())
+
+
+def read_file (alias):
+  """
+  Reads and parses one of the alias/<alias>.alias files.
+  Returns either a dictionary mapping alias names to
+  command templates or None.
+  """
+
+  fname = "alias/%s.alias" % alias
+  try:
+
+    with open (fname) as f:
+      reg_omit = r"^[#\n].*"
+      omit     = lambda l: not re.match (reg_omit, l)
+      rules    = {}
+
+      # read in rules from one of the *.alias files
+      for rule in filter (omit, f.readlines ()):
+        cmd, conf_str = map (str.strip, rule.split (":", maxsplit=1))
+        cmd = re.split (r'[{\[]', cmd, maxsplit=1)[0]
+        cmd = re.sub(r'  +', ' ', cmd.strip())
+        rules[cmd] = Rule (conf_str)
+
+      return rules;
+
+  except FileNotFoundError:
+    raise "No rules found"
+
+
+def find_rule (rules, args):
+  """
+  Progressively check for the longest
+  sequence of concatenated args in
+  the rule set.
+  """
+
+  cmd = ' '.join(args)
+  args = []
+
+  while True:
+    print ("checking for rule %s" % cmd)
+    if cmd in rules:
+      return cmd, args
+
+    cmd = cmd.rsplit (' ', maxsplit=1)
+    if len(cmd) == 1 and cmd[0] not in rules:
+      raise "Rule not found"
+    cmd, arg = cmd
+    args = [arg] + args
+
+
+def main (alias, args):
+  """
+  Main entry point. Parse <alias>.alias file.
+  Executes the command eventually.
+
+  Exits with 2 if the parsing of the 
+  alias file failed.
+  """
+
+  try:
+    rules = read_file (alias)
+    cmd, args = find_rule (rules, args)
+    print ("seperated cmd [%s] from args %s" % (cmd, args))
+    rules[cmd].execute (args)
+  except Error as e:
+    print ('Error: %s' % e)
+    exit (2)
+
+
+#
+#  Split alias name and arguments from sys.argv
+#
+if __name__ == '__main__':
+  _, alias, *args = sys.argv
+  main(alias, args)
+

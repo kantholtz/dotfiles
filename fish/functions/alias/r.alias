@@ -1,0 +1,28 @@
+#
+#  files used by ../lib/alias
+#  aliases for `rails`
+#
+
+v        : rails -v
+h        : rails -h
+
+c    [0] : rails console [0]
+n    [0] : rails new [0]
+s    [0] : rails server [0]
+
+# destroy
+d    [0] : rails destroy [0]
+d c  [0] : rails destroy controller [0]
+d it [0] : rails destroy integration_test [0]
+d md [0] : rails destroy model [0]
+d mg [0] : rails destroy migration [0]
+d v  [0] : rails destroy view [0]
+
+# generate
+g    [0] : rails generate [0]
+g c  [0] : rails generate controller [0]
+g it [0] : rails generate integration_test [0]
+g md [0] : rails generate model [0]
+g mg [0] : rails generate migration [0]
+g v  [0] : rails generate view [0]
+gs   [0] : rails generate scaffold [0]

@@ -2,6 +2,7 @@
 
 import re
 import sys
+from os import path
 from subprocess import call
 
 
@@ -71,9 +72,10 @@ def read_file (alias):
   command templates or None.
   """
 
-  fname = "alias/%s.alias" % alias
-  try:
+  fname = "~/.config/fish/functions/alias/%s.alias" % alias
+  fname = path.expanduser (fname)
 
+  try:
     with open (fname) as f:
       reg_omit = r"^[#\n].*"
       omit     = lambda l: not re.match (reg_omit, l)

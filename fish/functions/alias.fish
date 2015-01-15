@@ -17,7 +17,7 @@ function __alias_tail
 end
 
 function __alias_exec
-  eval "./lib/alias $argv"
+  eval "~/.config/fish/functions/lib/alias $argv"
 end
 
 

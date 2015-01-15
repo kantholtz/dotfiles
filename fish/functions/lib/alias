@@ -30,7 +30,6 @@ class Rule (object):
     try:
       pos  = 0
       while mark (pos) in cmd:
-        print ("replacing positional arg %d" % pos)
         cmd  = cmd.replace (mark (pos), args.pop ())
         pos  += 1
 
@@ -62,8 +61,7 @@ class Rule (object):
     Execute command based on the saved template.
     """
     cmd = self._parse(args)
-    print ("executing [%s]" % cmd)
-    # call (cmd.split ())
+    call (cmd.split ())
 
 
 def read_file (alias):
@@ -105,7 +103,6 @@ def find_rule (rules, args):
   args = []
 
   while True:
-    print ("checking for rule %s" % cmd)
     if cmd in rules:
       return cmd, args
 
@@ -128,7 +125,6 @@ def main (alias, args):
   try:
     rules = read_file (alias)
     cmd, args = find_rule (rules, args)
-    print ("seperated cmd [%s] from args %s" % (cmd, args))
     rules[cmd].execute (args)
   except Error as e:
     print ('Error: %s' % e)

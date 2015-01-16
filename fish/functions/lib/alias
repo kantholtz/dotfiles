@@ -28,12 +28,10 @@ class Rule (object):
 
     # positional
     mark = lambda i: '{%d}' % i
+    incr = 0
     try:
-      incr  = 0
-      while True:
-        try:
-          index = cmd.index (mark (incr))
-        except ValueError: break
+      while mark (incr) in cmd:
+        index = cmd.index (mark (incr))
         cmd[index] = args.pop ()
         incr += 1
 
@@ -44,22 +42,27 @@ class Rule (object):
     # optional
     incr = 0
     mark = lambda i: '[%d]' % i
-    pos  = lambda a, i: a.index (mark (i - 1))
+    splice = lambda l, a, b: l[:a] + l[b+1:]
+    index = None
 
-    if mark (incr) in cmd:
-     incr += 1 
-     while mark (incr) in cmd:
-        arg = "" if not len (args) else args.pop ()
-        index = pos (cmd, incr)
-        cmd[index] = arg
-        incr += 1
+    while mark (incr) in cmd:
+      index = cmd.index (mark (incr))
+      incr += 1
 
-    elif len(args):
-      raise Exception ("More arguments than expected")
+      if len (args):
+        cmd[index] = args.pop ()
+      else:
+        # splice empty [\d+] from cmd
+        cmd = cmd[:index] + cmd[index + 1:]
 
-    args.reverse ()
-    index = pos (cmd, incr)
-    return cmd[:index] + args + cmd[index + 1:]
+    # insert leftover args
+    if len(args):
+      if index is None:
+        raise Exception ("More arguments than expected")
+      args.reverse ()
+      return cmd[:index] + args + cmd[index:]
+
+    return cmd
 
 
   def __init__ (self, cmd_template):

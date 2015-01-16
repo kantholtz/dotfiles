@@ -77,7 +77,7 @@ Shortcuts for `git`. `args` may be optional.
 |----------------|-------------------------|-----------------------|
 | `g a   <args>` | `git add <args>`        | `git help add`        |
 | `g b   <args>` | `git branch <args>`     | `git help branch`     |
-| `g ci  <args>` | `git commit <args>`     | `git help commit`     |
+| `g c   <args>` | `git commit <args>`     | `git help commit`     |
 | `g cl  <args>` | `git clone <args>`      | `git help clone`      |
 | `g co  <args>` | `git checkout <args>`   | `git help checkout`   |
 | `g d   <args>` | `git diff <args>`       | `git help diff`       |

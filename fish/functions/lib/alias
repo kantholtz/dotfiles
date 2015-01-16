@@ -87,23 +87,19 @@ def read_file (alias):
   fname = "~/.config/fish/functions/alias/%s.alias" % alias
   fname = path.expanduser (fname)
 
-  try:
-    with open (fname) as f:
-      reg_omit = r"^[#\n].*"
-      omit     = lambda l: not re.match (reg_omit, l)
-      rules    = {}
+  with open (fname) as f:
+    reg_omit = r"^[#\n].*"
+    omit     = lambda l: not re.match (reg_omit, l)
+    rules    = {}
 
-      # read in rules from one of the *.alias files
-      for rule in filter (omit, f.readlines ()):
-        cmd, conf_str = map (str.strip, rule.split (":", maxsplit=1))
-        cmd = re.split (r'[{\[]', cmd, maxsplit=1)[0]
-        cmd = re.sub(r'  +', ' ', cmd.strip())
-        rules[cmd] = Rule (conf_str)
+    # read in rules from one of the *.alias files
+    for rule in filter (omit, f.readlines ()):
+      cmd, conf_str = map (str.strip, rule.split (":", 1))
+      cmd = re.split (r'[{\[]', cmd, 1)[0]
+      cmd = re.sub(r'  +', ' ', cmd.strip())
+      rules[cmd] = Rule (conf_str)
 
-      return rules;
-
-  except NameError:
-    raise Exception ("No rules found")
+    return rules
 
 
 def find_rule (rules, args):

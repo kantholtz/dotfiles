@@ -80,6 +80,17 @@
 
 (add-hook 'find-file-hook 'flymake-find-file-hook)
 
+(defun make-run ()
+  (interactive)
+  (switch-to-buffer-other-window "the executor")
+  (erase-buffer)
+  (start-process-shell-command
+   "executor" "the executor" "make run"))
+
+  ;; (shell-command "make run") "the executor")
+
+(global-set-key (kbd "C-]") 'compile)
+(global-set-key (kbd "M-]") 'make-run)
 
 ;; python programming
 (setq python-basic-offset 2)

@@ -102,7 +102,7 @@ def read_file (alias):
 
       return rules;
 
-  except FileNotFoundError:
+  except NameError:
     raise Exception ("No rules found")
 
 

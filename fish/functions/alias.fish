@@ -26,12 +26,14 @@ end
 #
 function __g_gps
   for rt in (g rt)
+    echo "pushing to $rt"
     g ps $rt (__alias_tail $argv)
   end
 end
 
 function __g_gpl
   for rt in (g rt)
+    echo "pulling from $rt"
     g pl $rt (__alias_tail $argv)
   end    
 end

@@ -23,35 +23,43 @@ class Rule (object):
     (optional) afterwards. All remaining arguments are concatenated
     and put in to the last optional place found.
     """
-    cmd = self._cmd_template
+    cmd = self._cmd_template.split ()
     args.reverse ()
 
     # positional
     mark = lambda i: '{%d}' % i
     try:
-      pos  = 0
-      while mark (pos) in cmd:
-        cmd  = cmd.replace (mark (pos), args.pop ())
-        pos  += 1
+      incr  = 0
+      while True:
+        try:
+          index = cmd.index (mark (incr))
+        except ValueError: break
+        cmd[index] = args.pop ()
+        incr += 1
 
+    # raised by [].pop ()
     except IndexError:
       raise Exception ("Not enough positional arguments")
 
     # optional
-    pos  = 0
+    incr = 0
     mark = lambda i: '[%d]' % i
-    if mark (pos) in cmd:
-      pos += 1
-      while mark (pos) in cmd:
+    pos  = lambda a, i: a.index (mark (i - 1))
+
+    if mark (incr) in cmd:
+     incr += 1 
+     while mark (incr) in cmd:
         arg = "" if not len (args) else args.pop ()
-        cmd = cmd.replace (mark (pos - 1), arg)
-        pos += 1
+        index = pos (cmd, incr)
+        cmd[index] = arg
+        incr += 1
 
     elif len(args):
       raise Exception ("More arguments than expected")
 
     args.reverse ()
-    return cmd.replace (mark (pos - 1), ' '.join (args))
+    index = pos (cmd, incr)
+    return cmd[:index] + args + cmd[index + 1:]
 
 
   def __init__ (self, cmd_template):
@@ -62,7 +70,7 @@ class Rule (object):
     Execute command based on the saved template.
     """
     cmd = self._parse(args)
-    call (cmd.split ())
+    call (cmd)
 
 
 def read_file (alias):
@@ -101,18 +109,17 @@ def find_rule (rules, args):
   the rule set.
   """
 
-  cmd = ' '.join(args)
+  cmd = args[:]
   args = []
 
   while True:
-    if cmd in rules:
-      return cmd, args
+    cmd_str = ' '.join(cmd)
+    if cmd_str in rules:
+      return cmd_str, args
 
-    cmd = cmd.rsplit (' ', maxsplit=1)
+    args = [cmd.pop()] + args
     if len(cmd) == 1 and cmd[0] not in rules:
       raise Exception ("Rule '%s' not found" % cmd[0])
-    cmd, arg = cmd
-    args = [arg] + args
 
 
 def main (alias, args):
@@ -129,7 +136,7 @@ def main (alias, args):
     cmd, args = find_rule (rules, args)
     rules[cmd].execute (args)
   except Exception as e:
-    print ('Alias error: %s' % e)
+    print ('Alias error: %s' % e, file=sys.stderr)
     exit (2)
 
 

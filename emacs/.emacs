@@ -68,6 +68,10 @@
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
 
+;; use gfm-mode for readme files
+(add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
+
 ;; c programming
 (add-to-list 'load-path "~/.emacs.d/cc-mode/")
 (require 'cc-mode)
@@ -89,8 +93,9 @@
 
   ;; (shell-command "make run") "the executor")
 
-(global-set-key (kbd "C-]") 'compile)
-(global-set-key (kbd "M-]") 'make-run)
+(global-set-key (kbd "C-x [") 'compile)
+(global-set-key (kbd "C-x ]") 'make-run)
+(global-set-key (kbd "C-x C-]") 'gdb)
 
 ;; python programming
 (setq python-basic-offset 2)

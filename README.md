@@ -7,7 +7,6 @@ automatically installs these files:
 
 * `~/.emacs`
 * `~/.tmux.conf`
-* `~/.emacs.d/dreadworks-theme.el`
 * `.config/fish/config.fish`
 * `.config/fish/functions/*`
 

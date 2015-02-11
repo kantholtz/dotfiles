@@ -78,7 +78,7 @@
 (define-key c-mode-base-map
   (kbd "RET") 'newline-and-indent)
 
-(add-hook 'find-file-hook 'flymake-find-file-hook)
+;;(add-hook 'find-file-hook 'flymake-find-file-hook)
 
 
 ;; python programming

@@ -2,13 +2,13 @@
 
 function __mode_toggle \
   -a var
-  
+
   if set -q $var
     set -eg $var
-    echo "deactivated"
+    echo "deactivated $var"
   else
     set -g $var
-    echo "activated"
+    echo "activated $var"
   end
 
 end
@@ -19,22 +19,12 @@ function mode \
   -a m_name
 
   switch $m_name
+
+    # toggle language specific modes
     case rb
       __mode_toggle __MODE_RB
     case py
       __mode_toggle __MODE_PY
-
-    case display
-      if set -q __MODE_RB
-        __fish_prompt_display_rvm
-      end
-
-      if set -q __MODE_PY
-        __fish_prompt_display_vf
-      end
-
-    case toggle
-      __mode_toggle __MODE
 
     case '*'
       echo "this mode does not exist"
@@ -130,14 +120,26 @@ function fish_prompt
     __fish_prompt_parse_git_branch
   end
 
-  if set -q __MODE
+  # language informations
+  if begin
+      set -q __MODE_RB
+      or set -q __MODE_PY
+    end
+
     set_color yellow
     printf ' ⬝ '
-    mode display
+
+    if set -q __MODE_RB
+      __fish_prompt_display_rvm
+    end
+
+    if set -q __MODE_PY
+      __fish_prompt_display_vf
+    end
   end
 
   # decoration
-  echo  
+  echo
   set_color yellow
   printf ' ▸ '
   set_color normal

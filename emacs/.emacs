@@ -100,6 +100,8 @@
 
 
 (global-set-key (kbd "C-x [") 'compile)
+(setq compilation-scroll-output t)
+
 (global-set-key (kbd "C-x ]") 'make-run)
 (global-set-key (kbd "C-x C-]") 'gdb)
 

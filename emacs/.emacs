@@ -20,9 +20,12 @@
 (show-paren-mode t)
 (ido-mode t)
 
+(setq-default show-trailing-whitespace t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 
+(global-set-key (kbd "M-n") 'forward-list)
+(global-set-key (kbd "M-p") 'backward-list)
 
 ;; for faster reactions
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -92,6 +95,9 @@
    "executor" "the executor" "make run"))
 
   ;; (shell-command "make run") "the executor")
+
+(add-hook 'compilation-mode-hook 'visual-line-mode)
+
 
 (global-set-key (kbd "C-x [") 'compile)
 (global-set-key (kbd "C-x ]") 'make-run)

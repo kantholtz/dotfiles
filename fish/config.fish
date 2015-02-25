@@ -7,7 +7,7 @@ function __config_custom
   . ~/.config/fish/functions/alias.fish
 
   # display hidden files first
-  set -gx LC_ALL "C.$LC_ALL"
+  # set -gx LC_ALL "C.$LC_ALL"
 
   # syntax highlighting for "less"
   set -l less_script /usr/share/source-highlight/src-hilite-lesspipe.sh

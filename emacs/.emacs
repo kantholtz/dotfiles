@@ -1,20 +1,41 @@
+;;
+;;    * ye glorious emacs conf *
+;;    --------------------------
+;;
+;;    package management
+;;
 
-;; include package repos
 (require 'package)
-;; (add-to-list 'package-archives 
-;;     '("marmalade" .
-;;       "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
 	'("melpa" .
 	  "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 
+(setq nvrn-package-list
+      '(auto-complete
+        fish-mode
+        haskell-mode
+        ido-vertical-mode
+        jedi
+        magit
+        multiple-cursors
+        python-mode
+        yasnippet))
 
-;; add themes dir to load path
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(defun nvrn-install-packages (package-list)
+  (dolist (package package-list)
+    (unless (package-installed-p package)
+      (package-install package))))
+
+;; just eval this upon first start
+;; (package-list-packages)
+;; (nvrn-install-packages nvrn-package-list)
 
 
-;; generally desired modes and configurations
+;;
+;; loose config
+;;
+
 (auto-fill-mode t)
 (column-number-mode t)
 (show-paren-mode t)
@@ -30,9 +51,13 @@
 ;; for faster reactions
 (fset 'yes-or-no-p 'y-or-n-p)
 
-
 ;; no annoying beeps
 (setq visible-bell t)
+
+
+;;
+;;   package config
+;;
 
 
 ;; linum-mode config
@@ -75,7 +100,9 @@
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
 
-;; c programming
+;;
+;;   c programming
+;;
 (add-to-list 'load-path "~/.emacs.d/cc-mode/")
 (require 'cc-mode)
 
@@ -105,6 +132,8 @@
 (global-set-key (kbd "C-x ]") 'make-run)
 (global-set-key (kbd "C-x C-]") 'gdb)
 
-;; python programming
+;;
+;;   python programming
+;;
 (setq python-basic-offset 2)
 (put 'dired-find-alternate-file 'disabled nil)

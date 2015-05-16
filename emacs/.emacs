@@ -44,6 +44,7 @@
 (setq-default show-trailing-whitespace t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
+(setq magit-last-seen-setup-instructions "1.4.0") 
 
 (global-set-key (kbd "M-n") 'forward-list)
 (global-set-key (kbd "M-p") 'backward-list)

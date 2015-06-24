@@ -105,7 +105,7 @@ function fish_prompt
     __fish_prompt_display_username
 
     # hostname
-    # __fish_prompt_display_hostname
+    __fish_prompt_display_hostname
     set_color yellow
     printf ' ⬝ '
   end

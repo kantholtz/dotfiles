@@ -37,9 +37,9 @@ end
 #
 function e -d "Alias for emacs [-nw]"
   if [ (count $argv) -gt 0 -a "$argv[1]" = "-gui" ]
-    echo emacs (__alias_tail $argv)
+    emacs (__alias_tail $argv)
   else
-    echo emacs -nw $argv
+    emacs -nw $argv
   end
 end
 

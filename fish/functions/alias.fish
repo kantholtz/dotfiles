@@ -22,6 +22,29 @@ end
 
 
 #
+#  apt shortcuts
+#
+function a -d "Aliases for apt-*"
+  __alias_exec a $argv
+end
+
+
+#
+#  emacs shortcut
+#  if you want to open a file called "-gui"
+#  in terminal mode, you must type
+#  `e -gui -nw -gui`:)
+#
+function e -d "Alias for emacs [-nw]"
+  if [ (count $argv) -gt 0 -a "$argv[1]" = "-gui" ]
+    echo emacs (__alias_tail $argv)
+  else
+    echo emacs -nw $argv
+  end
+end
+
+
+#
 #  git shortcuts
 #
 function __g_gps
@@ -35,7 +58,7 @@ function __g_gpl
   for rt in (g rt)
     echo "pulling from $rt"
     g pl $rt (__alias_tail $argv)
-  end    
+  end
 end
 
 function g -d "Aliases for git"
@@ -49,12 +72,30 @@ function g -d "Aliases for git"
   end
 end
 
+
+#
+#  ls shortcut
+#
+function ll --description 'Alias for ls -lAp'
+	 ls -lhAp $argv
+end
+
+
 #
 #  rails shortcuts
 #
 function r -d "Aliases for rails"
   __alias_exec r $argv
 end
+
+
+#
+#  sudo alias
+#
+function s -d "Alias for sudo"
+  sudo -s $argv
+end
+
 
 #
 #  tmux shortcuts

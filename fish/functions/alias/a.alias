@@ -1,0 +1,13 @@
+#
+#  files used by ../lib/alias
+#  aliases for `apt-*`
+#
+#  it only works if the superuser
+#  (such as root) has the fish shell
+#  set as the default shell
+#
+
+ar     : apt-get autoremove
+s [0]  : apt-cache search [0]
+ug     : apt-get upgrade
+up     : apt-get update

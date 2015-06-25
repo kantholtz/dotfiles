@@ -20,26 +20,24 @@ Run `./install.fish` from a fish instance.
 
 ### alias.fish - Alias framework ###
 
-#### be - Bundle shortcuts ####
+#### Miscellaneous ####
 
-_not ported to alias.fish currently: missing strategy regarding the
-dynamic switch to ./bin/rake_
-
-Shortcuts for `bundle exec` and `bundle exec rake`.
-If there is a local `./bin/rake` it is used instead.
-
-| Command        | Equivalent                |
-|----------------|---------------------------|
-| `be <args>`    | `bundle exec <args>`      |
-| `be r <args>`  | `bundle exec rake <args>` |
+| Command         | Equivalent                 |
+|-----------------|----------------------------|
+| `ll <args>`     | `ls -lhAp <args>`          |
+| `e <args>`      | `emacs -nw <args>`         |
+| `e -gui <args>` | `emacs <args>`             |
+| `s <args>`      | `sudo -s <args>`           |
 
 
-### ll - List a directory ###
+#### a - apt-* shortcuts ####
 
-_not ported to alias.fish since the computational overhead is not
-worth it_
-
-Shortcut for `ls -lAp`
+| Command        |                              |
+|----------------|------------------------------|
+| `a ar`         | `apt-get autoremove`         |
+| `a s <args>`   | `apt-cache search <args>`    |
+| `a ug`         | `apt-get upgrade`            |
+| `a up`         | `apt-get update`             |
 
 
 ### r - Ruby shortcuts ###

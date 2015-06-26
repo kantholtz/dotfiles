@@ -35,6 +35,7 @@ Run `./install.fish` from a fish instance.
 | Command        |                              |
 |----------------|------------------------------|
 | `a ar`         | `apt-get autoremove`         |
+| `a i <args>`   | `apt-get install <args>`     |
 | `a s <args>`   | `apt-cache search <args>`    |
 | `a ug`         | `apt-get upgrade`            |
 | `a up`         | `apt-get update`             |

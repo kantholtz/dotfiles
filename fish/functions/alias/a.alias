@@ -8,6 +8,7 @@
 #
 
 ar     : apt-get autoremove
+i [0]  : apt-get install [0]
 s [0]  : apt-cache search [0]
 ug     : apt-get upgrade
 up     : apt-get update

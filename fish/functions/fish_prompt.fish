@@ -1,4 +1,6 @@
 
+set __fish_prompt_delim1 ' ⬝ '
+set __fish_prompt_delim2 ' ▸ '
 
 function __mode_toggle \
   -a var
@@ -49,7 +51,7 @@ function __fish_prompt_display_hostname
 	set -l host (hostname|cut -d . -f 1)
 
   set_color yellow
-	printf ' ⬝ '
+	printf '%s' $__fish_prompt_delim1
 	set_color magenta
   printf '%s' $host
 
@@ -107,7 +109,7 @@ function fish_prompt
     # hostname
     __fish_prompt_display_hostname
     set_color yellow
-    printf ' ⬝ '
+    printf "%s" $__fish_prompt_delim1
   end
 
   # location
@@ -127,7 +129,7 @@ function fish_prompt
     end
 
     set_color yellow
-    printf ' ⬝ '
+    printf "%s" $__fish_prompt_delim1
 
     if set -q __MODE_RB
       __fish_prompt_display_rvm
@@ -141,7 +143,7 @@ function fish_prompt
   # decoration
   echo
   set_color yellow
-  printf ' ▸ '
+  printf "%s" $__fish_prompt_delim2
   set_color normal
 
 end

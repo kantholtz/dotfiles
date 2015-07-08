@@ -20,7 +20,8 @@
         magit
         multiple-cursors
         python-mode
-        yasnippet))
+        yasnippet
+        edit-server))
 
 (defun nvrn-install-packages (package-list)
   (dolist (package package-list)

@@ -142,11 +142,15 @@ fi
 #
 #   install dotfiles and commonly used programs
 #
-echo "installing dotfiles"
+echo "installing dotfiles, where shall they stay?"
+echo "relative paths are allowed, will create folder 'dotfiles'"
+read PTH
+
 $APT install tmux
 
-mkdir .tmp
-pushd .tmp
+mkdir -p "$PTH" && \
+    pushd "$PTH" || \
+        quit_error "could not create $PTH"
 
 git clone https://github.com/dreadworks/dotfiles && \
     pushd dotfiles && \
@@ -155,15 +159,4 @@ git clone https://github.com/dreadworks/dotfiles && \
         "could not install the dotfiles"
 
 popd
-rm -rf .tmp
-
-
-echo "use fish as login shell (requires sudo)?"
-if ask_user; then
-    FISH=$(which fish)
-    $S sh -c "echo $FISH >> /etc/shells"
-    chsh -s "$FISH"
-fi
-
-
 echo "done!"

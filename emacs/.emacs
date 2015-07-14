@@ -36,7 +36,7 @@
 ;;
 ;; loose config
 ;;
-
+(ido-vertical-mode t)
 (auto-fill-mode t)
 (column-number-mode t)
 (show-paren-mode t)
@@ -45,7 +45,7 @@
 (setq-default show-trailing-whitespace t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
-(setq magit-last-seen-setup-instructions "1.4.0") 
+(setq magit-last-seen-setup-instructions "1.4.0")
 
 (global-set-key (kbd "M-n") 'forward-list)
 (global-set-key (kbd "M-p") 'backward-list)

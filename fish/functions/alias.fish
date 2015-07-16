@@ -103,3 +103,31 @@ end
 function t -d "Aliases for tmux"
   __alias_exec t $argv
 end
+
+
+#
+#  openvz shortcuts
+#
+function __v_clone -d "Clone an openvz container" \
+  -a source_id target_id hostname ip
+
+  if [ -z "$source_id" -o -z "$target_id" -o -z "$hostname" -o -z "$ip" ]
+    echo "v cl SOURCE_ID TARGET_ID IP"
+  end
+
+  vzdump $source_id --mode stop --dumpdir /tmp --stdout | vzrestore - $target_id
+  v s h $target_id $hostname
+  v s ip $ip
+
+  echo done
+end
+
+
+function v -d "Aliases for vzctl, vzlist etc."
+  switch (__alias_head $argv)
+    case cl
+      __v_clone (__alias_tail $argv)
+    case '*'
+      __alias_exec v $argv
+  end
+end

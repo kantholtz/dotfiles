@@ -1,0 +1,13 @@
+#
+#  files used by ../lib/alias
+#  aliases for the openvz family
+#
+
+sp [0]         : vzctl stop [0]
+st [0]         : vzctl start [0]
+d  [0]         : vzctl destroy [0]
+
+s h     [0] [1]  : vzctl set [0] --hostname [1] --save
+s ip a  [0] [1]  : vzctl set [0] --ipadd [1] --save
+s ip d  [0] [1]  : vzctl set [0] --ipdel [1] --save
+s if a  [0]      : vzctl set [0] --netif_add eth0,,,,vmbr0 --save

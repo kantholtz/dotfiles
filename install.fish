@@ -6,43 +6,89 @@
 #  in a backup directory .backup.
 #
 
-# paths are defined relative to $HOME
-# format: <backupdir> <backupfile> [<sourcedir>]
-# note: sourcedir must have trailing slashes
-set -l srcs \
-  "emacs .emacs" \
-  "tmux .tmux.conf" \
-  "emacs dreadworks-theme.el .emacs.d/" \
-  "fish config.fish .config/fish/" \
-  "fish functions .config/fish/"
 
+function __install_emacs \
+  -a home srcdir backdir
 
-set -l cdir (pwd)
-set -l home "$HOME"
+  set -l dotemacs "$home/.emacs"
 
-set -l timestamp (date "+%Y-%m-%d_%H_%M_%S")
-set -l backdir "$cdir/.backup/$timestamp"
+  echo "installing emacs dotfiles"
+  mkdir -p "$backdir/emacs"
+  and cp -r          \
+    "$dotemacs"      \
+    "$home/.emacs.d" \
+    "$backdir/emacs" \
+    2>/dev/null
+  and rm -r "$home/.emacs.d/mod.d"
 
-mkdir -p "$backdir"
-echo "created backup directory"
+  mkdir -p "$home/.emacs.d"
+  and touch "$dotemacs"
+  and echo '(load "~/.emacs.d/mod.d/init")' >> "$dotemacs"
+  and ln -s \
+    "$srcdir/emacs/mod.d"  \
+    "$home/.emacs.d"
+  or return 2
 
-for tup in $srcs
-  echo $tup | read bdir bfile srcdir
-
-  echo "creating backup for $bdir: $bfile"
-  set -l target "$srcdir$bfile"
-  set -l src "$home/$target"
-  set -l backup "$backdir/$bdir/$srcdir"
-
-  mkdir -p "$backup"
-  if [ -f "$src" ]
-    echo "backing up $src"
-    cp -a "$src" "$backup"
-  end
-
-  echo "linking $bfile"
-  rm -fr "$src"
-  ln -s "$cdir/$bdir/$bfile" "$src"
-  
+  echo "done"
 end
 
+
+function __install_fish \
+  -a home srcdir backdir
+
+  set -l tardir "$home/.config/fish"
+  set -l targets          \
+    "$tardir/config.fish" \
+    "$tardir/functions"   \
+
+  echo "installing fish dotfiles"
+  mkdir -p "$backdir/fish"
+  and cp -r $targets "$backdir/fish/" 2>/dev/null
+  and rm -rf $targets
+
+  mkdir -p "$tardir"
+  and ln -s                    \
+    "$srcdir/fish/config.fish" \
+    "$srcdir/fish/functions"   \
+    "$tardir/"
+  or return 2
+
+  echo "done"
+end
+
+
+function __install_tmux \
+  -a home srcdir backdir
+
+  echo "installing tmux dotfiles"
+  mkdir -p "$backdir/tmux"
+  and cp "$home/.tmux.conf" "$backdir/tmux/" 2>/dev/null
+  and rm "$home/.tmux.conf"
+
+  ln -s "$srcdir/tmux/.tmux.conf" "$home/"
+  or exit 2
+
+  echo "done"
+end
+
+
+function __install
+  set -l home $HOME
+  set -l srcdir (pwd)
+
+  set -l timestamp (date "+%Y-%m-%d_%H_%M_%S")
+  set -l backdir "$srcdir/.backup/$timestamp"
+
+  mkdir -p "$backdir"
+  and echo "created backup directory"
+  and __install_emacs $home $srcdir $backdir
+  and __install_fish $home $srcdir $backdir
+  and __install_tmux $home $srcdir $backdir
+  or begin
+    echo "something went wrong. exiting"
+    exit 2
+  end
+end
+
+
+__install

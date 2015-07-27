@@ -26,7 +26,7 @@
 ;;   package config
 ;;
 ;; linum-mode config
-(setq linum-format "%4d \u2502 ")
+(setq linum-format "%4d | ")
 (global-linum-mode t)
 
 ;; magit config

@@ -1,6 +1,8 @@
 
-set __fish_prompt_delim1 ' ⬝ '
-set __fish_prompt_delim2 ' ▸ '
+# set __fish_prompt_delim1 ' ⬝ '
+# set __fish_prompt_delim2 ' ▸ '
+set __fish_prompt_delim1 ' * '
+set __fish_prompt_delim2 ' > '
 
 function __mode_toggle \
   -a var

@@ -17,8 +17,6 @@ function __config_custom
     set -gx LESS ' -R '
   end
 
-  # display a nice verse as the greeting
-  verses
 end
 
 __config_custom

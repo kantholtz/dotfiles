@@ -9,6 +9,6 @@ function fish_greeting
   set -l i (expr (random) \% (count $verses) + 1)
 
   echo
-  cat $pdir/$verses[$i] | sed -e '/^$/d'
+  cat $pdir/$verses[$i] | sed 's/^/  /'
 
 end

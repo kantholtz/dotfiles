@@ -146,7 +146,7 @@ echo "installing dotfiles, where shall they stay?"
 echo "relative paths are allowed, will create folder 'dotfiles'"
 read PTH
 
-$APT install tmux
+$APT install tmux python3
 
 mkdir -p "$PTH" && \
     pushd "$PTH" || \

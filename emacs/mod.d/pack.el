@@ -11,10 +11,15 @@
         ido-vertical-mode
         edit-server
 
-        ;; programming languages
         php-mode
         fish-mode
         haskell-mode
+
+        ;; frontend stuff
+        json-mode
+        flymake-json
+        sass-mode
+        flymake-sass
 
         ;; python related
         python-mode

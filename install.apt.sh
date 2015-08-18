@@ -41,6 +41,85 @@ function ask_user {
 }
 
 
+function install_fish {
+    echo "installing fish"
+    $APT install build-essential autoconf libncurses5-dev
+
+    mkdir .tmp
+    pushd .tmp
+
+    git clone https://github.com/fish-shell/fish-shell && \
+        pushd fish-shell && \
+        autoconf && \
+        ./configure $PREFIX && \
+        make && \
+        $S make install && \
+        popd || \
+            quit_error "could not install fish"
+
+    popd
+    rm -rf .tmp
+
+    if check_prog fish; then
+      quit_error "fish was not installed properly"
+    fi
+}
+
+
+function install_emacs {
+    echo "installing emacs"
+    VERSION=24.5
+    FLAGS=
+
+
+    echo "X support required?"
+    if ! ask_user; then
+       FLAGS=--without-x
+    else
+       $APT install libtiff-dev libgif-dev libjpeg-dev libpng-dev libxpm-dev libgtk2.0-dev libncurses5-dev 
+    fi
+
+    mkdir .tmp
+    pushd .tmp
+
+    wget http://ftp.halifax.rwth-aachen.de/gnu/emacs/emacs-$VERSION.tar.xz && \
+        tar xvf emacs-$VERSION.tar.xz && \
+        pushd emacs-$VERSION && \
+        ./configure $PREFIX $FLAGS && \
+        make && \
+        $S make install && \
+        popd || \
+            quit_error "could not install emacs"
+
+    popd
+    rm -rf .tmp
+
+    if check_prog emacs; then
+        quit_error "emacs was not installed properly"
+    fi
+}
+
+
+function install_dotfiles {
+  echo install dotfiles and commonly used programs
+  #
+  echo "installing dotfiles, where shall they stay?"
+  echo "relative paths are allowed, will create folder 'dotfiles'"
+  read PTH
+
+  $APT install tmux python3
+
+  mkdir -p "$PTH" && \
+      pushd "$PTH" || \
+          quit_error "could not create $PTH"
+
+  git clone https://github.com/dreadworks/dotfiles && \
+      pushd dotfiles && \
+      ./install.fish && \
+      popd || \
+          "could not install the dotfiles"
+}
+
 
 #
 #   initialize
@@ -79,84 +158,27 @@ fi
 
 
 #
-#   install fish
+#  install programs and configs
 #
-echo "installing fish"
-$APT install build-essential autoconf libncurses5-dev
-
-mkdir .tmp
-pushd .tmp
-
-git clone https://github.com/fish-shell/fish-shell && \
-    pushd fish-shell && \
-    autoconf && \
-    ./configure $PREFIX && \
-    make && \
-    $S make install && \
-    popd || \
-        quit_error "could not install fish"
-
-popd
-rm -rf .tmp
-
-if check_prog fish; then
-    quit_error "fish was not installed properly"
+if check_prog fish
+    then install_fish
+    else echo "skipping installation of fish"
 fi
 
-
-#
-#   install emacs
-#
-echo "installing emacs"
-VERSION=24.5
-FLAGS=
-
-
-echo "X support required?"
-if ! ask_user; then
-    FLAGS=--without-x
+if check_prog emacs
+    then install_emacs
+    else echo "skipping installation of emacs"
 fi
 
-$APT install
-
-mkdir .tmp
-pushd .tmp
-
-wget http://ftp.halifax.rwth-aachen.de/gnu/emacs/emacs-$VERSION.tar.xz && \
-    tar xvf emacs-$VERSION.tar.xz && \
-    pushd emacs-$VERSION && \
-    ./configure $PREFIX $FLAGS && \
-    make && \
-    $S make install && \
-    popd || \
-        quit_error "could not install emacs"
-
-popd
-rm -rf .tmp
-
-if check_prog emacs; then
-    quit_error "emacs was not installed properly"
+if [ ! -d ~/.emacs.d/mod.d ]
+    then install_dotfiles
+    else echo "skipping installation of dotfiles"
 fi
+
 
 
 #
 #   install dotfiles and commonly used programs
 #
-echo "installing dotfiles, where shall they stay?"
-echo "relative paths are allowed, will create folder 'dotfiles'"
-read PTH
-
-$APT install tmux python3
-
-mkdir -p "$PTH" && \
-    pushd "$PTH" || \
-        quit_error "could not create $PTH"
-
-git clone https://github.com/dreadworks/dotfiles && \
-    pushd dotfiles && \
-    ./install.fish && \
-    popd || \
-        "could not install the dotfiles"
-
 popd
 echo "done!"

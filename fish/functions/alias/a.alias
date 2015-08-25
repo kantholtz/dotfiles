@@ -2,13 +2,18 @@
 #  files used by ../lib/alias
 #  aliases for `apt-*`
 #
-#  it only works if the superuser
-#  (such as root) has the fish shell
-#  set as the default shell
-#
+#  when using sudo, the effective
+#  user must have set fish set as
+#  the default shell and these
+#  dotfiles installed
+
 
 ar     : apt-get autoremove
+c      : apt-get clean
+dg     : apt-get dist-upgrade
 i [0]  : apt-get install [0]
+pg [0] : apt-get purge [0]
+r [0]  : apt-get remove [0]
 s [0]  : apt-cache search [0]
 ug     : apt-get upgrade
 up     : apt-get update

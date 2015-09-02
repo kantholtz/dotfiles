@@ -80,14 +80,25 @@ function __install
   set -l backdir "$srcdir/.backup/$timestamp"
 
   mkdir -p "$backdir"
-  and echo "created backup directory"
-  and __install_emacs $home $srcdir $backdir
-  and __install_fish $home $srcdir $backdir
-  and __install_tmux $home $srcdir $backdir
-  or begin
-    echo "something went wrong. exiting"
-    exit 2
+
+  if [ ! -h "$home/.emacs.d/mod.d" ]
+    __install_emacs $home $srcdir $backdir
+  else
+    echo ".emacs.d/mod.d already installed"
   end
+
+  if [ ! -h "$home/.config/fish/functions" ]
+    __install_fish $home $srcdir $backdir
+  else
+    echo ".config/fish/functions already installed"
+  end
+
+  if [ ! -h "$home/.tmux.conf" ]
+    and __install_tmux $home $srcdir $backdir
+  else
+    echo ".tmux.conf already installed"
+  end
+
 end
 
 

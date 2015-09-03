@@ -104,15 +104,13 @@ end
 function fish_prompt
   echo
 
-  if not git status >/dev/null 2>&1
-    # username
-    __fish_prompt_display_username
+  # username
+  __fish_prompt_display_username
 
-    # hostname
-    __fish_prompt_display_hostname
-    set_color yellow
-    printf "%s" $__fish_prompt_delim1
-  end
+  # hostname
+  __fish_prompt_display_hostname
+  set_color yellow
+  printf "%s" $__fish_prompt_delim1
 
   # location
   set_color magenta

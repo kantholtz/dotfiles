@@ -7,6 +7,8 @@
 (ido-mode t)
 (ido-vertical-mode t)
 
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq visible-bell nil)
 (setq-default show-trailing-whitespace t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
@@ -14,13 +16,6 @@
 
 (global-set-key (kbd "M-n") 'forward-list)
 (global-set-key (kbd "M-p") 'backward-list)
-
-;; for faster reactions
-(fset 'yes-or-no-p 'y-or-n-p)
-
-;; no annoying beeps
-(setq visible-bell t)
-
 
 ;;
 ;;   package config

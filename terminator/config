@@ -1,22 +1,24 @@
 [global_config]
-  geometry_hinting = False
-  tab_position = hidden
 [keybindings]
 [profiles]
   [[default]]
+    palette = "#142631:#ffcc00:#3ba5ff:#89884d:#2d4a70:#d4d900:#88ac86:#142838:#fff688:#d4a12e:#8ff586:#e9f06d:#3c7dd2:#87a730:#6cbc67:#8ff586"
+    background_image = None
     use_system_font = False
+    cursor_color = "#e99405"
+    foreground_color = "#8ff586"
+    show_titlebar = False
+    font = Source Code Pro Semi-Bold 7
+    background_color = "#142838"
     allow_bold = False
-    background_image = None
-  [[SeaShells]]
-    background_image = None
   [[CobaltNeonRevisited]]
-    palette = "#142631:#d3f4ff:#3ba5ff:#e9e75c:#8ff586:#00baff:#8ff586:#ba46b2:#fff688:#ffa900:#8ff586:#e9f06d:#ceffc9:#8230a7:#6cbc67:#217527"
+    palette = "#142631:#ffb300:#3b9eff:#e9e75c:#00385b:#00dbff:#8ff586:#009aff:#fff688:#d42e4e:#8ff586:#e9f06d:#ceffc9:#8230a7:#6cbc67:#8ff586"
     background_image = None
     use_system_font = False
     cursor_color = "#d3f4ff"
     foreground_color = "#8ff586"
     show_titlebar = False
-    font = Source Code Pro Semi-Bold 7
+    font = Source Code Pro Semi-Bold 6
     background_color = "#142838"
     allow_bold = False
 [layouts]

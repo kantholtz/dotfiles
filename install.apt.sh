@@ -76,7 +76,7 @@ function install_emacs {
     if ! ask_user; then
        FLAGS=--without-x
     else
-       $APT install libtiff-dev libgif-dev libjpeg-dev libpng-dev libxpm-dev libgtk2.0-dev libncurses5-dev 
+       $APT install libtiff-dev libgif-dev libjpeg-dev libpng-dev libxpm-dev libgtk2.0-dev libncurses5-dev
     fi
 
     mkdir .tmp
@@ -135,7 +135,7 @@ if check_prog apt-get; then
 fi
 
 APT="$S apt-get"
-$APT update && $APT upgrade
+$APT update
 
 if check_prog git; then
     $APT install git && \

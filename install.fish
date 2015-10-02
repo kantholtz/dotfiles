@@ -8,11 +8,17 @@
 
 
 function __install_emacs \
-  -a home srcdir backdir
+  -a home srcdir backdir kind
 
   set -l dotemacs "$home/.emacs"
+  set -l initscript "init"
 
   echo "installing emacs dotfiles"
+  if [ "$kind" = "server" ]
+    echo "using server configuration"
+    set initscript "init_server"
+  end
+
   mkdir -p "$backdir/emacs"
   and cp -r          \
     "$dotemacs"      \
@@ -23,7 +29,7 @@ function __install_emacs \
 
   mkdir -p "$home/.emacs.d"
   and touch "$dotemacs"
-  and echo '(load "~/.emacs.d/mod.d/init")' >> "$dotemacs"
+  and echo '(load "~/.emacs.d/mod.d/'$initscript'")' >> "$dotemacs"
   and ln -s \
     "$srcdir/emacs/mod.d"  \
     "$home/.emacs.d"
@@ -72,17 +78,22 @@ function __install_tmux \
 end
 
 
-function __install
+function __create_backupdir -a srcdir
+  set -l timestamp (date "+%Y-%m-%d_%H_%M_%S")
+  set -l backdir "$srcdir/.backup/$timestamp"
+  mkdir -p "$backdir"
+  echo "$backdir"
+end
+
+
+function __install -a kind
   set -l home $HOME
   set -l srcdir (pwd)
 
-  set -l timestamp (date "+%Y-%m-%d_%H_%M_%S")
-  set -l backdir "$srcdir/.backup/$timestamp"
-
-  mkdir -p "$backdir"
+  set -l backdir (__create_backupdir "$srcdir")
 
   if [ ! -h "$home/.emacs.d/mod.d" ]
-    __install_emacs $home $srcdir $backdir
+    __install_emacs $home $srcdir $backdir $kind
   else
     echo ".emacs.d/mod.d already installed"
   end
@@ -102,4 +113,36 @@ function __install
 end
 
 
-__install
+function __uninstall
+  echo "removing installed files"
+  set -l home $HOME
+
+  # todo : backup files
+
+  for tbr in \
+    ".emacs.d/mod.d" \
+    ".config/fish/config.fish" \
+    ".config/fish/functions" \
+    ".tmux.conf"
+
+    set -l f "$home/$tbr"
+
+    if [ -d "$f" -o -f "$f" ]
+      echo "uninstalling $f"
+      rm -r "$f"
+    else
+      echo "skipping $f"
+    end
+  end
+end
+
+if [ (count $argv) -eq 0 ]
+  __install
+  exit
+end
+
+if [ "$argv[1]" = "uninstall" ]
+  __uninstall
+else if [ "$argv[1]" = "server" ]
+  __install server
+end

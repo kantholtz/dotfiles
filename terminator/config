@@ -1,4 +1,5 @@
 [global_config]
+  inactive_color_offset = 1.0
 [keybindings]
 [profiles]
   [[default]]
@@ -12,11 +13,11 @@
     background_color = "#142838"
     allow_bold = False
   [[CobaltNeonRevisited]]
-    palette = "#142631:#ffb300:#3b9eff:#e9e75c:#00385b:#00dbff:#8ff586:#009aff:#fff688:#d42e4e:#8ff586:#e9f06d:#ceffc9:#8230a7:#6cbc67:#8ff586"
+    palette = "#142631:#ff4b41:#3b9eff:#63ffa8:#00385b:#ffcc00:#77e5ff:#009aff:#fff688:#d42e4e:#00a5ff:#e9f06d:#ceffc9:#ffffff:#6cbc67:#8ff586"
     background_image = None
     use_system_font = False
     cursor_color = "#d3f4ff"
-    foreground_color = "#8ff586"
+    foreground_color = "#00cdff"
     show_titlebar = False
     font = Source Code Pro Semi-Bold 6
     background_color = "#142838"

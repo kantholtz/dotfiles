@@ -50,7 +50,7 @@ function install_fish {
     
     mkdir am && \
         wget -O - http://ftp.gnu.org/gnu/automake/automake-1.15.tar.xz \
-        | unxz
+        | unxz \
         | tar -xC am --strip-components=1 && \
         pushd am && \
         ./configure && make && \

@@ -55,7 +55,8 @@ function install_fish {
         pushd am && \
         ./configure && make && \
         make install && \
-        popd || \
+        popd && \
+        rm -rf am || \
             quit_error "could not install automake 1.15"
 
     git clone https://github.com/fish-shell/fish-shell && \

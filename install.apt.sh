@@ -47,6 +47,16 @@ function install_fish {
 
     mkdir .tmp
     pushd .tmp
+    
+    mkdir am && \
+        wget -O - http://ftp.gnu.org/gnu/automake/automake-1.15.tar.xz \
+        | unxz
+        | tar -xC am --strip-components=1 && \
+        pushd am && \
+        ./configure && make && \
+        make install && \
+        popd || \
+            quit_error "could not install automake 1.15"
 
     git clone https://github.com/fish-shell/fish-shell && \
         pushd fish-shell && \

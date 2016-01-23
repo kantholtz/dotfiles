@@ -13,8 +13,17 @@ automatically installs these files:
 
 ## Installation ##
 
-Run `./install.fish` from a fish instance.
+### Provisioning ###
+I use `./install.apt.sh` if I need a basic set of programs.
+I don't think that it's interesting for anyone besides me
+but for the sake of documentation: Compiles fish from master
+and emacs 24.5 (and that takes a while)...
 
+### Local configuration ###
+Run `./install.fish` from a fish instance.
+This creates symlinks for fish related stuff in `~/.config`,
+the emacs configuration in `~/.emacs.d/mod.d` and the
+tmux configuration `~/.tmux.conf`
 
 ## Documentation ##
 

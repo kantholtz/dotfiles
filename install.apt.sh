@@ -54,7 +54,7 @@ function install_fish {
         | tar -xC am --strip-components=1 && \
         pushd am && \
         ./configure && make && \
-        make install && \
+        $S make install && \
         popd && \
         rm -rf am || \
             quit_error "could not install automake 1.15"

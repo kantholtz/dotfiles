@@ -1,33 +1,34 @@
 [global_config]
   inactive_color_offset = 1.0
 [keybindings]
-[profiles]
-  [[default]]
-    palette = "#142631:#ffcc00:#3ba5ff:#89884d:#2d4a70:#d4d900:#88ac86:#142838:#fff688:#d4a12e:#8ff586:#e9f06d:#3c7dd2:#87a730:#6cbc67:#8ff586"
-    background_image = None
-    use_system_font = False
-    cursor_color = "#e99405"
-    foreground_color = "#8ff586"
-    show_titlebar = False
-    font = Source Code Pro Semi-Bold 7
-    background_color = "#142838"
-    allow_bold = False
-  [[CobaltNeonRevisited]]
-    palette = "#142631:#ff4b41:#3b9eff:#63ffa8:#00385b:#ffcc00:#77e5ff:#009aff:#fff688:#d42e4e:#00a5ff:#e9f06d:#ceffc9:#ffffff:#6cbc67:#8ff586"
-    background_image = None
-    use_system_font = False
-    cursor_color = "#d3f4ff"
-    foreground_color = "#00cdff"
-    show_titlebar = False
-    font = Source Code Pro Semi-Bold 6
-    background_color = "#142838"
-    allow_bold = False
 [layouts]
   [[default]]
     [[[child1]]]
-      type = Terminal
       parent = window0
+      type = Terminal
     [[[window0]]]
-      type = Window
       parent = ""
+      type = Window
 [plugins]
+[profiles]
+  [[default]]
+    allow_bold = False
+    background_color = "#142838"
+    background_image = None
+    cursor_color = "#e99405"
+    font = Source Code Pro Semi-Bold 7
+    foreground_color = "#8ff586"
+    palette = "#142631:#ffcc00:#3ba5ff:#89884d:#2d4a70:#d4d900:#88ac86:#142838:#fff688:#d4a12e:#8ff586:#e9f06d:#3c7dd2:#87a730:#6cbc67:#8ff586"
+    show_titlebar = False
+    use_system_font = False
+  [[CobaltNeonRevisited]]
+    allow_bold = False
+    background_color = "#142838"
+    background_image = None
+    cursor_color = "#d3f4ff"
+    font = Source Code Pro Semi-Bold 6
+    foreground_color = "#00cdff"
+    palette = "#142631:#ff4b41:#3b9eff:#63ffa8:#00385b:#ffcc00:#77e5ff:#009aff:#fff688:#d42e4e:#00a5ff:#e9f06d:#ceffc9:#ffffff:#6cbc67:#8ff586"
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False

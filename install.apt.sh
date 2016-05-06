@@ -8,6 +8,10 @@
 #   exits the scripts with an error code
 #
 function quit_error {
+    if [ -d .tmp ]; then
+        rm -rf .tmp
+    fi
+
     if [ -n "$1" ]; then
         echo "$1"
     fi
@@ -42,12 +46,12 @@ function ask_user {
 
 
 function install_fish {
-    echo "installing fish"
+    echo "installing fish..."
     $APT install build-essential autoconf libncurses5-dev
 
     mkdir .tmp
     pushd .tmp
-    
+
     mkdir am && \
         wget -O - http://ftp.gnu.org/gnu/automake/automake-1.15.tar.xz \
         | unxz \
@@ -78,16 +82,16 @@ function install_fish {
 
 
 function install_emacs {
-    echo "installing emacs"
+    echo "installing emacs..."
     VERSION=24.5
     FLAGS=
 
 
-    echo "X support required?"
-    if ! ask_user; then
-       FLAGS=--without-x
-    else
+    echo "X support required? [yN]"
+    if ask_user; then
        $APT install libtiff-dev libgif-dev libjpeg-dev libpng-dev libxpm-dev libgtk2.0-dev libncurses5-dev
+    else
+       FLAGS=--without-x
     fi
 
     mkdir .tmp
@@ -114,9 +118,16 @@ function install_emacs {
 function install_dotfiles {
   echo install dotfiles and commonly used programs
   #
-  echo "installing dotfiles, where shall they stay?"
-  echo "relative paths are allowed, will create folder 'dotfiles'"
+  echo "installing dotfiles... where will they stay?"
+  echo "relative paths are allowed, creates folder 'dotfiles'"
   read PTH
+
+  kind=
+
+  echo "use server configuration? [yN]"
+  if ask_user; then
+      kind=server
+  fi
 
   $APT install tmux python3
 
@@ -126,7 +137,7 @@ function install_dotfiles {
 
   git clone https://github.com/dreadworks/dotfiles && \
       pushd dotfiles && \
-      ./install.fish && \
+      ./install.fish $kind && \
       popd || \
           "could not install the dotfiles"
 }
@@ -136,7 +147,7 @@ function install_dotfiles {
 #   initialize
 #
 S=
-echo "sudo needed? (e.g. make install or apt-get) [yn]"
+echo "sudo needed? (e.g. make install or apt-get) [yN]"
 if ask_user; then
     S="sudo -s"
 fi
@@ -186,10 +197,5 @@ if [ ! -d ~/.emacs.d/mod.d ]
     else echo "skipping installation of dotfiles"
 fi
 
-
-
-#
-#   install dotfiles and commonly used programs
-#
 popd
 echo "done!"

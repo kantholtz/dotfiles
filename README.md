@@ -1,5 +1,8 @@
 # dotfiles #
 
+Full installation:
+`wget https://raw.githubusercontent.com/dreadworks/dotfiles/master/install.apt.sh -O i && chmod u+x i && ./i; rm i`
+
 ## Description ##
 
 General configurations and fish functions. The installer script

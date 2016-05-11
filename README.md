@@ -103,6 +103,7 @@ Shortcuts for `git`. `args` may be optional.
 | `g mv  <args>` | `git mv <args>`         | `git help mv`         |
 | `g ps  <args>` | `git push <args> <args>`| `git help push <args>`|
 | `g pl  <args>` | `git pull <args>`       | `git help pull`       |
+| `g plr <args>` | `git pull --rebase <a>` | `git help pull`       |
 | `g rm  <args>` | `git rm <args>`         | `git help rm`         |
 | `g rt  <args>` | `git remote <args>`     | `git help remote`     |
 | `g s   <args>` | `git status <args>`     | `git help status`     |

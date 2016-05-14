@@ -1,7 +1,7 @@
 # dotfiles #
 
-Full installation:
-`wget https://raw.githubusercontent.com/dreadworks/dotfiles/master/install.apt.sh -O i && chmod u+x i && ./i; rm i`
+Here I gather all stuff I need to replicate my setup to new Maschines -
+both server without any Window Manager and Desktops.
 
 ## Description ##
 
@@ -16,17 +16,46 @@ automatically installs these files:
 
 ## Installation ##
 
+Most non-ui installation can be done automated. Full installation:
+`wget https://raw.githubusercontent.com/dreadworks/dotfiles/master/install.apt.sh -O i && chmod u+x i && ./i; rm i`
+
 ### Provisioning ###
-I use `./install.apt.sh` if I need a basic set of programs.
-I don't think that it's interesting for anyone besides me
-but for the sake of documentation: Compiles fish from master
-and emacs 24.5 (and that takes a while)...
+
+I use `./install.apt.sh [server]` if I need a basic set of programs.
+I don't think that it's interesting for anyone besides me but for the
+sake of documentation: Compiles fish from master and emacs 24.5 (and
+that takes a while)...
 
 ### Local configuration ###
-Run `./install.fish` from a fish instance.
-This creates symlinks for fish related stuff in `~/.config`,
-the emacs configuration in `~/.emacs.d/mod.d` and the
-tmux configuration `~/.tmux.conf`
+
+Run `./install.fish` from a fish instance.  This creates symlinks for
+fish related stuff in `~/.config`, the emacs configuration in
+`~/.emacs.d/mod.d` and the tmux configuration `~/.tmux.conf`. This
+script is invoked by `install.apt.sh`.
+
+### Desktop Tweaks Diary ###
+
+I use terminator as my preferred terminal emulator. A configuration
+containing both a dark theme (based on Cobalt Neon but heavily
+adjusted) and a light theme (based on Material) can be found under
+terminator/config.
+
+I wrote a fish proxy function to adjust colors set by the fish
+environment. `TODO: launcher config`
+
+The icons I use are a modified version of
+[Compass](http://gnome-look.org/content/show.php/Compass?content=160629). For
+dark panels the status icons are not suitable - but they are just a
+bunch of svg files. For my current theme a simple invokation of `sed`
+did the trick:
+
+`find . -name "*.svg" | xargs sed -i 's/304050/c1c6cc/'`
+
+I use [Source Code
+Pro](https://github.com/adobe-fonts/source-code-pro) for monospaced
+fonts and [Source Sans
+Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
+
 
 ## Documentation ##
 

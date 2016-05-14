@@ -20,8 +20,8 @@
     background_image = None
     cursor_color = "#666666"
     font = Source Code Pro Semi-Bold 6
-    foreground_color = "#555555"
-    palette = "#868686:#b7141f:#9b7e45:#b93f22:#134eb2:#560088:#d2a471:#efefef:#b7b7b7:#e83b3f:#88754a:#fd8e09:#e05300:#aa4dbc:#945307:#d9d9d9"
+    foreground_color = "#393939"
+    palette = "#2b80be:#b7141f:#00345a:#b93f22:#134eb2:#560088:#d2a471:#efefef:#b7b7b7:#e83b3f:#4f7fa2:#fd8e09:#e05300:#aa4dbc:#945307:#d9d9d9"
     scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False

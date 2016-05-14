@@ -16,12 +16,12 @@
     background_image = None
   [[bright]]
     allow_bold = False
-    background_color = "#eaeaea"
+    background_color = "#ebebeb"
     background_image = None
-    cursor_color = "#16afca"
+    cursor_color = "#666666"
     font = Source Code Pro Semi-Bold 6
-    foreground_color = "#00cdff"
-    palette = "#212121:#b7141f:#457b24:#fc7b08:#134eb2:#560088:#0e717c:#efefef:#424242:#e83b3f:#7aba3a:#fd8e09:#54a4f3:#aa4dbc:#26bbd1:#d9d9d9"
+    foreground_color = "#555555"
+    palette = "#868686:#b7141f:#9b7e45:#b93f22:#134eb2:#560088:#d2a471:#efefef:#b7b7b7:#e83b3f:#88754a:#fd8e09:#e05300:#aa4dbc:#945307:#d9d9d9"
     scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False

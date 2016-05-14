@@ -1,5 +1,6 @@
 [global_config]
-  inactive_color_offset = 1.0
+  handle_size = 5
+  inactive_color_offset = 0.69
 [keybindings]
 [layouts]
   [[default]]
@@ -12,23 +13,26 @@
 [plugins]
 [profiles]
   [[default]]
-    allow_bold = False
-    background_color = "#142838"
     background_image = None
-    cursor_color = "#e99405"
-    font = Source Code Pro Semi-Bold 7
-    foreground_color = "#8ff586"
-    palette = "#142631:#ffcc00:#3ba5ff:#89884d:#2d4a70:#d4d900:#88ac86:#142838:#fff688:#d4a12e:#8ff586:#e9f06d:#3c7dd2:#87a730:#6cbc67:#8ff586"
+  [[bright]]
+    allow_bold = False
+    background_color = "#eaeaea"
+    background_image = None
+    cursor_color = "#16afca"
+    font = Source Code Pro Semi-Bold 6
+    foreground_color = "#00cdff"
+    palette = "#212121:#b7141f:#457b24:#fc7b08:#134eb2:#560088:#0e717c:#efefef:#424242:#e83b3f:#7aba3a:#fd8e09:#54a4f3:#aa4dbc:#26bbd1:#d9d9d9"
+    scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False
-  [[CobaltNeonRevisited]]
+  [[dark]]
     allow_bold = False
     background_color = "#142838"
     background_image = None
     cursor_color = "#d3f4ff"
     font = Source Code Pro Semi-Bold 6
     foreground_color = "#00cdff"
-    palette = "#142631:#ff4b41:#3b9eff:#63ffa8:#00385b:#ffcc00:#77e5ff:#009aff:#fff688:#d42e4e:#00a5ff:#e9f06d:#ceffc9:#ffffff:#6cbc67:#8ff586"
+    palette = "#976b55:#ff3e7c:#ceb992:#ffb91f:#00e4ff:#75507b:#ffffff:#142838:#bbb5a4:#db757f:#33b2dc:#79aacf:#2092ee:#63205c:#487193:#142838"
     scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False

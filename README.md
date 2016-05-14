@@ -41,7 +41,7 @@ adjusted) and a light theme (based on Material) can be found under
 terminator/config.
 
 I wrote a fish proxy function to adjust colors set by the fish
-environment. `TODO: launcher config`
+environment. To start from a launcher: `fish -c 'terminator dark|bright`
 
 The icons I use are a modified version of
 [Compass](http://gnome-look.org/content/show.php/Compass?content=160629). For

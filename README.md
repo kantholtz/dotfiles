@@ -36,8 +36,7 @@ script is invoked by `install.apt.sh`.
 ### Desktop Tweaks Diary ###
 
 I use terminator as my preferred terminal emulator. A configuration
-containing both a dark theme (based on Cobalt Neon but heavily
-adjusted) and a light theme (based on Material) can be found under
+containing both a dark theme and a light theme can be found under
 terminator/config.
 
 I wrote a fish proxy function to adjust colors set by the fish

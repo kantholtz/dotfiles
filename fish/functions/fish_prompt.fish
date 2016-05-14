@@ -2,9 +2,6 @@
 set __fish_prompt_delim1 ' + '
 set __fish_prompt_delim2 ' > '
 
-# set __fish_prompt_clr1 green
-# set __fish_prompt_clr2 cyan
-
 function __mode_toggle \
   -a var
 

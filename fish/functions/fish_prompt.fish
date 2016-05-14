@@ -1,11 +1,9 @@
 
-# set __fish_prompt_delim1 ' ⬝ '
-# set __fish_prompt_delim2 ' ▸ '
-set __fish_prompt_delim1 ' * '
+set __fish_prompt_delim1 ' + '
 set __fish_prompt_delim2 ' > '
 
-set __fish_prompt_clr1 green
-set __fish_prompt_clr2 cyan
+# set __fish_prompt_clr1 green
+# set __fish_prompt_clr2 cyan
 
 function __mode_toggle \
   -a var
@@ -43,7 +41,7 @@ end
 
 function __fish_prompt_display_username
 
-  set_color $__fish_prompt_clr1
+  set_color $fish_color_user
 	set -l usr (whoami)
   printf '%s' "$usr"
   set_color -b normal
@@ -55,10 +53,10 @@ function __fish_prompt_display_hostname
 
 	set -l host (hostname|cut -d . -f 1)
 
-  set_color $__fish_prompt_clr2
 	printf '%s' $__fish_prompt_delim1
-	set_color $__fish_prompt_clr1
+	set_color $fish_color_user
   printf '%s' $host
+  set_color -b normal
 
 end
 
@@ -72,7 +70,7 @@ function __fish_prompt_parse_git_branch
 	  grep -e '\*'           |\
 	  sed 's/..\(.*\)/\1/')
 
-  set_color $__fish_prompt_clr2
+  set_color $fish_color_match
   printf ' [%s]' $branch
   set_color normal
 
@@ -81,7 +79,7 @@ end
 
 function __fish_prompt_display_rvm
 
-  set_color $__fish_prompt_clr1
+  set_color $fish_color_match
   if [ -n (which ruby | grep -e '.rvm') ]
     set -l rversion (ruby -v | sed 's/ruby \([0-9.p]*\) .*/\1/')
     printf '(%s)' $rversion
@@ -93,7 +91,7 @@ end
 
 function __fish_prompt_display_vf
 
-  set_color $__fish_prompt_clr1
+  set_color $fish_color_match
   if set -q VIRTUAL_ENV
     set -l py_env (basename "$VIRTUAL_ENV")
     set -l py_vers (python --version 2>&1 | sed 's/Python //')
@@ -112,11 +110,10 @@ function fish_prompt
 
   # hostname
   __fish_prompt_display_hostname
-  set_color $__fish_prompt_clr2
   printf "%s" $__fish_prompt_delim1
 
   # location
-  set_color $__fish_prompt_clr1
+  set_color $fish_color_cwd
   printf '%s' (prompt_pwd)
   set_color normal
 
@@ -131,7 +128,6 @@ function fish_prompt
       or set -q __MODE_PY
     end
 
-    set_color $__fish_prompt_clr2
     printf "%s" $__fish_prompt_delim1
 
     if set -q __MODE_RB
@@ -145,8 +141,6 @@ function fish_prompt
 
   # decoration
   echo
-  set_color $__fish_prompt_clr2
   printf "%s" $__fish_prompt_delim2
-  set_color normal
 
 end

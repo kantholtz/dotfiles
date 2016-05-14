@@ -184,8 +184,8 @@ file and removes this suffix for decrypted files.
 
 ## Notes ##
 
-Used instance of fish is the brewed one.  To change the $PATH
-environmental variable simply set/change `$fish_user_paths`:
+To change the $PATH environmental variable simply set/change
+`$fish_user_paths`:
 
 ```
 set -U fish_user_paths your/own/path $fish_user_paths

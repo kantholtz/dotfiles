@@ -1,6 +1,6 @@
 [global_config]
   handle_size = 5
-  inactive_color_offset = 0.69
+  inactive_color_offset = 1.0
 [keybindings]
 [layouts]
   [[default]]
@@ -32,7 +32,7 @@
     cursor_color = "#d3f4ff"
     font = Source Code Pro Semi-Bold 6
     foreground_color = "#00cdff"
-    palette = "#976b55:#ff3e7c:#ceb992:#ffb91f:#00e4ff:#75507b:#ffffff:#142838:#bbb5a4:#db757f:#33b2dc:#79aacf:#2092ee:#63205c:#487193:#142838"
+    palette = "#976b55:#ff3e7c:#ceb992:#ffb91f:#00e4ff:#af7f6d:#ffffff:#142838:#bbb5a4:#db757f:#33b2dc:#79aacf:#2092ee:#a47864:#487193:#142838"
     scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False

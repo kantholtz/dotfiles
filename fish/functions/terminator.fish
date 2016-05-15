@@ -4,7 +4,7 @@ function usage
 end
 
 
-function terminator -a theme
+function terminator -a theme geometry
   if [ -z "$theme" ]
     usage
     exit 2
@@ -41,6 +41,10 @@ function terminator -a theme
     exit 2
   end
 
+  if [ -n "$geometry" ]
+    set geometry --geometry $geometry
+  end
+
   set -l cmd (which terminator)
-  eval $cmd -p $theme
+  eval $cmd -p $theme $geometry
 end

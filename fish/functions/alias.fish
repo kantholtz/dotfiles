@@ -93,7 +93,7 @@ end
 #  sudo alias
 #
 function s -d "Alias for sudo"
-  sudo -s $argv
+  sudo -s "fish -c $argv"
 end
 
 

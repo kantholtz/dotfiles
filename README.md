@@ -72,7 +72,7 @@ Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
 | `ll <args>`     | `ls -lhAp <args>`          |
 | `e <args>`      | `emacs -nw <args>`         |
 | `e -gui <args>` | `emacs <args>`             |
-| `s <args>`      | `sudo -s <args>`           |
+| `s <args>`      | `sudo fish -c "<args>"`    |
 
 
 #### a - apt-* shortcuts ####

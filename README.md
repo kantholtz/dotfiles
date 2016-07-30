@@ -184,6 +184,12 @@ file and removes this suffix for decrypted files.
 
 ## Notes ##
 
+__Some handy commands__
+
+* Switch alt and cmd when using Apple™ Keyboards: `setxkbmap -option altwin:swap_alt_win`
+
+__Environment__
+
 To change the $PATH environmental variable simply set/change
 `$fish_user_paths`:
 

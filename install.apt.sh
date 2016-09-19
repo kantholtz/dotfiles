@@ -45,45 +45,23 @@ function ask_user {
 }
 
 
-function install_fish {
-    echo "installing fish..."
-    $APT install build-essential autoconf libncurses5-dev
-
-    mkdir .tmp
-    pushd .tmp
-
-    mkdir am && \
-        wget -O - http://ftp.gnu.org/gnu/automake/automake-1.15.tar.xz \
-        | unxz \
-        | tar -xC am --strip-components=1 && \
-        pushd am && \
-        ./configure && make && \
-        $S make install && \
-        popd && \
-        rm -rf am || \
-            quit_error "could not install automake 1.15"
-
-    git clone https://github.com/fish-shell/fish-shell && \
-        pushd fish-shell && \
-        autoconf && \
-        ./configure $PREFIX && \
-        make && \
-        $S make install && \
-        popd || \
-            quit_error "could not install fish"
-
-    popd
-    rm -rf .tmp
-
-    if check_prog fish; then
-      quit_error "fish was not installed properly"
+#
+#   install a package from apt and check
+#   if it is found afterwards
+#
+function safe_install {
+    if check_prog git; then
+        $APT install "$1" && \
+            check_prog "$1" && \
+            quit_error "git was not installed"
     fi
 }
 
 
+
 function install_emacs {
     echo "installing emacs..."
-    VERSION=24.5
+    VERSION=25.1
     FLAGS=
 
 
@@ -159,12 +137,8 @@ fi
 APT="$S apt-get"
 $APT update
 
-if check_prog git; then
-    $APT install git && \
-        check_prog git && \
-        quit_error "git was not installed"
-fi
-
+safe_install git
+safe_install fish
 
 echo "custom prefix (for configure)? (leave empty if undesired)"
 read __prefix
@@ -182,11 +156,6 @@ fi
 #
 #  install programs and configs
 #
-if check_prog fish
-    then install_fish
-    else echo "skipping installation of fish"
-fi
-
 if check_prog emacs
     then install_emacs
     else echo "skipping installation of emacs"

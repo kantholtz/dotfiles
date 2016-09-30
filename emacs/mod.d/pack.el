@@ -14,6 +14,7 @@
         php-mode
         fish-mode
         haskell-mode
+	yaml-mode
 
         ;; frontend stuff
         json-mode

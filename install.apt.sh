@@ -50,11 +50,16 @@ function ask_user {
 #   if it is found afterwards
 #
 function safe_install {
-    if check_prog git; then
-        $APT install "$1" && \
-            check_prog "$1" && \
-            quit_error "git was not installed"
-    fi
+    for prog in "$@"; do
+
+        if check_prog $prog; then
+            echo "installing $1..."
+            $APT install $prog && \
+                check_prog $prog && \
+                quit_error "$prog was not installed"
+        fi
+
+    done
 }
 
 
@@ -109,7 +114,7 @@ function install_dotfiles {
       kind=server
   fi
 
-  $APT install tmux python3
+  safe_install install tmux python3
 
   mkdir -p "$PTH" && \
       pushd "$PTH" || \
@@ -137,10 +142,10 @@ if check_prog apt-get; then
 fi
 
 APT="$S apt-get"
-$APT update
 
-safe_install git
-safe_install fish
+echo "updating apt, installing git and fish"
+$APT update
+safe_install git fish
 
 echo "custom prefix (for configure)? (leave empty if undesired)"
 read __prefix
@@ -168,5 +173,5 @@ if [ ! -d ~/.emacs.d/mod.d ]
     else echo "skipping installation of dotfiles"
 fi
 
-popd
+popd 2>/dev/null
 echo "done!"

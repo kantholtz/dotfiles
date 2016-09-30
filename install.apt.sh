@@ -58,7 +58,9 @@ function safe_install {
 }
 
 
-
+#
+#   compile emacs (optional x support)
+#
 function install_emacs {
     echo "installing emacs..."
     VERSION=25.1

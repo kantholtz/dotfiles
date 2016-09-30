@@ -23,8 +23,7 @@ Most non-ui installation can be done automated. Full installation:
 
 I use `./install.apt.sh [server]` if I need a basic set of programs.
 I don't think that it's interesting for anyone besides me but for the
-sake of documentation: Compiles fish from master and emacs 24.5 (and
-that takes a while)...
+sake of documentation: Compiles emacs 25.1...
 
 ### Local configuration ###
 
@@ -73,7 +72,7 @@ Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
 | `e <args>`       | `emacs -nw <args>`         |
 | `e -gui <args>`  | `emacs <args>`             |
 | `s <args>`       | `sudo fish -c "<args>"`    |
-| `q <host> <user> | `ssh user@host`            |
+| `q <host> <user>`| `ssh user@host`            |
 
 #### a - apt-* shortcuts ####
 

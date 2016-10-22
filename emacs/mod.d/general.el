@@ -35,13 +35,17 @@
 (require 'yasnippet)
 (yas-global-mode t)
 
-;; auto complete
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
-(ac-config-default)
 
-(ac-set-trigger-key "TAB")
-(ac-set-trigger-key "<tab>")
+;; company mode config
+(add-hook 'after-init-hook 'global-company-mode)
+
+;; auto complete
+;;(require 'auto-complete-config)
+;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+;;(ac-config-default)
+;;
+;;(ac-set-trigger-key "TAB")
+;;(ac-set-trigger-key "<tab>")
 
 
 ;; ispell config

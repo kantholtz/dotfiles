@@ -2,19 +2,21 @@
 (add-to-list 'package-archives
 	'("melpa" .
 	  "http://melpa.org/packages/") t)
-(package-initialize)
 
-(setq nvrn-package-list
+(package-initialize)
+(when (not package-archive-contents)
+  (package-refresh-contents))
+
+(defvar nvrn-package-list
       '(magit
-        auto-complete
+        company
         multiple-cursors
-        ido-vertical-mode
         edit-server
 
         php-mode
         fish-mode
         haskell-mode
-	yaml-mode
+        yaml-mode
 
         ;; frontend stuff
         json-mode
@@ -23,10 +25,17 @@
         flymake-sass
 
         ;; python related
-        python-mode
-        yasnippet
+        elpy
         sphinx-doc
-        jedi))
+        ;; python-mode
+        ;; yasnippet
+        ;; jedi
+
+        ;; theme
+        ido-vertical-mode
+        doom-themes
+        neotree))
+
 
 (defun nvrn-install-packages (package-list)
   (dolist (package package-list)

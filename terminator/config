@@ -1,33 +1,8 @@
 [global_config]
   handle_size = 5
   inactive_color_offset = 1.0
+  window_state = maximise
 [keybindings]
-[profiles]
-  [[default]]
-    background_image = None
-  [[dark]]
-    scrollbar_position = hidden
-    palette = "#976b55:#ff3e7c:#487193:#ffb91f:#00e4ff:#e1a44b:#ffffff:#518bbb:#bbb5a4:#db757f:#33b2dc:#79aacf:#2092ee:#a47864:#487193:#142838"
-    background_image = None
-    cursor_shape = underline
-    use_system_font = False
-    cursor_color = "#d3f4ff"
-    foreground_color = "#00cdff"
-    show_titlebar = False
-    font = Source Code Pro Semi-Bold 6
-    background_color = "#142838"
-    allow_bold = False
-  [[bright]]
-    scrollbar_position = hidden
-    palette = "#2b80be:#b7141f:#00345a:#b93f22:#134eb2:#560088:#d2a471:#efefef:#b7b7b7:#e83b3f:#4f7fa2:#fd8e09:#e05300:#aa4dbc:#945307:#d9d9d9"
-    background_image = None
-    use_system_font = False
-    cursor_color = "#666666"
-    foreground_color = "#393939"
-    show_titlebar = False
-    font = Source Code Pro Semi-Bold 6
-    background_color = "#ebebeb"
-    allow_bold = False
 [layouts]
   [[default]]
     [[[child1]]]
@@ -37,3 +12,29 @@
       parent = ""
       type = Window
 [plugins]
+[profiles]
+  [[default]]
+    background_image = None
+  [[bright]]
+    allow_bold = False
+    background_color = "#ebebeb"
+    background_image = None
+    cursor_color = "#666666"
+    font = Source Code Pro Semi-Bold 6
+    foreground_color = "#393939"
+    palette = "#2b80be:#b7141f:#00345a:#b93f22:#134eb2:#560088:#d2a471:#efefef:#b7b7b7:#e83b3f:#4f7fa2:#fd8e09:#e05300:#aa4dbc:#945307:#d9d9d9"
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False
+  [[dark]]
+    allow_bold = False
+    background_color = "#142838"
+    background_image = None
+    cursor_color = "#d3f4ff"
+    cursor_shape = underline
+    font = Source Code Pro Semi-Bold 8
+    foreground_color = "#00cdff"
+    palette = "#142838:#ff3e7c:#487193:#ffb91f:#00e4ff:#ffddab:#ffffff:#518bbb:#bbb5a4:#db757f:#33b2dc:#79aacf:#2092ee:#487193:#487193:#e99fd7"
+    scrollbar_position = hidden
+    show_titlebar = False
+    use_system_font = False

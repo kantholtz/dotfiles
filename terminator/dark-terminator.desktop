@@ -1,0 +1,9 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Type=Application
+Exec=fish -c 'terminator dark'
+Icon=utilities-terminal
+Terminal=false
+Categories=System;TerminalEmulator;
+
+Name=Dark Terminator

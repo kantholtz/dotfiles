@@ -69,7 +69,7 @@ function safe_install {
 function install_emacs {
     echo "installing emacs..."
     VERSION=25.1
-    FLAGS=
+    FLAGS= # 'LDFLAGS="-no-pie"' for *buntu 16.10
 
 
     echo "X support required? [yN]"

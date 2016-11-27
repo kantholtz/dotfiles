@@ -2,40 +2,6 @@
 set __fish_prompt_delim1 ' + '
 set __fish_prompt_delim2 ' > '
 
-function __mode_toggle \
-  -a var
-
-  if set -q $var
-    set -eg $var
-    echo "deactivated $var"
-  else
-    set -g $var
-    echo "activated $var"
-  end
-
-end
-
-
-function mode \
-  -d "set the mode for the prompt" \
-  -a m_name
-
-  switch $m_name
-
-    # toggle language specific modes
-    case rb
-      __mode_toggle __MODE_RB
-    case py
-      __mode_toggle __MODE_PY
-
-    case '*'
-      echo "this mode does not exist"
-
-  end
-
-end
-
-
 function __fish_prompt_display_username
 
   set_color $fish_color_user
@@ -75,6 +41,7 @@ end
 
 
 function __fish_prompt_display_rvm
+  return
 
   set_color $fish_color_match
   if [ -n (which ruby | grep -e '.rvm') ]
@@ -120,21 +87,9 @@ function fish_prompt
   end
 
   # language informations
-  if begin
-      set -q __MODE_RB
-      or set -q __MODE_PY
-    end
-
-    printf "%s" $__fish_prompt_delim1
-
-    if set -q __MODE_RB
-      __fish_prompt_display_rvm
-    end
-
-    if set -q __MODE_PY
-      __fish_prompt_display_vf
-    end
-  end
+  printf "%s" $__fish_prompt_delim1
+  __fish_prompt_display_rvm
+  __fish_prompt_display_vf
 
   # decoration
   echo

@@ -116,10 +116,11 @@ function install_dotfiles {
 
   safe_install install tmux python3
 
-  [ -n "$PTH" ] && \
-  mkdir -p "$PTH" && \
-      pushd "$PTH" || \
-          quit_error "could not create $PTH"
+  if [ -n "$PTH" ]; then
+    mkdir -p "$PTH" && \
+	    pushd "$PTH" || \
+        quit_error "could not create $PTH"
+  fi
 
   git clone https://github.com/dreadworks/dotfiles && \
       pushd dotfiles && \

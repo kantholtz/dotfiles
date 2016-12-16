@@ -2,12 +2,18 @@
 set __fish_prompt_delim1 ' + '
 set __fish_prompt_delim2 ' > '
 
+
+if not set -q fish_color_user
+  set -gx fish_color_user green
+end
+
+
 function __fish_prompt_display_username
 
   set_color $fish_color_user
 	set -l usr (whoami)
   printf '%s' "$usr"
-  set_color -b normal
+  set_color normal
 
 end
 
@@ -19,7 +25,7 @@ function __fish_prompt_display_hostname
 	printf '%s' $__fish_prompt_delim1
 	set_color $fish_color_user
   printf '%s' $host
-  set_color -b normal
+  set_color normal
 
 end
 

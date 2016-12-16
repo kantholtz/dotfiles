@@ -116,6 +116,7 @@ function install_dotfiles {
 
   safe_install install tmux python3
 
+  [ -n "$PTH" ] && \
   mkdir -p "$PTH" && \
       pushd "$PTH" || \
           quit_error "could not create $PTH"

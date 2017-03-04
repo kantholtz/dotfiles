@@ -82,7 +82,10 @@ function install_emacs {
     mkdir .tmp
     pushd .tmp
 
-    $APT install build-essential
+    echo "Debian? [Yn]"
+    if ! ask_user; then
+      $APT install build-essential libncurses5 libncurses5-dev
+    fi
 
     if [ ! -d emacs-$VERSION ]; then
       wget http://ftp.halifax.rwth-aachen.de/gnu/emacs/emacs-$VERSION.tar.xz && \

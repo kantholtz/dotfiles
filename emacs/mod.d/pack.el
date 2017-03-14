@@ -27,9 +27,7 @@
         ;; python related
         elpy
         sphinx-doc
-        ;; python-mode
-        ;; yasnippet
-        ;; jedi
+        flymake-python-pyflakes
 
         ;; theme
         ido-vertical-mode

@@ -68,7 +68,7 @@ class Rule (object):
 
   def __init__ (self, cmd_template):
     self._cmd_template = cmd_template
-    
+
   def execute (self, args):
     """
     Execute command based on the saved template.
@@ -127,7 +127,7 @@ def main (alias, args):
   Main entry point. Parse <alias>.alias file.
   Executes the command eventually.
 
-  Exits with 2 if the parsing of the 
+  Exits with 2 if the parsing of the
   alias file failed.
   """
 

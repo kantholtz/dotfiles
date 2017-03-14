@@ -1,6 +1,6 @@
 #
 #  files used by ../lib/alias
-#  aliases for `apt-*`
+#  aliases for `apt-*` and dpkg
 #
 #  when using sudo, the effective
 #  user must have set fish set as
@@ -17,3 +17,6 @@ r [0]  : apt-get remove [0]
 s [0]  : apt-cache search [0]
 ug     : apt-get upgrade
 up     : apt-get update
+d [0]  : apt-get download [0]
+fs [0] : apt-file search [0]
+l [0]  : dpkg -l | grep [0]

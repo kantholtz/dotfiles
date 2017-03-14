@@ -65,7 +65,7 @@ function __fish_prompt_display_vf
   if set -q VIRTUAL_ENV
     set -l py_env (basename "$VIRTUAL_ENV")
     set -l py_vers (python --version 2>&1 | sed 's/Python //')
-    printf '(%s | %s)' $py_env $py_vers
+    printf ' (%s | %s)' $py_env $py_vers
   end
   set_color normal
 
@@ -95,6 +95,10 @@ function fish_prompt
   # language informations
   printf "%s" $__fish_prompt_delim1
   __fish_prompt_display_rvm
+  __fish_prompt_display_vf
+
+  # i don't remember why I explicitly forced myself
+  # to settle for one environment...
   __fish_prompt_display_vf
 
   # decoration

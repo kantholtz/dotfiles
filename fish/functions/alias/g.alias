@@ -21,3 +21,6 @@ rt  [0]  :  git remote [0]
 s   [0]  :  git status [0]
 st  [0]  :  git stash [0]
 v        :  git version
+rbc      :  git rebase --continue
+rbs      :  git rebase --skip
+rba      :  git rebase --abort

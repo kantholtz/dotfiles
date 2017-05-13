@@ -31,6 +31,7 @@
 
         ido-vertical-mode
         doom-themes
+	kaolin-theme
         neotree))
 
 

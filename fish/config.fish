@@ -14,7 +14,9 @@ function __config_custom
   # includes
   . $fish_dir/functions/alias.fish
 
-  eval (python -m virtualfish)
+  command -v virtualfish >/dev/null 2>&1
+  and eval (python -m virtualfish)
+
 end
 
 __config_custom

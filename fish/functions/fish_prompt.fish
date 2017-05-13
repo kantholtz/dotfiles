@@ -95,7 +95,6 @@ function fish_prompt
   # language informations
   printf "%s" $__fish_prompt_delim1
   __fish_prompt_display_rvm
-  __fish_prompt_display_vf
 
   # i don't remember why I explicitly forced myself
   # to settle for one environment...

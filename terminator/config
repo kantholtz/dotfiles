@@ -1,7 +1,6 @@
 [global_config]
   handle_size = 5
   inactive_color_offset = 1.0
-  window_state = maximise
 [keybindings]
 [layouts]
   [[default]]
@@ -14,11 +13,9 @@
 [plugins]
 [profiles]
   [[default]]
-    background_image = None
   [[bright]]
     allow_bold = False
     background_color = "#ebebeb"
-    background_image = None
     cursor_color = "#666666"
     font = Source Code Pro Semi-Bold 6
     foreground_color = "#393939"
@@ -29,12 +26,11 @@
   [[dark]]
     allow_bold = False
     background_color = "#142838"
-    background_image = None
     cursor_color = "#d3f4ff"
     cursor_shape = underline
-    font = Source Code Pro Semi-Bold 8
+    font = Source Code Pro Medium 8
     foreground_color = "#00cdff"
-    palette = "#142838:#ff3e7c:#487193:#ffb91f:#00e4ff:#ffddab:#ffffff:#518bbb:#bbb5a4:#db757f:#33b2dc:#79aacf:#2092ee:#487193:#487193:#e99fd7"
+    palette = "#142838:#ff3e7c:#486793:#ffb91f:#00e4ff:#ffddab:#ffffff:#5185bb:#bbb5a4:#db757f:#33b2dc:#79aacf:#2092ee:#548dbd:#485a93:#e99fd7"
     scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False

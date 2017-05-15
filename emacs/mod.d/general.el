@@ -17,6 +17,8 @@
 (global-set-key (kbd "M-n") 'forward-list)
 (global-set-key (kbd "M-p") 'backward-list)
 
+(setq inhibit-splash-screen t)
+
 ;;
 ;;   package config
 ;;

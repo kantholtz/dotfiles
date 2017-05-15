@@ -12,7 +12,7 @@ echo "enter the location of the virtual envs"
 echo "location is created unless it exists"
 read venv
 
-if [ -d "$venv" ]
+if [ ! -d "$venv" ]
   mkdir -p "$venv"
 end
 

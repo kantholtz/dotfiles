@@ -39,26 +39,10 @@ containing both a dark theme and a light theme can be found under
 terminator/config. I wrote a fish proxy function to adjust colors set
 by the fish environment. To start from a launcher: `fish -c 'terminator dark|bright`
 
-My window manager theme is based on
-[SimpliX](http://sixsixfive.deviantart.com/art/simpliX-346404452) for
-decorations and
-[Numix](https://github.com/numixproject/numix-gtk-theme) for
-appearance.
-
-The icons I use are a modified version of
-[Compass](http://gnome-look.org/content/show.php/Compass?content=160629). For
-dark panels the status icons are not suitable - but they are just a
-bunch of svg files. For my current theme a simple invokation of `sed`
-did the trick:
-
-`find . -name "*.svg" | xargs sed -i 's/304050/c1c6cc/'`
-
 I use [Source Code
 Pro](https://github.com/adobe-fonts/source-code-pro) for monospaced
 fonts and [Source Sans
 Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
-
-![ScreenShot](static/theme.png)
 
 ## Documentation ##
 

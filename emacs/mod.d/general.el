@@ -17,12 +17,17 @@
 (global-set-key (kbd "M-n") 'forward-list)
 (global-set-key (kbd "M-p") 'backward-list)
 
+(setq inhibit-splash-screen t)
+
 ;;
 ;;   package config
 ;;
 ;; linum-mode config
-(setq linum-format "%4d | ")
-(global-linum-mode t)
+
+;; starts to lag badly in large buffers
+;; (setq linum-format "%4d | ")
+;; (global-linum-mode t)
+(global-nlinum-mode t)
 
 ;; magit config
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -34,7 +39,6 @@
 ;; yasnippet config
 (require 'yasnippet)
 (yas-global-mode t)
-
 
 ;; company mode config
 (add-hook 'after-init-hook 'global-company-mode)

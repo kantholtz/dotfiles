@@ -35,6 +35,7 @@ function terminator -a theme geometry
     set -gx fish_color_error          red
     set -gx fish_color_comment        grey
     set -gx fish_color_quote          yellow
+    set -gx fish_color_match          red
 
   else
     echo "theme '$theme' not supported"

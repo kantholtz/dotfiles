@@ -1,7 +1,6 @@
 [global_config]
   handle_size = 5
   inactive_color_offset = 1.0
-  window_state = maximise
 [keybindings]
 [layouts]
   [[default]]
@@ -14,11 +13,9 @@
 [plugins]
 [profiles]
   [[default]]
-    background_image = None
   [[bright]]
     allow_bold = False
     background_color = "#ebebeb"
-    background_image = None
     cursor_color = "#666666"
     font = Source Code Pro Semi-Bold 6
     foreground_color = "#393939"
@@ -29,7 +26,6 @@
   [[dark]]
     allow_bold = False
     background_color = "#142838"
-    background_image = None
     cursor_color = "#d3f4ff"
     cursor_shape = underline
     font = Source Code Pro Semi-Bold 6

@@ -69,7 +69,7 @@ function safe_install {
 function install_emacs {
     echo "installing emacs..."
     VERSION=25.1
-    FLAGS=
+    FLAGS= # 'LDFLAGS="-no-pie"' for *buntu 16.10
 
 
     echo "X support required? [yN]"
@@ -82,14 +82,22 @@ function install_emacs {
     mkdir .tmp
     pushd .tmp
 
-    wget http://ftp.halifax.rwth-aachen.de/gnu/emacs/emacs-$VERSION.tar.xz && \
-        tar xvf emacs-$VERSION.tar.xz && \
-        pushd emacs-$VERSION && \
-        ./configure $PREFIX $FLAGS && \
-        make && \
-        $S make install && \
-        popd || \
-            quit_error "could not install emacs"
+    echo "Debian? [Yn]"
+    if ! ask_user; then
+      $APT install build-essential libncurses5 libncurses5-dev
+    fi
+
+    if [ ! -d emacs-$VERSION ]; then
+      wget http://ftp.halifax.rwth-aachen.de/gnu/emacs/emacs-$VERSION.tar.xz && \
+          tar xvf emacs-$VERSION.tar.xz
+    fi
+    
+    pushd emacs-$VERSION && \
+      ./configure $PREFIX $FLAGS && \
+      make && \
+      $S make install && \
+      popd || \
+          quit_error "could not install emacs"
 
     popd
     rm -rf .tmp
@@ -116,9 +124,11 @@ function install_dotfiles {
 
   safe_install install tmux python3
 
-  mkdir -p "$PTH" && \
-      pushd "$PTH" || \
-          quit_error "could not create $PTH"
+  if [ -n "$PTH" ]; then
+    mkdir -p "$PTH" && \
+	    pushd "$PTH" || \
+        quit_error "could not create $PTH"
+  fi
 
   git clone https://github.com/dreadworks/dotfiles && \
       pushd dotfiles && \

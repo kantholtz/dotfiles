@@ -20,12 +20,28 @@ function __alias_exec
   ~/.config/fish/functions/lib/alias $argv
 end
 
-
 #
-#  apt shortcuts
+#  proxy functions
 #
 function a -d "Aliases for apt-*"
   __alias_exec a $argv
+end
+
+function c -d "Aliases for systemctl, journalctl"
+  __alias_exec c $argv
+end
+
+function ll --description 'Alias for ls -lAp'
+	 ls -lhAp $argv
+end
+
+function s -d "Alias for sudo"
+  sudo fish -c "$argv"
+end
+
+
+function t -d "Aliases for tmux"
+  __alias_exec t $argv
 end
 
 
@@ -70,28 +86,4 @@ function g -d "Aliases for git"
     case '*'
       __alias_exec g $argv
   end
-end
-
-
-#
-#  ls shortcut
-#
-function ll --description 'Alias for ls -lAp'
-	 ls -lhAp $argv
-end
-
-
-#
-#  sudo alias
-#
-function s -d "Alias for sudo"
-  sudo fish -c "$argv"
-end
-
-
-#
-#  tmux shortcuts
-#
-function t -d "Aliases for tmux"
-  __alias_exec t $argv
 end

@@ -82,14 +82,6 @@ end
 
 
 #
-#  rails shortcuts
-#
-function r -d "Aliases for rails"
-  __alias_exec r $argv
-end
-
-
-#
 #  sudo alias
 #
 function s -d "Alias for sudo"

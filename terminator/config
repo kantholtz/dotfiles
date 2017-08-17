@@ -32,9 +32,9 @@
     background_image = None
     cursor_color = "#d3f4ff"
     cursor_shape = underline
-    font = Source Code Pro Semi-Bold 8
+    font = Source Code Pro Semi-Bold 6
     foreground_color = "#00cdff"
-    palette = "#142838:#ff3e7c:#487193:#ffb91f:#00e4ff:#ffddab:#ffffff:#518bbb:#bbb5a4:#db757f:#33b2dc:#79aacf:#2092ee:#487193:#487193:#e99fd7"
+    palette = "#142838:#ff3e72:#487193:#ff987f:#00e4ff:#ffddab:#ffffff:#518bbb:#bbb5a4:#fa4c98:#33b2dc:#79aacf:#2092ee:#487193:#487193:#e99fd7"
     scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False

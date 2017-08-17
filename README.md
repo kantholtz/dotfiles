@@ -56,6 +56,20 @@ Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
 | `s <args>`       | `sudo fish -c "<args>"`    |
 | `q <host> <user>`| `ssh user@host`            |
 
+#### c - systemctl and journalctl ####
+
+| Command   |                              |
+|-----------|------------------------------|
+| `d [0]`   | `systemctl disable [0]z`     |
+| `j [0]`   | `journalctl -u [0] -bz`      |
+| `jf [0]`  | `journalctl -u [0] -b -fz`   |
+| `m [0]`   | `systemctl mask [0]z`        |
+| `sa [0]`  | `systemctl start [0]z`       |
+| `so [0]`  | `systemctl stop [0]z`        |
+| `st [0]`  | `systemctl status [0]z`      |
+| `u [0]`   | `systemctl unmask [0]z`      |
+
+
 #### a - apt-* shortcuts ####
 
 | Command        |                              |

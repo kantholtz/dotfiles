@@ -58,16 +58,16 @@ Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
 
 #### c - systemctl and journalctl ####
 
-| Command   |                              |
-|-----------|------------------------------|
-| `d [0]`   | `systemctl disable [0]z`     |
-| `j [0]`   | `journalctl -u [0] -bz`      |
-| `jf [0]`  | `journalctl -u [0] -b -fz`   |
-| `m [0]`   | `systemctl mask [0]z`        |
-| `sa [0]`  | `systemctl start [0]z`       |
-| `so [0]`  | `systemctl stop [0]z`        |
-| `st [0]`  | `systemctl status [0]z`      |
-| `u [0]`   | `systemctl unmask [0]z`      |
+| Command   |                             |
+|-----------|-----------------------------|
+| `d [0]`   | `systemctl disable [0]`     |
+| `j [0]`   | `journalctl -u [0] -b`      |
+| `jf [0]`  | `journalctl -u [0] -b -f`   |
+| `m [0]`   | `systemctl mask [0]`        |
+| `sa [0]`  | `systemctl start [0]`       |
+| `so [0]`  | `systemctl stop [0]`        |
+| `st [0]`  | `systemctl status [0]`      |
+| `u [0]`   | `systemctl unmask [0]`      |
 
 
 #### a - apt-* shortcuts ####

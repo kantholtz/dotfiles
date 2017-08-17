@@ -23,9 +23,6 @@
 ;;
 ;;   package config
 ;;
-;; linum-mode config
-(setq linum-format "%4d | ")
-(global-linum-mode t)
 
 ;; magit config
 (global-set-key (kbd "C-x g") 'magit-status)

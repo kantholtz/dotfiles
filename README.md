@@ -22,8 +22,6 @@ Most non-ui installation can be done automated. Full installation:
 ### Provisioning ###
 
 I use `./install.apt.sh [server]` if I need a basic set of programs.
-I don't think that it's interesting for anyone besides me but for the
-sake of documentation: Compiles emacs 25.1...
 
 ### Local configuration ###
 
@@ -62,42 +60,19 @@ Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
 
 | Command        |                              |
 |----------------|------------------------------|
-| `a ar`         | `apt-get autoremove`         |
-| `a c           | `apt-get clean               |
-| `a dg          | `apt-get dist-upgrade        |
-| `a i <args>`   | `apt-get install <args>`     |
-| `a pg <args>`  | `apt-get purge <args>`       |
-| `a r <args>`   | `apt-get remove <args>`      |
-| `a s <args>`   | `apt-cache search <args>`    |
-| `a ug`         | `apt-get upgrade`            |
-| `a up`         | `apt-get update`             |
-
-
-### r - Ruby shortcuts ###
-
-Shortcut for `rails`, `<args>` may be optional
-
-| Command          | Equivalent                               |
-|------------------|------------------------------------------|
-| `r v`            | `rails --version`                        |
-| `r h`            | `rails --help`                           |
-| `r c    <args>`  | `rails console <args>`                   |
-| `r g    <args>`  | `rails generate <args>`                  |
-| `r g c  <args>`  | `rails generate controller <args>`       |
-| `r g it <args>`  | `rails generate integration_test <args>` |
-| `r g md <args>`  | `rails generate model <args>`            |
-| `r g mg <args>`  | `rails generate migration <args>`        |
-| `r g v  <args>`  | `rails generate view <args>`             |
-| `r d    <args>`  | `rails destroy <args>`                   |
-| `r d c  <args>`  | `rails destroy controller <args>`        |
-| `r d it <args>`  | `rails destroy integration_test <args>`  |
-| `r d md <args>`  | `rails destroy model <args>`             |
-| `r d mg <args>`  | `rails destroy migration <args>`         |
-| `r d v  <args>`  | `rails destroy view <args>`              |
-| `r gs   <args>`  | `rails generate scaffold <args>`         |
-| `r n    <args>`  | `rails new <args>`                       |
-| `r s    <args>`  | `rails server <args>`                    |
-
+| `ar`           | `apt autoremove`             |
+| `c`            | `apt-get clean`              |
+| `dg`           | `apt full-upgrade`           |
+| `i [0]`        | `apt install [0]`            |
+| `pg [0]`       | `apt purge [0]`              |
+| `r [0]`        | `apt remove [0]`             |
+| `ug`           | `apt upgrade`                |
+| `up`           | `apt update`                 |
+| `d [0]`        | `apt-get download [0]`       |
+| `s [0]`        | `apt-cache search [0]`       |
+| `fs [0]`       | `apt-file search [0]`        |
+| `sh [0]`       | `apt show [0]`               |
+| `l [0]`        | `dpkg -l | grep [0]`         |
 
 #### g - Git shortcuts ####
 

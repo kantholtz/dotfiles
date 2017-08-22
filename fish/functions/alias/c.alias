@@ -7,6 +7,9 @@ d [0]   : systemctl disable [0]
 j [0]   : journalctl -u [0] -b
 jf [0]  : journalctl -u [0] -b -f
 m [0]   : systemctl mask [0]
+lr      : systemctl | grep running
+le      : systemctl list-unit-files | grep enabled
+r [0]   : systemctl restart [0]
 sa [0]  : systemctl start [0]
 so [0]  : systemctl stop [0]
 st [0]  : systemctl status [0]

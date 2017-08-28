@@ -58,35 +58,34 @@ Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
 
 #### c - systemctl and journalctl ####
 
-| Command   |                             |
-|-----------|-----------------------------|
-| `d [0]`   | `systemctl disable [0]`     |
-| `j [0]`   | `journalctl -u [0] -b`      |
-| `jf [0]`  | `journalctl -u [0] -b -f`   |
-| `m [0]`   | `systemctl mask [0]`        |
-| `sa [0]`  | `systemctl start [0]`       |
-| `so [0]`  | `systemctl stop [0]`        |
-| `st [0]`  | `systemctl status [0]`      |
-| `u [0]`   | `systemctl unmask [0]`      |
+| Command     |                             |
+|-------------|-----------------------------|
+| `c d [0]`   | `systemctl disable [0]`     |
+| `c j [0]`   | `journalctl -u [0] -b`      |
+| `c jf [0]`  | `journalctl -u [0] -b -f`   |
+| `c m [0]`   | `systemctl mask [0]`        |
+| `c sa [0]`  | `systemctl start [0]`       |
+| `c so [0]`  | `systemctl stop [0]`        |
+| `c st [0]`  | `systemctl status [0]`      |
+| `c u [0]`   | `systemctl unmask [0]`      |
 
 
 #### a - apt-* shortcuts ####
 
-| Command        |                              |
-|----------------|------------------------------|
-| `ar`           | `apt autoremove`             |
-| `c`            | `apt-get clean`              |
-| `dg`           | `apt full-upgrade`           |
-| `i [0]`        | `apt install [0]`            |
-| `pg [0]`       | `apt purge [0]`              |
-| `r [0]`        | `apt remove [0]`             |
-| `ug`           | `apt upgrade`                |
-| `up`           | `apt update`                 |
-| `d [0]`        | `apt-get download [0]`       |
-| `s [0]`        | `apt-cache search [0]`       |
-| `fs [0]`       | `apt-file search [0]`        |
-| `sh [0]`       | `apt show [0]`               |
-| `l [0]`        | `dpkg -l | grep [0]`         |
+| Command          |                              |
+|------------------|------------------------------|
+| `a ar`           | `apt autoremove`             |
+| `a c`            | `apt-get clean`              |
+| `a dg`           | `apt full-upgrade`           |
+| `a i [0]`        | `apt install [0]`            |
+| `a pg [0]`       | `apt purge [0]`              |
+| `a r [0]`        | `apt remove [0]`             |
+| `a ug`           | `apt upgrade`                |
+| `a up`           | `apt update`                 |
+| `a d [0]`        | `apt-get download [0]`       |
+| `a s [0]`        | `apt-cache search [0]`       |
+| `a fs [0]`       | `apt-file search [0]`        |
+| `a sh [0]`       | `apt show [0]`               |
 
 #### g - Git shortcuts ####
 

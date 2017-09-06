@@ -3,7 +3,8 @@
 #  aliases for all systemctl and journalctl
 #
 
-d [0]   : systemctl disable [0]
+dis [0] : systemctl disable [0]
+en [0]  : systemctl enable [0]
 j [0]   : journalctl -u [0] -b
 jf [0]  : journalctl -u [0] -b -f
 m [0]   : systemctl mask [0]

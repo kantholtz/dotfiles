@@ -60,7 +60,8 @@ Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
 
 | Command     |                             |
 |-------------|-----------------------------|
-| `c d [0]`   | `systemctl disable [0]`     |
+| `c dis [0]` | `systemctl disable [0]`     |
+| `c en [0]`  | `systemctl enable [0]`
 | `c j [0]`   | `journalctl -u [0] -b`      |
 | `c jf [0]`  | `journalctl -u [0] -b -f`   |
 | `c m [0]`   | `systemctl mask [0]`        |

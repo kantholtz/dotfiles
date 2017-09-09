@@ -21,7 +21,7 @@
     flymake-python-pyflakes
 
     ;; theme
-    doom-theme
+    doom-themes
     kaolin-theme
     neotree))
 

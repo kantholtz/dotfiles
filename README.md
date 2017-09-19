@@ -65,6 +65,8 @@ Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
 | `c j [0]`   | `journalctl -u [0] -b`      |
 | `c jf [0]`  | `journalctl -u [0] -b -f`   |
 | `c m [0]`   | `systemctl mask [0]`        |
+| `c rl [0]`  | `systemctl reload [0]`      |
+| `c rs [0]`  | `systemctl restart [0]`     |
 | `c sa [0]`  | `systemctl start [0]`       |
 | `c so [0]`  | `systemctl stop [0]`        |
 | `c st [0]`  | `systemctl status [0]`      |

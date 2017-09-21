@@ -11,12 +11,12 @@ function __install_emacs \
   -a home srcdir backdir kind
 
   set -l dotemacs "$home/.emacs"
-  set -l initscript "init"
+  set -l init_param "nil"
 
   echo "installing emacs dotfiles"
   if [ "$kind" = "server" ]
     echo "using server configuration"
-    set initscript "init_server"
+    set init_param "t"
   end
 
   mkdir -p "$backdir/emacs"
@@ -29,7 +29,8 @@ function __install_emacs \
 
   mkdir -p "$home/.emacs.d"
   and touch "$dotemacs"
-  and echo '(load "~/.emacs.d/mod.d/'$initscript'")' >> "$dotemacs"
+  and echo '(load "~/.emacs.d/mod.d/init")' >> "$dotemacs"
+  and echo '(nvrn-init '$init_param')' >> "$dotemacs"
   and ln -s \
     "$srcdir/emacs/mod.d"  \
     "$home/.emacs.d"

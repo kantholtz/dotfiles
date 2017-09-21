@@ -63,51 +63,6 @@ function safe_install {
 }
 
 
-#
-#   compile emacs (optional x support)
-#
-function install_emacs {
-    echo "installing emacs..."
-    VERSION=25.1
-    FLAGS= # 'LDFLAGS="-no-pie"' for *buntu 16.10
-
-
-    echo "X support required? [yN]"
-    if ask_user; then
-       $APT install libtiff-dev libgif-dev libjpeg-dev libpng-dev libxpm-dev libgtk2.0-dev libncurses5-dev
-    else
-       FLAGS=--without-x
-    fi
-
-    mkdir .tmp
-    pushd .tmp
-
-    echo "Debian? [Yn]"
-    if ! ask_user; then
-      $APT install build-essential libncurses5 libncurses5-dev
-    fi
-
-    if [ ! -d emacs-$VERSION ]; then
-      wget http://ftp.halifax.rwth-aachen.de/gnu/emacs/emacs-$VERSION.tar.xz && \
-          tar xvf emacs-$VERSION.tar.xz
-    fi
-    
-    pushd emacs-$VERSION && \
-      ./configure $PREFIX $FLAGS && \
-      make && \
-      $S make install && \
-      popd || \
-          quit_error "could not install emacs"
-
-    popd
-    rm -rf .tmp
-
-    if check_prog emacs; then
-        quit_error "emacs was not installed properly"
-    fi
-}
-
-
 function install_dotfiles {
   echo install dotfiles and commonly used programs
   #
@@ -164,18 +119,8 @@ PREFIX=--prefix="$__prefix"
 if [ -n "$__prefix" ]; then
     echo "add prefix to PATH?"
     if ask_user; then
-        PATH="$prefix:$PATH"
-        export PATH
+        export PATH="$prefix:$PATH"
     fi
-fi
-
-
-#
-#  install programs and configs
-#
-if check_prog emacs
-    then install_emacs
-    else echo "skipping installation of emacs"
 fi
 
 if [ ! -d ~/.emacs.d/mod.d ]

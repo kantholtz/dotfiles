@@ -16,8 +16,10 @@ function __config_custom
   eval (python -m virtualfish 2>/dev/null)
 
   # plugins
-  fundle plugin 'tuvistavie/fish-ssh-agent'
-  fundle init
+  if functions -q fundle
+    fundle plugin 'tuvistavie/fish-ssh-agent'
+    fundle init
+  end
 
 end
 

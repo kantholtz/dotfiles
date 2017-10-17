@@ -10,7 +10,8 @@
     nlinum
     fish-mode
     multiple-cursors
-    ido-vertical-mode))
+    ido-vertical-mode
+    apache-mode))
 
 (defvar nvrn-packages-desktop   ;; additional packages for desktop
   '(company

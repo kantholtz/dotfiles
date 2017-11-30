@@ -32,7 +32,7 @@ function c -d "Aliases for systemctl, journalctl"
 end
 
 function ll --description 'Alias for ls -lAp'
-	 ls -lhAp $argv
+	 ls -lhAp --group-directories-first $argv
 end
 
 function s -d "Alias for sudo"

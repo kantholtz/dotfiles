@@ -24,3 +24,8 @@
 
 ;; aggregate all backup files in one place
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+
+;; speedbar setup
+(setq speedbar-use-images nil)
+(setq speedbar-show-unknown-files t)
+(add-hook 'speedbar-mode-hook '(lambda () (hl-line-mode 1)))

@@ -7,6 +7,13 @@
 (require 'python)
 (elpy-enable)
 
+;; enable sphinx-doc
+(add-hook
+ 'python-mode-hook
+ (lambda ()
+   (require 'sphinx-doc)
+   (sphinx-doc-mode t)))
+
 ;; use ipython as python shell
 (setq
  python-shell-interpreter "ipython"

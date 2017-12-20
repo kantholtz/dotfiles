@@ -115,6 +115,7 @@ Shortcuts for `git`. `args` may be optional.
 | `g rt  <args>` | `git remote <args>`     | `git help remote`     |
 | `g s   <args>` | `git status <args>`     | `git help status`     |
 | `g st  <args>` | `git stash <args>`      | `git help stash`      |
+| `g u   <args>` | `git reset HEAD <args>` | unstage file          |
 | `g v`          | `git version`           | -                     |
 
 

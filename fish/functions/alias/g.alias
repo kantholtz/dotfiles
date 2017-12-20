@@ -20,6 +20,7 @@ rm  [0]  :  git rm [0]
 rt  [0]  :  git remote [0]
 s   [0]  :  git status [0]
 st  [0]  :  git stash [0]
+u   [0]  :  git reset HEAD [0]
 v        :  git version
 rbc      :  git rebase --continue
 rbs      :  git rebase --skip

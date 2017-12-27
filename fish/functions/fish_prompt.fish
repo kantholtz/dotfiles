@@ -9,38 +9,34 @@ end
 
 
 function __fish_prompt_display_username
-
   set_color $fish_color_user
-	set -l usr (whoami)
+  set -l usr (whoami)
   printf '%s' "$usr"
   set_color normal
-
 end
 
 
 function __fish_prompt_display_hostname
-
-	set -l host (hostname|cut -d . -f 1)
-
-	printf '%s' $__fish_prompt_delim1
-	set_color $fish_color_user
+  set -l host (hostname|cut -d . -f 1)
+  printf '%s' $__fish_prompt_delim1
+  set_color $fish_color_user
   printf '%s' $host
   set_color normal
-
 end
 
 
 function __fish_prompt_parse_git_branch
 
-	# try to recieve the branch and
-	# cut away the "* "
-	set -l branch (
-	  git branch 2>/dev/null |\
-	  grep -e '\*'           |\
-	  sed 's/..\(.*\)/\1/')
+  # try to recieve the branch and
+  # cut away the "* "
+  set -l branch (
+    git branch 2>/dev/null |\
+    grep -e '\*'           |\
+    sed 's/..\(.*\)/\1/')
 
+  printf ' '
   set_color $fish_color_match
-  printf ' [%s]' $branch
+  printf '[%s]' $branch
   set_color normal
 
 end

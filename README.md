@@ -32,6 +32,11 @@ script is invoked by `install.apt.sh`.
 
 ### Desktop Tweaks Diary ###
 
+I've switched to Plasma. No big setup hassle and theme configuration
+anymore. A Konsole theme is provided.
+
+#### Legacy terminator configuration
+
 I use terminator as my preferred terminal emulator. A configuration
 containing both a dark theme and a light theme can be found under
 terminator/config. I wrote a fish proxy function to adjust colors set

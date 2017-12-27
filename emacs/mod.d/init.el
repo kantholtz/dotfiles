@@ -21,9 +21,6 @@
     sphinx-doc
     flymake-python-pyflakes
 
-    ;; theme
-    doom-themes
-    kaolin-theme
     neotree))
 
 ;;

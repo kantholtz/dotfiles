@@ -6,7 +6,8 @@
 ;; configuration
 
 (defvar nvrn-packages-common   ;; used for both server and desktop
-  '(magit
+  '(helm
+    magit
     nlinum
     fish-mode
     multiple-cursors

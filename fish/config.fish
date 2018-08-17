@@ -1,6 +1,5 @@
 
 function __config_custom
-  ulimit -n 1024
 
   set -l fish_dir ~/.config/fish
 

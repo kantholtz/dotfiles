@@ -5,6 +5,7 @@
 (show-paren-mode t)
 (ido-mode t)
 (ido-vertical-mode t)
+(hl-line-mode t)
 
 (require 'helm-config)
 (global-set-key (kbd "M-x") #'helm-M-x)
@@ -20,8 +21,8 @@
 (setq-default truncate-lines t)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-(global-set-key (kbd "M-n") 'forward-list)
-(global-set-key (kbd "M-p") 'backward-list)
+;; (global-set-key (kbd "M-n") 'forward-list)
+;; (global-set-key (kbd "M-p") 'backward-list)
 
 (setq inhibit-splash-screen t)
 

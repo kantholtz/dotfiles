@@ -30,22 +30,6 @@ fish related stuff in `~/.config`, the emacs configuration in
 `~/.emacs.d/mod.d` and the tmux configuration `~/.tmux.conf`. This
 script is invoked by `install.apt.sh`.
 
-### Desktop Tweaks Diary ###
-
-I've switched to Plasma. No big setup hassle and theme configuration
-anymore. A Konsole theme is provided.
-
-#### Legacy terminator configuration
-
-I use terminator as my preferred terminal emulator. A configuration
-containing both a dark theme and a light theme can be found under
-terminator/config. I wrote a fish proxy function to adjust colors set
-by the fish environment. To start from a launcher: `fish -c 'terminator dark|bright`
-
-I use [Source Code
-Pro](https://github.com/adobe-fonts/source-code-pro) for monospaced
-fonts and [Source Sans
-Pro](https://github.com/adobe-fonts/source-sans-pro) for Menus etc.
 
 ## Documentation ##
 

@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=Terminator Dark
-Exec=fish -c 'terminator dark'
-Icon=terminator
-Type=Application
-Categories=GNOME;GTK;Utility;TerminalEmulator;System;
-StartupNotify=true
-Keywords=terminal;shell;prompt;command;commandline;

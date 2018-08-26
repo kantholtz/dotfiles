@@ -1,9 +1,7 @@
 
 ;; nlinum
-(global-nlinum-mode t)
-
-;; ispell
-(setq ispell-program-name "/usr/local/bin/ispell")
+(when (display-graphic-p)
+  (global-nlinum-mode t))
 
 ;; yasnippets
 (require 'yasnippet)

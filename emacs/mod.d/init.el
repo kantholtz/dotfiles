@@ -7,17 +7,21 @@
 
 (defvar nvrn-packages-common   ;; used for both server and desktop
   '(helm
-    magit
-    nlinum
-    fish-mode
     multiple-cursors
     ido-vertical-mode
+
+    magit
+    nlinum
+
+    fish-mode
+    nginx-mode
     apache-mode))
 
 (defvar nvrn-packages-desktop   ;; additional packages for desktop
-  '(company
+  '(auctex
+    company
+    flyspell-correct-helm
 
-    ;; python
     elpy
     sphinx-doc
     flymake-python-pyflakes
@@ -64,7 +68,7 @@
     (setq mod-dir "~/.emacs.d/mod.d")
 
     ;; configure which mods to load here
-    (setq mods-desktop '(desktop c py))
+    (setq mods-desktop '(desktop c py latex))
     (setq mods-server '())
 
     (unless (boundp 'nvrn-packages-installed)

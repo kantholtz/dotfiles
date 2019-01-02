@@ -42,30 +42,35 @@ function __fish_prompt_parse_git_branch
 end
 
 
-function __fish_prompt_display_rvm
-  return
-
-  set_color $fish_color_match
-  if [ -n (which ruby | grep -e '.rvm') ]
-    set -l rversion (ruby -v | sed 's/ruby \([0-9.p]*\) .*/\1/')
-    printf '(%s)' $rversion
-  end
-  set_color normal
-
+function __parse_python_version
+    echo (python --version 2>&1 | sed -E 's/Python ([0-9.]+).*/\1/')
 end
 
 
 function __fish_prompt_display_vf
 
-  set_color $fish_color_match
   if set -q VIRTUAL_ENV
-    set -l py_env (basename "$VIRTUAL_ENV")
-    set -l py_vers (python --version 2>&1 | sed 's/Python //')
-    printf ' (%s | %s)' $py_env $py_vers
+      printf ' '
+      set_color $fish_color_match
+      set -l py_env (basename "$VIRTUAL_ENV")
+      printf ' vf: (%s | %s) ' $py_env (__parse_python_version)
+      set_color normal
   end
-  set_color normal
 
 end
+
+
+function __fish_prompt_display_conda
+
+    if set -q CONDA_DEFAULT_ENV
+        printf ' '
+        set_color $fish_color_match
+        printf ' conda: (%s | %s) ' $CONDA_DEFAULT_ENV (__parse_python_version)
+        set_color normal
+    end
+
+end
+
 
 
 function fish_prompt
@@ -88,13 +93,9 @@ function fish_prompt
     __fish_prompt_parse_git_branch
   end
 
-  # language informations
-  printf "%s" $__fish_prompt_delim1
-  __fish_prompt_display_rvm
-
-  # i don't remember why I explicitly forced myself
-  # to settle for one environment...
+  # virtual environments
   __fish_prompt_display_vf
+  __fish_prompt_display_conda
 
   # decoration
   echo

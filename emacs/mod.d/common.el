@@ -38,3 +38,20 @@
 (setq speedbar-use-images nil)
 (setq speedbar-show-unknown-files t)
 (add-hook 'speedbar-mode-hook '(lambda () (hl-line-mode 1)))
+
+;; doom theme specific
+(if (display-graphic-p)
+    (require 'doom-themes)
+
+  ;; Global settings (defaults)
+  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+        doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
+;; org mode
+(add-hook 'org-mode-hook 'org-indent-mode)

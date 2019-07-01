@@ -40,7 +40,7 @@
 (add-hook 'speedbar-mode-hook '(lambda () (hl-line-mode 1)))
 
 ;; doom theme specific
-(if (display-graphic-p)
+(when (display-graphic-p)
     (require 'doom-themes)
 
   ;; Global settings (defaults)

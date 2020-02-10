@@ -19,14 +19,14 @@
 
 (defvar nvrn-packages-desktop   ;; additional packages for desktop
   '(auctex
+    pdf-tools
     company
     flyspell-correct-helm
 
     elpy
     sphinx-doc
     flymake-python-pyflakes
-
-    neotree))
+    ))
 
 ;;
 ;; initialization routines

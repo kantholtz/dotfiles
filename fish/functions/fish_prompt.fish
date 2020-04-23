@@ -35,7 +35,7 @@ function __fish_prompt_parse_git_branch
     sed 's/..\(.*\)/\1/')
 
   printf ' '
-  set_color $fish_color_match
+  set_color $fish_color_command
   printf '[%s]' $branch
   set_color normal
 
@@ -51,7 +51,7 @@ function __fish_prompt_display_vf
 
   if set -q VIRTUAL_ENV
       printf ' '
-      set_color $fish_color_match
+      set_color $fish_color_command
       set -l py_env (basename "$VIRTUAL_ENV")
       printf ' vf: (%s | %s) ' $py_env (__parse_python_version)
       set_color normal
@@ -64,7 +64,7 @@ function __fish_prompt_display_conda
 
     if set -q CONDA_DEFAULT_ENV
         printf ' '
-        set_color $fish_color_match
+        set_color $fish_color_command
         printf ' conda: (%s | %s) ' $CONDA_DEFAULT_ENV (__parse_python_version)
         set_color normal
     end

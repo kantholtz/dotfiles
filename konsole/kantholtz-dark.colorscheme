@@ -53,7 +53,7 @@ Color=21,88,127
 Color=187,181,164
 
 [Color5]
-Color=255,62,114
+Color=21,88,127
 
 [Color5Faint]
 Color=127,31,57
@@ -89,6 +89,7 @@ Color=21,88,127
 Color=255,255,255
 
 [General]
+Blur=false
 Description=kantholtz-dark
 Opacity=1
 Wallpaper=

@@ -2,7 +2,7 @@
 AntiAliasFonts=true
 BoldIntense=false
 ColorScheme=kantholtz-dark
-Font=Source Code Pro,8,-1,0,57,0,0,0,0,0
+Font=Source Code Pro Semibold,8,-1,5,63,0,0,0,0,0,Regular
 
 [General]
 Name=kantholtz

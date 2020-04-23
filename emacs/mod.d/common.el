@@ -5,7 +5,6 @@
 (show-paren-mode t)
 (ido-mode t)
 (ido-vertical-mode t)
-(hl-line-mode t)
 
 (require 'helm-config)
 (global-set-key (kbd "M-x") #'helm-M-x)
@@ -20,6 +19,8 @@
 (setq-default tab-width 2)
 (setq-default truncate-lines t)
 (setq magit-last-seen-setup-instructions "1.4.0")
+
+(setq tramp-default-method "sshx")
 
 ;; (global-set-key (kbd "M-n") 'forward-list)
 ;; (global-set-key (kbd "M-p") 'backward-list)
@@ -51,7 +52,10 @@
   (doom-themes-visual-bell-config)
 
   ;; Corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config))
+  (doom-themes-org-config)
+
+  ;; not nice in terminal mode
+  (global-hl-line-mode t))
 
 ;; org mode
 (add-hook 'org-mode-hook 'org-indent-mode)

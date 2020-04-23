@@ -1,7 +1,7 @@
 
 ;; nlinum
 (when (display-graphic-p)
-  (global-nlinum-mode t))
+  (global-linum-mode 1))
 
 ;; yasnippets
 (require 'yasnippet)

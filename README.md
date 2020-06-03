@@ -152,7 +152,7 @@ file and removes this suffix for decrypted files.
 
 __Some handy commands__
 
-* Switch alt and cmd when using Apple™ Keyboards: `setxkbmap -option altwin:swap_alt_win`
+* Switch alt and cmd when using Apple™ Keyboards: `setxkbmap -option altwin:swap_alt_win` or `echo 1 | sudo tee /sys/module/hid_apple/parameters/swap_opt_cmd`
 
 __Environment__
 

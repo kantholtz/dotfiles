@@ -35,9 +35,13 @@
 ;; pack related
 
 (require 'package)
-(add-to-list 'package-archives
-	     '("melpa" .
-	       "http://melpa.org/packages/") t)
+; (add-to-list 'package-archives
+;	     '("melpa" .
+;	       "https://melpa.org/packages/") t)
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                     ("marmalade" . "http://marmalade-repo.org/packages/")
+                     ("melpa" . "http://melpa.org/packages/")))
 
 (package-initialize)
 (when (not package-archive-contents)

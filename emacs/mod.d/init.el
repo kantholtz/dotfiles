@@ -10,6 +10,7 @@
     multiple-cursors
     ido-vertical-mode
     magit
+    dumb-jump
 
     fish-mode
     nginx-mode

@@ -1,4 +1,4 @@
-(setq-default line-spacing 2)  ;; reset this upon next pull!
+;; default modes
 
 (auto-fill-mode t)
 (column-number-mode t)
@@ -6,43 +6,48 @@
 (ido-mode t)
 (ido-vertical-mode t)
 
-(require 'helm-config)
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
-(helm-mode 1)
+
+;; general configuration
 
 (fset 'yes-or-no-p 'y-or-n-p)
 (setq visible-bell nil)
+(setq inhibit-splash-screen t)
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 (setq-default show-trailing-whitespace t)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 2)
 (setq-default truncate-lines t)
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-(setq tramp-default-method "sshx")
 
-;; (global-set-key (kbd "M-n") 'forward-list)
-;; (global-set-key (kbd "M-p") 'backward-list)
+;; package specific configuration
 
-(setq inhibit-splash-screen t)
+(require 'helm-config)
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(helm-mode 1)
 
-(global-set-key (kbd "C-x g") 'magit-status)
+;; org mode
+(setq calendar-week-start-day 1)
+(add-hook 'org-mode-hook 'org-indent-mode)
+(add-hook 'org-mode-hook 'hl-line-mode)
 
 (require 'multiple-cursors)
 (global-set-key (kbd "C-x n") 'mc/mark-next-like-this)
 
-;; aggregate all backup files in one place
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+(setq tramp-default-method "sshx")
 
-;; speedbar setup
-(setq speedbar-use-images nil)
-(setq speedbar-show-unknown-files t)
-(add-hook 'speedbar-mode-hook '(lambda () (hl-line-mode 1)))
+(global-set-key (kbd "C-x g") 'magit-status)
 
-;; doom theme specific
+;; dumb-jump
+(add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+
+
+;; when using a gui
+
 (when (display-graphic-p)
-    (require 'doom-themes)
+  (require 'doom-themes)
 
   ;; Global settings (defaults)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
@@ -56,7 +61,3 @@
 
   ;; not nice in terminal mode
   (global-hl-line-mode t))
-
-;; org mode
-(add-hook 'org-mode-hook 'org-indent-mode)
-(add-hook 'org-mode-hook 'hl-line-mode)

@@ -4,6 +4,13 @@
 (setq python-basic-offset 2)
 (put 'dired-find-alternate-file 'disabled nil)
 
+;; use conda for pyvenv
+;; -- this is not working, as conda overwrites its own CONDA_PREFIX
+;; -- as soon as an environment is activated. It seems like there
+;; -- is no canonical way to access the conda base directory... (wtf)
+;; (setenv "WORKON_HOME" (concat (getenv "CONDA_PREFIX") "/envs"))
+;; (pyvenv-mode 1)
+
 (require 'python)
 (elpy-enable)
 
@@ -28,4 +35,6 @@
    "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
 
-(message "nvrn: configured python")
+(message
+ (concat
+  "nvrn: configured python - venvs: " (getenv "WORKON_HOME")))

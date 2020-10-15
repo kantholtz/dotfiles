@@ -4,6 +4,12 @@
 (setq python-basic-offset 2)
 (put 'dired-find-alternate-file 'disabled nil)
 
+;; put this in your local .emacs
+;; (custom-set-variables
+;;  '(conda-anaconda-home
+;;    (expand-file-name '~/Complex/conda')))
+
+;; legacy:
 ;; use conda for pyvenv
 ;; -- this is not working, as conda overwrites its own CONDA_PREFIX
 ;; -- as soon as an environment is activated. It seems like there

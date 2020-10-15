@@ -33,14 +33,20 @@
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook 'hl-line-mode)
 
+;; edit-server
+(when (require 'edit-server nil :noerror)
+  (setq edit-server-new-frame nil)  ;; do not open a new window
+  (edit-server-start))
+(add-hook 'edit-server-start-hook 'markdown-mode)
+
+
+;; mutliple cursors
 (require 'multiple-cursors)
 (global-set-key (kbd "C-x n") 'mc/mark-next-like-this)
 
+;; others
 (setq tramp-default-method "sshx")
-
 (global-set-key (kbd "C-x g") 'magit-status)
-
-;; dumb-jump
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 
 

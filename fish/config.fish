@@ -12,13 +12,6 @@ function __config_custom
 
   # includes
   . $fish_dir/functions/alias.fish
-  eval (python -m virtualfish 2>/dev/null)
-
-  # plugins
-  if functions -q fundle
-    fundle plugin 'tuvistavie/fish-ssh-agent'
-    fundle init
-  end
 
 end
 

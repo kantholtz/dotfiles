@@ -5,23 +5,30 @@
 
 ;; configuration
 
-(defvar nvrn-packages-common   ;; used for both server and desktop
+
+(defvar ktz/packages-common   ;; used for both server and desktop
   '(helm
     multiple-cursors
     ido-vertical-mode
     magit
     dumb-jump
+    conda
 
     fish-mode
     nginx-mode
     apache-mode))
 
-(defvar nvrn-packages-desktop   ;; additional packages for desktop
-  '(auctex
-    pdf-tools
+(defvar ktz/packages-desktop   ;; additional packages for desktop
+  '(;; general
+    auctex
+    helm
     company
+    pdf-tools
+    doom-themes
+    doom-modeline
+    markdown-mode
     flyspell-correct-helm
-
+    ;; python
     elpy
     sphinx-doc
     flymake-python-pyflakes
@@ -36,52 +43,33 @@
 (require 'package)
 
 (setq package-archives
-      '(;; ("gnu" . "https://elpa.gnu.org/packages/")
-        ("marmalade" . "https://marmalade-repo.org/packages/")
-        ("melpa" . "https://melpa.org/packages/")))
+      '(("melpa" . "https://melpa.org/packages/")
+        ("org" . "https://orgmode.org/elpa/")
+        ("elpa" . "https://elpa.gnu.org/packages/")
+        ))
 
 (package-initialize)
-(when (not package-archive-contents)
+(unless package-archive-contents
   (package-refresh-contents))
 
-(defun nvrn-install-packages (package-list)
-  (dolist (package package-list)
-    (unless (package-installed-p package)
-      (package-install package))))
+;; initialize use-package on non-Linux platforms
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
 
-(defun nvrn-prepend-to-file (fname str)
-  (with-temp-buffer
-    (insert-file-contents fname)
-    (insert (concat str "\n"))
-    (write-file fname)))
+;; install all packages that are referenced by use-package
+(require 'use-package-ensure)
+(setq use-package-always-ensure t)
 
-;; mod.d related
+;; ensure all ktz/packages-*
+;; it is not possible to invoke use-package on that
+(dolist
+    (pkg (if ktz/is-server
+	  ktz/packages-common
+	  (append ktz/packages-common ktz/packages-desktop)))
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
 
-(defun nvrn-load-config (mod-dir mod-list)
-  "load all specified *el files from the specified directory"
-  (dolist (mod mod-list)
-    (load (concat mod-dir "/" (symbol-name mod)))))
-
-
-(defun nvrn-init (is-server)
-  "install and load packages, load configuration"
-  (let (mod-dir mods-desktop mods-server)
-    (setq mod-dir "~/.emacs.d/mod.d")
-
-    ;; configure which mods to load here
-    (setq mods-desktop '(desktop c py latex))
-    (setq mods-server '())
-
-    (unless (boundp 'nvrn-packages-installed)
-      (progn
-	(package-list-packages)
-	(nvrn-install-packages nvrn-packages-common)
-	(if (not is-server) (nvrn-install-packages nvrn-packages-desktop))
-	(nvrn-prepend-to-file
-	 "~/.emacs"
-	 "(setq nvrn-packages-installed t)")))
-
-    (nvrn-load-config mod-dir '(common))
-    (if is-server
-	(nvrn-load-config mod-dir mods-server)
-      (nvrn-load-config mod-dir mods-desktop))))
+;; load all desired *el files
+(dolist (mod '("common" "defun"))
+  (load (concat ktz/mod-dir "/" mod)))
+(unless ktz/is-server (load (concat ktz/mod-dir "/desktop")))

@@ -1,34 +1,35 @@
 # dotfiles #
 
-Here I gather all stuff I need to replicate my setup to new Maschines -
-both server without any Window Manager and Desktops.
+All the nice things to make my daily life easier.
+
 
 ## Description ##
 
 General configurations and fish functions. The installer script
-automatically installs these files:
+`install.fish` automatically links these files:
 
-* `~/.emacs`
 * `~/.tmux.conf`
+* `~/.emacs.d/mod.d`
 * `.config/fish/config.fish`
 * `.config/fish/functions/*`
 
 
 ## Installation ##
 
-Most non-ui installation can be done automated. Full installation:
-`wget https://raw.githubusercontent.com/dreadworks/dotfiles/master/install.apt.sh -O i && chmod u+x i && ./i; rm i`
+Run `./install.fish`. This creates symlinks for fish related stuff in
+`~/.config`, the emacs configuration in `~/.emacs.d/mod.d` and the
+tmux configuration `~/.tmux.conf`. This script is invoked by
+`install.apt.sh`.
 
-### Provisioning ###
+You need to add this to your `.emacs`
 
-I use `./install.apt.sh [server]` if I need a basic set of programs.
+```
+(defvar ktz/is-server nil)
+(defvar ktz/mod-dir "~/.emacs.d/mod.d")
+(load (concat ktz/mod-dir "/init"))
+```
 
-### Local configuration ###
-
-Run `./install.fish` from a fish instance.  This creates symlinks for
-fish related stuff in `~/.config`, the emacs configuration in
-`~/.emacs.d/mod.d` and the tmux configuration `~/.tmux.conf`. This
-script is invoked by `install.apt.sh`.
+For the server configuration use `(defvar ktz/is-server t)`.
 
 
 ## Documentation ##

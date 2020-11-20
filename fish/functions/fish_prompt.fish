@@ -18,7 +18,7 @@ end
 
 function __fish_prompt_display_hostname
   set -l host (hostname|cut -d . -f 1)
-  printf '%s' $__fish_prompt_delim1
+  printf '%s' ' | '
   set_color $fish_color_user
   printf '%s' $host
   set_color normal
@@ -47,19 +47,6 @@ function __parse_python_version
 end
 
 
-function __fish_prompt_display_vf
-
-  if set -q VIRTUAL_ENV
-      printf ' '
-      set_color $fish_color_command
-      set -l py_env (basename "$VIRTUAL_ENV")
-      printf ' vf: (%s | %s) ' $py_env (__parse_python_version)
-      set_color normal
-  end
-
-end
-
-
 function __fish_prompt_display_conda
 
     if set -q CONDA_DEFAULT_ENV
@@ -76,29 +63,21 @@ end
 function fish_prompt
   echo
 
-  # username
   __fish_prompt_display_username
-
-  # hostname
   __fish_prompt_display_hostname
-  printf "%s" $__fish_prompt_delim1
 
   # location
   set_color $fish_color_cwd
   printf '%s' (prompt_pwd)
   set_color normal
 
-  # git indicator
   if git status >/dev/null 2>&1
     __fish_prompt_parse_git_branch
   end
 
-  # virtual environments
-  __fish_prompt_display_vf
   __fish_prompt_display_conda
 
   # decoration
-  echo
-  printf "%s" $__fish_prompt_delim2
+  echo -e '\n > '
 
 end

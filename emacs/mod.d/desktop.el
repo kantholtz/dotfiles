@@ -1,3 +1,4 @@
+;; -*- coding: utf-8 -*-
 
 ;; NON-TERMINAL THINGS
 ;; --------------------
@@ -19,6 +20,14 @@
 
   ;; not nice in terminal mode
   (global-hl-line-mode t)
+
+  ;; add some space
+  (fringe-mode 10)
+
+  ;; dynamically set theme based on environment vars
+  (if (getenv "KTZ_LIGHT")
+    (load-theme 'doom-flatwhite t)
+    (load-theme 'doom-city-lights t))
 
 )
 

@@ -48,9 +48,13 @@
 
 ;; ORG
 ;; --------------------
+(when (display-graphic-p)
+  (setq org-ellipsis " ▼")
+  (require 'org-bullets)
+  (setq org-bullets-bullet-list '("●" "●" "○" "○" "▫"))
+  (add-hook 'org-mode-hook 'org-bullets-mode))
+
 (add-hook 'org-mode-hook 'org-indent-mode)
-(add-hook 'org-mode-hook 'hl-line-mode)
-(setq org-ellipsis " *")
 
 ;; EDIT SERVER
 ;; --------------------

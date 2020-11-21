@@ -36,3 +36,15 @@
 
 ;; use gfm-mode for readme files
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
+
+
+;; LATEX
+;; --------------------
+
+(defun ktz/latex-mode-visual-fill ()
+  (setq visual-fill-column-width 80
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1)
+  (visual-line-mode 1))
+
+(add-hook 'LaTeX-mode-hook 'ktz/latex-mode-visual-fill)

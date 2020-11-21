@@ -1,26 +1,23 @@
-;;
-;;  load the emacs config modules
-;;
+;; -*- coding: utf-8 -*-
 
-
-;; configuration
-
-
-(defvar ktz/packages-common   ;; used for both server and desktop
+;; used for both server and desktop
+(defvar ktz/packages-common
   '(helm
+    magit
+    conda
+    dumb-jump
     multiple-cursors
     ido-vertical-mode
-    magit
-    dumb-jump
-    conda
 
     fish-mode
     nginx-mode
     apache-mode))
 
-(defvar ktz/packages-desktop   ;; additional packages for desktop
+;; additional packages for desktop
+(defvar ktz/packages-desktop
   '(;; general
     auctex
+    visual-fill-column
     helm
     company
     pdf-tools
@@ -28,6 +25,8 @@
     doom-modeline
     markdown-mode
     flyspell-correct-helm
+    org-bullets
+
     ;; python
     elpy
     sphinx-doc

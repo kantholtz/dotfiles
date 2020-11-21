@@ -1,3 +1,4 @@
+;; -*- coding: utf-8 -*-
 
 ;; DEFAULT MODES
 ;; --------------------
@@ -36,7 +37,7 @@
 (dolist (mode
          '(latex-mode-hook
            org-mode-hook))
-  (add-hook mode (lambda () auto-fill-mode 0)))
+  (add-hook mode (lambda () (auto-fill-mode 0))))
 
 ;; HELM
 ;; --------------------

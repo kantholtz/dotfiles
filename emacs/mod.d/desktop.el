@@ -37,6 +37,9 @@
 ;; use gfm-mode for readme files
 (add-to-list 'auto-mode-alist '("README\\.md\\'" . gfm-mode))
 
+;; docview should auto-refresh
+(add-hook 'doc-view-mode-hook 'auto-revert-mode)
+
 
 ;; LATEX
 ;; --------------------

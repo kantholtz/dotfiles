@@ -9,6 +9,7 @@
     multiple-cursors
     ido-vertical-mode
 
+    yaml-mode
     fish-mode
     nginx-mode
     apache-mode))
@@ -29,7 +30,8 @@
 
     ;; python
     elpy
-    sphinx-doc
+    jedi
+    blacken
     flymake-python-pyflakes
     ))
 

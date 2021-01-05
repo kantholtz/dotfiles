@@ -90,7 +90,6 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 
-
 ;; PYTHON
 ;; --------------------
 ;;
@@ -100,33 +99,23 @@
 (put 'dired-find-alternate-file 'disabled nil)
 
 ;; put this in your local .emacs
+;; M-x customize-variable conda-anaconda-home
 ;; (custom-set-variables
 ;;  '(conda-anaconda-home
 ;;    (expand-file-name '~/Complex/conda')))
 
-;; legacy:
-;; use conda for pyvenv
-;; -- this is not working, as conda overwrites its own CONDA_PREFIX
-;; -- as soon as an environment is activated. It seems like there
-;; -- is no canonical way to access the conda base directory... (wtf)
-;; (setenv "WORKON_HOME" (concat (getenv "CONDA_PREFIX") "/envs"))
-;; (pyvenv-mode 1)
-
 (require 'python)
 (elpy-enable)
 
+;; auto-formatting
 (setq blacken-line-length 79)
 (add-hook 'python-mode-hook 'blacken-mode)
 
-;; use ipython as python shell
+;; python shell (run-python)
 (setq
- python-shell-interpreter "ipython"
- python-shell-interpreter-args "--simple-prompt -i"
- python-shell-prompt-regexp "In \\[[0-9]+\\]: "
- python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
- python-shell-completion-setup-code
-   "from IPython.core.completerlib import module_completion"
- python-shell-completion-module-string-code
-   "';'.join(module_completion('''%s'''))\n"
- python-shell-completion-string-code
-   "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+ python-shell-interpreter "jupyter"
+ python-shell-interpreter-args "console --simple-prompt"
+ python-shell-prompt-detect-failure-warning nil)
+(add-to-list
+ 'python-shell-completion-native-disabled-interpreters
+ "jupyter")

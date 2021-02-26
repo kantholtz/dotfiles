@@ -3,6 +3,7 @@
 #  aliases for `tmux`
 #
 
-ls         :  tmux list-sessions
-a [0] [1]  :  tmux attach-session [1] -t [0]
-n [0] [1]  :  tmux new-session [1] -s [0]
+    :  tmux
+ls  :  tmux list-sessions
+a   :  tmux attach-session -t *
+n   :  tmux new-session -s *

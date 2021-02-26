@@ -2,22 +2,19 @@
 #  files used by ../lib/alias
 #  aliases for all things apt
 #
-#  when using sudo, the effective
-#  user must have set fish set as
-#  the default shell and these
-#  dotfiles installed
 
-
-ar     : apt autoremove
-c      : apt-get clean
-d [0]  : apt-get download [0]
-dg     : apt full-upgrade
-fs [0] : apt-file search [0]
-i [0]  : apt install [0]
-l [0]  : dpkg -l | grep [0]
-pg [0] : apt purge [0]
-r [0]  : apt remove [0]
-s [0]  : apt-cache search [0]
-sh [0] : apt show [0]
-ug     : apt upgrade
-up     : apt update
+    :  apt
+-   :  apt *
+ar  :  apt autoremove
+c   :  apt-get clean
+d   :  apt-get download *
+dg  :  apt full-upgrade
+fs  :  apt-file search *
+i   :  apt install *
+l   :  dpkg -l | grep *
+pg  :  apt purge *
+r   :  apt remove *
+s   :  apt-cache search *
+sh  :  apt show *
+ug  :  apt upgrade
+up  :  apt update

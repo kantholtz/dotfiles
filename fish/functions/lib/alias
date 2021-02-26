@@ -1,149 +1,48 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-import re
 import sys
-from os import path
-from subprocess import call
+import pathlib
+
+from typing import List
 
 
-class Rule (object):
-  """
-  Wrapper class for rules. Saves a command template
-  and handles parsing, transformation and execution
-  of said template.
-  """
-
-  @property
-  def cmd_template (self):
-    return self._cmd_template
-
-  def _parse (self, args):
-    """
-    The basic idea is to replace all {\d+} (positional) and all [\d+]
-    (optional) afterwards. All remaining arguments are concatenated
-    and put in to the last optional place found.
-    """
-    cmd = self._cmd_template.split ()
-    args.reverse ()
-
-    # positional
-    mark = lambda i: '{%d}' % i
-    incr = 0
-    try:
-      while mark (incr) in cmd:
-        index = cmd.index (mark (incr))
-        cmd[index] = args.pop ()
-        incr += 1
-
-    # raised by [].pop ()
-    except IndexError:
-      raise Exception ("Not enough positional arguments")
-
-    # optional
-    incr = 0
-    mark = lambda i: '[%d]' % i
-    splice = lambda l, a, b: l[:a] + l[b+1:]
-    index = None
-
-    while mark (incr) in cmd:
-      index = cmd.index (mark (incr))
-      incr += 1
-
-      if len (args):
-        cmd[index] = args.pop ()
-      else:
-        # splice empty [\d+] from cmd
-        cmd = cmd[:index] + cmd[index + 1:]
-
-    # insert leftover args
-    if len(args):
-      if index is None:
-        raise Exception ("More arguments than expected")
-      args.reverse ()
-      index += 1
-      return cmd[:index] + args + cmd[index:]
-
-    return cmd
+def fail(msg: str):
+    print(msg)
+    sys.exit(2)
 
 
-  def __init__ (self, cmd_template):
-    self._cmd_template = cmd_template
+def translate(
+    *argv: List[str],
+    caller: str = None,
+    alias: str = None,
+    cmd: str = None,
+):
+    root = pathlib.Path(caller).parents[1]
+    with (root / "alias" / f"{alias}.alias").open(mode="r") as fd:
 
-  def execute (self, args):
-    """
-    Execute command based on the saved template.
-    """
-    cmd = self._parse(args)
-    call (cmd)
+        # read lines without leading/traling whitespace
+        g0 = (raw.strip() for raw in fd)
+        # remove empty lines and comments
+        g1 = (line for line in g0 if line and not line.startswith("#"))
+        # get rules and substitutes
+        dic = dict(tuple(s.strip() for s in sub.split(":")) for sub in g1)
 
+        if cmd not in dic:
+            fail(f"unknown command '{cmd}'")
 
-def read_file (alias):
-  """
-  Reads and parses one of the alias/<alias>.alias files.
-  Returns either a dictionary mapping alias names to
-  command templates or None.
-  """
+        sub = dic[cmd]
+        if argv and "*" not in sub:
+            fail("command '{cmd}' does not accept arguments")
 
-  fname = "~/.config/fish/functions/alias/%s.alias" % alias
-  fname = path.expanduser (fname)
+        return sub.replace("*", " ".join(argv))
 
-  with open (fname) as f:
-    reg_omit = r"^[#\n].*"
-    omit     = lambda l: not re.match (reg_omit, l)
-    rules    = {}
-
-    # read in rules from one of the *.alias files
-    for rule in filter (omit, f.readlines ()):
-      cmd, conf_str = map (str.strip, rule.split (":", 1))
-      cmd = re.split (r'[{\[]', cmd, 1)[0]
-      cmd = re.sub(r'  +', ' ', cmd.strip())
-      rules[cmd] = Rule (conf_str)
-
-    return rules
+    fail(f"unknown command {cmd}")
 
 
-def find_rule (rules, args):
-  """
-  Progressively check for the longest
-  sequence of concatenated args in
-  the rule set.
-  """
+if __name__ == "__main__":
+    caller, alias, *argv = sys.argv
+    cmd, *argv = argv if len(argv) else ("",)
 
-  cmd = args[:]
-  args = []
-
-  while True:
-    cmd_str = ' '.join(cmd)
-    if cmd_str in rules:
-      return cmd_str, args
-
-    args = [cmd.pop()] + args
-    if len(cmd) == 1 and cmd[0] not in rules:
-      raise Exception ("Rule '%s' not found" % cmd[0])
-
-
-def main (alias, args):
-  """
-  Main entry point. Parse <alias>.alias file.
-  Executes the command eventually.
-
-  Exits with 2 if the parsing of the
-  alias file failed.
-  """
-
-  try:
-    rules = read_file (alias)
-    cmd, args = find_rule (rules, args)
-    rules[cmd].execute (args)
-  except Exception as e:
-    print ('Alias error: %s' % e, file=sys.stderr)
-    exit (2)
-
-
-#
-#  Split alias name and arguments from sys.argv
-#
-if __name__ == '__main__':
-  _, alias, *args = sys.argv
-  main(alias, args)
-
+    sub = translate(*argv, caller=caller, alias=alias, cmd=cmd)
+    print(sub)

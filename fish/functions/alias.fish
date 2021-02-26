@@ -1,89 +1,76 @@
+# -*- coding: utf-8 -*-
 #
-#  exports all alias functions that serve as
-#  proxy functions for ./lib/alias
-#
+#  Aliases work by parsing the ./alias/*.alias files
+#  and translating them into their proper commands.
+#  The translated command is then executed by fish.
 
-function __alias_head -a head
-  echo $head
-end
+set __CC ~/.config/fish/functions/lib/alias
 
-function __alias_tail
-  set -l tail
-  if [ 1 -lt (count $argv) ]
-    set tail $argv[2..-1]
-  end
 
-  echo $tail
+function __alias_resolve
+    echo (eval "$__CC" $argv)
 end
 
 function __alias_exec
-  ~/.config/fish/functions/lib/alias $argv
-end
-
-#
-#  proxy functions
-#
-function a -d "Aliases for apt-*"
-  __alias_exec a $argv
-end
-
-function c -d "Aliases for systemctl, journalctl"
-  __alias_exec c $argv
-end
-
-function ll --description 'Alias for ls -lAp'
-	 ls -lhAp --group-directories-first $argv
-end
-
-function s -d "Alias for sudo"
-  sudo fish -c "$argv"
+    eval (__alias_resolve $argv)
 end
 
 
-function t -d "Aliases for tmux"
-  __alias_exec t $argv
+# APT
+# --------------------
+function a -d 'apt aliases'
+    __alias_exec a $argv
 end
 
 
-#
-#  emacs shortcut
-#  if you want to open a file called "-gui"
-#  in terminal mode, you must type
-#  `e -gui -nw -gui`:)
-#
-function e -d "Alias for emacs [-nw]"
-  if [ (count $argv) -gt 0 -a "$argv[1]" = "-gui" ]
-    emacs (__alias_tail $argv)
-  else
-    emacs -nw $argv
-  end
+# SYSTEMD
+# --------------------
+function c -d 'systemd aliases'
+    __alias_exec c $argv
 end
 
 
-#
-#  git shortcuts
-#
+# GIT
+# --------------------
 function __g_gps
   for rt in (g rt)
     echo "pushing to $rt"
-    g ps $rt (__alias_tail $argv)
+    g ps $rt $argv[2..-1]
   end
 end
 
 function __g_gpl
-  for rt in (g rt)
-    echo "pulling from $rt"
-    g pl $rt (__alias_tail $argv)
-  end
+    for rt in (g rt)
+        echo "pulling from $rt"
+        g pl $rt $argv[2..-1]
+    end
 end
 
 function g -d "Aliases for git"
-  switch (__alias_head $argv)
-    case gps
-      __g_gps $argv
-    case gpl
-      __g_gpl $argv
-    case '*'
-      __alias_exec g $argv
-  end
+    switch ($argv[1])
+        case gps
+            __g_gps $argv
+        case gpl
+            __g_gpl $argv
+        case '*'
+            __alias_exec g $argv
+    end
+end
+
+
+# TMUX
+# --------------------
+function t -d 'git aliases'
+    __alias_exec t $argv
+end
+
+
+# SUDO
+# --------------------
+function s -d "sudo prefix"
+    if [ (count $argv) -gt 0 ]
+        eval sudo (__alias_resolve $argv)
+    else
+        eval sudo
+    end
 end

@@ -3,26 +3,27 @@
 #  aliases for `git`
 #
 
-a   [0]  :  git add [0]
-b   [0]  :  git branch [0]
-c   [0]  :  git commit [0]
-f   [0]  :  git fetch [0]
-cl  [0]  :  git clone [0]
-co  [0]  :  git checkout [0]
-d   [0]  :  git diff [0]
-h   [0]  :  git help [0]
-l   [0]  :  git log [0]
-mg  [0]  :  git merge [0]
-mv  [0]  :  git mv [0]
-ps  [0]  :  git push [0]
-pl  [0]  :  git pull [0]
-plr [0]  :  git pull --rebase [0]
-rm  [0]  :  git rm [0]
-rt  [0]  :  git remote [0]
-s   [0]  :  git status [0]
-st  [0]  :  git stash [0]
-u   [0]  :  git reset HEAD [0]
-v        :  git version
-rbc      :  git rebase --continue
-rbs      :  git rebase --skip
-rba      :  git rebase --abort
+     :  git
+a    :  git add *
+b    :  git branch *
+c    :  git commit *
+f    :  git fetch *
+cl   :  git clone *
+co   :  git checkout *
+d    :  git diff *
+h    :  git help *
+l    :  git log *
+mg   :  git merge *
+mv   :  git mv *
+ps   :  git push *
+pl   :  git pull *
+plr  :  git pull --rebase *
+rm   :  git rm *
+rt   :  git remote *
+s    :  git status *
+st   :  git stash *
+u    :  git reset HEAD *
+v    :  git version
+rbc  :  git rebase --continue
+rbs  :  git rebase --skip
+rba  :  git rebase --abort

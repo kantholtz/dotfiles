@@ -43,7 +43,7 @@ end
 # EMACS
 # --------------------
 function e -d 'systemd aliases'
-    emacs $argv
+    __ktz_alias_exec e $argv
 end
 
 

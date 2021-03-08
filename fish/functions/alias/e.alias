@@ -1,0 +1,7 @@
+#
+#  files used by ../lib/alias
+#  aliases for all things emacs
+#
+  : emacs *
+g : emacs *
+n : emacs -nw *

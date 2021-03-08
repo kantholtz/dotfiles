@@ -19,7 +19,11 @@ def translate(
     cmd: str = None,
 ):
     root = pathlib.Path(caller).parents[1]
-    with (root / "alias" / f"{alias}.alias").open(mode="r") as fd:
+    dsl = root / "alias" / f"{alias}.alias"
+    if not dsl.exists():
+        fail(f"no alias file for {alias}")
+
+    with dsl.open(mode="r") as fd:
 
         # read lines without leading/traling whitespace
         g0 = (raw.strip() for raw in fd)

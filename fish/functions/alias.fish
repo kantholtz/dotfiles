@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 #
 #  Aliases work by parsing the ./alias/*.alias files
 #  and translating them into their proper commands.
@@ -37,6 +37,13 @@ end
 # --------------------
 function c -d 'systemd aliases'
     __ktz_alias_exec c $argv
+end
+
+
+# EMACS
+# --------------------
+function e -d 'systemd aliases'
+    emacs $argv
 end
 
 

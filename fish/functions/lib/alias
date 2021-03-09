@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import re
 import sys
 import pathlib
 
@@ -38,6 +39,10 @@ def translate(
         sub = dic[cmd]
         if argv and "*" not in sub:
             fail("command '{cmd}' does not accept arguments")
+
+        # strings need to be escaped
+        # (escaping with single quotes - shell variables will not work)
+        argv = [f"'{a}'" if re.search(r"\s", a) else f"{a}" for a in argv]
 
         return sub.replace("*", " ".join(argv))
 

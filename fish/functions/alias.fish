@@ -9,14 +9,17 @@ set -g __KTZ_ALIAS ~/.config/fish/functions/lib/alias
 
 
 function __ktz_alias_resolve
-    set -l cmd (eval "$__KTZ_ALIAS" $argv)
+    set -l params (string escape -- $argv)
+    set -l cmd (eval "$__KTZ_ALIAS" $params)
+
     if [ $status -eq 2 ]
         echo "alias error: $cmd" >&2
         return 1
     end
 
-    echo "$cmd"
+    echo $cmd
 end
+
 
 function __ktz_alias_exec
     # eval without arguments does nothing
@@ -97,7 +100,7 @@ function s -d "sudo prefix"
 
     # check whether the suffix string is resolvable
     # echo if __ktz_alias_resolve $argv
-    if not __ktz_alias_resolve $argv &>/dev/null
+    if not __ktz_alias_resolve $argv >/dev/null 2>&1
         sudo $argv
         return
     end

@@ -93,17 +93,19 @@ end
 # SUDO
 # --------------------
 function s -d "sudo prefix"
+    set -l args --preserve-env=APT_CONFIG
+
     if [ (count $argv) -eq 0 ]
-        sudo
+        sudo $args
         return
     end
 
     # check whether the suffix string is resolvable
     # echo if __ktz_alias_resolve $argv
     if not __ktz_alias_resolve $argv >/dev/null 2>&1
-        sudo $argv
+        sudo $args $argv
         return
     end
 
-    eval sudo (__ktz_alias_resolve $argv)
+    eval sudo $args (__ktz_alias_resolve $argv)
 end

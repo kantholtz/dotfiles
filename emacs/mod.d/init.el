@@ -19,8 +19,6 @@
   '(;; general
     auctex
     visual-fill-column
-    helm
-    company
     pdf-tools
     doom-themes
     doom-modeline
@@ -29,10 +27,11 @@
     org-bullets
 
     ;; python
-    elpy
-    jedi
+    ein
     blacken
-    flymake-python-pyflakes
+    flycheck           ;; syntax checks and more
+    anaconda-mode      ;; replaces elpy, has nothing to do with conda
+    company-anaconda   ;; python completion backend for company
     ))
 
 ;;

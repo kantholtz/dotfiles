@@ -19,7 +19,6 @@
 (setq explicit-shell-file-name "/bin/bash")
 (setq tramp-default-method "sshx")
 (setq magit-last-seen-setup-instructions "1.4.0")
-(setq ispell-program-name (executable-find "hunspell") ispell-dictionary "en_GB")
 
 (setq-default show-trailing-whitespace t)
 (setq-default indent-tabs-mode nil)
@@ -76,6 +75,8 @@
 
 ;; FLYSPELL
 ;; --------------------
+(setq ispell-program-name (executable-find "hunspell") ispell-dictionary "en_GB")
+
 (defun flyspell-check-next-highlighted-word ()
   "Custom function to spell check next highlighted word"
   (interactive)
@@ -89,33 +90,19 @@
 ;; --------------------
 (global-set-key (kbd "C-x g") 'magit-status)
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+(add-hook 'after-init-hook 'global-company-mode)
 
 ;; PYTHON
-;; --------------------
-;;
-;;   python programming
-;;
-(setq python-basic-offset 2)
-(put 'dired-find-alternate-file 'disabled nil)
 
-;; put this in your local .emacs
-;; M-x customize-variable conda-anaconda-home
-;; (custom-set-variables
-;;  '(conda-anaconda-home
-;;    (expand-file-name '~/Complex/conda')))
+;; - elpy and anaconda-mode do the same thing
+;; - anaconda-mode seems easier and more lighweight
+;; - flycheck is more powerful than the built-in flymake
 
 (require 'python)
-(elpy-enable)
+(require 'company)
+(eval-after-load "company"
+ '(add-to-list 'company-backends 'company-anaconda))
 
-;; auto-formatting
-(setq blacken-line-length 79)
+(add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook 'blacken-mode)
-
-;; python shell (run-python)
-(setq
- python-shell-interpreter "jupyter"
- python-shell-interpreter-args "console --simple-prompt"
- python-shell-prompt-detect-failure-warning nil)
-(add-to-list
- 'python-shell-completion-native-disabled-interpreters
- "jupyter")
+(add-hook 'python-mode-hook 'flycheck-mode)

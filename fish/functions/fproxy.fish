@@ -38,6 +38,7 @@ function __ktz_fp_on
     and __ktz_fp_env_on
     and __ktz_fp_ssh_on ~/.ssh
     and __ktz_fp_apt_on
+    and __ktz_fp_snap_on
     or echo 'aborting'
 end
 
@@ -46,6 +47,7 @@ function __ktz_fp_off
     and __ktz_fp_env_off
     and __ktz_fp_ssh_off ~/.ssh
     and __ktz_fp_apt_off
+    and __ktz_fp_snap_off
     or echo 'aborting'
 end
 
@@ -145,4 +147,21 @@ end
 function __ktz_fp_apt_off
     echo "deactivating apt configuration"
     set -e APT_CONFIG
+end
+
+
+# SNAP
+
+
+function __ktz_fp_snap_on
+    echo "setting snap system configuration"
+    sudo snap set system proxy.http=$HTTP_PROXY
+    sudo snap set system proxy.https=$HTTP_PROXY
+end
+
+
+function __ktz_fp_snap_off
+    echo "unsetting snap system configuration"
+    sudo snap unset system proxy.http
+    sudo snap unset system proxy.https
 end

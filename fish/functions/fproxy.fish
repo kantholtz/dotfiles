@@ -63,9 +63,16 @@ function __ktz_fp_env_on
         return 2
     end
 
+    # both lower-cased and uppercased as some
+    # programs are expecting one or the other
     set -Ux HTTP_PROXY $KTZ_PROXY
+    set -Ux http_proxy $KTZ_PROXY
+
     set -Ux HTTPS_PROXY $KTZ_PROXY
+    set -Ux https_proxy $KTZ_PROXY
+
     set -Ux NO_PROXY $KTZ_NO_PROXY
+    set -Ux no_proxy $KTZ_NO_PROXY
 end
 
 

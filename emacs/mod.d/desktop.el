@@ -50,4 +50,4 @@
   (visual-fill-column-mode 1)
   (visual-line-mode 1))
 
-(add-hook 'LaTeX-mode-hook 'ktz/latex-mode-visual-fill)
+;; (add-hook 'LaTeX-mode-hook 'ktz/latex-mode-visual-fill)

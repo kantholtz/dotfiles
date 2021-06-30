@@ -5,14 +5,28 @@
   '(helm
     magit
     conda
+    lsp-mode
     dumb-jump
+    markdown-mode
     multiple-cursors
     ido-vertical-mode
 
     yaml-mode
     fish-mode
     nginx-mode
-    apache-mode))
+
+    ;; python
+    ein
+    blacken
+    flycheck           ;; syntax checks and more
+    anaconda-mode      ;; replaces elpy, has nothing to do with conda
+    company-anaconda   ;; python completion backend for company
+
+    ;; frontend
+    vue-mode
+    prettier-js
+    typescript-mode
+    ))
 
 ;; additional packages for desktop
 (defvar ktz/packages-desktop
@@ -22,16 +36,9 @@
     pdf-tools
     doom-themes
     doom-modeline
-    markdown-mode
+
     flyspell-correct-helm
     org-bullets
-
-    ;; python
-    ein
-    blacken
-    flycheck           ;; syntax checks and more
-    anaconda-mode      ;; replaces elpy, has nothing to do with conda
-    company-anaconda   ;; python completion backend for company
     ))
 
 ;;

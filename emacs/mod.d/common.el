@@ -72,6 +72,7 @@
 ;; --------------------
 (require 'yasnippet)
 (yas-global-mode t)
+(global-set-key (kbd "C-c j") 'yas-expand)
 
 ;; FLYSPELL
 ;; --------------------
@@ -82,9 +83,6 @@
   (interactive)
   (flyspell-goto-next-error)
   (ispell-word))
-
-(global-set-key (kbd "C-c J") 'flyspell-buffer)
-(global-set-key (kbd "C-c j") 'flyspell-check-next-highlighted-word)
 
 ;; MISC
 ;; --------------------
@@ -102,7 +100,35 @@
 (require 'company)
 (eval-after-load "company"
  '(add-to-list 'company-backends 'company-anaconda))
+(setq anaconda-mode-localhost-address "localhost")
 
-(add-hook 'python-mode-hook 'anaconda-mode)
-(add-hook 'python-mode-hook 'blacken-mode)
-(add-hook 'python-mode-hook 'flycheck-mode)
+(dolist (mode
+  '(anaconda-mode
+    anaconda-eldoc-mode
+    blacken-mode
+    flycheck-mode))
+  (add-hook 'python-mode-hook mode))
+
+;; (add-hook 'python-mode-hook 'anaconda-mode)
+;; (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+;; (add-hook 'python-mode-hook 'blacken-mode)
+;; (add-hook 'python-mode-hook 'flycheck-mode)
+
+
+;; VUE
+;; https://azzamsa.com/n/vue-emacs/
+
+;; (require 'lsp-mode)
+(require 'prettier-js)
+
+(setq js-indent-level 2)
+(setq typescript-indent-level 2)
+
+;; (add-hook 'vue-mode-hook #'lsp)
+(dolist
+    (hook
+     '(js-mode-hook
+       typescript-mode-hook
+       vue-mode-hook))
+  (add-hook hook 'prettier-js-mode))
+

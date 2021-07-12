@@ -80,8 +80,13 @@ function __ktz_fp_env_off
     echo 'unsetting enviroment variables'
 
     set -e HTTP_PROXY
+    set -e http_proxy
+
     set -e HTTPS_PROXY
+    set -e https_proxy
+
     set -e NO_PROXY
+    set -e no_proxy
 end
 
 # SSH

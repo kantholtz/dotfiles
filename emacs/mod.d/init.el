@@ -80,3 +80,10 @@
 (dolist (mod '("common" "defun"))
   (load (concat ktz/mod-dir "/" mod)))
 (unless ktz/is-server (load (concat ktz/mod-dir "/desktop")))
+
+
+;; manually installed packages
+(add-to-list 'load-path "~/.emacs.d/mod.d/lib")
+(require 'control-lock)
+(control-lock-keys)
+(global-set-key (kbd "C-`") 'control-lock-enable)

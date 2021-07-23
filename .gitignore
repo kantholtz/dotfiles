@@ -1,2 +1,5 @@
 .backup
+fish/functions/nvm.fish
 fish/functions/fundle.fish
+fish/functions/fisher.fish
+fish/functions/_nvm*

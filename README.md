@@ -1,6 +1,7 @@
 # dotfiles #
 
-All the nice things to make my daily life easier.
+> Then world behind and home ahead,  
+> We'll wander back to home and bed.
 
 
 ## Description ##
@@ -17,19 +18,24 @@ General configurations and fish functions. The installer script
 ## Installation ##
 
 Run `./install.fish`. This creates symlinks for fish related stuff in
-`~/.config`, the emacs configuration in `~/.emacs.d/mod.d` and the
-tmux configuration `~/.tmux.conf`. This script is invoked by
-`install.apt.sh`.
+`~/.config`, the emacs configuration in `~/.emacs.d/mod.d`, and the
+tmux configuration `~/.tmux.conf`.
 
-You need to add this to your `.emacs`
 
-```
-(defvar ktz/is-server nil)
-(defvar ktz/mod-dir "~/.emacs.d/mod.d")
+Example of how to use the emacs configurations:
+
+```elisp
+(defvar ktz/is-server nil
+  "this is a desktop configuration")
+(defvar ktz/mod-dir "~/.emacs.d/mod.d"
+  "where the ktz configurations can be found")
+(defvar ktz/org-dir "~/Complex/nxt/Roam"
+  "org roam directory")
 (load (concat ktz/mod-dir "/init"))
 ```
 
-For the server configuration use `(defvar ktz/is-server t)`.
+For the server configuration use `(defvar ktz/is-server t)`. The org
+configuration is optional.
 
 
 ## Documentation ##

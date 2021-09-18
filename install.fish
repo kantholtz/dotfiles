@@ -19,6 +19,7 @@ function __install_emacs \
     set init_param "t"
   end
 
+  # create backup
   mkdir -p "$backdir/emacs"
   and cp -r          \
     "$dotemacs"      \
@@ -28,15 +29,15 @@ function __install_emacs \
   and rm -r "$home/.emacs.d/mod.d"
 
   mkdir -p "$home/.emacs.d"
-  and touch "$dotemacs"
-  and echo '(load "~/.emacs.d/mod.d/init")' >> "$dotemacs"
-  and echo '(nvrn-init '$init_param')' >> "$dotemacs"
   and ln -s \
     "$srcdir/emacs/mod.d"  \
     "$home/.emacs.d"
   or return 2
 
   echo "done"
+  echo "to load configuration automatically, see the"
+  echo "readme for more information (installation section)"
+
 end
 
 

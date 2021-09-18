@@ -16,8 +16,8 @@
     nginx-mode
 
     ;; python
-    ein
-    blacken
+    ein                ;; jupyter notebooks
+    blacken            ;; autoformatting
     flycheck           ;; syntax checks and more
     anaconda-mode      ;; replaces elpy, has nothing to do with conda
     company-anaconda   ;; python completion backend for company
@@ -32,12 +32,14 @@
 (defvar ktz/packages-desktop
   '(;; general
     auctex
-    visual-fill-column
     pdf-tools
+    visual-fill-column
+    flyspell-correct-helm
+
     doom-themes
     doom-modeline
 
-    flyspell-correct-helm
+    org-roam
     org-bullets
     ))
 
@@ -77,13 +79,23 @@
     (package-install pkg)))
 
 ;; load all desired *el files
-(dolist (mod '("common" "defun"))
+(dolist (mod '("common"))
   (load (concat ktz/mod-dir "/" mod)))
-(unless ktz/is-server (load (concat ktz/mod-dir "/desktop")))
 
+(unless ktz/is-server
+  (dolist (mod '("desktop"))
+    (load (concat ktz/mod-dir "/" mod))))
+
+(add-to-list
+ 'custom-theme-load-path
+ (concat ktz/mod-dir "/themes"))
 
 ;; manually installed packages
-(add-to-list 'load-path "~/.emacs.d/mod.d/lib")
+(add-to-list
+ 'load-path
+ (concat ktz/mod-dir "/lib"))
+
+;; lay your weary pinky to rest
 (require 'control-lock)
 (control-lock-keys)
 (global-set-key (kbd "C-`") 'control-lock-enable)

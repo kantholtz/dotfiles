@@ -76,6 +76,22 @@
 
 (add-hook 'org-mode-hook 'org-indent-mode)
 
+
+(if (boundp 'ktz/org-dir)
+    (use-package org-roam
+      :custom
+      (org-roam-directory ktz/org-dir)
+      :init
+      (setq org-roam-v2-ack t)
+      :bind (("C-c n l" . org-roam-buffer-toggle)
+             ("C-c n f" . org-roam-node-find)
+             ("C-c n i" . org-roam-node-insert)
+             :map org-mode-map
+             ("C-M-i"    . completion-at-point))
+      :config
+      (org-roam-setup)))
+
+
 ;; EDIT SERVER
 ;; --------------------
 (when (require 'edit-server nil :noerror)

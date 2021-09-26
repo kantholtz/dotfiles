@@ -110,16 +110,6 @@
 (yas-global-mode t)
 (global-set-key (kbd "C-c j") 'yas-expand)
 
-;; FLYSPELL
-;; --------------------
-(setq ispell-program-name (executable-find "hunspell") ispell-dictionary "en_GB")
-
-(defun flyspell-check-next-highlighted-word ()
-  "Custom function to spell check next highlighted word"
-  (interactive)
-  (flyspell-goto-next-error)
-  (ispell-word))
-
 ;; MISC
 ;; --------------------
 (global-set-key (kbd "C-x g") 'magit-status)

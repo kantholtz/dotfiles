@@ -5,14 +5,14 @@
 (when (display-graphic-p)
   (require 'doom-themes)
 
-  ;; Global settings (defaults)
+  ;; global doom settings
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
         doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
-  ;; Enable flashing mode-line on errors
+  ;; enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
 
-  ;; Corrects (and improves) org-mode's native fontification.
+  ;; corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
 
   ;; show line numbers
@@ -29,6 +29,13 @@
     (load-theme 'doom-flatwhite t)
     (load-theme 'doom-city-lights t))
 
+  ;; spell checks
+  (setq ispell-program-name (executable-find "hunspell") ispell-dictionary "en_GB")
+  (defun flyspell-check-next-highlighted-word ()
+    "Custom function to spell check next highlighted word"
+    (interactive)
+    (flyspell-goto-next-error)
+    (ispell-word))
 )
 
 ;; company mode

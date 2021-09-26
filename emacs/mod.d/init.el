@@ -1,22 +1,30 @@
 ;; -*- coding: utf-8 -*-
 
+
+;; nasty bug plagues my debian experience (stock emacs is 26.x) :(
+(if (version< emacs-version "27.0")
+    (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3"))
+
+
 ;; used for both server and desktop
 (defvar ktz/packages-common
   '(helm
     magit
-    conda
     lsp-mode
+    yasnippet
     dumb-jump
     markdown-mode
     multiple-cursors
     ido-vertical-mode
 
+    ;; server
     yaml-mode
     fish-mode
     nginx-mode
 
     ;; python
     ein                ;; jupyter notebooks
+    conda              ;; python version management
     blacken            ;; autoformatting
     flycheck           ;; syntax checks and more
     anaconda-mode      ;; replaces elpy, has nothing to do with conda

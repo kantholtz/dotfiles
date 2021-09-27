@@ -2,7 +2,7 @@
 ;;
 ;; Author: Felix Hamann <https://github.com/kantholtz>
 ;; Created: 2021
-;; Version: 0.0.1
+;; Version: 0.0.2
 ;; Keywords: custom themes, faces
 ;; Homepage: https://github.com/kantholtz/dotfiles
 ;; Package-Requires: ((emacs "25.1") (cl-lib "0.5") (doom-themes "2.2.1"))
@@ -30,26 +30,59 @@ Can be an integer to determine the exact padding."
   :type '(or integer boolean))
 
 
-;;
 ;;; Theme definition
 
 (def-doom-theme doom-kantholtz-light
-  "Theme inspired doom-plain"
+  "light theme inspired doom-plain"
 
   ;; name      default/256/16
-  ((bg         '("#ffffff"))
-   (bg-alt     (doom-darken bg 0.15))
+  (
+   ;; ktz
+   (ktz/clr-base-fg        '("#000000"))
+   (ktz/clr-base-fg-light  '("#efefef"))
+   (ktz/clr-base-fg-dark   '("#333333"))
+   (ktz/clr-base-bg        '("#ffffff"))
+   (ktz/clr-base-bg-light  '("#efefef"))
+   (ktz/clr-base-bg-dark   '("#333333"))
+
+   (ktz/clr-error   '("#ff0099"))
+   (ktz/clr-error-fg-light  (doom-darken  ktz/clr-error 0.2))
+   (ktz/clr-error-fg-dark   (doom-darken  ktz/clr-error 0.7))
+   (ktz/clr-error-bg-light  (doom-lighten ktz/clr-error 0.9))
+   (ktz/clr-error-bg-dark   (doom-lighten ktz/clr-error 0.2))
+
+   (ktz/clr-warning   '("#ff9900"))
+   (ktz/clr-warning-fg-light  (doom-darken  ktz/clr-warning 0.2))
+   (ktz/clr-warning-fg-dark   (doom-darken  ktz/clr-warning 0.7))
+   (ktz/clr-warning-bg-light  (doom-lighten ktz/clr-warning 0.9))
+   (ktz/clr-warning-bg-dark   (doom-lighten ktz/clr-warning 0.2))
+
+   (ktz/clr-success   '("#00ffdd"))
+   (ktz/clr-success-fg-light (doom-darken  ktz/clr-success 0.2))
+   (ktz/clr-success-fg-dark  (doom-darken  ktz/clr-success 0.7))
+   (ktz/clr-success-bg-light (doom-lighten ktz/clr-success 0.8))
+   (ktz/clr-success-bg-dark  (doom-lighten ktz/clr-success 0.2))
+
+   (ktz/clr-primary   '("#0099ff"))
+   (ktz/clr-primary-fg-light (doom-darken  ktz/clr-primary 0.5))
+   (ktz/clr-primary-fg-dark  (doom-darken  ktz/clr-primary 0.9))
+   (ktz/clr-primary-bg-light (doom-lighten ktz/clr-primary 0.95))
+   (ktz/clr-primary-bg-dark  (doom-lighten ktz/clr-primary 0.2))
+
+   ;; required base definitions
+   (bg         ktz/clr-base-bg)
+   (bg-alt     (doom-darken bg 0.05))
    (base0      '("#999999")) ;; builtins, variables, etc.
    (base1      '("#efefef")) ;; selection
    (base2      '("#000000")) ;; cursor
    (base3      '("#cccccc")) ;; line numbers
    (base4      '("#d9d9d9")) ;; region
    (base5      '("#bbbbbb")) ;; commentary
-   (base6      '("#ff0000")) ;; unused
+   (base6      '("#0000ff")) ;; unused
    (base7      '("#00ff00")) ;; unused
    (base8      '("#efefef")) ;; search selection
    (fg         '("#333333"))
-   (fg-alt     (doom-lighten fg 0.15))
+   (fg-alt     (doom-lighten fg 0.05))
 
    (grey       fg)
    (red        fg)
@@ -81,9 +114,9 @@ Can be an integer to determine the exact padding."
    (variables      base0)
    (numbers        base0)
    (region         base4)
-   (error          (doom-blend red "#ff0000" 0.4))
-   (warning        base2)
-   (success        green)
+   (error          ktz/clr-error)
+   (warning        ktz/clr-warning)
+   (success        ktz/clr-success)
    (vc-modified    base5)
    (vc-added       (doom-lighten fg 0.7))
    (vc-deleted     base2)
@@ -101,22 +134,66 @@ Can be an integer to determine the exact padding."
    (modeline-fg-alt          (doom-darken modeline-bg-inactive 0.35)))
 
   ;;;; Base theme face overrides
-  ((error   :underline `(:style wave :color ,error))
-   (warning :underline `(:style wave :color ,warning))
-   ((font-lock-constant-face &override)      :slant 'italic)
-   ((font-lock-comment-face &override)       :slant 'italic)
-   ((font-lock-function-name-face &override) :slant 'italic)
-   ((font-lock-type-face &override)          :slant 'italic)
-   (hl-line :background base1)
-   ((line-number &override) :foreground base3)
-   ((line-number-current-line &override) :foreground base2)
+  (
+   (error   :foreground ktz/clr-error-fg-dark   :background ktz/clr-error-bg-light)
+   (warning :foreground ktz/clr-warning-fg-dark :background ktz/clr-warning-bg-light)
+   (success :foreground ktz/clr-success-fg-dark :background ktz/clr-success-bg-light)
+
+   (doom-themes-visual-bell :inherit 'error)
+   (isearch :inherit 'success)
+   (isearch-fail :inherit 'error)
+   (lazy-highlight :inherit 'warning)
+
+   ;;;; emacs notebook
+   (ein:cell-input-prompt :inherit 'success)
+   (ein:cell-input-area :inherit :background bg-alt)
+   (ein:cell-output-area
+    :extend t
+    :foreground (doom-lighten fg 0.3)
+    :background bg)
+
+   ;;;; python
+   (flycheck-error   :inherit 'error)
+   (flycheck-warning :inherit 'warning)
+
+   ;;;; markdown
+   (markdown-pre-face  :extend t :foreground ktz/clr-primary-fg-dark :background ktz/clr-primary-bg-light)
+   (markdown-code-face :extend t :foreground ktz/clr-primary-fg-dark :background ktz/clr-primary-bg-light)
+
+   ;;;; org <built-in>
+   ((org-block &override) :background bg-alt)
+   ((org-block-begin-line &override) :foreground base5)
+   ((org-todo &override) :inherit 'error)
+   ((org-done &override) :inherit 'success)
+   ((org-checkbox &override) :foreground ktz/clr-error :background bg)
+
+   ;;;; helm
+   ((helm-source--header-line &override) :inherit 'warning)
+   ((helm-candidate-number &override) :inherit 'warning)
+
+   ;;;; magit
+   ((magit-diff-added-highlight &override)   :inherit 'success)
+   ((magit-diff-removed &override)           :inherit 'error)
+   ((magit-diff-removed-highlight &override) :foreground fg :background (doom-blend vc-deleted bg 0.22))
+
+
+
+   ;; untouched so far
    (mode-line
-    :background modeline-bg :foreground modeline-fg
+    :foreground modeline-fg
+    :background modeline-bg
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg)))
    (mode-line-inactive
     :background modeline-bg-inactive :foreground modeline-fg-alt
     :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive)))
    (mode-line-emphasis :foreground highlight)
+
+   ((font-lock-constant-face &override)      :slant 'italic)
+   ((font-lock-comment-face &override)       :slant 'italic)
+   ((font-lock-function-name-face &override) :slant 'italic)
+   ((font-lock-type-face &override)          :slant 'italic)
+   ((line-number &override) :foreground base3)
+   ((line-number-current-line &override) :foreground base2)
 
    ;;;; doom-modeline
    (doom-modeline-bar :background modeline-bg)
@@ -127,10 +204,6 @@ Can be an integer to determine the exact padding."
    (doom-modeline-panel :inherit 'mode-line-highlight :background base3 :foreground fg)
    ;;;; ivy
    (ivy-posframe :background bg-alt)
-   ;;;; magit
-   ((magit-diff-added-highlight &override)   :foreground fg :background (doom-blend vc-added bg 0.3))
-   ((magit-diff-removed &override)           :foreground (doom-lighten fg 0.4) :background (doom-blend vc-deleted bg 0.1))
-   ((magit-diff-removed-highlight &override) :foreground fg :background (doom-blend vc-deleted bg 0.22))
    ;;;; lsp-mode
    (lsp-headerline-breadcrumb-symbols-face :foreground keywords :weight 'bold)
    ;;;; outline <built-in>
@@ -142,13 +215,6 @@ Can be an integer to determine the exact padding."
    (outline-6 :inherit 'outline-5)
    (outline-7 :inherit 'outline-6)
    (outline-8 :inherit 'outline-7)
-   ;;;; org <built-in>
-   ((org-block &override) :background bg-alt)
-   ((org-block-begin-line &override) :foreground base5)
-   ;;;; helm
-   ((helm-source--header-line &override)
-    :background base1
-    :foreground fg)
    ;;;; solaire-mode
    (solaire-mode-line-face
     :inherit 'mode-line

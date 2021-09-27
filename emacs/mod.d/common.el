@@ -76,16 +76,22 @@
 
 (add-hook 'org-mode-hook 'org-indent-mode)
 
-
 (if (boundp 'ktz/org-dir)
     (use-package org-roam
       :custom
       (org-roam-directory ktz/org-dir)
+      (org-roam-capture-templates
+       '(("d" "default" plain
+          (file (concat ktz/org-dir "/_templates/default.org"))
+          :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "")
+          :unnarrowed t)))
       :init
       (setq org-roam-v2-ack t)
       :bind (("C-c n l" . org-roam-buffer-toggle)
              ("C-c n f" . org-roam-node-find)
              ("C-c n i" . org-roam-node-insert)
+             ("M-." . org-open-at-point)
+             ("M-," . org-mark-ring-goto)
              :map org-mode-map
              ("C-M-i"    . completion-at-point))
       :config

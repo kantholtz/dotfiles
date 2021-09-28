@@ -23,12 +23,6 @@
   "Options for the `doom-kantholtz-light' theme."
   :group 'doom-themes)
 
-(defcustom doom-kantholtz-light-padded-modeline doom-themes-padded-modeline
-  "If non-nil, adds a 4px padding to the mode-line.
-Can be an integer to determine the exact padding."
-  :group 'doom-kantholtz-light-theme
-  :type '(or integer boolean))
-
 
 ;;; Theme definition
 
@@ -122,10 +116,6 @@ Can be an integer to determine the exact padding."
    (vc-deleted     base2)
 
    ;; custom categories
-   (-modeline-pad
-    (when doom-kantholtz-light-padded-modeline
-      (if (integerp doom-kantholtz-light-padded-modeline) doom-kantholtz-light-padded-modeline 4)))
-
    (modeline-bg              (doom-darken bg-alt 0.15))
    (modeline-bg-alt          (doom-darken bg-alt 0.1))
    (modeline-bg-inactive     (doom-darken bg-alt 0.1))
@@ -140,9 +130,12 @@ Can be an integer to determine the exact padding."
    (success :foreground ktz/clr-success-fg-dark :background ktz/clr-success-bg-light)
 
    (doom-themes-visual-bell :inherit 'error)
+
+   ;;;; different marker
    (isearch :inherit 'success)
    (isearch-fail :inherit 'error)
    (lazy-highlight :inherit 'warning)
+   ((hl-line &override)  :inherit :background bg-alt)
 
    ;;;; emacs notebook
    (ein:cell-input-prompt :inherit 'success)
@@ -181,11 +174,9 @@ Can be an integer to determine the exact padding."
    ;; untouched so far
    (mode-line
     :foreground modeline-fg
-    :background modeline-bg
-    :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg)))
+    :background modeline-bg)
    (mode-line-inactive
-    :background modeline-bg-inactive :foreground modeline-fg-alt
-    :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive)))
+    :background modeline-bg-inactive :foreground modeline-fg-alt)
    (mode-line-emphasis :foreground highlight)
 
    ((font-lock-constant-face &override)      :slant 'italic)
@@ -218,12 +209,10 @@ Can be an integer to determine the exact padding."
    ;;;; solaire-mode
    (solaire-mode-line-face
     :inherit 'mode-line
-    :background modeline-bg-alt
-    :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-alt)))
+    :background modeline-bg-alt)
    (solaire-mode-line-inactive-face
     :inherit 'mode-line-inactive
-    :background modeline-bg-inactive-alt
-    :box (if -modeline-pad `(:line-width ,-modeline-pad :color ,modeline-bg-inactive-alt)))))
+    :background modeline-bg-inactive-alt)))
 
 ;;; doom-kantholtz-light-theme.el ends here
 

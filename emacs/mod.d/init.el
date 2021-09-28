@@ -86,6 +86,11 @@
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
+;; register custom themes
+(add-to-list
+ 'custom-theme-load-path
+ (concat ktz/mod-dir "/themes"))
+
 ;; load all desired *el files
 (dolist (mod '("common"))
   (load (concat ktz/mod-dir "/" mod)))
@@ -93,10 +98,6 @@
 (unless ktz/is-server
   (dolist (mod '("desktop"))
     (load (concat ktz/mod-dir "/" mod))))
-
-(add-to-list
- 'custom-theme-load-path
- (concat ktz/mod-dir "/themes"))
 
 ;; manually installed packages
 (add-to-list

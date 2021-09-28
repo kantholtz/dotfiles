@@ -18,16 +18,13 @@
   ;; show line numbers
   (global-linum-mode 1)
 
-  ;; not nice in terminal mode
-  (global-hl-line-mode t)
-
   ;; add some space
   (fringe-mode 10)
 
   ;; dynamically set theme based on environment vars
   (if (getenv "KTZ_LIGHT")
-    (load-theme 'doom-flatwhite t)
-    (load-theme 'doom-city-lights t))
+    (load-theme 'doom-kantholtz-light t)
+    (load-theme 'doom-kantholtz-dark t))
 
   ;; spell checks
   (setq ispell-program-name (executable-find "hunspell") ispell-dictionary "en_GB")

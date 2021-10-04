@@ -1,6 +1,6 @@
 # dotfiles #
 
-> Then world behind and home ahead,  
+> Then world behind and home ahead,
 > We'll wander back to home and bed.
 
 
@@ -36,6 +36,25 @@ Example of how to use the emacs configurations:
 
 For the server configuration use `(defvar ktz/is-server t)`. The org
 configuration is optional.
+
+### Windows
+
+They support symbolic links - great: `mklink mod.d
+..\..\..\Complex\scm\dotfiles\emacs\mod.d`. The org-roam setup is
+outlined in the [official
+docs](https://www.orgroam.com/manual.html#C-Compiler). I've installed
+msys2, ran:
+
+``` shell
+pacman -Syu
+# new tty
+pacman -Su
+pacman -S --needed base-devel mingw-w64-x86_64-toolchain
+pacman -S gcc
+```
+
+and added `<msys2 install dir>/usr/bin` to the windows `%PATH%` (Win+R
+`systempropertiesadvanced` - Environment Variables - System Variables)
 
 
 ## Documentation ##

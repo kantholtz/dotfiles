@@ -35,6 +35,7 @@ function tme -a localport user destination hop
         set -e HTTPS_PROXY
         set -e http_proxy
         set -e HTTP_PROXY
+        set -x KTZ_LIGHT
         emacs $mountpoint &
         disown
     end

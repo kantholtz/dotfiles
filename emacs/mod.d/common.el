@@ -93,7 +93,7 @@
       (org-roam-directory ktz/org-dir)
       (org-roam-capture-templates
        '(("d" "default" plain
-          (file (concat ktz/org-dir "/_templates/default.org"))
+          (file "~/Complex/nxt/Roam/_templates/default.org")
           :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "")
           :unnarrowed t)))
       :init
@@ -106,7 +106,11 @@
              :map org-mode-map
              ("C-M-i"    . completion-at-point))
       :config
-      (org-roam-setup)))
+      (org-roam-setup)
+      (setq org-agenda-files '("~/Complex/nxt/Roam/"))
+      (setq org-agenda-start-with-log-mode t)
+      (setq org-log-done 'time)
+      ))
 
 
 ;; EDIT SERVER
@@ -132,6 +136,7 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
 (add-hook 'after-init-hook 'global-company-mode)
+
 
 ;; PYTHON
 
@@ -174,4 +179,3 @@
        typescript-mode-hook
        vue-mode-hook))
   (add-hook hook 'prettier-js-mode))
-

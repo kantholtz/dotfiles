@@ -26,17 +26,28 @@
 (setq-default truncate-lines t)
 
 ;; disable line numbers for some modes
-(dolist (mode
-         '(org-mode-hook
-           term-mode-hook
-           shell-mode-hook))
-  (add-hook mode (lambda () display-line-numbers 0)))
-
+;; (dolist (mode
+;;          '(org-mode-hook
+;;            term-mode-hook
+;;            shell-mode-hook))
+;;   (add-hook mode (lambda () display-line-numbers 0)))
 ;; disable auto-fill-mode from some modes
-(dolist (mode
-         '(latex-mode-hook
-           org-mode-hook))
-  (add-hook mode (lambda () (auto-fill-mode 0))))
+;; (dolist (mode
+;;          '(latex-mode-hook
+;;            org-mode-hook))
+;;   mode
+;;   (lambda ()
+;;     (message "foo")))
+  ;; (add-hook mode '(auto-fill-mode 0))
+  ;; (add-hook mode 'visual-line-mode)
+  ;; (add-hook
+  ;;  mode
+  ;;  (lambda ()
+  ;;    ((interactive)
+  ;;     (auto-fill-mode 0)
+  ;;     (visual-line-mode 1))))
+;; (add-hook 'latex-mode-hook 'visual-line-mode)
+;; (add-hook 'latex-mode-hook '(auto-fill-mode 0))
 
 ;; move lines up and down
 (defun ktz/move-line-up ()

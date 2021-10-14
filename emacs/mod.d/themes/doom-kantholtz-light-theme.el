@@ -34,6 +34,7 @@
    ;; ktz
    (ktz/clr-base-fg        '("#000000"))
    (ktz/clr-base-fg-light  '("#efefef"))
+   (ktz/clr-base-fg-medium '("#999999"))
    (ktz/clr-base-fg-dark   '("#333333"))
    (ktz/clr-base-bg        '("#ffffff"))
    (ktz/clr-base-bg-light  '("#efefef"))
@@ -41,39 +42,39 @@
 
    (ktz/clr-error   '("#ff0099"))
    (ktz/clr-error-fg-light  (doom-darken  ktz/clr-error 0.2))
-   (ktz/clr-error-fg-dark   (doom-darken  ktz/clr-error 0.7))
+   (ktz/clr-error-fg-dark   (doom-darken  ktz/clr-error 0.6))
    (ktz/clr-error-bg-light  (doom-lighten ktz/clr-error 0.9))
    (ktz/clr-error-bg-dark   (doom-lighten ktz/clr-error 0.2))
 
    (ktz/clr-warning   '("#ff9900"))
    (ktz/clr-warning-fg-light  (doom-darken  ktz/clr-warning 0.2))
-   (ktz/clr-warning-fg-dark   (doom-darken  ktz/clr-warning 0.7))
+   (ktz/clr-warning-fg-dark   (doom-darken  ktz/clr-warning 0.4))
    (ktz/clr-warning-bg-light  (doom-lighten ktz/clr-warning 0.9))
    (ktz/clr-warning-bg-dark   (doom-lighten ktz/clr-warning 0.2))
 
    (ktz/clr-success   '("#00ffdd"))
    (ktz/clr-success-fg-light (doom-darken  ktz/clr-success 0.2))
-   (ktz/clr-success-fg-dark  (doom-darken  ktz/clr-success 0.7))
+   (ktz/clr-success-fg-dark  (doom-darken  ktz/clr-success 0.6))
    (ktz/clr-success-bg-light (doom-lighten ktz/clr-success 0.8))
    (ktz/clr-success-bg-dark  (doom-lighten ktz/clr-success 0.2))
 
    (ktz/clr-primary   '("#0099ff"))
    (ktz/clr-primary-fg-light (doom-darken  ktz/clr-primary 0.5))
-   (ktz/clr-primary-fg-dark  (doom-darken  ktz/clr-primary 0.9))
+   (ktz/clr-primary-fg-dark  (doom-darken  ktz/clr-primary 0.4))
    (ktz/clr-primary-bg-light (doom-lighten ktz/clr-primary 0.95))
    (ktz/clr-primary-bg-dark  (doom-lighten ktz/clr-primary 0.2))
 
    ;; required base definitions
    (bg         ktz/clr-base-bg)
    (bg-alt     (doom-darken bg 0.05))
-   (base0      '("#999999")) ;; builtins, variables, etc.
+   (base0      ktz/clr-base-fg-medium) ;; builtins, variables, etc.
    (base1      '("#efefef")) ;; selection
    (base2      '("#000000")) ;; cursor
    (base3      '("#cccccc")) ;; line numbers
    (base4      '("#d9d9d9")) ;; region
    (base5      '("#bbbbbb")) ;; commentary
    (base6      '("#0000ff")) ;; unused
-   (base7      '("#00ff00")) ;; unused
+   (base7      '("#00ff00")) ;; org-scheduled-today (overwritten)
    (base8      '("#efefef")) ;; search selection
    (fg         '("#333333"))
    (fg-alt     (doom-lighten fg 0.05))
@@ -154,22 +155,45 @@
    (markdown-code-face :extend t :foreground ktz/clr-primary-fg-dark :background ktz/clr-primary-bg-light)
 
    ;;;; org <built-in>
-   ((org-block &override) :background bg-alt)
-   ((org-block-begin-line &override) :foreground base5)
-   ((org-todo &override) :inherit 'error)
-   ((org-done &override) :inherit 'success)
-   ((org-checkbox &override) :foreground ktz/clr-error :background bg)
+   ((org-block &override)
+    :background bg-alt)
+   ((org-block-begin-line &override)
+    :foreground base5)
+   ((org-todo &override)
+    :foreground ktz/clr-error-fg-dark :inherit 'error)
+   ((org-done &override)
+    :inherit 'success)
+   ((org-checkbox &override)
+    :foreground ktz/clr-error :background bg)
+   ((org-link &override)
+    :foreground ktz/clr-primary-fg-dark :background ktz/clr-primary-bg-light
+    :underline nil :slant 'italic)
+   ((org-agenda-done &override)
+    :foreground ktz/clr-base-fg-medium :background bg)
+   ((org-scheduled-today &override)
+    :foreground ktz/clr-warning-fg-dark :inherit 'warning)
+   ((org-upcoming-distant-deadline &override)
+    :foreground (doom-lighten ktz/clr-warning-fg-dark 0.3):inherit 'warning)
 
    ;;;; helm
    ((helm-source--header-line &override) :inherit 'warning)
    ((helm-candidate-number &override) :inherit 'warning)
 
    ;;;; magit
-   ((magit-diff-added-highlight &override)   :inherit 'success)
-   ((magit-diff-removed &override)           :inherit 'error)
-   ((magit-diff-removed-highlight &override) :foreground fg :background (doom-blend vc-deleted bg 0.22))
+   (magit-diff-context-highlight
+    :inherit 'warning)
+   (magit-diff-added
+    :foreground ktz/clr-success-fg-dark :background ktz/clr-base-bg)
+   (magit-diff-added-highlight
+    :background ktz/clr-primary-bg-light :foreground ktz/clr-primary-fg-dark)
+   (magit-diff-removed
+    :foreground ktz/clr-error-fg-dark :background ktz/clr-base-bg)
+   (magit-diff-removed-highlight
+    :inherit 'error)
 
-
+   ;;;; ediff
+   (ediff-current-diff-A  :inherit 'error)
+   (ediff-current-diff-B  :inherit 'success)
 
    ;; untouched so far
    (mode-line

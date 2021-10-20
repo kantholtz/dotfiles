@@ -104,6 +104,9 @@
  'load-path
  (concat ktz/mod-dir "/lib"))
 
+(require 'org-pretty-table)
+(add-hook 'org-mode-hook (lambda () (org-pretty-table-mode)))
+
 ;; lay your weary pinky to rest
 (require 'control-lock)
 (control-lock-keys)

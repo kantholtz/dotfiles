@@ -32,12 +32,12 @@
   ;; name      default/256/16
   (
    ;; ktz
-   (ktz/clr-base-fg        '("#000000"))
+   (ktz/clr-base-fg        '("#222222"))
    (ktz/clr-base-fg-light  '("#efefef"))
    (ktz/clr-base-fg-medium '("#999999"))
    (ktz/clr-base-fg-dark   '("#333333"))
-   (ktz/clr-base-bg        '("#ffffff"))
-   (ktz/clr-base-bg-light  '("#efefef"))
+   (ktz/clr-base-bg        '("#fffeff"))
+   (ktz/clr-base-bg-light  '("#e6dcd1"))
    (ktz/clr-base-bg-dark   '("#333333"))
 
    (ktz/clr-error   '("#ff0099"))
@@ -172,8 +172,11 @@
     :foreground ktz/clr-base-fg-medium :background bg)
    ((org-scheduled-today &override)
     :foreground ktz/clr-warning-fg-dark :inherit 'warning)
-   ((org-upcoming-distant-deadline &override)
+   ((org-upcoming-deadline &override)
     :foreground (doom-lighten ktz/clr-warning-fg-dark 0.3):inherit 'warning)
+   ((org-upcoming-distant-deadline &override)
+    :foreground (doom-lighten ktz/clr-warning-fg-dark 0.5)
+    :background (doom-lighten ktz/clr-warning-bg-light 0.5))
 
    ;;;; helm
    ((helm-source--header-line &override) :inherit 'warning)

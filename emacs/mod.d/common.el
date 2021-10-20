@@ -86,6 +86,7 @@
   (add-hook 'org-mode-hook 'org-bullets-mode))
 
 (add-hook 'org-mode-hook 'org-indent-mode)
+(add-hook 'org-mode-hook 'visual-line-mode)
 
 (if (boundp 'ktz/org-dir)
     (use-package org-roam

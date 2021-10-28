@@ -49,6 +49,7 @@
 
     org-roam
     org-bullets
+    org-super-agenda
     ))
 
 ;;

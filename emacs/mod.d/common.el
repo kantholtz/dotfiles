@@ -87,6 +87,7 @@
 
 (add-hook 'org-mode-hook 'org-indent-mode)
 (add-hook 'org-mode-hook 'visual-line-mode)
+(setq org-agenda-window-setup 'current-window)   ;; do not destroy current splits
 
 (if (boundp 'ktz/org-dir)
     (use-package org-roam
@@ -112,6 +113,20 @@
       (setq org-agenda-start-with-log-mode t)
       (setq org-log-done 'time)
       ))
+
+
+;; see https://github.com/alphapapa/org-super-agenda#examples
+(let ((org-super-agenda-groups
+       '(;; Each group has an implicit boolean OR operator between its selectors.
+         (:name "Today"  ; Optionally specify section name
+                :time-grid t  ; Items that appear on the time grid
+                :todo "NEXT")  ; Items that have this TODO keyword
+         (:name "Important"
+                ;; Single arguments given alone
+                :tag "bills"
+                :priority "A")
+         )))
+  (org-agenda nil "a"))
 
 
 ;; EDIT SERVER

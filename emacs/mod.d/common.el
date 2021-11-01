@@ -79,6 +79,14 @@
 
 ;; ORG
 ;; --------------------
+
+;; this must not be part of org-roam :config
+;; because it would not be initialized when
+;; the splash screen is shown
+(if (boundp 'ktz/org-dir)
+  (setq org-agenda-files '("~/Complex/nxt/Roam/"))
+  (setq org-agenda-start-with-log-mode t))
+
 (when (display-graphic-p)
   (setq org-ellipsis " ▼")
   (require 'org-bullets)
@@ -109,8 +117,6 @@
              ("C-M-i"    . completion-at-point))
       :config
       (org-roam-setup)
-      (setq org-agenda-files '("~/Complex/nxt/Roam/"))
-      (setq org-agenda-start-with-log-mode t)
       (setq org-log-done 'time)
       ))
 

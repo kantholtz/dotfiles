@@ -11,7 +11,7 @@ function tme -a localport user destination hop
     sudo mkdir -p $mountpoint
 
     autossh -f -N -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -NL localhost:$localport:$destination:22 $hop
-    sleep 1
+    sleep 3
 
     echo
     echo "created tunnel"

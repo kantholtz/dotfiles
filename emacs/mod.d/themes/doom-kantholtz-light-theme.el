@@ -40,7 +40,7 @@
    (ktz/clr-base-bg-light  '("#e6dcd1"))
    (ktz/clr-base-bg-dark   '("#333333"))
 
-   (ktz/clr-error   '("#ff0099"))
+   (ktz/clr-error   '("#ff0066"))
    (ktz/clr-error-fg-light  (doom-darken  ktz/clr-error 0.2))
    (ktz/clr-error-fg-dark   (doom-darken  ktz/clr-error 0.6))
    (ktz/clr-error-bg-light  (doom-lighten ktz/clr-error 0.9))
@@ -58,7 +58,7 @@
    (ktz/clr-success-bg-light (doom-lighten ktz/clr-success 0.8))
    (ktz/clr-success-bg-dark  (doom-lighten ktz/clr-success 0.2))
 
-   (ktz/clr-primary   '("#0099ff"))
+   (ktz/clr-primary   '("#00ccff"))
    (ktz/clr-primary-fg-light (doom-darken  ktz/clr-primary 0.5))
    (ktz/clr-primary-fg-dark  (doom-darken  ktz/clr-primary 0.4))
    (ktz/clr-primary-bg-light (doom-lighten ktz/clr-primary 0.95))
@@ -139,8 +139,8 @@
    ((hl-line &override)  :inherit :background bg-alt)
 
    ;;;; emacs notebook
-   (ein:cell-input-prompt :inherit 'success)
-   (ein:cell-input-area :inherit :background bg-alt)
+   (ein:basecell-input-area-face :background bg-alt)
+   (ein:codecell-input-prompt-face :inherit 'success)
    (ein:cell-output-area
     :extend t
     :foreground (doom-lighten fg 0.3)
@@ -172,17 +172,18 @@
     :underline nil :slant 'italic)
    ((org-agenda-done &override)
     :foreground ktz/clr-base-fg-medium :background bg)
+   ;; scheduled
    ((org-scheduled &override)
-    :foreground ktz/clr-primary-fg-dark :background ktz/clr-primary-bg-light)
+    :foreground ktz/clr-base-fg-dark :background bg)
    ((org-scheduled-today &override)
-    :foreground ktz/clr-error :inherit 'error)
+    :foreground ktz/clr-error-fg-dark :background ktz/clr-error-bg-light)
    ((org-scheduled-previously &override)
-    :foreground ktz/clr-primary-fg-dark :background ktz/clr-primary-bg-light)
+    :foreground ktz/clr-error-fg-dark :background bg)
+   ;; deadlines
    ((org-upcoming-deadline &override)
-    :inherit 'warning)
+    :foreground ktz/clr-base-fg-dark :background bg)
    ((org-upcoming-distant-deadline &override)
-    :foreground (doom-lighten ktz/clr-error-fg-dark 0.5)
-    :background (doom-lighten ktz/clr-error-bg-light 0.5))
+    :foreground ktz/clr-base-fg-dark :background bg)
 
    ;;;; helm
    ((helm-source--header-line &override) :inherit 'warning)

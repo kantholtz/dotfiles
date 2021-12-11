@@ -17,8 +17,6 @@ function hsrm
     tme 2222 hamann braco hop.lavis
 
     echo "spawning applications"
-    spawn whatsdesk
-    spawn telegram-desktop
     spawn thunderbird
     spawn firefox
 end

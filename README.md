@@ -56,6 +56,8 @@ pacman -S gcc
 and added `<msys2 install dir>/usr/bin` to the windows `%PATH%` (Win+R
 `systempropertiesadvanced` - Environment Variables - System Variables)
 
+Problems with gpg keys and elpa if msys2 is installed: `gpg --receive-keys 066DAFCB81E42C40` (do not set --homedir to the `.emacs.d/elpa/gnupg` thing as emacs fucks the path up anyway; the keys are installed to the msys2 home directory). In `.emacs` add `'(package-gnupghome-dir nil)` to use the default dir.
+
 
 ## Documentation ##
 

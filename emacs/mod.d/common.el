@@ -5,8 +5,6 @@
 (auto-fill-mode t)
 (column-number-mode t)
 (show-paren-mode t)
-(ido-mode t)
-(ido-vertical-mode t)
 
 
 ;; GENERAL
@@ -103,7 +101,7 @@
       (org-roam-directory ktz/org-dir)
       (org-roam-capture-templates
        '(("d" "default" plain
-          (file "~/Complex/nxt/Roam/_templates/default.org")
+          (file "~/Complex/psi/Roam/_templates/default.org")
           :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "")
           :unnarrowed t)))
       :init
@@ -189,7 +187,8 @@
 ;; https://azzamsa.com/n/vue-emacs/
 
 ;; (require 'lsp-mode)
-(require 'prettier-js)
+;; (require 'prettier)
+(add-hook 'after-init-hook #'global-prettier-mode)
 
 (setq js-indent-level 2)
 (setq typescript-indent-level 2)

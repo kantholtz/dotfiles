@@ -1,5 +1,8 @@
 
 function hsrm
+    echo "restarting window manager"
+    spawn plasmashell --replace
+
     fproxy on
     sudo mount -a
 
@@ -9,9 +12,6 @@ function hsrm
 
     # echo "swapping opt/cmd"
     # echo 1 | sudo tee /sys/module/hid_apple/parameters/swap_opt_cmd
-
-    echo "restarting window manager"
-    spawn plasmashell --replace
 
     echo "dig a tunnel"
     tme 2222 hamann braco hop.lavis

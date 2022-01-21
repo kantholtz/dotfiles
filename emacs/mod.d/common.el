@@ -84,7 +84,7 @@
 ;; because it would not be initialized when
 ;; the splash screen is shown
 (if (boundp 'ktz/org-dir)
-  (setq org-agenda-files '("~/Complex/nxt/Roam/"))
+  (setq org-agenda-files '("~/Complex/psi/Roam/"))
   (setq org-agenda-start-with-log-mode t))
 
 (when (display-graphic-p)

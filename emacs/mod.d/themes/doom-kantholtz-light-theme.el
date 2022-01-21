@@ -32,13 +32,18 @@
   ;; name      default/256/16
   (
    ;; ktz
-   (ktz/clr-base-fg        '("#222222"))
-   (ktz/clr-base-fg-light  '("#efefef"))
-   (ktz/clr-base-fg-medium '("#999999"))
-   (ktz/clr-base-fg-dark   '("#333333"))
-   (ktz/clr-base-bg        '("#fffeff"))
-   (ktz/clr-base-bg-light  '("#e6dcd1"))
-   (ktz/clr-base-bg-dark   '("#333333"))
+
+   ;;   beige :  43
+   ;;    blue : 200
+
+   (ktz/clr-base-fg        '("#2e424d"))
+   (ktz/clr-base-fg-l1     '("#2e424d"))
+
+   (ktz/clr-base-bg        '("#ffffff"))
+   (ktz/clr-base-bg-d1     '("#eeefff"))
+
+   ;; (ktz/clr-base-bg        '("#f2f0eb"))
+   ;; (ktz/clr-base-bg-d1     '("#e6e4df"))
 
    (ktz/clr-error   '("#ff0066"))
    (ktz/clr-error-fg-light  (doom-darken  ktz/clr-error 0.2))
@@ -67,9 +72,9 @@
    ;; required base definitions
    (bg         ktz/clr-base-bg)
    (bg-alt     (doom-darken bg 0.05))
-   (base0      ktz/clr-base-fg-medium) ;; builtins, variables, etc.
-   (base1      '("#efefef")) ;; selection
-   (base2      '("#000000")) ;; cursor
+   (base0      ktz/clr-base-fg)      ;; builtins, variables, etc.
+   (base1      ktz/clr-base-bg-d1)   ;; selection
+   (base2      ktz/clr-base-fg-l1)   ;; cursor
    (base3      '("#cccccc")) ;; line numbers
    (base4      '("#d9d9d9")) ;; region
    (base5      '("#bbbbbb")) ;; commentary
@@ -80,7 +85,7 @@
    (fg-alt     (doom-lighten fg 0.05))
 
    (grey       fg)
-   (red        fg)
+   (red        ktz/clr-error)
    (blue       fg)
    (dark-blue  fg)
    (orange     fg)
@@ -171,19 +176,19 @@
     :foreground ktz/clr-primary-fg-dark :background ktz/clr-primary-bg-light
     :underline nil :slant 'italic)
    ((org-agenda-done &override)
-    :foreground ktz/clr-base-fg-medium :background bg)
+    :foreground ktz/clr-base-fg :background bg)
    ;; scheduled
    ((org-scheduled &override)
-    :foreground ktz/clr-base-fg-dark :background bg)
+    :foreground ktz/clr-base-fg :background bg)
    ((org-scheduled-today &override)
     :foreground ktz/clr-error-fg-dark :background ktz/clr-error-bg-light)
    ((org-scheduled-previously &override)
     :foreground ktz/clr-error-fg-dark :background bg)
    ;; deadlines
    ((org-upcoming-deadline &override)
-    :foreground ktz/clr-base-fg-dark :background bg)
+    :foreground ktz/clr-base-fg :background bg)
    ((org-upcoming-distant-deadline &override)
-    :foreground ktz/clr-base-fg-dark :background bg)
+    :foreground ktz/clr-base-fg :background bg)
 
    ;;;; helm
    ((helm-source--header-line &override) :inherit 'warning)

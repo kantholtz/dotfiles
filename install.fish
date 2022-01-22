@@ -7,40 +7,6 @@
 #
 
 
-function __install_emacs \
-  -a home srcdir backdir kind
-
-  set -l dotemacs "$home/.emacs"
-  set -l init_param "nil"
-
-  echo "installing emacs dotfiles"
-  if [ "$kind" = "server" ]
-    echo "using server configuration"
-    set init_param "t"
-  end
-
-  # create backup
-  mkdir -p "$backdir/emacs"
-  and cp -r          \
-    "$dotemacs"      \
-    "$home/.emacs.d" \
-    "$backdir/emacs" \
-    2>/dev/null
-  and rm -r "$home/.emacs.d/mod.d"
-
-  mkdir -p "$home/.emacs.d"
-  and ln -s \
-    "$srcdir/emacs/mod.d"  \
-    "$home/.emacs.d"
-  or return 2
-
-  echo "done"
-  echo "to load configuration automatically, see the"
-  echo "readme for more information (installation section)"
-
-end
-
-
 function __install_fish \
   -a home srcdir backdir
 
@@ -94,12 +60,6 @@ function __install -a kind
 
   set -l backdir (__create_backupdir "$srcdir")
 
-  if [ ! -h "$home/.emacs.d/mod.d" ]
-    __install_emacs $home $srcdir $backdir $kind
-  else
-    echo ".emacs.d/mod.d already installed"
-  end
-
   if [ ! -h "$home/.config/fish/functions" ]
     __install_fish $home $srcdir $backdir
   else
@@ -120,6 +80,7 @@ function __uninstall
   set -l home $HOME
 
   # todo : backup files
+  # legacy: .emacs.d/mod.d
 
   for tbr in \
     ".emacs.d/mod.d" \
@@ -137,6 +98,7 @@ function __uninstall
     end
   end
 end
+
 
 if [ (count $argv) -eq 0 ]
   __install

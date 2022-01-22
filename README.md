@@ -18,24 +18,17 @@ General configurations and fish functions. The installer script
 ## Installation ##
 
 Run `./install.fish`. This creates symlinks for fish related stuff in
-`~/.config`, the emacs configuration in `~/.emacs.d/mod.d`, and the
-tmux configuration `~/.tmux.conf`.
+`~/.config` and the tmux configuration `~/.tmux.conf`.
 
 
-Example of how to use the emacs configurations:
+Emacs configuration:
 
 ```elisp
-(defvar ktz/is-server nil
-  "this is a desktop configuration")
-(defvar ktz/mod-dir "~/.emacs.d/mod.d"
-  "where the ktz configurations can be found")
-(defvar ktz/org-dir "~/Complex/nxt/Roam"
-  "org roam directory")
-(load (concat ktz/mod-dir "/init"))
+;; configure it with M-x ktz-customize
+(add-to-list 'load-path "~/path/to/dotfiles/emacs/ktz")
+(require 'ktz)
 ```
 
-For the server configuration use `(defvar ktz/is-server t)`. The org
-configuration is optional.
 
 ### Windows
 

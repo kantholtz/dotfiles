@@ -127,7 +127,7 @@
   (doom-themes-org-config)
 
   ;; show line numbers
-  (global-linum-mode 1)
+  ;; (global-linum-mode 1)
 
   ;; add some space
   (fringe-mode 10)

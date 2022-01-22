@@ -17,9 +17,11 @@ General configurations and fish functions. The installer script
 
 ## Installation ##
 
-Run `./install.fish`. This creates symlinks for fish related stuff in
-`~/.config` and the tmux configuration `~/.tmux.conf`.
+Setting up `tmux` and `fish`:
 
+```bash
+./install.fish [uninstall]
+```
 
 Emacs configuration:
 

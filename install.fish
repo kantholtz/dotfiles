@@ -102,11 +102,6 @@ end
 
 if [ (count $argv) -eq 0 ]
   __install
-  exit
-end
-
-if [ "$argv[1]" = "uninstall" ]
+else if [ "$argv[1]" = "uninstall" ]
   __uninstall
-else if [ "$argv[1]" = "server" ]
-  __install server
 end

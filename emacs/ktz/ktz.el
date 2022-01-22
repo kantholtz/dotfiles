@@ -13,7 +13,8 @@
 (require 'ktz-init-desktop)
 
 
-;; customization
+
+;; user interface
 
 (defun ktz-configuration ()
     "Customize ktz"
@@ -30,8 +31,9 @@
 	  (const :tag "Disabled: only bootstrap straight.el" nil)
 	  (const :tag "Minimum: for configuration on servers" minimal)
 	  (const :tag "Programming: headless systems" programming)
-	  (const :tag "desktop: desktop configuration with Roam, LaTex etc." desktop))
+	  (const :tag "Desktop: desktop configuration with Roam, LaTex etc." desktop))
   :group 'ktz)
+
 
 
 ;; bootstrapping
@@ -56,8 +58,9 @@
 
 (defun ktz-init ()
   "Initializes the environment based on the ktz-init-type"
-  (message (format "KTZ: initializing KTZ (%s)" ktz-init-type))
+  (message (format "KTZ: initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
 
+  (ktz--init-config)
   (cond ((eq ktz-init-type 'minimal)
 	 (ktz--init-minimal))
 
@@ -72,11 +75,13 @@
 	   (ktz--init-programming)
 	   (ktz--init-desktop))))
 
-  (message "KTZ: initialization finished"))
+  t)
 
 
 ;; initialization
+(defvar ktz-root-dir nil)
+(when load-file-name
+  (setq ktz-root-dir (file-name-directory load-file-name)))
+
 (add-hook 'emacs-startup-hook 'ktz-init)
-
-
 (provide 'ktz)

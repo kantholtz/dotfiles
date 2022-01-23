@@ -3,12 +3,26 @@
 
 ;; user interface
 
-
 (defcustom ktz-org-dir nil
   "Directory where the .org files reside (e.g. path/to/Roam)"
   :type 'directory
   :group 'ktz)
 
+(when (display-graphic-p)
+  (defcustom ktz-font-size 12
+    "Font size in pt"
+    :type 'integer
+    :group 'ktz)
+
+  (defcustom ktz-mono-font "Source Code Pro"
+    "Name of the monospace font to use"
+    :type 'string
+    :group 'ktz)
+
+  (defcustom ktz-prop-font "Source Serif Pro"
+    "Name of the proportional font to use"
+    :type 'string
+    :group 'ktz))
 
 ;; initialization
 
@@ -192,9 +206,9 @@
   ;; the order of all these expressions is very important...
 
   ;; attributes must be set before requiring nano
-  (setq nano-font-size 11)
-  (setq nano-font-family-monospaced "Source Code Pro")
-  (setq nano-font-family-proportional "Source Serif Pro")
+  (setq nano-font-size ktz-font-size)
+  (setq nano-font-family-monospaced ktz-mono-font)
+  (setq nano-font-family-proportional ktz-prop-font)
 
   ;; basic layout customization (window divider)
   (require 'nano-layout)
@@ -291,11 +305,10 @@
   (global-set-key (kbd "C-`") 'control-lock-enable)
 
   (ktz--init-desktop-org)
-  (when (boundp 'ktz-org-dir)
+  (when ktz-org-dir
     (ktz--init-desktop-roam))
 
   (when (display-graphic-p)
-    (progn
 
       ;; theming
       (ktz--init-desktop-graphic-p)
@@ -306,7 +319,8 @@
       (scroll-bar-mode -1)
 
       ;; show as splash screen
-      (org-agenda-list)))
+      (when ktz-org-dir
+        (org-agenda-list)))
 
   t)
 

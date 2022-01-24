@@ -9,7 +9,7 @@
 Setting up `tmux` and `fish`. The installer script `install.fish`
 automatically links these files and folders:
 
-* `~/.tmux.conf`
+* `.tmux.conf`
 * `.config/fish/config.fish`
 * `.config/fish/functions`
 

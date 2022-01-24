@@ -67,7 +67,7 @@
 
   ;; hooks
   (add-hook 'prog-mode-hook 'ktz--set-trailing-whitespace)
-  (add-hook 'text-mode-hook 'ktz--set-trailing-whitespace)
+  ;; (add-hook 'text-mode-hook 'ktz--set-trailing-whitespace)
   (add-hook 'after-init-hook 'global-company-mode)
 
   t)

@@ -48,14 +48,10 @@ end
 
 
 function __fish_prompt_display_conda
-
-    if set -q CONDA_DEFAULT_ENV
-        printf ' '
-        set_color $fish_color_command
-        printf ' conda: (%s | %s) ' $CONDA_DEFAULT_ENV (__parse_python_version)
-        set_color normal
-    end
-
+    printf ' '
+    set_color $fish_color_command
+    printf ' conda: (%s | %s) ' $CONDA_DEFAULT_ENV (__parse_python_version)
+    set_color normal
 end
 
 
@@ -71,11 +67,15 @@ function fish_prompt
   printf '%s' (prompt_pwd)
   set_color normal
 
-  if git status >/dev/null 2>&1
-    __fish_prompt_parse_git_branch
+  if command -q git
+      if git status >/dev/null 2>&1
+          __fish_prompt_parse_git_branch
+      end
   end
 
-  __fish_prompt_display_conda
+  if set -q CONDA_DEFAULT_ENV
+      __fish_prompt_display_conda
+  end
 
   # decoration
   echo -e '\n > '

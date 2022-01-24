@@ -68,7 +68,8 @@ function fish_prompt
   set_color normal
 
   # redirect for old fish versions that do not have "command"
-  if command -q git 2>/dev/null
+  # added -s for old fish versions
+  if command -qs git 2>/dev/null
       if git status >/dev/null 2>&1
           __fish_prompt_parse_git_branch
       end

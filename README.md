@@ -23,7 +23,7 @@ Emacs configuration:
 
 ```elisp
 ;; configure it with M-x ktz-customize
-(add-to-list 'load-path "~/path/to/dotfiles/emacs/ktz")
+(add-to-list 'load-path "~/path/to/dotfiles/emacs")
 (require 'ktz)
 ```
 

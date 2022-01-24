@@ -178,7 +178,12 @@
 
 (defun ktz--init-desktop-theme ()
 
+  ;; org
+
+  (set-face 'org-imminent-deadline 'nano-face-critical)
+
   ;; helm
+
   (set-face-attribute
    'helm-ff-directory nil
    :weight 'bold
@@ -240,8 +245,6 @@
 
 ;; currently unused in favor of nano
 (defun ktz--init-desktop-ktz ()
-
-
   (dolist(face '(nano-face-strong nano-face-tag-default nano-face-tag-string))
     (set-face-attribute face nil :weight 'semi-bold))
 
@@ -253,24 +256,24 @@
    :weight 'bold)
 
 
-  global doom settings
+  ;; global doom settings
   (require 'doom-themes)
   (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-	doom-themes-enable-italic t) ; if nil, italics is universally disabled
+	      doom-themes-enable-italic t) ; if nil, italics is universally disabled
 
-  enable flashing mode-line on errors
+  ;; enable flashing mode-line on errors
   (doom-themes-visual-bell-config)
 
-  corrects (and improves) org-mode's native fontification.
+  ;; corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config)
 
-  show line numbers
+  ;; show line numbers
   (global-linum-mode 1)
 
-  add some space
+  ;;add some space
   (fringe-mode 10)
 
-  dynamically set theme based on environment vars
+  ;; dynamically set theme based on environment vars
   (when (getenv "KTZ_LIGHT")
     (load-theme 'doom-kantholtz-light t))
   (when (getenv "KTZ_DARK")

@@ -4,24 +4,20 @@
 > We'll wander back to home and bed.
 
 
-## Description ##
-
-General configurations and fish functions. The installer script
-`install.fish` automatically links these files:
-
-* `~/.tmux.conf`
-* `~/.emacs.d/mod.d`
-* `.config/fish/config.fish`
-* `.config/fish/functions/*`
-
-
 ## Installation ##
 
-Setting up `tmux` and `fish`:
+Setting up `tmux` and `fish`. The installer script `install.fish`
+automatically links these files and folders:
+
+* `~/.tmux.conf`
+* `.config/fish/config.fish`
+* `.config/fish/functions`
+
 
 ```bash
 ./install.fish [uninstall]
 ```
+
 
 Emacs configuration:
 
@@ -31,14 +27,14 @@ Emacs configuration:
 (require 'ktz)
 ```
 
+The run `M-x ktz-customize` and choose a mode.
+
 
 ### Windows
 
-They support symbolic links - great: `mklink mod.d
-..\..\..\Complex\scm\dotfiles\emacs\mod.d`. The org-roam setup is
-outlined in the [official
-docs](https://www.orgroam.com/manual.html#C-Compiler). I've installed
-msys2, ran:
+The org-roam setup is outlined in the [official
+docs](https://www.orgroam.com/manual.html#C-Compiler). This worked for
+me: install msys2 and run:
 
 ``` shell
 pacman -Syu
@@ -48,10 +44,14 @@ pacman -S --needed base-devel mingw-w64-x86_64-toolchain
 pacman -S gcc
 ```
 
-and added `<msys2 install dir>/usr/bin` to the windows `%PATH%` (Win+R
+Then add `<msys2 install dir>/usr/bin` to the windows `%PATH%` (Win+R
 `systempropertiesadvanced` - Environment Variables - System Variables)
 
-Problems with gpg keys and elpa if msys2 is installed: `gpg --receive-keys 066DAFCB81E42C40` (do not set --homedir to the `.emacs.d/elpa/gnupg` thing as emacs fucks the path up anyway; the keys are installed to the msys2 home directory). In `.emacs` add `'(package-gnupghome-dir nil)` to use the default dir.
+Problems with gpg keys and elpa if msys2 is installed: `gpg
+--receive-keys 066DAFCB81E42C40` (do not set --homedir to the
+`.emacs.d/elpa/gnupg` thing as emacs fucks the path up anyway; the
+keys are installed to the msys2 home directory). In `.emacs` add
+`'(package-gnupghome-dir nil)` to use the default dir.
 
 
 ## Documentation ##

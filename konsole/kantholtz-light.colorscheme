@@ -62,13 +62,13 @@ Color=113,135,146
 Color=28,49,58
 
 [Color6]
-Color=194,24,91
+Color=0,105,92
 
 [Color6Faint]
-Color=250,87,136
+Color=67,150,136
 
 [Color6Intense]
-Color=140,0,50
+Color=0,61,50
 
 [Color7]
 Color=51,55,76

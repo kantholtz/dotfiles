@@ -20,12 +20,6 @@
   (setq-default show-trailing-whitespace t))
 
 
-(defun ktz--init-terminal-overwrites ()
-  "visual adjustments in terminal mode"
-  (set-face-attribute 'helm-selection nil :foreground 'black)
-  )
-
-
 ;; move lines up and down
 ; ;https://emacsredux.com/blog/2013/04/02/move-current-line-up-or-down/
 (defun ktz--move-line-up ()
@@ -44,13 +38,30 @@
   (indent-according-to-mode))
 
 
+(defun ktz--init-minimal-helm ()
+  (require 'helm-config)
+
+  (global-set-key (kbd "M-x") #'helm-M-x)
+  (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+  (global-set-key (kbd "C-x C-f") #'helm-find-files)
+
+  (helm-mode 1)
+
+  ;; terminal colors don't work well with helm defaults
+  (unless (display-graphic-p)
+    (set-face-attribute
+     'helm-selection nil
+     :foreground "black" :background "white")
+    (set-face-attribute
+     'helm-ff-directory nil
+     :foreground "white" :background "black"))
+
+  t)
+
 (defun ktz--init-minimal ()
   "Setup minimal configuration"
   (dolist (pkg ktz--pkgs-minimal)
     (straight-use-package pkg))
-
-  (unless (display-graphic-p)
-    (ktz--init-terminal-overwrites))
 
   (auto-fill-mode t)
   (column-number-mode t)
@@ -61,11 +72,7 @@
   (global-set-key (kbd "M-<up>") 'ktz/move-line-up)
   (global-set-key (kbd "M-<down>") 'ktz/move-line-down)
 
-  (require 'helm-config)
-  (global-set-key (kbd "M-x") #'helm-M-x)
-  (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-  (global-set-key (kbd "C-x C-f") #'helm-find-files)
-  (helm-mode 1)
+  (ktz--init-minimal-helm)
 
   (require 'multiple-cursors)
   (global-set-key (kbd "C-x n") 'mc/mark-next-like-this)

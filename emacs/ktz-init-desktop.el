@@ -1,38 +1,5 @@
 ;;; ktz-init-desktop.el --- Desktop initialization.
 
-
-;; user interface
-
-(defcustom ktz-org-dir nil
-  "Directory where the .org files reside (e.g. path/to/Roam)"
-  :type 'directory
-  :group 'ktz)
-
-(when (display-graphic-p)
-  (defcustom ktz-font-size 12
-    "Font size in pt"
-    :type 'integer
-    :group 'ktz)
-
-  (defcustom ktz-mono-font "Source Code Pro"
-    "Name of the monospace font to use"
-    :type 'string
-    :group 'ktz)
-
-  (defcustom ktz-prop-font "Source Serif Pro"
-    "Name of the proportional font to use"
-    :type 'string
-    :group 'ktz))
-
-;; initialization
-
-
-;; must be initialized at import time
-;; so that the splash screen is shown
-;; (if (boundp 'ktz-org-dir)
-;;   (setq org-agenda-start-with-log-mode t))
-
-
 (defvar ktz--pkgs-desktop
   '(
     auctex
@@ -212,8 +179,8 @@
 
   ;; attributes must be set before requiring nano
   (setq nano-font-size ktz-font-size)
-  (setq nano-font-family-monospaced ktz-mono-font)
-  (setq nano-font-family-proportional ktz-prop-font)
+  (setq nano-font-family-monospaced ktz-font-monospace)
+  (setq nano-font-family-proportional ktz-font-proportional)
 
   ;; basic layout customization (window divider)
   (require 'nano-layout)

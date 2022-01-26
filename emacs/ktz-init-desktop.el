@@ -68,7 +68,9 @@
                 ;; Single arguments given alone
                 :priority "A")
          )))
-    (org-agenda nil "a"))
+
+    (when (and ktz-org-dir (equal (length command-line-args) 1))
+      (org-agenda nil "a")))
 
   t)
 
@@ -144,10 +146,6 @@
 
 
 (defun ktz--init-desktop-theme ()
-
-  ;; org
-
-  (set-face 'org-imminent-deadline 'nano-face-critical)
 
   ;; helm
 
@@ -286,12 +284,7 @@
       ;; disable window clutter
       (menu-bar-mode -1)
       (tool-bar-mode -1)
-      (scroll-bar-mode -1)
-
-      ;; show as splash screen
-      (when ktz-org-dir
-        (org-agenda-list)))
-
+      (scroll-bar-mode -1))
   t)
 
 

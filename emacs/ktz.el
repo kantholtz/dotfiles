@@ -1,19 +1,5 @@
 ;;; ktz.el --- Kantholtz' Emacs Configuration.
 
-;;
-;;  update packages with M-x straight-pull-all
-;;  remove packages:
-;;    - simply remove the corresponding (straight-use-package ...)
-;;    - if they need to be gone completely: M-x straight-remove-unused-repos
-
-
-(require 'ktz-config)
-(require 'ktz-init-minimal)
-(require 'ktz-init-programming)
-(require 'ktz-init-desktop)
-
-
-
 ;; user interface
 
 (defun ktz-configuration ()
@@ -34,10 +20,43 @@
 	  (const :tag "Desktop: desktop configuration with Roam, LaTex etc." desktop))
   :group 'ktz)
 
+(defcustom ktz-org-dir nil
+  "Directory where the .org files reside (e.g. path/to/Roam)"
+  :type 'directory
+  :group 'ktz)
 
+(when (display-graphic-p)
+  (defcustom ktz-font-size 12
+    "Font size in pt"
+    :type 'integer
+    :group 'ktz)
+
+  (defcustom ktz-font-monospace "Source Code Pro"
+    "Name of the monospace font to use"
+    :type 'string
+    :group 'ktz)
+
+  (defcustom ktz-font-proportional "Source Serif Pro"
+    "Name of the proportional font to use"
+    :type 'string
+    :group 'ktz))
+
+
+;; --------------------
+
+
+(require 'ktz-config)
+(require 'ktz-init-minimal)
+(require 'ktz-init-programming)
+(require 'ktz-init-desktop)
 
 ;; bootstrapping
 
+;;
+;;  update packages with M-x straight-pull-all
+;;  remove packages:
+;;    - simply remove the corresponding (straight-use-package ...)
+;;    - if they need to be gone completely: M-x straight-remove-unused-repos
 
 ;; intialization: bootstrapping straight.el
 ;; code from: https://github.com/raxod502/straight.el#getting-started
@@ -60,7 +79,6 @@
   "Initializes the environment based on the ktz-init-type"
   (message (format "KTZ: initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
 
-  (ktz--init-config)
   (cond ((eq ktz-init-type 'minimal)
 	 (ktz--init-minimal))
 
@@ -83,5 +101,6 @@
 (when load-file-name
   (setq ktz-root-dir (file-name-directory load-file-name)))
 
+(ktz--init-config)
 (add-hook 'emacs-startup-hook 'ktz-init)
 (provide 'ktz)

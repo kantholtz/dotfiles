@@ -20,6 +20,12 @@
   (setq-default show-trailing-whitespace t))
 
 
+(defun ktz--init-terminal-overwrites ()
+  "visual adjustments in terminal mode"
+  (set-face-attribute 'helm-selection nil :foreground 'black)
+  )
+
+
 ;; move lines up and down
 ; ;https://emacsredux.com/blog/2013/04/02/move-current-line-up-or-down/
 (defun ktz--move-line-up ()
@@ -42,6 +48,9 @@
   "Setup minimal configuration"
   (dolist (pkg ktz--pkgs-minimal)
     (straight-use-package pkg))
+
+  (unless (display-graphic-p)
+    (ktz--init-terminal-overwrites))
 
   (auto-fill-mode t)
   (column-number-mode t)

@@ -11,8 +11,6 @@ function fish_greeting
 
   # choose one poem randomly
   set -l i (expr (random) \% (count $verses) + 1)
-
-  echo
   cat $pdir/$verses[$i] | sed 's/^/  /'
 
 end

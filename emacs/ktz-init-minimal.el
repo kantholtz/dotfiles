@@ -6,6 +6,8 @@
     helm
     magit
     yasnippet
+    which-key
+    use-package
     multiple-cursors
 
     ;; server
@@ -58,6 +60,15 @@
 
   t)
 
+
+(defun ktz--prog-mode-hooks ()
+  (ktz--set-trailing-whitespace)
+  (linum-mode)
+  (setq linum-format "%4d ")
+
+  t)
+
+
 (defun ktz--init-minimal ()
   "Setup minimal configuration"
   (dolist (pkg ktz--pkgs-minimal)
@@ -68,9 +79,8 @@
   (show-paren-mode t)
 
   (global-set-key (kbd "C-x g") 'magit-status)
-
-  (global-set-key (kbd "M-<up>") 'ktz/move-line-up)
-  (global-set-key (kbd "M-<down>") 'ktz/move-line-down)
+  (global-set-key (kbd "M-<up>") 'ktz--move-line-up)
+  (global-set-key (kbd "M-<down>") 'ktz--move-line-down)
 
   (ktz--init-minimal-helm)
 
@@ -81,9 +91,12 @@
   (yas-global-mode t)
   (global-set-key (kbd "C-c j") 'yas-expand)
 
+  (use-package which-key
+    :straight t
+    :config (which-key-mode))
+
   ;; hooks
-  (add-hook 'prog-mode-hook 'ktz--set-trailing-whitespace)
-  ;; (add-hook 'text-mode-hook 'ktz--set-trailing-whitespace)
+  (add-hook 'prog-mode-hook 'ktz--prog-mode-hooks)
   (add-hook 'after-init-hook 'global-company-mode)
 
   t)

@@ -10,15 +10,11 @@
     ;; for org-roam configuration
     use-package
 
-    ;; doom-themes
-    ;; doom-modeline
-
     org-roam
     org-bullets
     org-super-agenda
 
     '(nano-emacs :type git :host github :repo "rougier/nano-emacs")
-
     ))
 
 
@@ -28,6 +24,7 @@
 (defun ktz--init-desktop-roam ()
   ;; see https://github.com/org-roam/org-roam#configuration
   (use-package org-roam
+    :straight t
 
     :custom
     (org-roam-directory ktz-org-dir)
@@ -103,15 +100,18 @@
 
   "Overwriting nano-theme-light.el."
   (setq frame-background-mode    'light)
-  (setq nano-color-foreground "#37474F")
-  (setq nano-color-background "#FFFFFF")
-  (setq nano-color-highlight  "#FAFAFA")
+  (setq nano-color-foreground "#37474f") ;; blue grey 800
+  (setq nano-color-background "#fafafa") ;; grey 50
+  (setq nano-color-highlight  "#b0bec5") ;; blue grey 200
   (setq nano-color-critical   "#c2185b") ;; pink 700
-  (setq nano-color-salient    "#6a1b9a") ;; purple 700
-  (setq nano-color-strong     "#000000")
+  (setq nano-color-salient    "#4527a0") ;; deep purple 800
+  (setq nano-color-strong     "#000000") ;; black
   (setq nano-color-popout     "#00695c") ;; green 800
-  (setq nano-color-subtle     "#ECEFF1")
-  (setq nano-color-faded      "#90a4ae") ;; blue grey 300 B0BEC5
+  (setq nano-color-subtle     "#eceff1") ;; blue grey 100
+  (setq nano-color-faded      "#90a4ae") ;; blue grey 300
+
+  ;; adding some of my own
+  (defvar nano-color-warning    "#ff6f00")  ;; amber 900
 
   t)
 
@@ -142,6 +142,9 @@
    :foreground nano-color-critical
    :background nano-color-background)
 
+  (set-face-attribute
+   'line-number nil :foreground "pink")
+
   t)
 
 
@@ -160,6 +163,14 @@
    :foreground nano-color-faded
    :background nano-color-background)
 
+  (set-face-attribute
+   'helm-ff-executable nil
+   :foreground nano-color-critical)
+
+  (set-face-attribute
+   'helm-ff-file-extension nil
+   :foreground nano-color-salient)
+
   (with-eval-after-load 'helm-bookmark
     (set-face-attribute
      'helm-bookmark-file nil
@@ -168,6 +179,97 @@
     (set-face
      'helm-bookmark-file-not-found
      'nano-face-critical))
+
+  ;; lsp
+
+  (set-face-attribute
+   'header-line nil :background nano-color-subtle)
+
+  (add-hook
+   'lsp-after-initialize-hook
+   (lambda ()
+
+     (set-face-attribute
+      'lsp-headerline-breadcrumb-path-face nil
+      :weight 'regular)
+
+     (set-face-attribute
+      'lsp-headerline-breadcrumb-path-error-face nil
+      :underline nil
+      :foreground nano-color-critical)
+
+     (set-face-attribute
+      'lsp-headerline-breadcrumb-path-warning-face nil
+      :underline nil
+      :foreground nano-color-warning)
+
+     (set-face-attribute
+      'lsp-headerline-breadcrumb-path-hint-face nil
+      :underline nil
+      :foreground nano-color-salient)
+
+     (set-face-attribute
+      'lsp-headerline-breadcrumb-path-info-face nil
+      :underline nil
+      :foreground nano-color-salient)
+
+     (customize-set-variable
+      'lsp-headerline-breadcrumb-segments
+      '(path-up-to-project file))))
+
+  ;; company
+
+  ;; does not work (?)
+  ;; (use-package company
+  ;;   :custom-face
+  ;;   `(company-tooltip ((t (:background ,nano-color-background)))))
+
+  (add-hook
+   'company-mode-hook
+   (lambda ()
+
+     (set-face-attribute
+      'company-tooltip nil
+      :background nano-color-background)
+
+     (set-face-attribute
+      'company-tooltip-selection nil
+      :foreground nano-color-foreground
+      :background nano-color-background)
+
+     (set-face-attribute
+      'company-tooltip-common-selection nil
+      :foreground nano-color-salient
+      :background nano-color-background)
+
+     (set-face-attribute
+      'company-tooltip-scrollbar-thumb nil
+      :background nano-color-background)
+
+     (set-face-attribute
+      'company-tooltip-scrollbar-track nil
+      :background nano-color-background)))
+
+
+  ;; flycheck
+  (require 'flycheck)
+
+  (set-face-attribute
+   'flycheck-warning nil
+   :underline nil
+   :foreground nano-color-warning)
+
+  (set-face-attribute
+   'flycheck-error nil
+   :underline nil
+   :foreground nano-color-critical)
+
+  ;; other
+
+  (set-face-attribute
+   'show-paren-match nil
+   :foreground nano-color-critical
+   :weight 'bold)
 
   t)
 
@@ -186,7 +288,7 @@
   ;; lots of defcustom with nil initialization
   (require 'nano-faces)
 
-  ;; custom theme
+  ;; overwrite colors
   (ktz--init-desktop-theme-set-light)
 
   ;; sets many attributes, e.g. font weights

@@ -1,81 +1,89 @@
 ;;; ktz-init-programming.el --- Programming initialization.
 
-(defvar ktz--pkgs-programming
-  '(
 
-    dumb-jump
-
-    ;; python
-    ein
-    conda
-    blacken
-    flycheck
-    anaconda-mode
-    company-anaconda
-
-    ;; frontend
-    vue-mode
-    prettier-js
-    typescript-mode))
-
-
-(defun ktz--init-programming-python ()
-  ;; - elpy and anaconda-mode do the same thing
-  ;; - anaconda-mode seems easier and more lighweight
-  ;; - flycheck is more powerful than the built-in flymake
-
-  (require 'python)
-  (require 'company)
-  (eval-after-load "company"
-    '(add-to-list 'company-backends 'company-anaconda))
-  (setq anaconda-mode-localhost-address "localhost")
-
-  (dolist (mode
-	   '(anaconda-mode
-	     anaconda-eldoc-mode
-	     blacken-mode
-	     flycheck-mode))
-    (add-hook 'python-mode-hook mode))
-
-  t)
-
-
-(defun ktz--init-programming-frontend ()
-  ;; VUE
-  ;; https://azzamsa.com/n/vue-emacs/
-
-  ;; (require 'lsp-mode)
-  ;; (require 'prettier)
-  (add-hook 'after-init-hook #'global-prettier-mode)
-
-  (setq js-indent-level 2)
-  (setq typescript-indent-level 2)
-
-  ;; (add-hook 'vue-mode-hook #'lsp)
-  (dolist
-      (hook
-       '(js-mode-hook
-	 web-mode-hook
-	 typescript-mode-hook
-	 vue-mode-hook))
-    (add-hook hook 'prettier-js-mode))
-
-  t)
+(defun ktz--init-programming-python-hook ()
+  (lsp)
+  (add-hook 'before-save-hook 'lsp-format-buffer nil t))
 
 
 (defun ktz--init-programming ()
   "Setup programming configuration"
-  (dolist (pkg ktz--pkgs-programming)
-    (straight-use-package pkg))
 
-  ;; dumb-jump
-  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
-  (setq xref-show-definitions-function #'xref-show-definitions-completing-read)
 
-  (ktz--init-programming-python)
-  (ktz--init-programming-frontend)
+  ;; PYTHON
 
-  t)
+  ;; set up conda
+  (when ktz-conda-dir
+    (use-package conda
+      :straight t
+      :custom
+      (conda-anaconda-home ktz-conda-dir)
+      :config
+      (conda-env-initialize-interactive-shells)
+      (conda-env-initialize-eshell)
+      (conda-env-activate ktz-conda-env)))
+
+  (use-package ein :straight t)
+
+
+  ;; LSP
+  ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
+
+  (use-package flycheck :straight t)
+
+  (use-package helm-lsp
+    :straight t
+    :commands helm-lsp-workspace-symbol)
+
+  ;; set up lsp
+  (use-package lsp-mode
+    :straight t
+    :commands (lsp lsp-deferred)
+
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+    (lsp-register-custom-settings
+     '(("pyls.plugins.flake8.enabled" t t)
+       ("pyls.plugins.pyls_black.enabled" t t)))
+
+    :hook
+    ((python-mode . ktz--init-programming-python-hook))
+
+    :config
+    (lsp-enable-which-key-integration t)
+    (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
+    ;; see below @ use-package flycheck
+    (lsp-pylsp))
+
+  (use-package company
+    :straight t
+    :after lsp-mode
+    :hook (lsp-mode . company-mode))
+
+  (use-package company-box
+    :straight t
+    :hook (company-mode . company-box-mode))
+
+  ;; flymake was not cooperative
+  ;; so it is disabled in lsp
+  ()
+
+  ;; FRONTEND
+
+  ;; https://azzamsa.com/n/vue-emacs/
+  (use-package vue-mode :straight t)
+
+  (use-package prettier-js
+    :straight t
+    :hook (js-mode web-mode typescript-mode vue-mode))
+
+  (use-package typescript-mode
+    :straight t
+    :config
+    (setq js-indent-level 2)
+    (setq typescript-indent-level 2))
+
+  (add-hook 'after-init-hook #'global-prettier-mode))
 
 
 (provide 'ktz-init-programming)

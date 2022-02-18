@@ -25,6 +25,16 @@
   :type 'directory
   :group 'ktz)
 
+(defcustom ktz-conda-dir nil
+  "Directory where the conda installation can be found"
+  :type 'directory
+  :group 'ktz)
+
+(defcustom ktz-conda-env "base"
+  "Default conda environment"
+  :type 'string
+  :group 'ktz)
+
 (when (display-graphic-p)
   (defcustom ktz-font-size 12
     "Font size in pt"

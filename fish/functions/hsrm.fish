@@ -13,8 +13,8 @@ function hsrm
     # echo "swapping opt/cmd"
     # echo 1 | sudo tee /sys/module/hid_apple/parameters/swap_opt_cmd
 
-    echo "dig a tunnel"
-    tme 2222 hamann braco hop.lavis
+    # echo "dig a tunnel"
+    # tme 2222 hamann braco hop.lavis
 
     echo "spawning applications"
     spawn thunderbird

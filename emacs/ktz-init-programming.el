@@ -42,14 +42,14 @@
 
     :init
     (setq lsp-keymap-prefix "C-c l")
-    (lsp-register-custom-settings
-     '(("pyls.plugins.flake8.enabled" t t)
-       ("pyls.plugins.pyls_black.enabled" t t)))
 
     :hook
     ((python-mode . ktz--init-programming-python-hook))
 
     :config
+    (lsp-register-custom-settings
+     '(("pyls.plugins.flake8.enabled" t t)
+       ("pyls.plugins.pyls_black.enabled" t t)))
     (lsp-enable-which-key-integration t)
     (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
     ;; see below @ use-package flycheck

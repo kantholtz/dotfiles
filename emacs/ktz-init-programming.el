@@ -24,7 +24,7 @@
       (conda-env-activate ktz-conda-env)))
 
   (use-package ein :straight t)
-
+  (use-package numpydoc :straight t)
 
   ;; LSP
   ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
@@ -63,10 +63,6 @@
   (use-package company-box
     :straight t
     :hook (company-mode . company-box-mode))
-
-  ;; flymake was not cooperative
-  ;; so it is disabled in lsp
-  ()
 
   ;; FRONTEND
 

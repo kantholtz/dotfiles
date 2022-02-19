@@ -111,7 +111,8 @@
   (setq nano-color-faded      "#90a4ae") ;; blue grey 300
 
   ;; adding some of my own
-  (defvar nano-color-warning    "#ff6f00")  ;; amber 900
+  ;; (later: use defcustom)
+  (defvar nano-color-warning    "#bf360c")  ;; deep orange 900
 
   t)
 
@@ -121,7 +122,8 @@
       ((weight-alist
         '((medium
            . (nano-face-default
-              nano-face-faded))
+              nano-face-faded
+              nano-face-header-default))
           (semi-bold
            . (nano-face-salient
               nano-face-tag-default
@@ -275,6 +277,7 @@
 
 
 (defun ktz--init-desktop-nano ()
+  ;; gonna absorb and adapt nano one by one
   ;; the order of all these expressions is very important...
 
   ;; attributes must be set before requiring nano
@@ -305,53 +308,13 @@
   (set-face-attribute 'default nil :weight 'regular)
 
   ;; setting up the modeline
-  (require 'nano-modeline)
-
-  t)
-
-
-;; currently unused in favor of nano
-(defun ktz--init-desktop-ktz ()
-  (dolist(face '(nano-face-strong nano-face-tag-default nano-face-tag-string))
-    (set-face-attribute face nil :weight 'semi-bold))
-
-  (set-face-attribute
-   'nano-face-faded nil
-   :weight 'bold)
-  (set-face-attribute
-   'nano-face-salient nil
-   :weight 'bold)
-
-
-  ;; global doom settings
-  (require 'doom-themes)
-  (setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-	      doom-themes-enable-italic t) ; if nil, italics is universally disabled
-
-  ;; enable flashing mode-line on errors
-  (doom-themes-visual-bell-config)
-
-  ;; corrects (and improves) org-mode's native fontification.
-  (doom-themes-org-config)
-
-  ;; show line numbers
-  (global-linum-mode 1)
-
-  ;;add some space
-  (fringe-mode 10)
-
-  ;; dynamically set theme based on environment vars
-  (when (getenv "KTZ_LIGHT")
-    (load-theme 'doom-kantholtz-light t))
-  (when (getenv "KTZ_DARK")
-    (load-theme 'doom-kantholtz-dark t))
-)
+  ;; (require 'nano-modeline)
+  (require 'ktz-theme-modeline))
 
 
 (defun ktz--init-desktop-graphic-p ()
 
   (ktz--init-desktop-nano)
-  ;; (ktz--init-desktop-ktz)
 
   ;; spell checks
   (setq ispell-program-name (executable-find "hunspell") ispell-dictionary "en_GB")

@@ -179,7 +179,9 @@ def _recurse(buf: list[str], node: Node, name: str, depth: int):
         timestamp = org.created.strftime("<%Y-%m-%d %a>")
 
         heading = f"[[id:{org.id}][{name}]]"
-        orgstr = f" {timestamp} ({org.nodes}) [{done}/{total}]"
+        orgstr = f" {timestamp} ({org.nodes})"
+        if total > 0:
+            orgstr += f" [{done}/{total}]"
 
     prefix = "*" * (depth + 1)
     buf.append(f"{prefix} {heading}{orgstr}")

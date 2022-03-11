@@ -2,7 +2,7 @@
 
 # red
 set -U ktz_clr_primary          'c2185b'
-set -U ktz_clr_primary_light    'fa5788'
+set -U ktz_clr_primary_light    'cc95ab'
 set -U ktz_clr_primary_dark     '8c0032'
 
 # green

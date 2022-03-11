@@ -25,6 +25,16 @@
   :type 'directory
   :group 'ktz)
 
+(defcustom ktz-mail-dir nil
+  "Directory where a ktz-mu4e.el file and local mail folders are found"
+  :type 'directory
+  :group 'ktz)
+
+(defcustom ktz-mail-mu4e-dir nil
+  "Directory where the configure file of mu can be found"
+  :type 'directory
+  :group 'ktz)
+
 (defcustom ktz-conda-dir nil
   "Directory where the conda installation can be found"
   :type 'directory
@@ -102,6 +112,9 @@
 	   (ktz--init-minimal)
 	   (ktz--init-programming)
 	   (ktz--init-desktop))))
+
+  (when ktz-mail-dir
+    (load (concat ktz-mail-dir "/ktz-mu4e.el")))
 
   t)
 

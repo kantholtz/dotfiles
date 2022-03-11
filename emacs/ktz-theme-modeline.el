@@ -310,7 +310,7 @@
                          ""))
 
 (with-eval-after-load 'mu4e
-  (defun mu4e~header-line-format () (ktz-theme--modeline)))
+  (defun mu4e~header-line-format () (ktz-theme-modeline)))
 
 ;; ----
 
@@ -377,7 +377,7 @@
           (branch      (vc-branch))
           (position    (format-mode-line "%l:%c")))
       (ktz-theme--modeline-compose (ktz-theme--modeline-status)
-                             buffer-name 
+                             buffer-name
                              (concat "(" mode-name
                                      (if branch (concat ", "
                                              (propertize branch 'face 'italic)))
@@ -470,7 +470,7 @@
                    (format "%d notes" (length deft-all-files)))))
     (ktz-theme--modeline-compose " DEFT "
                            primary filter matches)))
-    
+
 
 ;; ----
 
@@ -497,11 +497,11 @@
 
 (defun ktz-theme--modeline-status ()
   "Return buffer status: read-only (RO), modified (**) or read-write (RW)"
-  
+
   (let ((read-only   buffer-read-only)
         (modified    (and buffer-file-name (buffer-modified-p))))
     (cond (modified  "**") (read-only "RO") (t "RW"))))
-  
+
 ;; ----
 
 (defun ktz-theme--modeline-mu4e-context ()
@@ -566,6 +566,3 @@ below or a buffer local variable 'no-mode-line'."
 (ktz-theme-modeline)
 
 (provide 'ktz-theme-modeline)
-
-
-

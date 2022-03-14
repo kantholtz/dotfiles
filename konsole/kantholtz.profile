@@ -1,8 +1,8 @@
 [Appearance]
 AntiAliasFonts=true
 BoldIntense=false
-ColorScheme=kantholtz-dark
-Font=Source Code Pro,8,-1,5,57,0,0,0,0,0,Medium
+ColorScheme=kantholtz-light
+Font=Source Code Pro,10,-1,5,57,0,0,0,0,0,Medium
 
 [General]
 Name=kantholtz

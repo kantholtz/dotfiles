@@ -1,4 +1,4 @@
-# color definitions
+# own color definitions
 
 # red
 set -U ktz_clr_primary          'c2185b'
@@ -14,3 +14,11 @@ set -U ktz_clr_secondary_dark   '003d32'
 set -U ktz_clr_subtle           '455a64'
 set -U ktz_clr_subtle_light     '9ea7aa'
 set -U ktz_clr_subtle_dark      '1c313a'
+
+
+# overwrites
+
+set fish_color_command $ktz_clr_secondary
+set fish_color_param   $ktz_clr_secondary_light
+set fish_color_error   $ktz_clr_primary
+set fish_color_quote   $ktz_clr_secondary_light

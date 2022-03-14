@@ -152,6 +152,12 @@
 
 (defun ktz--init-desktop-theme ()
 
+  ;; org
+
+  (set-face-attribute
+   'org-block nil
+   :background nano-color-subtle)
+
   ;; helm
 
   (set-face-attribute

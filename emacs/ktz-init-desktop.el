@@ -17,13 +17,18 @@
 (defun ktz--init-desktop-roam ()
 
   ;; was not able to use (let ...) - need to understand scoping better
-  (defvar ktz--org-orgfiles      (concat ktz-org-dir "/org"))
-  (defvar ktz--org-templates     (concat ktz-org-dir "/templates"))
-  (defvar ktz--org-ref-pdfs      (concat ktz-org-dir "/ref/pdfs"))
+  ;; trailing slashes are required at least for ref-pdfs
+  (defvar ktz--org-orgfiles      (concat ktz-org-dir "/org/"))
+  (defvar ktz--org-templates     (concat ktz-org-dir "/templates/"))
+  (defvar ktz--org-ref-pdfs      (concat ktz-org-dir "/ref/pdfs/"))
   (defvar ktz--org-ref-bibfiles
-    (list
+    (list ;; the first element is used for automatic appends
      (concat ktz-org-dir "/ref/bibliography.bib")
      (concat ktz-org-dir "/ref/ramlimit.bib")))
+
+  ;;
+  ;; roam
+  ;;
 
   ;; see also https://github.com/org-roam/org-roam#configuration
   (use-package org-roam
@@ -61,51 +66,90 @@
 
     :bind (("C-c n l" . org-roam-buffer-toggle)
            ("C-c n f" . org-roam-node-find)
-           ("C-c n i" . org-roam-node-insert)
-           ;; ("M-." . org-open-at-point)
-           ;; ("M-," . org-mark-ring-goto)
-           )
+           ("C-c n i" . org-roam-node-insert))
 
     :config
     (org-roam-setup))
 
+  ;;
   ;; scientific org stuff
-  (use-package bibtex
-    :straight t
-    :config
-    (setq bibtex-autokey-year-length 4
-          bibtex-autokey-name-year-separator "-"
-	        bibtex-autokey-year-title-separator "-"
-	        bibtex-autokey-titleword-separator "-"
-	        bibtex-autokey-titlewords 2
-	        bibtex-autokey-titlewords-stretch 1
-	        bibtex-autokey-titleword-length 5))
+  ;;
 
+  ;; in org-ref/melpa/init-helm.el there is some configuration
+  ;; which is required as otherwise the doi async pdf download
+  ;; thing fails for whatever reason...
+  (setq package-user-dir "~/.emacs.d/package-user-dir")
+
+  (use-package bibtex)
   (use-package org-ref
     :straight t
 
-    :config
-    (setq bibtex-completion-bibliography ktz--org-ref-bibfiles
-          bibtex-completion-library-path (list ktz--org-ref-pdfs))
+    :init
+    (setq bibtex-completion-library-path
+          (list ktz--org-ref-pdfs)
 
-    :bind
-    (("C-c r c" . org-ref-cite-insert-helm)
-     ("C-c r r" . org-ref-insert-ref-link)
-     ("C-c r l" . org-ref-insert-label-link)))
+          bibtex-completion-pdf-open-function
+          (lambda (fpath) (call-process "open" nil 0 nil fpath))
+
+          bibtex-completion-bibliography
+          ktz--org-ref-bibfiles
+
+          bibtex-autokey-year-length 4
+          bibtex-autokey-name-year-separator ""
+	        bibtex-autokey-year-title-separator ""
+	        bibtex-autokey-titleword-separator ""
+	        bibtex-autokey-titlewords 1
+	        bibtex-autokey-titlewords-stretch 1
+	        bibtex-autokey-titleword-length 10)
+
+    (require 'org-ref-helm)
+    (require 'org-ref-arxiv)
+
+    :bind (("C-c r c" . org-ref-cite-insert-helm)
+           ("C-c r r" . org-ref-insert-ref-link)
+           ("C-c r l" . org-ref-insert-label-link)))
 
   (use-package helm-bibtex
     :straight t
+    :init
+    (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
+      org-ref-insert-cite-function 'org-ref-cite-insert-helm
+      org-ref-insert-label-function 'org-ref-insert-label-link
+      org-ref-insert-ref-function 'org-ref-insert-ref-link
+      org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
 
-    :config
-    (require 'org-ref-helm))
-    ;; does not seem to work
-    ;; (setq org-ref-insert-link-function  'org-ref-insert-link-hydra/body
-    ;;       org-ref-insert-cite-function  'org-ref-cite-insert-helm
-    ;;       org-ref-insert-label-function 'org-ref-insert-label-link
-    ;;       org-ref-insert-ref-function   'org-ref-insert-ref-link))
+  ;; org-ref integrates biblio to browse and retrieve bibtex entries
+  (defun ktz--biblio-ref-add (bibtex entry)
+    "Add entry to bibtex file."
+    (with-current-buffer (find-file-noselect (car ktz--org-ref-bibfiles))
+      (goto-char (point-max))
+      (insert bibtex)
+      (org-ref-clean-bibtex-entry)))
+
+  (defun ktz--biblio-ref-select-and-add ()
+    "Append current entry to bibtex file."
+    (interactive)
+    (biblio--selection-forward-bibtex #'ktz--biblio-ref-add))
+
+  (use-package biblio
+    :straight t
+    :bind
+    (:map biblio-selection-mode-map
+          ("a" . ktz--biblio-ref-select-and-add)))
+
+  ;; use this to autoformat whole bibfiles
+  (bibtex-map-entries
+   (lambda (key start end)
+     (goto-char start)
+     (ignore-errors
+       (message (format "cleaning %s" key))
+       (org-ref-clean-bibtex-entry))))
 
 
+  ;;
   ;; agenda configuration
+  ;;
+
   (use-package org-super-agenda
     :straight t
     :config

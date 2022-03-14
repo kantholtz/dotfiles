@@ -7,13 +7,6 @@
     visual-fill-column
     flyspell-correct-helm
 
-    ;; for org-roam configuration
-    use-package
-
-    org-roam
-    org-bullets
-    org-super-agenda
-
     '(nano-emacs :type git :host github :repo "rougier/nano-emacs")
     ))
 
@@ -22,23 +15,46 @@
 
 
 (defun ktz--init-desktop-roam ()
-  ;; see https://github.com/org-roam/org-roam#configuration
+
+  ;; was not able to use (let ...) - need to understand scoping better
+  (defvar ktz--org-orgfiles      (concat ktz-org-dir "/org"))
+  (defvar ktz--org-templates     (concat ktz-org-dir "/templates"))
+  (defvar ktz--org-ref-pdfs      (concat ktz-org-dir "/ref/pdfs"))
+  (defvar ktz--org-ref-bibfiles
+    (list
+     (concat ktz-org-dir "/ref/bibliography.bib")
+     (concat ktz-org-dir "/ref/ramlimit.bib")))
+
+  ;; see also https://github.com/org-roam/org-roam#configuration
   (use-package org-roam
     :straight t
 
     :custom
-    (org-roam-directory ktz-org-dir)
-    (org-agenda-files (list ktz-org-dir))
+    (org-log-done 'time)
+    (org-roam-directory ktz--org-orgfiles)
+    (org-agenda-files (list ktz--org-orgfiles))
     (org-agenda-start-with-log-mode t)
 
     ;; `(1 ,(- 3 1)) -> (1 2) (the (concat ...) needs to be evaluated)
     ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html
     ;; https://www.reddit.com/r/emacs/comments/quy7gd/setting_an_org_roam_capture_template/
     (org-roam-capture-templates
-     `(("d" "default" plain
-        (file ,(concat ktz-org-dir "/_templates/default.org"))
+     `(;; roam templates
+       ("r" "roam")
+       ("rd" "default" plain
+        (file ,(concat ktz--org-templates "/roam-default.org"))
         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "")
-        :unnarrowed t)))
+        :unnarrowed t)
+       ;; mailing
+       ;; TODO load from ktz-mu4e.el
+       ("m" "mail")
+       ("mp" "paper heap" entry
+        (file+olp ,(concat ktz--org-orgfiles "20211003154535-diss_paper_heap.org") "Scholar")
+        (file ,(concat ktz--org-templates "/mail-paper_heap.org")))
+       ("mq" "mail queries" entry
+        (file+olp ,(concat ktz--org-orgfiles "20220307104213-mail.org") "Scholar")
+        "TODO %:date ")
+       ))
 
     :init
     (setq org-roam-v2-ack t)
@@ -48,28 +64,67 @@
            ("C-c n i" . org-roam-node-insert)
            ;; ("M-." . org-open-at-point)
            ;; ("M-," . org-mark-ring-goto)
-           :map org-mode-map
-           ("C-M-i"    . completion-at-point))
+           )
 
     :config
-    (org-roam-setup)
-    (setq org-log-done 'time))
+    (org-roam-setup))
 
-  ;; see https://github.com/alphapapa/org-super-agenda#examples
-  (let ((org-super-agenda-groups
-       '(;; Each group has an implicit boolean OR operator between its selectors.
-         (:name "Today"  ; Optionally specify section name
-                :time-grid t  ; Items that appear on the time grid
-                :todo "NEXT")  ; Items that have this TODO keyword
-         (:name "Important"
-                ;; Single arguments given alone
-                :priority "A")
-         )))
+  ;; scientific org stuff
+  (use-package bibtex
+    :straight t
+    :config
+    (setq bibtex-autokey-year-length 4
+          bibtex-autokey-name-year-separator "-"
+	        bibtex-autokey-year-title-separator "-"
+	        bibtex-autokey-titleword-separator "-"
+	        bibtex-autokey-titlewords 2
+	        bibtex-autokey-titlewords-stretch 1
+	        bibtex-autokey-titleword-length 5))
 
-    (when (and ktz-org-dir (equal (length command-line-args) 1))
-      (org-agenda nil "a")))
+  (use-package org-ref
+    :straight t
 
-  t)
+    :config
+    (setq bibtex-completion-bibliography ktz--org-ref-bibfiles
+          bibtex-completion-library-path (list ktz--org-ref-pdfs))
+
+    :bind
+    (("C-c r c" . org-ref-cite-insert-helm)
+     ("C-c r r" . org-ref-insert-ref-link)
+     ("C-c r l" . org-ref-insert-label-link)))
+
+  (use-package helm-bibtex
+    :straight t
+
+    :config
+    (require 'org-ref-helm))
+    ;; does not seem to work
+    ;; (setq org-ref-insert-link-function  'org-ref-insert-link-hydra/body
+    ;;       org-ref-insert-cite-function  'org-ref-cite-insert-helm
+    ;;       org-ref-insert-label-function 'org-ref-insert-label-link
+    ;;       org-ref-insert-ref-function   'org-ref-insert-ref-link))
+
+
+  ;; agenda configuration
+  (use-package org-super-agenda
+    :straight t
+    :config
+    ;; see https://github.com/alphapapa/org-super-agenda#examples
+    (let ((org-super-agenda-groups
+           '(;; Each group has an implicit boolean OR operator between its selectors.
+             (:name "Today"  ; Optionally specify section name
+                    :time-grid t  ; Items that appear on the time grid
+                    :todo "NEXT")  ; Items that have this TODO keyword
+             (:name "Important"
+                    ;; Single arguments given alone
+                    :priority "A")
+             )))
+      (when (and ktz-org-dir (equal (length command-line-args) 1))
+        (org-agenda nil "a"))))
+
+  ;; misc
+  (use-package org-bullets :straight t))
+
 
 
 (defun ktz--init-desktop-org ()

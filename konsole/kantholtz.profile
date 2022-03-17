@@ -3,10 +3,13 @@ AntiAliasFonts=true
 BoldIntense=false
 ColorScheme=kantholtz-light
 Font=Source Code Pro,10,-1,5,57,0,0,0,0,0,Medium
+LineSpacing=3
 
 [General]
 Name=kantholtz
 Parent=FALLBACK/
+TerminalCenter=false
+TerminalMargin=15
 
 [Scrolling]
 HistoryMode=0

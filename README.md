@@ -6,20 +6,15 @@
 
 ## Installation ##
 
-Setting up `tmux` and `fish`. The installer script `install.fish`
-automatically links these files and folders:
+For the *fish* shell, you simply add the following to your local `fish.config`:
 
-* `.tmux.conf`
-* `.config/fish/config.fish`
-* `.config/fish/functions`
-
-
-```bash
-./install.fish [uninstall]
+```
+source path/to/dotfiles/fish/config.fish
 ```
 
-
-Emacs configuration:
+To configure *emacs* add the following to your `.emacs` and run `M-x
+ktz-customize` (an alias for `M-x customize-group RET ktz RET`) and
+choose a mode:
 
 ```elisp
 ;; configure it with M-x ktz-customize
@@ -27,7 +22,8 @@ Emacs configuration:
 (require 'ktz)
 ```
 
-The run `M-x ktz-customize` and choose a mode.
+For *tmux*, you can simply link the configuration file in `tmux` to
+your home directory.
 
 
 ### Windows

@@ -89,6 +89,8 @@ class Org:
 
     @classmethod
     def from_file(Self: "Org", fd: TextIO):
+        print(f"loading {fd.name}")
+
         build = Builder(Klass=Self, immutable=True)
         parsed = orgparse.load(fd)
 
@@ -155,7 +157,7 @@ def read_files(roam_path) -> Node:
 
     # build hierarchy
     for org_path in roam_path.glob("*.org"):
-        with org_path.open(mode="r") as fd:
+        with org_path.open(mode="r", encoding="utf-8") as fd:
             org = Org.from_file(fd=fd)
 
             # populate recursively

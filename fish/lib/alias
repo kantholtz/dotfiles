@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import re
+import os
 import sys
-import pathlib
+from pathlib import Path
 
 from typing import List
 
@@ -19,8 +20,12 @@ def translate(
     alias: str = None,
     cmd: str = None,
 ):
-    root = pathlib.Path(caller).parents[1]
-    dsl = root / "alias" / f"{alias}.alias"
+    ktz_dir_dotfiles = os.getenv("ktz_dir_dotfiles")
+    if not ktz_dir_dotfiles:
+        fail("ktz_dir_dotfiles is not set")
+
+    root = Path(ktz_dir_dotfiles)
+    dsl = root / "assets" / "alias" / f"{alias}.alias"
     if not dsl.exists():
         fail(f"no alias file for {alias}")
 

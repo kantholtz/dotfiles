@@ -1,3 +1,5 @@
+ktz-echo "ktz-tm.fish" "loading file"
+
 # [t]unnel and [m]ount
 
 function ktz-tm -a destination target hop localport

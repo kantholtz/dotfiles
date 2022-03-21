@@ -1,21 +1,17 @@
 
-function __config_custom
+# to print debugging information
+# it is looked whether this variable is set at all
+# and its value is irrelevant... may introduce log
+# levels at some point, however
+# set -gx KTZ_DEBUG
 
-  set -l fish_dir ~/.config/fish
 
-  # not under version control for machine specific configuration
-  set -l local_conf $fish_dir/config.local.fish
+#
+#    bootstrapping
+#
 
-  if [ -f $local_conf ]  # -f implies -L
-    source $local_conf
-  end
-
-  # includes
-  source $fish_dir/functions/alias.fish
-  for file in $fish_dir/functions/ktz/*.fish
-      source $file
-  end
-
-end
-
-__config_custom
+# determine file paths:
+# config.fish MUST be a symbolic link pointing
+# to the dotfiles repository
+set -g ktz_dir_root (dirname (status filename))/ktz
+source $ktz_dir_root/ktz.fish

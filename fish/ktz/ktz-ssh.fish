@@ -1,3 +1,5 @@
+ktz-echo "ktz-ssh.fish" "loading file"
+
 
 function ktz-sshfs \
     -a name \

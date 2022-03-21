@@ -1,5 +1,5 @@
-# can I rely on ktz-clr.fish to be loaded?
-# . ktz-clr.fish
+ktz-echo "ktz-prompt.fish" "loading file"
+
 
 # delimiter
 set -g ktz_prompt_delim1 ·

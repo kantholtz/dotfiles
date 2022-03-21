@@ -19,4 +19,4 @@ if [ -z "$selection" ]; then
 fi
 
 echo
-cat $from/$selection
+cat $from/$selection | sed 's/^/    /'

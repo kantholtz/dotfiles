@@ -46,6 +46,10 @@
     (org-roam-capture-templates
      `(;; roam templates
        ("r" "roam")
+       ("rb" "default" plain
+        (file ,(concat ktz--org-templates "/roam-blank.org"))
+        :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "")
+        :unnarrowed t)
        ("rd" "default" plain
         (file ,(concat ktz--org-templates "/roam-default.org"))
         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "")

@@ -22,8 +22,10 @@ import orgparse
 from ktz.filesystem import path
 from ktz.dataclasses import Builder
 
+import sys
 import enum
 import argparse
+import traceback
 from pathlib import Path
 from datetime import datetime
 from collections import Counter
@@ -89,7 +91,6 @@ class Org:
 
     @classmethod
     def from_file(Self: "Org", fd: TextIO):
-        print(f"loading {fd.name}")
 
         build = Builder(Klass=Self, immutable=True)
         parsed = orgparse.load(fd)
@@ -140,6 +141,11 @@ class Org:
 # ---
 
 
+def fail(msg):
+    print(msg)
+    sys.exit(2)
+
+
 # no forward references
 def _nodefac():
     return defaultdict(Node)
@@ -157,14 +163,20 @@ def read_files(roam_path) -> Node:
 
     # build hierarchy
     for org_path in roam_path.glob("*.org"):
-        with org_path.open(mode="r", encoding="utf-8") as fd:
-            org = Org.from_file(fd=fd)
 
-            # populate recursively
-            place = root
-            for crumb in org.breadcrumbs:
-                place = place.children[crumb]
-            place.org = org
+        try:
+            with org_path.open(mode="r", encoding="utf-8") as fd:
+                org = Org.from_file(fd=fd)
+
+                # populate recursively
+                place = root
+                for crumb in org.breadcrumbs:
+                    place = place.children[crumb]
+                place.org = org
+
+        except Exception:
+            traceback.print_exc()
+            fail(f"\nGot exception for {org_path}!")
 
     return root
 
@@ -204,6 +216,7 @@ def write_index(index_path: Path, tree: Node):
 
         assert found, "cannot find marker"
 
+    content.append(f"# generated: {datetime.now()}")
     _recurse(buf=content, node=tree, name="root", depth=1)
 
     with index_path.open(mode="w") as fd:

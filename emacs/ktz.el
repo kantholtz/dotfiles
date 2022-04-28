@@ -45,6 +45,10 @@
   :type 'string
   :group 'ktz)
 
+(defcustom ktz-conda-paths nil
+  "Possible conda installation paths; Required for tramp+lsp."
+  :type '(repeat directory))
+
 (when (display-graphic-p)
   (defcustom ktz-font-size 12
     "Font size in pt"

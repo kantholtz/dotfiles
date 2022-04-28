@@ -4,7 +4,6 @@
   '(
     auctex
     pdf-tools
-    visual-fill-column
     flyspell-correct-helm
 
     '(nano-emacs :type git :host github :repo "rougier/nano-emacs")
@@ -12,6 +11,10 @@
 
 
 ;; --
+
+
+(defun ktz--org-visual-fill ()
+  (visual-fill-column-mode 1))
 
 
 (defun ktz--init-desktop-roam ()
@@ -22,13 +25,16 @@
   (defvar ktz--org-templates     (concat ktz-org-dir "/templates/"))
   (defvar ktz--org-ref-pdfs      (concat ktz-org-dir "/ref/pdfs/"))
   (defvar ktz--org-ref-bibfiles
-    (list ;; the first element is used for automatic appends
+    (list ;; the first element is used for automatic appends by org-ref/gscholar
      (concat ktz-org-dir "/ref/bibliography.bib")
      (concat ktz-org-dir "/ref/ramlimit.bib")))
 
   ;;
   ;; roam
   ;;
+  (use-package visual-fill-column
+    :straight t
+    :hook (org-mode . ktz--org-visual-fill))
 
   ;; see also https://github.com/org-roam/org-roam#configuration
   (use-package org-roam
@@ -46,12 +52,16 @@
     (org-roam-capture-templates
      `(;; roam templates
        ("r" "roam")
-       ("rb" "default" plain
+       ("rb" "blank" plain
         (file ,(concat ktz--org-templates "/roam-blank.org"))
         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "")
         :unnarrowed t)
        ("rd" "default" plain
         (file ,(concat ktz--org-templates "/roam-default.org"))
+        :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "")
+        :unnarrowed t)
+       ("rr" "research" plain
+        (file ,(concat ktz--org-templates "/roam-research.org"))
         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "")
         :unnarrowed t)
        ;; mailing
@@ -85,6 +95,21 @@
   (setq package-user-dir "~/.emacs.d/package-user-dir")
 
   (use-package bibtex)
+  (use-package helm-bibtex
+    :straight t
+    :init
+    (setq
+     ;; org-ref optiona
+     org-ref-insert-link-function 'org-ref-insert-link-hydra/body
+     org-ref-insert-cite-function 'org-ref-cite-insert-helm
+     org-ref-insert-label-function 'org-ref-insert-label-link
+     org-ref-insert-ref-function 'org-ref-insert-ref-link
+     org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))
+     )
+    :config
+    ;; https://github.com/tmalsburg/helm-bibtex/issues/280
+    (setq warning-minimum-log-level :error))
+
   (use-package org-ref
     :straight t
 
@@ -111,23 +136,21 @@
 
     :bind (("C-c r c" . org-ref-cite-insert-helm)
            ("C-c r r" . org-ref-insert-ref-link)
-           ("C-c r l" . org-ref-insert-label-link)))
+           ("C-c r l" . org-ref-insert-label-link)
+           ("C-c r g" . gscholar-bibtex)
+           ("C-c r b" . helm-bibtex)))
 
-  (use-package helm-bibtex
+  (use-package company-bibtex
     :straight t
-    :init
-    (setq org-ref-insert-link-function 'org-ref-insert-link-hydra/body
-      org-ref-insert-cite-function 'org-ref-cite-insert-helm
-      org-ref-insert-label-function 'org-ref-insert-label-link
-      org-ref-insert-ref-function 'org-ref-insert-ref-link
-      org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))))
+    :config
+    (add-to-list 'company-backends 'company-bibtex))
 
   ;; org-ref integrates biblio to browse and retrieve bibtex entries
   (defun ktz--biblio-ref-add (bibtex entry)
     "Add entry to bibtex file."
     (with-current-buffer (find-file-noselect (car ktz--org-ref-bibfiles))
       (goto-char (point-max))
-      (insert bibtex)
+      (insert (concat "\n\n" bibtex))
       (org-ref-clean-bibtex-entry)))
 
   (defun ktz--biblio-ref-select-and-add ()
@@ -148,6 +171,11 @@
      (ignore-errors
        (message (format "cleaning %s" key))
        (org-ref-clean-bibtex-entry))))
+
+  (use-package gscholar-bibtex
+    :straight t
+    :init
+    (setq gscholar-bibtex-database-file (car ktz--org-ref-bibfiles)))
 
 
   ;;

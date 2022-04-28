@@ -101,8 +101,8 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [General]
-Blur=false
+Blur=true
 ColorRandomization=false
 Description=kantholtz-light
-Opacity=1
+Opacity=0.9
 Wallpaper=

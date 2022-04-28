@@ -2,7 +2,7 @@
 AntiAliasFonts=true
 BoldIntense=false
 ColorScheme=kantholtz-light
-Font=Source Code Pro,11,-1,5,50,0,0,0,0,0
+Font=Source Code Pro,10,-1,5,50,0,0,0,0,0
 LineSpacing=3
 
 [General]

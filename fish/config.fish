@@ -10,6 +10,11 @@
 #    bootstrapping
 #
 
+set ktz_conf_local "~/.config/fish/config.local.fish"
+if [ -f "$ktz_conf_local" ]
+    eval "$ktz_conf_local"
+end
+
 # determine file paths:
 # config.fish MUST be a symbolic link pointing
 # to the dotfiles repository

@@ -33,7 +33,9 @@ ktz-echo "ktz.fish" (echo \
     "  ktz_dir_fish $ktz_dir_fish\n" \
     "  ktz_dir_root $ktz_dir_root\n" \
     "  ktz_dir_dotfiles $ktz_dir_dotfiles\n" \
-    | string collect)
+    | string collect 2>/dev/null)
+    # string collect:
+    # this can fail for older fish versions
 
 
 # own color definitions

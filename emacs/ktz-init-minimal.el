@@ -71,6 +71,8 @@
 
 (defun ktz--init-minimal ()
   "Setup minimal configuration"
+  (message "[ktz] initializing minimal configuration")
+
   (dolist (pkg ktz--pkgs-minimal)
     (straight-use-package pkg))
 

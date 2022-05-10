@@ -73,6 +73,8 @@
 (require 'ktz-init-minimal)
 (require 'ktz-init-programming)
 (require 'ktz-init-desktop)
+(require 'ktz-init-org)
+
 
 ;; bootstrapping
 
@@ -101,7 +103,7 @@
 
 (defun ktz-init ()
   "Initializes the environment based on the ktz-init-type"
-  (message (format "KTZ: initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
+  (message (format "[ktz] initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
 
   (cond ((eq ktz-init-type 'minimal)
 	 (ktz--init-minimal))
@@ -109,13 +111,15 @@
 	((eq ktz-init-type 'programming)
 	 (progn
 	   (ktz--init-minimal)
-	   (ktz--init-programming)))
+	   (ktz--init-programming)
+     (ktz--init-org)))
 
 	((eq ktz-init-type 'desktop)
 	 (progn
 	   (ktz--init-minimal)
 	   (ktz--init-programming)
-	   (ktz--init-desktop))))
+	   (ktz--init-desktop)
+     (ktz--init-org))))
 
   (when ktz-mail-dir
     (load (concat ktz-mail-dir "/ktz-mu4e.el")))

@@ -8,6 +8,7 @@
 
 (defun ktz--init-programming ()
   "Setup programming configuration"
+  (message "[ktz] initializing programming configuration")
 
   ;; PYTHON
 

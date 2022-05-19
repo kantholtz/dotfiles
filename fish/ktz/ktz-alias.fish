@@ -27,27 +27,32 @@ function __ktz-alias-exec
 end
 
 
-# APT
-# --------------------
 function a -d 'apt aliases'
     __ktz-alias-exec a $argv
 end
 
 
-# SYSTEMD
-# --------------------
 function c -d 'systemd aliases'
     __ktz-alias-exec c $argv
 end
 
 
-# emacs
 function e -d 'emacs aliases'
     __ktz-alias-exec e $argv
 end
 
+function t -d 'tmux aliases'
+    __ktz-alias-exec t $argv
+end
+
+function k -d "ktz aliases"
+    __ktz-alias-exec k $argv
+end
+
+
 
 # git
+
 function __ktz_g_gps
   for rt in (g rt)
     echo "pushing to $rt"
@@ -64,12 +69,6 @@ end
 
 function g
     __ktz-alias-exec g $argv
-end
-
-
-# tmux
-function t -d 'tmux aliases'
-    __ktz-alias-exec t $argv
 end
 
 

@@ -12,16 +12,37 @@ ktz-echo "ktz-ssh-config.fish" "loading file"
 
 
 function ktz-ssh-config -a name -d "switch ssh config"
-    set conf_dir "$HOME"/.ssh
-    set conf "$conf_dir"/config
+    set -l conf_dir "$HOME"/.ssh
+    set -l conf "$conf_dir"/config
 
-    if [ -e "$conf" -a ! -L "$conf" ]
+    test -e "$conf" -a ! -L "$conf"
+    set -l missing $status
+
+    # no arg: print helpful message
+
+    if [ -z "$name" ]
+        echo "Usage: ktz-ssh-config NAME"
+        if [ $missing -eq 0 ]
+            echo "No config active."
+        else
+            echo "Current state:"
+            ll $conf_dir | grep -E config | cut -d ' ' -f 10-
+        end
+        return 0
+    end
+
+    # conf in undesirable state
+
+    if [ $missing -eq 0 ]
         echo "$conf exists or is not a symbolic link"
         echo "will not overwrite existing config!"
         return 2
     end
 
-    set target "$conf_dir/config.$name"
+    # set new config
+
+    set -l target "$conf_dir/config.$name"
+
     if [ ! -f "$target" -o ! -L "$target" ]
         echo "cannot find $target"
         return 2
@@ -34,5 +55,4 @@ function ktz-ssh-config -a name -d "switch ssh config"
     end
 
     ln -s "$target" "$conf"
-
 end

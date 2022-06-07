@@ -2,6 +2,7 @@
 #  aliases for `ktz`
 #
 
+ss   :  ktz-ssh *
 sp   :  ktz-spawn *
 sfs  :  ktz-sshfs *
 scfg :  ktz-ssh-config

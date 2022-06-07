@@ -104,6 +104,7 @@
 (defun ktz-init ()
   "Initializes the environment based on the ktz-init-type"
   (message (format "[ktz] initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
+  (straight-use-package 'use-package)
 
   (cond ((eq ktz-init-type 'minimal)
 	 (ktz--init-minimal))

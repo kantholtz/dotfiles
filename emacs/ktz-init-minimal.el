@@ -7,7 +7,6 @@
     magit
     yasnippet
     which-key
-    use-package
     multiple-cursors
 
     ;; server

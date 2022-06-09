@@ -10,7 +10,13 @@
   "Setup programming configuration"
   (message "[ktz] initializing programming configuration")
 
-  ;; PYTHON
+  ;; PYTHON --------------------
+
+  ;; when using sshfs for a remote machine:
+  ;;   - set up dedicated local conda environment
+  ;;   - install all dependencies from mounted drive
+  ;;   - activate env (conda-env-activate)
+  ;;   - open project using lsp
 
   ;; set up conda
   (when ktz-conda-dir
@@ -23,87 +29,30 @@
       (conda-env-initialize-eshell)
       (conda-env-activate ktz-conda-env)))
 
-  (use-package python
-    :hook
-    ((python-mode . lsp-deferred)
-     (before-save . lsp-format-buffer)))
+  ;; (use-package python
+  ;;   :hook
+  ;;   (before-save . lsp-format-buffer))
+
+  ;;   ((python-mode
+  ;;     . lsp-deferred)
+  ;;    ;; (before-save
+  ;;    ;;  . lsp-format-buffer)
+  ;;    ;; (lsp-after-initialize
+  ;;    ;;  . (lambda ()
+  ;;    ;;      (flycheck-select-checker 'python-flake8)))
+  ;;    ))
 
   (use-package ein :straight t)
   (use-package numpydoc :straight t)
 
-  ;; GO
+  ;; GO --------------------
+
   (use-package go-mode
     :straight t
     :hook
     ((go-mode . lsp-deferred)
      (before-save . lsp-format-buffer)
      (before-save . lsp-organize-imports)))
-
-  ;; LSP
-  ;; how to turn off specific features:
-  ;; https://emacs-lsp.github.io/lsp-mode/tutorials/how-to-turn-off/
-  (use-package lsp-mode
-    :straight t
-    :commands (lsp lsp-deferred)
-
-    :init
-    (setq lsp-keymap-prefix "C-c l")
-
-    ;; :hook
-    ;; ((python-mode . ktz--init-programming-python-hook))
-
-    :config
-    (message "KTZ: executing lsp-mode:config")
-
-    ;; TODO this just does not work at all
-    ;; (at least for multi-hop connections)
-    ;; >> Command "pylsp" is not present on the path. <<
-    ;; it does not give a shit even when $PATH,
-    ;; exec-path and tramp-remote-path are adjusted
-    ;; -> falling back to sshfs for now
-
-    ;; (as per yyoncho: put in :config)
-    ;; https://github.com/emacs-lsp/lsp-mode/issues/1436
-    ;; https://emacs-lsp.github.io/lsp-mode/page/remote/#sample-configuration
-    ;; (when ktz-conda-paths
-    ;;   (dolist (conda-path ktz-conda-paths)
-    ;;     (let ((path (concat conda-path "/bin")))
-    ;;       (add-to-list 'tramp-remote-path path)
-    ;;       (add-to-list 'exec-path path)
-    ;;     )))
-
-    ;; (lsp-register-client
-    ;;  (make-lsp-client
-    ;;   :new-connection (lsp-tramp-connection "pylsp")
-    ;;   :major-modes '(python-mode)
-    ;;   :remote? t
-    ;;   :server-id 'pyls-remote))
-
-    ;; custom settings
-    (lsp-register-custom-settings
-     '(("pyls.plugins.flake8.enabled" t t)
-       ("pyls.plugins.pyls_black.enabled" t t)))
-    (lsp-enable-which-key-integration t)
-    (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol)
-
-    ;; see below @ use-package flycheck
-    ;; (lsp-pylsp)
-    )
-
-  (use-package flycheck
-    :straight t)
-
-  (use-package helm-lsp
-    :straight t
-    :commands helm-lsp-workspace-symbol)
-
-  (use-package company
-    :straight t
-    :hook (lsp-mode . company-mode))
-
-  (use-package company-box
-    :straight t
-    :hook (company-mode . company-box-mode))
 
   ;; FRONTEND
 
@@ -120,7 +69,127 @@
     (setq js-indent-level 2)
     (setq typescript-indent-level 2))
 
-  (add-hook 'after-init-hook #'global-prettier-mode))
+  (add-hook 'after-init-hook #'global-prettier-mode)
 
+  (use-package lsp-mode
+    :init
+    (setq lsp-keymap-prefix "C-c l")
+
+    :config
+    ;; following the performance tips of lsp-doctor
+    (when (boundp 'read-process-output-max)
+      (setq-local read-process-output-max (* 1024 1024)))
+    (setq gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
+
+    ;; --------------------
+    ;; register remote conda paths for tramp
+    (message (format ">> ktz-conda-paths %s" ktz-conda-paths))
+    (when ktz-conda-paths
+      (message "  >> setting remote conda paths")
+
+      ;; (dolist (path ktz-conda-paths)
+      ;;   (let ((exec-path (concat path "/bin")))
+      ;;     (message (format "  >> adding %s" exec-path))
+
+      ;;     ;; TODO understand connection-local variables
+      ;;     ;;   - https://debbugs.gnu.org/cgi/bugreport.cgi?bug=32090
+      ;;     (push exec-path tramp-remote-path)
+      ;;     (message (format "  << %s" tramp-remote-path))))
+
+      ;; it is working hard-coded but not with a variable???
+      (push "/home/staffsi/hamann/Complex/opt/conda/envs/lsp/bin" tramp-remote-path)
+
+      ;; https://stackoverflow.com/questions/26630640/tramp-ignores-tramp-remote-path
+      (add-to-list 'tramp-remote-path 'tramp-own-remote-path)) ;; /when ktz-conda-paths
+
+    (lsp-register-client
+     (make-lsp-client
+      :new-connection (lsp-tramp-connection "pylsp")
+      :major-modes '(python-mode)
+      :remote? t
+      :server-id 'pylsp-remote))
+    ;; --------------------
+
+    :hook
+    (python-mode . lsp)
+    (lsp-mode    . lsp-enable-which-key-integration)
+
+    :commands lsp
+
+    ) ;; /use-package lsp-mode
+
+  ;; lsp over tramp and python
+
+
+  ;; thanks https://github.com/daviwil/emacs-from-scratch
+  (use-package company
+    :straight t
+    :after lsp-mode
+    :hook (lsp-mode . company-mode)
+    :bind (:map company-active-map
+                ("<tab>" . company-complete-selection))
+    (:map lsp-mode-map
+          ("<tab>" . company-indent-or-complete-common))
+    :custom
+    (company-minimum-prefix-length 1)
+    (company-idle-delay 0.0))
+
+  (use-package company-box
+    :straight t
+    :hook (company-mode . company-box-mode))
+
+
+  ;; informations: M-x flycheck-verify-setup
+  (use-package flycheck
+    :straight t
+    :after lsp-mode)
+
+  (use-package helm-lsp
+    :straight t
+    :after lsp-mode
+    :commands helm-lsp-workspace-symbol)
+
+
+  ;; pyright --------------------
+
+  ;; (use-package lsp-pyright
+  ;;   :straight t
+
+  ;;   :init
+  ;;   (setq lsp-keymap-prefix "C-c l")
+
+  ;;   :config
+  ;;   ;; following the performance tips of lsp-doctor
+  ;;   (when (boundp 'read-process-output-max)
+  ;;     (setq-local read-process-output-max (* 1024 1024)))
+  ;;   (setq gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
+
+  ;;   :hook
+  ;;   (python-mode . (lambda () (require 'lsp-pyright) (lsp-deferred))))
+
+  ;; legacy
+
+  ;; LSP
+  ;; python: using pylsp (_not_ palantir/pyls)
+  ;; customize-group lsp-pylsp
+  ;; documentation: https://emacs-lsp.github.io/lsp-mode/page/lsp-pylsp/
+  ;; (use-package lsp-mode
+  ;;   :straight t
+  ;;   :commands (lsp lsp-deferred)
+
+  ;;   :init
+  ;;   (setq lsp-keymap-prefix "C-c l")
+
+  ;;   :config
+  ;;   ;; following the performance tips of lsp-doctor
+  ;;   (when (boundp 'read-process-output-max)
+  ;;     (setq-local read-process-output-max (* 1024 1024)))
+  ;;   (setq gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
+
+  ;;   ;; (lsp-enable-which-key-integration t)
+  ;;   ;; (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
+  ;;   )
+
+  ) ;; /ktz--init-programming
 
 (provide 'ktz-init-programming)

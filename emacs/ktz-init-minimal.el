@@ -98,8 +98,6 @@
 
   ;; hooks
   (add-hook 'prog-mode-hook 'ktz--prog-mode-hooks)
-  (add-hook 'after-init-hook 'global-company-mode)
-
   t)
 
 

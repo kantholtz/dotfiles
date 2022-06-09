@@ -26,7 +26,7 @@
   (setq nano-color-critical   "#c2185b") ;; pink 700
   (setq nano-color-salient    "#4527a0") ;; deep purple 800
   (setq nano-color-strong     "#000000") ;; black
-  (setq nano-color-popout     "#00695c") ;; green 800
+  (setq nano-color-popout     "#00695c") ;; teal 800
   (setq nano-color-subtle     "#eceff1") ;; blue grey 100
   (setq nano-color-faded      "#90a4ae") ;; blue grey 300
 
@@ -34,6 +34,9 @@
   ;; (later: use defcustom)
   (defvar nano-color-warning    "#bf360c")  ;; deep orange 900
 
+  (defvar nano-color-critical-light "#fce4ec") ;; pink 50
+  (defvar nano-color-warning-light  "#fbe9e7") ;; deep orange 50
+  (defvar nano-color-popout-light   "#e0f2f1") ;; teal 50
   t)
 
 
@@ -183,14 +186,19 @@
   (require 'flycheck)
 
   (set-face-attribute
+   'flycheck-info nil
+   :underline nil
+   :background nano-color-popout-light)
+
+  (set-face-attribute
    'flycheck-warning nil
    :underline nil
-   :foreground nano-color-warning)
+   :background nano-color-warning-light)
 
   (set-face-attribute
    'flycheck-error nil
    :underline nil
-   :foreground nano-color-critical)
+   :background nano-color-critical-light)
 
   ;; other
 

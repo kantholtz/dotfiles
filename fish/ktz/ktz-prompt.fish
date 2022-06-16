@@ -68,9 +68,20 @@ function __ktz-prompt-timestamp
 end
 
 
+function __ktz-prompt-dumb
+    set_color normal
+    printf "\$ "
+end
+
+
 function ktz-prompt
     set -l laststatus $status
     echo
+
+    if [ "$TERM" = dumb ];
+        __ktz-prompt-dumb
+        return
+    end
 
     __ktz-prompt-status $laststatus
     __ktz-prompt-username

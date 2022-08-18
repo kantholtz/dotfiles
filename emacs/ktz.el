@@ -16,14 +16,28 @@
   :type '(choice
 	  (const :tag "Disabled: only bootstrap straight.el" nil)
 	  (const :tag "Minimum: for configuration on servers" minimal)
-	  (const :tag "Programming: headless systems" programming)
+	  (const :tag "Programming: IDE features" programming)
 	  (const :tag "Desktop: desktop configuration with Roam, LaTex etc." desktop))
   :group 'ktz)
+
+
+;; org
 
 (defcustom ktz-org-dir nil
   "Directory where the .org files reside (e.g. path/to/Roam)"
   :type 'directory
   :group 'ktz)
+
+
+;; if this is set to nil (the default) you can always
+;; invoke M-x ktz-org RET to manually initialize org+roam
+(defcustom ktz-org-enable-headless nil
+  "Whether to initialize the whole org+roam setup in the terminal"
+  :type 'boolean
+  :group 'ktz)
+
+
+;; mail
 
 (defcustom ktz-mail-dir nil
   "Directory where a ktz-mu4e.el file and local mail folders are found"
@@ -34,6 +48,9 @@
   "Directory where the configure file of mu can be found"
   :type 'directory
   :group 'ktz)
+
+
+;; conda
 
 (defcustom ktz-conda-dir nil
   "Directory where the conda installation can be found"
@@ -48,6 +65,9 @@
 (defcustom ktz-conda-paths nil
   "Possible conda installation paths; Required for tramp+lsp."
   :type '(repeat directory))
+
+
+;; theming
 
 (when (display-graphic-p)
   (defcustom ktz-font-size 12

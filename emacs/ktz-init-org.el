@@ -190,13 +190,18 @@
 
 (defun ktz--init-org ()
   "Setup org related configuration"
-  (message "[ktz] initializing org configuration")
-
-  (ktz--init-org-base)
-  (when ktz-org-dir
-    (ktz--init-org-roam))
+  (when (or ktz-org-enable-headless (display-graphic-p))
+    (message "[ktz] initializing org configuration")
+    (ktz--init-org-base)
+    (when ktz-org-dir
+      (ktz--init-org-roam)))
 
   t)
+
+(defun ktz-org ()
+  "Initialize org related config manually"
+  (interactive)
+  (ktz--init-org))
 
 
 (provide 'ktz-init-org)

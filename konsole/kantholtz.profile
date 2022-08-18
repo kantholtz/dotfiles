@@ -2,7 +2,7 @@
 AntiAliasFonts=true
 BoldIntense=false
 ColorScheme=kantholtz-light
-Font=Source Code Pro,10,-1,5,50,0,0,0,0,0
+Font=IBM Plex Mono Text,10,-1,5,53,0,0,0,0,0,Regular
 LineSpacing=3
 
 [General]

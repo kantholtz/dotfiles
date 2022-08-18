@@ -16,7 +16,10 @@
                                  (+ (if (eq backend 'Hg) 2 3) 2))))  nil))
 
 (defun ktz-theme--mode-name ()
-  (if (listp mode-name) (car mode-name) mode-name))
+  (let ((name (if (listp mode-name) (car mode-name) mode-name)))
+    (if (and (derived-mode-p 'python-mode) conda-env-current-name)
+        (concat name " conda: " conda-env-current-name)
+      name)))
 
 
 ;; From https://amitp.blogspot.com/2011/08/emacs-custom-mode-line.html

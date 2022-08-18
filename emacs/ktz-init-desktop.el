@@ -199,6 +199,7 @@
   ;; the order of all these expressions is very important...
 
   ;; attributes must be set before requiring nano
+  ;; (setq nano-font-family-monospaced (face-attribute 'default :family))
   (setq nano-font-size ktz-font-size)
   (setq nano-font-family-monospaced ktz-font-monospace)
   (setq nano-font-family-proportional ktz-font-proportional)
@@ -231,6 +232,7 @@
 
 
 (defun ktz--init-desktop-graphic-p ()
+  (message "[ktz] initializing theme (desktop-graphics-p)")
 
   (ktz--init-desktop-nano)
 

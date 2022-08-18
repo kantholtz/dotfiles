@@ -26,7 +26,8 @@
       :config
       (conda-env-initialize-interactive-shells)
       (conda-env-initialize-eshell)
-      (conda-env-activate ktz-conda-env)))
+      (conda-env-activate ktz-conda-env)
+      (conda-env-autoactivate-mode)))
 
   ;; (use-package python
   ;;   :hook

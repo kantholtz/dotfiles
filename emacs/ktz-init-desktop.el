@@ -1,15 +1,5 @@
 ;;; ktz-init-desktop.el --- Desktop initialization.
 
-(defvar ktz--pkgs-desktop
-  '(
-    auctex
-    pdf-tools
-    flyspell-correct-helm
-
-    '(nano-emacs :type git :host github :repo "rougier/nano-emacs")
-    ))
-
-
 ;; --
 
 
@@ -74,12 +64,6 @@
 
 
 (defun ktz--init-desktop-theme ()
-
-  ;; org
-
-  ;; (set-face-attribute
-  ;;  'org-block nil
-  ;;  :background nano-color-subtle)
 
   ;; helm
 
@@ -265,24 +249,28 @@
   "Setup desktop configuration - includes Roam, LaTex etc."
   (message "[ktz] initializing desktop configuration")
 
-  (dolist (pkg ktz--pkgs-desktop)
-    (straight-use-package pkg))
+  ;; (use-package auctex)
+  (use-package pdf-tools)
+  (use-package flyspell-correct-helm)
 
   ;; lay your weary pinky to rest
   (require 'control-lock)
   (control-lock-keys)
   (global-set-key (kbd "C-`") 'control-lock-enable)
 
+  ;; non-terminal mode only
   (when (display-graphic-p)
 
-      ;; theming
-      (ktz--init-desktop-graphic-p)
+    ;; cannot use (use-package nano-emacs ...)
+    ;; https://github.com/rougier/nano-emacs/issues/43
+    (straight-use-package
+     '(nano-emacs :host github :repo "rougier/nano-emacs"))
+    (ktz--init-desktop-graphic-p)
 
-      ;; disable window clutter
-      (menu-bar-mode -1)
-      (tool-bar-mode -1)
-      (scroll-bar-mode -1))
-  t)
+    ;; disable window clutter
+    (menu-bar-mode -1)
+    (tool-bar-mode -1)
+    (scroll-bar-mode -1)))
 
 
 (provide 'ktz-init-desktop)

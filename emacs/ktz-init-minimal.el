@@ -1,22 +1,6 @@
 ;;; ktz-init-minimal.el --- Minimal initialization.
 
 
-(defvar ktz--pkgs-minimal
-  '(
-    helm
-    magit
-    yasnippet
-    which-key
-    multiple-cursors
-
-    ;; server
-    yaml-mode
-    fish-mode
-    nginx-mode
-    apache-mode
-    markdown-mode))
-
-
 (defun ktz--set-trailing-whitespace ()
   (setq-default show-trailing-whitespace t))
 
@@ -72,8 +56,18 @@
   "Setup minimal configuration"
   (message "[ktz] initializing minimal configuration")
 
-  (dolist (pkg ktz--pkgs-minimal)
-    (straight-use-package pkg))
+  (use-package helm)
+  (use-package magit)
+  (use-package yasnippet)
+  (use-package which-key)
+  (use-package multiple-cursors)
+
+    ;; server
+  (use-package yaml-mode)
+  (use-package fish-mode)
+  (use-package nginx-mode)
+  (use-package apache-mode)
+  (use-package markdown-mode)
 
   (auto-fill-mode t)
   (column-number-mode t)
@@ -93,7 +87,6 @@
   (global-set-key (kbd "C-c j") 'yas-expand)
 
   (use-package which-key
-    :straight t
     :config (which-key-mode))
 
   ;; hooks

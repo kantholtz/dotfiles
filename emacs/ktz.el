@@ -100,6 +100,9 @@
   (load bootstrap-file nil 'nomessage))
 (put 'dired-find-alternate-file 'disabled nil)
 
+;; use straight by default (allows to omit :straight t)
+;; to not use straight, set :straight nil accordingly
+(setq straight-use-package-by-default t)
 
 (defun ktz-init ()
   "Initializes the environment based on the ktz-init-type"

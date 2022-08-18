@@ -21,7 +21,6 @@
   ;; set up conda
   (when ktz-conda-dir
     (use-package conda
-      :straight t
       :custom
       (conda-anaconda-home ktz-conda-dir)
       :config
@@ -42,13 +41,12 @@
   ;;    ;;      (flycheck-select-checker 'python-flake8)))
   ;;    ))
 
-  (use-package ein :straight t)
-  (use-package numpydoc :straight t)
+  (use-package ein)
+  (use-package numpydoc)
 
   ;; GO --------------------
 
   (use-package go-mode
-    :straight t
     :hook
     ((go-mode . lsp-deferred)
      (before-save . lsp-format-buffer)
@@ -57,14 +55,12 @@
   ;; FRONTEND
 
   ;; https://azzamsa.com/n/vue-emacs/
-  (use-package vue-mode :straight t)
+  (use-package vue-mode)
 
   (use-package prettier-js
-    :straight t
     :hook (js-mode web-mode typescript-mode vue-mode))
 
   (use-package typescript-mode
-    :straight t
     :config
     (setq js-indent-level 2)
     (setq typescript-indent-level 2))
@@ -123,7 +119,6 @@
 
   ;; thanks https://github.com/daviwil/emacs-from-scratch
   (use-package company
-    :straight t
     :after lsp-mode
     :hook (lsp-mode . company-mode)
     :bind (:map company-active-map
@@ -135,17 +130,13 @@
     (company-idle-delay 0.0))
 
   (use-package company-box
-    :straight t
     :hook (company-mode . company-box-mode))
 
 
   ;; informations: M-x flycheck-verify-setup
-  (use-package flycheck
-    :straight t
-    :after lsp-mode)
+  (use-package flycheck :after lsp-mode)
 
   (use-package helm-lsp
-    :straight t
     :after lsp-mode
     :commands helm-lsp-workspace-symbol)
 
@@ -153,7 +144,6 @@
   ;; pyright --------------------
 
   ;; (use-package lsp-pyright
-  ;;   :straight t
 
   ;;   :init
   ;;   (setq lsp-keymap-prefix "C-c l")
@@ -174,7 +164,6 @@
   ;; customize-group lsp-pylsp
   ;; documentation: https://emacs-lsp.github.io/lsp-mode/page/lsp-pylsp/
   ;; (use-package lsp-mode
-  ;;   :straight t
   ;;   :commands (lsp lsp-deferred)
 
   ;;   :init

@@ -30,13 +30,10 @@
   ;; roam
   ;;
   (use-package visual-fill-column
-    :straight t
     :hook (org-mode . ktz--org-visual-fill))
 
   ;; see also https://github.com/org-roam/org-roam#configuration
   (use-package org-roam
-    :straight t
-
     :custom
     (org-log-done 'time)
     (org-roam-directory ktz--org-orgfiles)
@@ -93,7 +90,6 @@
 
   (use-package bibtex)
   (use-package helm-bibtex
-    :straight t
     :init
     (setq
      ;; org-ref optiona
@@ -108,8 +104,6 @@
     (setq warning-minimum-log-level :error))
 
   (use-package org-ref
-    :straight t
-
     :init
     (setq bibtex-completion-library-path
           (list ktz--org-ref-pdfs)
@@ -138,7 +132,6 @@
            ("C-c r b" . helm-bibtex)))
 
   (use-package company-bibtex
-    :straight t
     :config
     (add-to-list 'company-backends 'company-bibtex))
 
@@ -156,7 +149,6 @@
     (biblio--selection-forward-bibtex #'ktz--biblio-ref-add))
 
   (use-package biblio
-    :straight t
     :bind
     (:map biblio-selection-mode-map
           ("a" . ktz--biblio-ref-select-and-add)))
@@ -170,7 +162,6 @@
        (org-ref-clean-bibtex-entry))))
 
   (use-package gscholar-bibtex
-    :straight t
     :init
     (setq gscholar-bibtex-database-file (car ktz--org-ref-bibfiles)))
 
@@ -180,7 +171,6 @@
   ;;
 
   (use-package org-super-agenda
-    :straight t
     :config
     ;; see https://github.com/alphapapa/org-super-agenda#examples
     (let ((org-super-agenda-groups
@@ -196,7 +186,7 @@
         (org-agenda nil "a"))))
 
   ;; misc
-  (use-package org-bullets :straight t))
+  (use-package org-bullets))
 
 (defun ktz--init-org ()
   "Setup org related configuration"

@@ -52,9 +52,6 @@
 ;; Fill column at 80
 (setq fill-column 80)
 
-;; Navigate windows using shift+direction
-(windmove-default-keybindings)
-
 ;; Buffer encoding
 (prefer-coding-system       'utf-8)
 (set-default-coding-systems 'utf-8)

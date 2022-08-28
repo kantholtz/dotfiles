@@ -39,6 +39,8 @@
     (org-roam-directory ktz--org-orgfiles)
     (org-agenda-files (list ktz--org-orgfiles))
     (org-agenda-start-with-log-mode t)
+    (org-roam-completion-everywhere t)
+    (org-link-file-path-type 'relative) ;; all file links should be relative
 
     ;; `(1 ,(- 3 1)) -> (1 2) (the (concat ...) needs to be evaluated)
     ;; https://www.gnu.org/software/emacs/manual/html_node/elisp/Backquote.html

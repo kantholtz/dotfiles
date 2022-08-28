@@ -163,6 +163,8 @@ def read_files(roam_path) -> Node:
 
     # build hierarchy
     for org_path in roam_path.glob("*.org"):
+        if org_path.name.startswith('.#'):
+            continue
 
         try:
             with org_path.open(mode="r", encoding="utf-8") as fd:

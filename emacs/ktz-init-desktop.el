@@ -65,36 +65,6 @@
 
 (defun ktz--init-desktop-theme ()
 
-  ;; helm
-
-  (set-face-attribute
-   'helm-ff-directory nil
-   :weight 'bold
-   :foreground nano-color-popout
-   :background nano-color-background)
-
-  (set-face-attribute
-   'helm-ff-dotted-directory nil
-   :foreground nano-color-faded
-   :background nano-color-background)
-
-  (set-face-attribute
-   'helm-ff-executable nil
-   :foreground nano-color-critical)
-
-  (set-face-attribute
-   'helm-ff-file-extension nil
-   :foreground nano-color-salient)
-
-  (with-eval-after-load 'helm-bookmark
-    (set-face-attribute
-     'helm-bookmark-file nil
-     :foreground nano-color-popout)
-
-    (set-face
-     'helm-bookmark-file-not-found
-     'nano-face-critical))
-
   ;; lsp
 
   (set-face-attribute
@@ -253,7 +223,6 @@
 
   ;; (use-package auctex)
   (use-package pdf-tools)
-  (use-package flyspell-correct-helm)
 
   ;; lay your weary pinky to rest
   (require 'control-lock)

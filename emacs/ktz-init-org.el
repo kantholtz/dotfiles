@@ -85,26 +85,7 @@
   ;; scientific org stuff
   ;;
 
-  ;; in org-ref/melpa/init-helm.el there is some configuration
-  ;; which is required as otherwise the doi async pdf download
-  ;; thing fails for whatever reason...
-  (setq package-user-dir "~/.emacs.d/package-user-dir")
-
   (use-package bibtex)
-  (use-package helm-bibtex
-    :init
-    (setq
-     ;; org-ref optiona
-     org-ref-insert-link-function 'org-ref-insert-link-hydra/body
-     org-ref-insert-cite-function 'org-ref-cite-insert-helm
-     org-ref-insert-label-function 'org-ref-insert-label-link
-     org-ref-insert-ref-function 'org-ref-insert-ref-link
-     org-ref-cite-onclick-function (lambda (_) (org-ref-citation-hydra/body))
-     )
-    :config
-    ;; https://github.com/tmalsburg/helm-bibtex/issues/280
-    (setq warning-minimum-log-level :error))
-
   (use-package org-ref
     :init
     (setq bibtex-completion-library-path
@@ -124,14 +105,12 @@
 	        bibtex-autokey-titlewords-stretch 1
 	        bibtex-autokey-titleword-length 10)
 
-    (require 'org-ref-helm)
     (require 'org-ref-arxiv)
 
-    :bind (("C-c r c" . org-ref-cite-insert-helm)
+    :bind (
            ("C-c r r" . org-ref-insert-ref-link)
            ("C-c r l" . org-ref-insert-label-link)
-           ("C-c r g" . gscholar-bibtex)
-           ("C-c r b" . helm-bibtex)))
+           ("C-c r g" . gscholar-bibtex)))
 
   (use-package company-bibtex
     :config
@@ -160,7 +139,7 @@
    (lambda (key start end)
      (goto-char start)
      (ignore-errors
-       (message (format "cleaning %s" key))
+       (message (format "[ktz] cleaning %s" key))
        (org-ref-clean-bibtex-entry))))
 
   (use-package gscholar-bibtex

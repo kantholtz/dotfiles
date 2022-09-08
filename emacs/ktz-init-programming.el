@@ -80,9 +80,9 @@
 
     ;; --------------------
     ;; register remote conda paths for tramp
-    (message (format ">> ktz-conda-paths %s" ktz-conda-paths))
+    (message (format "[ktz] ktz-conda-paths %s" ktz-conda-paths))
     (when ktz-conda-paths
-      (message "  >> setting remote conda paths")
+      (message "[ktz] setting remote conda paths")
 
       ;; (dolist (path ktz-conda-paths)
       ;;   (let ((exec-path (concat path "/bin")))
@@ -137,11 +137,6 @@
   ;; informations: M-x flycheck-verify-setup
   (use-package flycheck :after lsp-mode)
 
-  (use-package helm-lsp
-    :after lsp-mode
-    :commands helm-lsp-workspace-symbol)
-
-
   ;; pyright --------------------
 
   ;; (use-package lsp-pyright
@@ -177,7 +172,6 @@
   ;;   (setq gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
 
   ;;   ;; (lsp-enable-which-key-integration t)
-  ;;   ;; (define-key lsp-mode-map [remap xref-find-apropos] #'helm-lsp-workspace-symbol))
   ;;   )
 
   ) ;; /ktz--init-programming

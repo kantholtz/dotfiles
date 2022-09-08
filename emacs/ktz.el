@@ -151,6 +151,11 @@
   t)
 
 
+(defun ktz-reload ()
+  (interactive)
+  (ktz-init))
+
+
 ;; initialization
 (defvar ktz-root-dir nil)
 (when load-file-name

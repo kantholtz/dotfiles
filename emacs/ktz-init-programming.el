@@ -55,6 +55,9 @@
 
   ;; FRONTEND
 
+  (use-package emmet-mode)
+
+
   ;; https://azzamsa.com/n/vue-emacs/
   (use-package vue-mode)
 

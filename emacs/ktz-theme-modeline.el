@@ -44,31 +44,6 @@
 (defun ktz-theme--modeline-compose (status name primary secondary)
   "Compose a string with provided information"
 
-  ;; overwrite box layout until i figure out how to include lsp breadcrumbs
-  (set-face-attribute
-   'nano-face-header-faded nil
-   :background nil
-   :foreground nano-color-faded
-   :weight 'regular)
-
-  (set-face-attribute
-   'nano-face-header-popout nil
-   :background nil
-   :foreground nano-color-popout
-   :weight 'regular)
-
-  (set-face-attribute
-   'nano-face-header-salient nil
-   :background nil
-   :foreground nano-color-salient
-   :weight 'regular)
-
-  (set-face-attribute
-   'nano-face-header-critical nil
-   :background nano-color-critical
-   :foreground "white"
-   :weight 'bold)
-
   (let*
       ((char-width    (window-font-width nil 'header-line))
        (window        (get-buffer-window (current-buffer)))
@@ -566,6 +541,33 @@ below or a buffer local variable 'no-mode-line'."
 (setq eshell-status-in-modeline nil)
 ;; (setq-default mode-line-format (list "%-"))
 (setq-default mode-line-format "")
+
+;; overwrite box layout until i figure out how to include lsp breadcrumbs
+(set-face-attribute
+ 'nano-face-header-faded nil
+ :background 'unspecified
+ :foreground nano-color-faded
+ :weight 'regular)
+
+(set-face-attribute
+ 'nano-face-header-popout nil
+ :background 'unspecified
+ :foreground nano-color-popout
+ :weight 'regular)
+
+(set-face-attribute
+ 'nano-face-header-salient nil
+ :background 'unspecified
+ :foreground nano-color-salient
+ :weight 'regular)
+
+(set-face-attribute
+ 'nano-face-header-critical nil
+ :background nano-color-critical
+ :foreground "white"
+ :weight 'bold)
+
+
 (ktz-theme-modeline)
 
 (provide 'ktz-theme-modeline)

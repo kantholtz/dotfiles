@@ -223,6 +223,7 @@
 
   ;; (use-package auctex)
   (use-package pdf-tools)
+  (use-package rainbow-mode)
 
   ;; lay your weary pinky to rest
   (require 'control-lock)

@@ -1,12 +1,8 @@
 ;;; ktz-init-minimal.el --- Minimal initialization.
 
 
-(defun ktz--set-trailing-whitespace ()
-  (setq-default show-trailing-whitespace t))
-
-
 ;; move lines up and down
-; ;https://emacsredux.com/blog/2013/04/02/move-current-line-up-or-down/
+;; https://emacsredux.com/blog/2013/04/02/move-current-line-up-or-down/
 (defun ktz--move-line-up ()
   "Move up the current line."
   (interactive)
@@ -27,9 +23,10 @@
 (defun ktz--init-minimal-voc ()
 
   ;; vertical completion ui
-  (use-package vertico
-    :init
-    (vertico-mode))
+  (use-package vertico :init (vertico-mode))
+
+  ;; remember which completions are selected frequently
+  (use-package savehist :init (savehist-mode))
 
   ;; space separated patterns
   (use-package orderless
@@ -38,36 +35,33 @@
     (completion-category-overrides ''(file (styles basic partial-completion))))
 
   ;; annotations in the minibuffer
-  (use-package marginalia
-    :init
-    (marginalia-mode))
+  (use-package marginalia :init (marginalia-mode))
 
   ;; relevant actions to use on a target determined by the context
   (use-package embark
-  :bind
-  (("C-." . embark-act)         ;; pick some comfortable binding
-   ("C-;" . embark-dwim)        ;; good alternative: M-.
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
+    :bind
+    (("C-." . embark-act)         ;; pick some comfortable binding
+     ("C-;" . embark-dwim)        ;; good alternative: M-.
+     ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
 
-  :init
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
+    :init
+    ;; Optionally replace the key help with a completing-read interface
+    (setq prefix-help-command #'embark-prefix-help-command)
 
-  :config
-  ;; Hide the mode line of the Embark live/completions buffers
-  (add-to-list 'display-buffer-alist
-               '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
-                 nil
-                 (window-parameters (mode-line-format . none)))))
+    :config
+    ;; Hide the mode line of the Embark live/completions buffers
+    (add-to-list
+     'display-buffer-alist
+     '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
+       nil
+       (window-parameters (mode-line-format . none)))))
   )
 
 
 (defun ktz--prog-mode-hooks ()
-  (ktz--set-trailing-whitespace)
-  (linum-mode)
+  (setq-default show-trailing-whitespace t)
   (setq linum-format "%4d ")
-
-  t)
+  (linum-mode))
 
 
 (defun ktz--init-minimal ()

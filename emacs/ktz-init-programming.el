@@ -10,6 +10,12 @@
   "Setup programming configuration"
   (message "[ktz] initializing programming configuration")
 
+  (use-package dap-mode
+    :init
+    ;; to use with c-mode lsp: run M-x dap-cpptools-setup
+    ;; (gdb must be in the $PATH)
+    (require 'dap-cpptools))
+
   ;; PYTHON --------------------
 
   ;; when using sshfs for a remote machine:
@@ -56,6 +62,9 @@
   ;; FRONTEND
 
   (use-package emmet-mode)
+  (use-package jinja2-mode
+    :init (emmet-mode)
+    :mode "\\.html\\'")
 
 
   ;; https://azzamsa.com/n/vue-emacs/
@@ -74,6 +83,7 @@
   (use-package lsp-mode
     :init
     (setq lsp-keymap-prefix "C-c l")
+    (require 'dap-cpptools)
 
     :config
     ;; following the performance tips of lsp-doctor
@@ -81,7 +91,6 @@
       (setq-local read-process-output-max (* 1024 1024)))
     (setq gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
 
-    ;; --------------------
     ;; register remote conda paths for tramp
     (message (format "[ktz] ktz-conda-paths %s" ktz-conda-paths))
     (when ktz-conda-paths
@@ -111,8 +120,10 @@
     ;; --------------------
 
     :hook
+    (c-mode . lsp) ;; using `clangd`
     (python-mode . lsp)
-    (lsp-mode    . lsp-enable-which-key-integration)
+    ;; (flycheck-mode . (lambda () (flycheck-select-checker 'python-flake8)))
+    (lsp-mode . lsp-enable-which-key-integration)
 
     :commands lsp
 

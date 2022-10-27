@@ -60,8 +60,7 @@
 
 (defun ktz--prog-mode-hooks ()
   (setq-default show-trailing-whitespace t)
-  (setq linum-format "%4d ")
-  (linum-mode))
+  (display-line-numbers-mode))
 
 
 (defun ktz--init-minimal ()

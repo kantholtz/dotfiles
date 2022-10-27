@@ -27,6 +27,8 @@
   (defvar nano-color-critical-light "#fce4ec") ;; pink 50
   (defvar nano-color-warning-light  "#fbe9e7") ;; deep orange 50
   (defvar nano-color-popout-light   "#e0f2f1") ;; teal 50
+  (defvar nano-color-subtle-fg      "#b0bec5") ;; blue grey 200
+
   t)
 
 
@@ -58,7 +60,7 @@
    :background nano-color-background)
 
   (set-face-attribute
-   'line-number nil :foreground "pink")
+   'line-number nil :foreground nano-color-subtle-fg)
 
   t)
 

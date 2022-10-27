@@ -3,6 +3,12 @@
   ;; do not destroy current splits
   (setq org-agenda-window-setup 'current-window)
 
+  ;; refile configuration
+  ;; see https://orgmode.org/manual/Refile-and-Copy.html
+  (setq org-refile-targets
+        '((nil :maxlevel . 3)
+          (org-agenda-files :maxlevel . 3)))
+
   ;; hooks
   (add-hook 'org-mode-hook 'org-indent-mode)
   (add-hook 'org-mode-hook 'visual-line-mode)

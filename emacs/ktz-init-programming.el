@@ -82,8 +82,10 @@
 
   (use-package lsp-mode
     :init
-    (setq lsp-keymap-prefix "C-c l")
+    ;; (setq lsp-keymap-prefix "C-c l")
     (require 'dap-cpptools)
+    (setq lsp-keymap-prefix "C-c l")
+    (setq lsp-headerline-breadcrumb-icons-enable nil)
 
     :config
     ;; following the performance tips of lsp-doctor
@@ -91,25 +93,20 @@
       (setq-local read-process-output-max (* 1024 1024)))
     (setq gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
 
-    ;; register remote conda paths for tramp
-    (message (format "[ktz] ktz-conda-paths %s" ktz-conda-paths))
-    (when ktz-conda-paths
-      (message "[ktz] setting remote conda paths")
-
+    ;; TRAMP
+    ;; (when ktz-conda-paths
+    ;;   (message "[ktz] setting remote conda paths")
       ;; (dolist (path ktz-conda-paths)
       ;;   (let ((exec-path (concat path "/bin")))
       ;;     (message (format "  >> adding %s" exec-path))
-
       ;;     ;; TODO understand connection-local variables
       ;;     ;;   - https://debbugs.gnu.org/cgi/bugreport.cgi?bug=32090
       ;;     (push exec-path tramp-remote-path)
       ;;     (message (format "  << %s" tramp-remote-path))))
-
       ;; it is working hard-coded but not with a variable???
-      (push "/home/staffsi/hamann/Complex/opt/conda/envs/lsp/bin" tramp-remote-path)
-
+      ;; (push "/home/staffsi/hamann/Complex/opt/conda/envs/lsp/bin" tramp-remote-path)
       ;; https://stackoverflow.com/questions/26630640/tramp-ignores-tramp-remote-path
-      (add-to-list 'tramp-remote-path 'tramp-own-remote-path)) ;; /when ktz-conda-paths
+      ;; (add-to-list 'tramp-remote-path 'tramp-own-remote-path)) ;; /when ktz-conda-paths
 
     (lsp-register-client
      (make-lsp-client
@@ -117,19 +114,18 @@
       :major-modes '(python-mode)
       :remote? t
       :server-id 'pylsp-remote))
-    ;; --------------------
 
     :hook
     (c-mode . lsp) ;; using `clangd`
     (python-mode . lsp)
-    ;; (flycheck-mode . (lambda () (flycheck-select-checker 'python-flake8)))
     (lsp-mode . lsp-enable-which-key-integration)
+    ;; (flycheck-mode . (lambda () (flycheck-select-checker 'python-flake8)))
 
-    :commands lsp
+    :commands lsp)
 
-    ) ;; /use-package lsp-mode
-
-  ;; lsp over tramp and python
+  (use-package which-key
+    :config
+    (which-key-mode))
 
 
   ;; thanks https://github.com/daviwil/emacs-from-scratch

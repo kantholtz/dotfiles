@@ -90,19 +90,19 @@
     (setq gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
 
     ;; TRAMP
-    ;; (when ktz-conda-paths
-    ;;   (message "[ktz] setting remote conda paths")
-      ;; (dolist (path ktz-conda-paths)
-      ;;   (let ((exec-path (concat path "/bin")))
-      ;;     (message (format "  >> adding %s" exec-path))
-      ;;     ;; TODO understand connection-local variables
-      ;;     ;;   - https://debbugs.gnu.org/cgi/bugreport.cgi?bug=32090
-      ;;     (push exec-path tramp-remote-path)
-      ;;     (message (format "  << %s" tramp-remote-path))))
+    (when ktz-conda-paths
+      (ktz-log "prog" "setting remote conda paths")
+      (dolist (path ktz-conda-paths)
+        (let ((exec-path (concat path "/bin")))
+          (ktz-log "prog" (format "  >> adding %s" exec-path))
+          ;; TODO understand connection-local variables
+          ;;   - https://debbugs.gnu.org/cgi/bugreport.cgi?bug=32090
+          (push exec-path tramp-remote-path)))
+
       ;; it is working hard-coded but not with a variable???
-      ;; (push "/home/staffsi/hamann/Complex/opt/conda/envs/lsp/bin" tramp-remote-path)
+      (push "~/Complex/opt/conda/envs/lsp/bin" tramp-remote-path)
       ;; https://stackoverflow.com/questions/26630640/tramp-ignores-tramp-remote-path
-      ;; (add-to-list 'tramp-remote-path 'tramp-own-remote-path)) ;; /when ktz-conda-paths
+      (add-to-list 'tramp-remote-path 'tramp-own-remote-path)) ;; /when ktz-conda-paths
 
     (lsp-register-client
      (make-lsp-client

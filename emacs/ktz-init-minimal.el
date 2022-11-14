@@ -65,7 +65,7 @@
 
 (defun ktz--init-minimal ()
   "Setup minimal configuration"
-  (message "[ktz] initializing minimal configuration")
+  (ktz-log "min" "initializing configuration")
 
   (use-package magit)
   (use-package yasnippet)

@@ -1,8 +1,5 @@
 ;;; ktz-init-desktop.el --- Desktop initialization.
 
-;; --
-
-
 (defun ktz--init-desktop-theme-set-light ()
 
   ;; use M-x list-faces-display
@@ -204,9 +201,13 @@
 
 
 (defun ktz--init-desktop-graphic-p ()
-  (message "[ktz] initializing theme (desktop-graphics-p)")
+  (ktz-log "desktop" "initializing theme")
 
   (ktz--init-desktop-nano)
+  ;; (straight-use-package
+  ;;  '(nano-emacs :type git :host github :repo "rougier/nano-emacs"))
+  ;; (setq nano-font-family-monospaced "Plex Mono")
+  ;; (require 'nano)
 
   ;; spell checks
   (setq ispell-program-name (executable-find "hunspell") ispell-dictionary "en_GB")
@@ -221,7 +222,7 @@
 
 (defun ktz--init-desktop ()
   "Setup desktop configuration - includes Roam, LaTex etc."
-  (message "[ktz] initializing desktop configuration")
+  (ktz-log "desktop" "initializing configuration")
 
   ;; (use-package auctex)
   (use-package pdf-tools)

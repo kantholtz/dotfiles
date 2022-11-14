@@ -1,14 +1,9 @@
 ;;; ktz-init-programming.el --- Programming initialization.
 
 
-;; (defun ktz--init-programming-python-hook ()
-;;   (lsp)
-;;   (add-hook 'before-save-hook #'lsp-format-buffer nil t))
-
-
 (defun ktz--init-programming ()
   "Setup programming configuration"
-  (message "[ktz] initializing programming configuration")
+  (ktz-log "prog" "initializing configuration")
 
   (use-package dap-mode
     :init
@@ -26,6 +21,7 @@
 
   ;; set up conda
   (when ktz-conda-dir
+    (ktz-log "prog" "configuring conda")
     (use-package conda
       :custom
       (conda-anaconda-home ktz-conda-dir)

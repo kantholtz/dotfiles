@@ -1,5 +1,10 @@
 ;;; ktz.el --- Kantholtz' Emacs Configuration.
 
+
+(defun ktz-log (name message)
+  (message (format "[ktz] (%s): %s" name message)))
+
+
 ;; user interface
 
 (defun ktz-configuration ()
@@ -126,7 +131,7 @@
 
 (defun ktz-init ()
   "Initializes the environment based on the ktz-init-type"
-  (message (format "[ktz] initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
+  (ktz-log "main" (format "initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
   (straight-use-package 'use-package)
 
   (cond ((eq ktz-init-type 'minimal)

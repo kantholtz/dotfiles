@@ -145,7 +145,7 @@
    (lambda (key start end)
      (goto-char start)
      (ignore-errors
-       (message (format "[ktz] cleaning %s" key))
+       (ktz-log "org" (format "cleaning %s" key))
        (org-ref-clean-bibtex-entry))))
 
   (use-package gscholar-bibtex
@@ -178,7 +178,7 @@
 (defun ktz--init-org ()
   "Setup org related configuration"
   (when (or ktz-org-enable-headless (display-graphic-p))
-    (message "[ktz] initializing org configuration")
+    (ktz-log "org" "initializing configuration")
     (ktz--init-org-base)
     (when ktz-org-dir
       (ktz--init-org-roam)))

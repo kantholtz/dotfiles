@@ -16,6 +16,11 @@
 (defgroup ktz nil
   "Kantholz' dotfiles customizations")
 
+(setq ktz--defcustom-choice-dir
+      '(choice
+          (string :tag "Directory")
+          (const :tag "Disabled" nil)))
+
 (defcustom ktz-init-type 'minimal
   "How minimalistic the configuration should be"
   :type '(choice
@@ -30,7 +35,7 @@
 
 (defcustom ktz-org-dir nil
   "Directory where the .org files reside (e.g. path/to/Roam)"
-  :type 'directory
+  :type ktz--defcustom-choice-dir
   :group 'ktz)
 
 
@@ -46,12 +51,12 @@
 
 (defcustom ktz-mail-dir nil
   "Directory where a ktz-mu4e.el file and local mail folders are found"
-  :type 'directory
+  :type ktz--defcustom-choice-dir
   :group 'ktz)
 
 (defcustom ktz-mail-mu4e-dir nil
   "Directory where the configure file of mu can be found"
-  :type 'directory
+  :type ktz--defcustom-choice-dir
   :group 'ktz)
 
 
@@ -59,7 +64,7 @@
 
 (defcustom ktz-conda-dir nil
   "Directory where the conda installation can be found"
-  :type 'directory
+  :type ktz--defcustom-choice-dir
   :group 'ktz)
 
 (defcustom ktz-conda-env "base"

@@ -158,6 +158,8 @@
   (when ktz-mail-dir
     (load (concat ktz-mail-dir "/ktz-mu4e.el")))
 
+  (ktz-log "main" (format "initialization time: %s" (emacs-init-time)))
+
   t)
 
 

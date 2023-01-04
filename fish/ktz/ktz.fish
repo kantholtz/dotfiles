@@ -100,4 +100,4 @@ set fish_color_quote \
 
 
 alias fish_prompt ktz-prompt
-alias fish_greeting "$ktz_dir_dotfiles/bash/verses.sh $ktz_dir_dotfiles/assets/verses"
+alias fish_greeting "$ktz_dir_dotfiles/fish/lib/verses"

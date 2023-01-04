@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import os
+import random
+import sys
+import textwrap
+from pathlib import Path
+
+SEP = "\n---\n"
+
+
+def fail(msg: str):
+    print(msg)
+    sys.exit(2)
+
+
+def verses():
+    ktz_dir_dotfiles = os.getenv("ktz_dir_dotfiles")
+    if not ktz_dir_dotfiles:
+        fail("ktz_dir_dotfiles is not set")
+
+    root = Path(ktz_dir_dotfiles)
+
+    collection = []
+    for path in (root / "assets" / "verses").glob("*"):
+        with path.open(mode="r") as fd:
+            verses = map(str.strip, fd.read().split(SEP))
+            collection.extend(filter(None, verses))
+
+    return collection
+
+
+if __name__ == "__main__":
+    verse = random.choice(verses())
+    verse = textwrap.indent(verse, prefix=" " * 2)
+
+    print(f"\n{verse}")

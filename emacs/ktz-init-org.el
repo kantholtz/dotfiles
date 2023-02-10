@@ -112,7 +112,7 @@
     :custom
     (citar-bibliography ktz--cite-bibfiles)
     (citar-library-paths ktz--cite-pdfs)
-    (citar-file-extensions '("pdf" "org" "md")
+    (citar-file-extensions '("pdf" "org" "md"))
     (citar-notes-paths ktz--cite-notes)
     ;; also using this place to configure org-cite
     (org-cite-global-bibliography ktz--cite-bibfiles))

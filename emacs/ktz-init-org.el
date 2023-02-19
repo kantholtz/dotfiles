@@ -131,6 +131,7 @@
     :after org bibtex
 
     :config
+    ;; format whole bibliography uniformly
     (defun ktz--cite-reformat-bib ()
       (bibtex-map-entries
        (lambda (key start end)
@@ -144,10 +145,12 @@
 
     :init
     (setq
+     ;; org-cite compatibility
+     org-ref-insert-cite-function  (lambda () (org-cite-insert nil))
      ;; completion
-     bibtex-completion-bibliography        ktz--cite-bibfiles
-     bibtex-completion-library-path        (list ktz--cite-pdfs)
-     bibtex-completion-pdf-open-function   (lambda (fpath) (call-process "open" nil 0 nil fpath))
+     bibtex-completion-bibliography  ktz--cite-bibfiles
+     bibtex-completion-library-path  (list ktz--cite-pdfs)
+     bibtex-completion-pdf-open-function  (lambda (fpath) (call-process "open" nil 0 nil fpath))
      ;; autokey
      bibtex-autokey-year-length 4
      bibtex-autokey-name-year-separator ""

@@ -50,10 +50,15 @@
   ;; GO --------------------
 
   (use-package go-mode
+    :config
+    (defun ktz--go-mode-hook ()
+      (when (eq major-mode 'go-mode)
+        (lsp-format-buffer)
+        (lsp-organize-imports)))
+
     :hook
     ((go-mode . lsp-deferred)
-     (before-save . lsp-format-buffer)
-     (before-save . lsp-organize-imports)))
+     (before-save . ktz--go-mode-hook)))
 
   ;; FRONTEND
 

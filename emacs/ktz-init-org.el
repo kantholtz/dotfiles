@@ -126,22 +126,23 @@
     :no-require
     :config (citar-org-roam-mode))
 
-  (use-package bibtex)
-  (use-package org-ref
-    :after org bibtex
-
+  (use-package bibtex
     :config
     ;; format whole bibliography uniformly
-    (defun ktz--cite-reformat-bib ()
-      (bibtex-map-entries
-       (lambda (key start end)
-         (goto-char start)
-         (ignore-errors
-           (ktz-log "org" (format "cleaning %s" key))
-           (org-ref-clean-bibtex-entry)))))
+    (defun ktz-reformat-bib ()
+      (when (eq major-mode 'bibtex-mode)
+        (bibtex-map-entries
+         (lambda (key start end)
+           (goto-char start)
+           (ignore-errors
+             (ktz-log "org" (format "cleaning %s" key))
+             (org-ref-clean-bibtex-entry)))))))
 
     ;; automatically clean up the library file
-    (add-hook 'after-save-hook 'ktz--cite-reformat-bib)
+    ;;(add-hook 'after-save-hook 'ktz--cite-reformat-bib))
+
+  (use-package org-ref
+    :after org bibtex
 
     :init
     (setq

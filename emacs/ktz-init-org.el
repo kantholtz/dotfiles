@@ -171,7 +171,8 @@
       (with-current-buffer (find-file-noselect (car ktz--cite-bibfiles))
         (goto-char (point-max))
         (insert (concat "\n\n" bibtex))
-        (org-ref-clean-bibtex-entry)))
+        (org-ref-clean-bibtex-entry)
+        (ktz-reformat-bib)))
 
     (defun ktz--biblio-ref-select-and-add ()
       "Append current entry to bibtex file."

@@ -43,12 +43,16 @@ pacman -S gcc
 Then add `<msys2 install dir>/usr/bin` to the windows `%PATH%` (Win+R
 `systempropertiesadvanced` - Environment Variables - System Variables)
 
-Problems with gpg keys and elpa if msys2 is installed: `gpg
+
+**Exec Format Error:** If `C-c n f` does not work and the stacktrace complains about an `Exec
+format error` when spawning the emacsql-sqlite subprocess, evaluate
+`(emacsql-sqlite-compile)`.
+
+**GPG Keys:** Problems with gpg keys and elpa if msys2 is installed: `gpg
 --receive-keys 066DAFCB81E42C40` (do not set --homedir to the
 `.emacs.d/elpa/gnupg` thing as emacs fucks the path up anyway; the
 keys are installed to the msys2 home directory). In `.emacs` add
 `'(package-gnupghome-dir nil)` to use the default dir.
-
 
 ## Notes ##
 

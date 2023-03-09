@@ -192,7 +192,7 @@ def _recurse(buf: list[str], node: Node, name: str, depth: int):
 
         done = org.states.get(State.ALL_DONE, 0)
         total = done + org.states.get(State.ALL_TODO, 0)
-        timestamp = org.created.strftime("<%Y-%m-%d %a>")
+        timestamp = org.created.strftime("[%Y-%m-%d %a]")
 
         heading = f"[[id:{org.id}][{name}]]"
         orgstr = f" {timestamp} ({org.nodes})"

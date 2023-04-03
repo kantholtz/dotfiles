@@ -31,9 +31,9 @@
       (conda-env-activate ktz-conda-env)
       (conda-env-autoactivate-mode)))
 
-  ;; (use-package python
-  ;;   :hook
-  ;;   (before-save . lsp-format-buffer))
+  (use-package python
+    :hook
+    (before-save . lsp-format-buffer))
 
   ;;   ((python-mode
   ;;     . lsp-deferred)

@@ -218,7 +218,9 @@ def write_index(index_path: Path, tree: Node):
 
         assert found, "cannot find marker"
 
-    content.append(f"# generated: {datetime.now()}")
+    # TODO currently disabled until ramconfig:roam.sh ignores
+    # auto-commits for the index file if only the timestamp changed
+    # content.append(f"# generated: {datetime.now()}")
     _recurse(buf=content, node=tree, name="root", depth=1)
 
     with index_path.open(mode="w") as fd:

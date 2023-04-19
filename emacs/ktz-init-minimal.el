@@ -70,7 +70,6 @@
   (use-package magit)
   (use-package yasnippet)
   (straight-use-package '(yasnippet-snippets :type git :host github :repo "AndreaCrotti/yasnippet-snippets"))
-  (use-package which-key)
   (use-package multiple-cursors)
   (use-package blank-mode)
 

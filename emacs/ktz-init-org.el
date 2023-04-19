@@ -130,6 +130,7 @@
     :config
     ;; format whole bibliography uniformly
     (defun ktz-reformat-bib ()
+      (interactive)
       (when (eq major-mode 'bibtex-mode)
         (bibtex-map-entries
          (lambda (key start end)

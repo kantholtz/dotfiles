@@ -96,16 +96,6 @@
     :group 'ktz))
 
 
-;; --------------------
-
-
-(require 'ktz-config)
-(require 'ktz-init-minimal)
-(require 'ktz-init-programming)
-(require 'ktz-init-desktop)
-(require 'ktz-init-org)
-
-
 ;; bootstrapping
 
 ;;
@@ -133,11 +123,22 @@
 ;; use straight by default (allows to omit :straight t)
 ;; to not use straight, set :straight nil accordingly
 (setq straight-use-package-by-default t)
+(straight-use-package 'use-package)
+
+;; important: on some systems
+;; (observed on headless ubuntu with emacs28-nox)
+;; the order of setting straight-use-package-by-default
+;; and the requiring of the ktz-init-* files matters.
+(require 'ktz-config)
+(require 'ktz-init-minimal)
+(require 'ktz-init-programming)
+(require 'ktz-init-desktop)
+(require 'ktz-init-org)
+
 
 (defun ktz-init ()
   "Initializes the environment based on the ktz-init-type"
   (ktz-log "main" (format "initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
-  (straight-use-package 'use-package)
 
   (cond ((eq ktz-init-type 'minimal)
 	 (ktz--init-minimal))

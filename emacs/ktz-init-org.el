@@ -73,13 +73,19 @@
 
     :init
     (setq org-roam-v2-ack t)
+    ;; to be tested
+    (when (not (version< emacs-version "29"))
+      (use-package emacsql-sqlite-builtin)
+      (setq org-roam-database-connector 'sqlite-builtin))
+
 
     :bind (("C-c n l" . org-roam-buffer-toggle)
            ("C-c n f" . org-roam-node-find)
            ("C-c n i" . org-roam-node-insert))
 
     :config
-    (org-roam-setup))
+    ;; (org-roam-setup) todo: required?
+    (org-roam-db-autosync-mode))
 
   ;;
   ;; scientific stuff

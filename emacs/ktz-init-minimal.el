@@ -67,11 +67,32 @@
   "Setup minimal configuration"
   (ktz-log "min" "initializing configuration")
 
-  (use-package magit)
-  (use-package yasnippet)
-  (straight-use-package '(yasnippet-snippets :type git :host github :repo "AndreaCrotti/yasnippet-snippets"))
-  (use-package multiple-cursors)
+  ;; lay your weary pinky to rest
+  (use-package god-mode
+    :init
+    (god-mode)
+    :config
+    (global-set-key (kbd "<escape>") #'god-mode-all)
+    (setq god-exempt-major-modes nil)
+    (setq god-exempt-predicates nil))
+
+  (use-package magit
+    :config
+    (global-set-key (kbd "C-x g") 'magit-status))
+
+  (use-package yasnippet
+    :config
+    (straight-use-package '(yasnippet-snippets :type git :host github :repo "AndreaCrotti/yasnippet-snippets"))
+    (yas-global-mode t)
+    (global-set-key (kbd "C-c j") 'yas-expand))
+
+  (use-package multiple-cursors
+    :config
+    (global-set-key (kbd "C-x n") 'mc/mark-next-like-this))
+
   (use-package blank-mode)
+  (use-package which-key
+    :config (which-key-mode))
 
     ;; server
   (use-package yaml-mode)
@@ -84,25 +105,13 @@
   (column-number-mode t)
   (show-paren-mode t)
 
-  (global-set-key (kbd "C-x g") 'magit-status)
   (global-set-key (kbd "M-<up>") 'ktz--move-line-up)
   (global-set-key (kbd "M-<down>") 'ktz--move-line-down)
 
   (ktz--init-minimal-voc)
 
-  (require 'multiple-cursors)
-  (global-set-key (kbd "C-x n") 'mc/mark-next-like-this)
-
-  (require 'yasnippet)
-  (yas-global-mode t)
-  (global-set-key (kbd "C-c j") 'yas-expand)
-
-  (use-package which-key
-    :config (which-key-mode))
-
   ;; hooks
-  (add-hook 'prog-mode-hook 'ktz--prog-mode-hooks)
-  t)
+  (add-hook 'prog-mode-hook 'ktz--prog-mode-hooks))
 
 
 (provide 'ktz-init-minimal)

@@ -231,11 +231,6 @@
   (use-package pdf-tools)
   (use-package rainbow-mode)
 
-  ;; lay your weary pinky to rest
-  (require 'control-lock)
-  (control-lock-keys)
-  (global-set-key (kbd "C-`") 'control-lock-enable)
-
   ;; non-terminal mode only
   (when (display-graphic-p)
 

@@ -124,10 +124,6 @@
 
     :commands lsp)
 
-  (use-package which-key
-    :config
-    (which-key-mode))
-
 
   ;; thanks https://github.com/daviwil/emacs-from-scratch
   (use-package company

@@ -41,6 +41,27 @@
 
 ;; ---
 
+(defface ktz-face--modeline-box
+  '((t
+     :inherit 'nano-face-header-faded))
+  "Basic Box" :group 'nano)
+
+
+(defface ktz-face--modeline-box-inactive
+  `((t
+     :inherit 'ktz-face--modeline-box
+     :foreground ,nano-color-foreground
+     :background ,nano-color-subtle))
+  "Inactive Box" :group 'nano)
+
+
+(defface ktz-face--modeline-box-active
+  `((t
+     :inherit 'ktz-face--modeline-box
+     :background ,nano-color-salient))
+  "Active Box" :group 'nano)
+
+
 (defun ktz-theme--modeline-compose (status name primary secondary)
   "Compose a string with provided information"
 
@@ -59,38 +80,39 @@
                       'face 'nano-face-header-critical))
 
          ((string= status "RO")
-			    (propertize (if (window-dedicated-p) " -- " "[RO]")
+			    (propertize (if (window-dedicated-p) " -- " " RO ")
                       'face 'nano-face-header-popout))
 
          ((string= status "RW")
-			    (propertize (if (window-dedicated-p) " -- " "[RW]")
-                      'face 'nano-face-header-faded))
+			    (propertize (if (window-dedicated-p) " -- " " RW ")
+                      'face 'ktz-face--modeline-box))
 
          (t (propertize status 'face 'nano-face-header-popout))))
 
-       (prefix (concat " " prefix))
+       ;; (prefix (concat " " prefix))
+
+       ;; god-mode indicator
+       (god
+        (if god-local-mode
+            (propertize " GOD " 'face 'ktz-face--modeline-box-active)
+          (propertize " GOD "   'face 'ktz-face--modeline-box-inactive)))
 
        ;; buffer name
        (left
         (concat
-         (propertize " "  'face 'nano-face-header-default
-                     'display `(raise ,space-up))
-         (propertize name 'face 'nano-face-header-strong)
-         (propertize " "  'face 'nano-face-header-default
-                     'display `(raise ,space-down))
+         (propertize " "     'face 'nano-face-header-default 'display `(raise ,space-up))
+         (propertize name    'face 'nano-face-header-strong)
+         (propertize " "     'face 'nano-face-header-default 'display `(raise ,space-down))
 		     (propertize primary 'face 'nano-face-header-default)))
 
        ;; optional information
-       (right (concat " " secondary " ")))
-
+       (right
+        (propertize (concat " " secondary " ") 'face 'nano-face-faded)))
+        ;;(propertize  'face 'foreground 'nano-color-faded)))
+ 
     ;; assemble (cannot align info right because lsp
     ;; breadcrumbs are not included atm)
-    (concat
-     prefix left
-	   (propertize
-      right 'face
-      `(:inherit nano-face-header-default
-                 :foreground ,nano-color-faded)))))
+    (concat prefix god left right)))
 
 ;; ----
 

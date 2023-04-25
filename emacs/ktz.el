@@ -129,6 +129,11 @@
 ;; (observed on headless ubuntu with emacs28-nox)
 ;; the order of setting straight-use-package-by-default
 ;; and the requiring of the ktz-init-* files matters.
+
+;; theming
+(require 'ktz-theme-faces)
+
+;; modes and mode config
 (require 'ktz-config)
 (require 'ktz-init-minimal)
 (require 'ktz-init-programming)
@@ -139,6 +144,15 @@
 (defun ktz-init ()
   "Initializes the environment based on the ktz-init-type"
   (ktz-log "main" (format "initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
+
+  ;; theme initialization
+
+  ;; TODO offer ktz-theme.el which handles initialization
+  ;; TODO add switch to enable or disable the ktz-theme
+  ;;      (or choose between light and dark mode
+  (ktz-theme--init-faces)
+
+   ;; mode initialization
 
   (cond ((eq ktz-init-type 'minimal)
 	 (ktz--init-minimal))

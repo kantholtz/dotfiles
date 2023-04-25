@@ -5,6 +5,9 @@
   ;; use M-x list-faces-display
   ;; or M-x describe-face (with cursor)
 
+  ;; these will be successively replaced by
+  ;; the definitions in ktz-theme-faces.el
+
   "Overwriting nano-theme-light.el."
   (setq frame-background-mode    'light)
   (setq nano-color-foreground "#37474f") ;; blue grey 800

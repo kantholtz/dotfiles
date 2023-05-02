@@ -41,8 +41,11 @@
 
 ;; ---
 
+;; TODO use ktz-theme-faces
+
 (defface ktz-face--modeline-box
   '((t
+     :weight bold
      :inherit 'nano-face-header-faded))
   "Basic Box" :group 'nano)
 
@@ -50,16 +53,40 @@
 (defface ktz-face--modeline-box-inactive
   `((t
      :inherit 'ktz-face--modeline-box
-     :foreground ,nano-color-foreground
+     :foreground ,nano-color-faded
      :background ,nano-color-subtle))
   "Inactive Box" :group 'nano)
 
 
-(defface ktz-face--modeline-box-active
+(defface ktz-face--modeline-box-god-active
   `((t
      :inherit 'ktz-face--modeline-box
+     :foreground ,nano-color-background
      :background ,nano-color-salient))
   "Active Box" :group 'nano)
+
+
+(defface ktz-face--modeline-box-lsp-ok
+  `((t
+     :inherit 'ktz-face--modeline-box
+     :foreground ,nano-color-popout))
+  "LSP Box no errors" :group 'nano)
+
+
+(defface ktz-face--modeline-box-lsp-warnings
+  `((t
+     :inherit 'ktz-face--modeline-box
+     :foreground ,nano-color-warning))
+  "LSP Box warnings" :group 'nano)
+
+
+(defface ktz-face--modeline-box-lsp-errors
+  `((t
+     :inherit 'ktz-face--modeline-box
+     :foreground ,nano-color-critical))
+  "LSP Box errors" :group 'nano)
+
+
 
 
 (defun ktz-theme--modeline-compose (status name primary secondary)
@@ -91,10 +118,28 @@
 
        ;; (prefix (concat " " prefix))
 
+       ;; lsp indicator
+       (lsp
+        (if lsp-mode
+            (let* ((status (lsp-diagnostics-stats-for (directory-file-name (lsp-workspace-root))))
+                   (errors? (< 1 (aref status 1)))
+                   (warnings? (< 1 (aref status 2))))
+              ;; lsp-diagnostics-stats-for:
+              ;; [_ errors warnings infos hints] or nil.
+              (propertize " LSP " 'face
+                          (cond
+                           (errors? 'ktz-face--modeline-box-lsp-errors)
+                           (warnings? 'ktz-face--modeline-box-lsp-warnings)
+                           (t 'ktz-face--modeline-box-lsp-ok))))
+          ""))
+
+       ;; (lsp
+       ;;  (if (t) "LSP" ""))
+
        ;; god-mode indicator
        (god
         (if god-local-mode
-            (propertize " GOD " 'face 'ktz-face--modeline-box-active)
+            (propertize " GOD " 'face 'ktz-face--modeline-box-god-active)
           (propertize " GOD "   'face 'ktz-face--modeline-box-inactive)))
 
        ;; buffer name
@@ -112,7 +157,7 @@
  
     ;; assemble (cannot align info right because lsp
     ;; breadcrumbs are not included atm)
-    (concat prefix god left right)))
+    (concat god lsp left right)))
 
 ;; ----
 

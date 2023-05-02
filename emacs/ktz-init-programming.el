@@ -86,7 +86,8 @@
     ;; (setq lsp-keymap-prefix "C-c l")
     (require 'dap-cpptools)
     (setq lsp-keymap-prefix "C-c l")
-    (setq lsp-headerline-breadcrumb-icons-enable nil)
+    ;;(setq lsp-headerline-breadcrumb-icons-enable nil)
+    (setq lsp-headerline-breadcrumb-enable nil)
 
     :config
     ;; following the performance tips of lsp-doctor

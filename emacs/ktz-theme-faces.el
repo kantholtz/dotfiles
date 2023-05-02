@@ -1,9 +1,19 @@
-;;
-;;  KTZ -- color and face definitions
-;;  originally inspired by NANO
+;;; ktz-theme-faces.el --- KTZ color and face definitions
 
+;;; Commentary:
+;;  originally inspired by Rougier's NANO
 ;; use full material design colour palette
 ;; to define the base palette
+
+;;; Code:
+(defgroup ktz-colors nil
+  "Kantholz' color palette.")
+
+;; colors may be modified using custom
+(defun ktz-theme-faces--defcolor (name color)
+  "Register a ktz color using defcustom."
+  (custom-declare-variable name color "" :type 'color :group 'ktz-colors))
+
 
 (let
     ;; opaque blob of material design colors
@@ -31,60 +41,68 @@
      (black "#000000")
      (white "#ffffff"))
 
-  (defgroup ktz-colors nil
-    "Kantholz' color palette")
-
-  ;; colors may be modified using custom
-
-  (defcustom ktz-color-background        grey-50          "" :type 'color :group 'ktz-colors)
-
-  (defcustom ktz-color-foreground        grey-900         "" :type 'color :group 'ktz-colors)
-  (defcustom ktz-color-foreground-light  grey-100         "" :type 'color :group 'ktz-colors)
-
-  (defcustom ktz-color-primary           deep-purple-800  "" :type 'color :group 'ktz-colors)
-  (defcustom ktz-color-primary-light     deep-purple-50   "" :type 'color :group 'ktz-colors)
-
-  (defcustom ktz-color-success           teal-800         "" :type 'color :group 'ktz-colors)
-  (defcustom ktz-color-success-light     teal-50          "" :type 'color :group 'ktz-colors)
-
-  (defcustom ktz-color-warning           deep-orange-900  "" :type 'color :group 'ktz-colors)
-  (defcustom ktz-color-warning-light     deep-orange-50   "" :type 'color :group 'ktz-colors)
-
-  (defcustom ktz-color-error             pink-700         "" :type 'color :group 'ktz-colors)
-  (defcustom ktz-color-error-light       pink-50          "" :type 'color :group 'ktz-colors)
-
-  (defcustom ktz-color-inverse           white            "" :type 'color :group 'ktz-colors))
+  (ktz-theme-faces--defcolor 'ktz-color-foreground       'grey-900)
+  (ktz-theme-faces--defcolor 'ktz-color-foreground-light 'grey-100)
+  (ktz-theme-faces--defcolor 'ktz-color-background       'grey-50)
+  (ktz-theme-faces--defcolor 'ktz-color-primary          'deep-purple-800)
+  (ktz-theme-faces--defcolor 'ktz-color-primary-light    'deep-purple-50)
+  (ktz-theme-faces--defcolor 'ktz-color-success          'teal-800)
+  (ktz-theme-faces--defcolor 'ktz-color-success-light    'teal-50)
+  (ktz-theme-faces--defcolor 'ktz-color-warning          'deep-orange-900)
+  (ktz-theme-faces--defcolor 'ktz-color-warning-light    'deep-orange-50)
+  (ktz-theme-faces--defcolor 'ktz-color-error            'pink-700)
+  (ktz-theme-faces--defcolor 'ktz-color-error-light      'pink-50)
+  (ktz-theme-faces--defcolor 'ktz-color-inverse          'white))
 
 
 ;; as foundation there's always three variants per color
 ;;   1. <FACE>: color as foreground
 ;;   2. <FACE>-highlight: color as foreground + light color as background
 ;;   3. <FACE>-inverse: color as background + white foreground
-(defun ktz-theme-faces--register-face (name color color-light)
+(defun ktz-theme-faces--defface (name color color-light)
   ;; TODO handle different terminals
   ;; TODO running this function multiple times redundandtly declares
   ;; faces
 
+  (defvar ktz-theme-faces--face)
+  (defvar ktz-theme-faces--face-highlight)
+  (defvar ktz-theme-faces--face-inverse)
+
   ;; dynamically provide the name via make-symbol:
   ;; (macroexpand '(defface foo nil "" :group ktz-faces))
   ;; -> (custom-declare-face 'foo nil "" :group ktz-faces)
+  ;; (interactive): M-x pp-macroexpand-last-sexp
 
   (let ((prefix "ktz-face"))
-    (custom-declare-face (make-symbol (format "%s-%s" prefix name))
-                         `((t :foreground ,color))
-                         "" :group 'ktz-faces)
 
-    (custom-declare-face (make-symbol (format "%s-%s-highlight" prefix name))
-                         `((t
-                            :foreground ,color
-                            :background ,color-light))
-                         "" :group 'ktz-faces)
+    ;; TODO cannot invoke functions in let?
+    (setq ktz-theme-faces--face
+          (make-symbol (format "%s-%s" prefix name)))
+    (setq ktz-theme-faces--face-highlight
+          (make-symbol (format "%s-%s-highlight" prefix name)))
+    (setq ktz-theme-faces--face-inverse
+          (make-symbol (format "%s-%s-inverse" prefix name)))
 
-    (custom-declare-face (make-symbol (format "%s-%s-inverse" prefix name))
-                         `((t
-                            :foreground ,ktz-color-inverse
-                            :background ,color))
-                         "" :group 'ktz-faces)))
+    (if (not (boundp ktz-theme-faces--face))
+        (custom-declare-face ktz-theme-faces--face
+                             nil "" :group 'ktz-faces))
+    (if (not (boundp ktz-theme-faces--face-highlight))
+        (custom-declare-face ktz-theme-faces--face-highlight
+                             nil "" :group 'ktz-faces))
+    (if (not (boundp ktz-theme-faces--face-inverse))
+        (custom-declare-face ktz-theme-faces--face-inverse
+                             nil "" :group 'ktz-faces))
+
+    (set-face-attribute ktz-theme-faces--face nil
+                        :foreground color)
+
+    (set-face-attribute ktz-theme-faces--face-highlight nil
+                        :foreground color
+                        :background color-light)
+
+    (set-face-attribute ktz-theme-faces--face-inverse nil
+                        :foreground ktz-color-inverse
+                        :background color)))
 
 (defun ktz-theme--init-faces ()
   (dolist (args `(  ;; add or change faces here
@@ -93,7 +111,30 @@
                   (success  ,ktz-color-success     ,ktz-color-success-light)
                   (warning  ,ktz-color-warning     ,ktz-color-warning-light)
                   (error    ,ktz-color-error       ,ktz-color-error-light)))
-    (apply 'ktz-theme-faces--register-face args)))
+    (apply 'ktz-theme-faces--defface args)))
+
+
+;; overwrite pre-defined faces
+(defun set-face (face style)
+  "Reset FACE and make it inherit STYLE."
+  (set-face-attribute face nil
+		      :foreground 'unspecified :background 'unspecified
+		      :family     'unspecified :slant      'unspecified
+		      :weight     'unspecified :height     'unspecified
+		      :underline  'unspecified :overline   'unspecified
+		      :box        'unspecified :inherit    style))
+
+
+;; TODO other place? grouping?
+;; --------------------
+
+(ktz-theme--init-faces)
+
+;; magit
+;; (set-face 'magit-diff-added 'ktz-face-success-highlight)
+
+
+;; --------------------
 
 
 (provide 'ktz-theme-faces)

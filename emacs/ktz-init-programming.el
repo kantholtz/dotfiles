@@ -143,7 +143,9 @@
 
 
   ;; informations: M-x flycheck-verify-setup
-  (use-package flycheck :after lsp-mode)
+  (use-package flycheck
+    :after lsp-mode
+    :init (global-flycheck-mode))
 
   ;; pyright --------------------
 

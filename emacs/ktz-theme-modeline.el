@@ -116,8 +116,6 @@
 
          (t (propertize status 'face 'nano-face-header-popout))))
 
-       ;; (prefix (concat " " prefix))
-
        ;; lsp indicator
        (lsp
         (if lsp-mode
@@ -157,7 +155,7 @@
  
     ;; assemble (cannot align info right because lsp
     ;; breadcrumbs are not included atm)
-    (concat god lsp left right)))
+    (concat prefix " " god lsp left right)))
 
 ;; ----
 

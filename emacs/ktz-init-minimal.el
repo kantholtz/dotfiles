@@ -73,8 +73,14 @@
     (god-mode)
     :config
     (global-set-key (kbd "<escape>") #'god-mode-all)
-    ;; (setq god-exempt-major-modes nil)
-    (setq god-exempt-predicates nil))
+
+    (defun ktz--god-mode-hook ()
+      (set-cursor-color
+            (if (or god-local-mode buffer-read-only)
+                "gray" "black")))
+
+    :hook
+    (post-command . ktz--god-mode-hook))
 
   (use-package magit
     :config

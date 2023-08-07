@@ -46,25 +46,6 @@ Then add `<msys2 install dir>/usr/bin` to the windows `%PATH%` (Win+R
 
 **GPG Keys:** Problems with gpg keys and elpa if msys2 is installed: `gpg
 --receive-keys 066DAFCB81E42C40` (do not set --homedir to the
-`.emacs.d/elpa/gnupg` thing as emacs fucks the path up anyway; the
+`.emacs.d/elpa/gnupg` thing as emacs is confused with the paths; the
 keys are installed to the msys2 home directory). In `.emacs` add
 `'(package-gnupghome-dir nil)` to use the default dir.
-
-## Notes ##
-
-__Some handy commands__
-
-* Switch alt and cmd when using Apple™ Keyboards: `setxkbmap -option altwin:swap_alt_win` or `echo 1 | sudo tee /sys/module/hid_apple/parameters/swap_opt_cmd`
-
-__Environment__
-
-To change the $PATH environmental variable simply set/change
-`$fish_user_paths`:
-
-```
-set -U fish_user_paths your/own/path $fish_user_paths
-```
-
-Further information can be found with `help set`.  If you need a
-persistent PATH variable change `/etc/paths` or your `~/.bashrc` or
-`~/.profile` files.

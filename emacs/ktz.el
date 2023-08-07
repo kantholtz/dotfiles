@@ -1,7 +1,12 @@
 ;;; ktz.el --- Kantholtz' Emacs Configuration.
 
 
+;;; Code:
 (defun ktz-log (name message)
+  "Write message to message buffer.
+
+NAME Usually the module which emitted the message.
+MESSAGE String to emit."
   (message (format "[ktz] (%s): %s" name message)))
 
 
@@ -26,8 +31,7 @@
   :type '(choice
 	  (const :tag "Disabled: only bootstrap straight.el" nil)
 	  (const :tag "Minimum: for configuration on servers" minimal)
-	  (const :tag "Programming: IDE features" programming)
-	  (const :tag "Desktop: desktop configuration with Roam, LaTex etc." desktop))
+	  (const :tag "Programming: IDE features" programming))
   :group 'ktz)
 
 
@@ -130,27 +134,18 @@
 ;; the order of setting straight-use-package-by-default
 ;; and the requiring of the ktz-init-* files matters.
 
-;; theming
-(require 'ktz-theme-faces)
 
 ;; modes and mode config
 (require 'ktz-config)
 (require 'ktz-init-minimal)
 (require 'ktz-init-programming)
-(require 'ktz-init-desktop)
+(require 'ktz-init-theme)
 (require 'ktz-init-org)
 
 
 (defun ktz-init ()
   "Initializes the environment based on the ktz-init-type"
   (ktz-log "main" (format "initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
-
-  ;; theme initialization
-
-  ;; TODO offer ktz-theme.el which handles initialization
-  ;; TODO add switch to enable or disable the ktz-theme
-  ;;      (or choose between light and dark mode
-  (ktz-theme--init-faces)
 
    ;; mode initialization
 
@@ -161,21 +156,14 @@
 	 (progn
 	   (ktz--init-minimal)
 	   (ktz--init-programming)
-     (ktz--init-org)))
-
-	((eq ktz-init-type 'desktop)
-	 (progn
-	   (ktz--init-minimal)
-	   (ktz--init-programming)
-	   (ktz--init-desktop)
+     (ktz--init-theme)
      (ktz--init-org))))
 
   (when ktz-mail-dir
     (load (concat ktz-mail-dir "/ktz-mu4e.el")))
 
   (ktz-log "main" (format "initialization time: %s" (emacs-init-time)))
-
-  t)
+  ) ;; /ktz-init
 
 
 (defun ktz-reload ()
@@ -191,3 +179,4 @@
 (ktz--init-config)
 (add-hook 'emacs-startup-hook 'ktz-init)
 (provide 'ktz)
+;;; ktz.el ends here

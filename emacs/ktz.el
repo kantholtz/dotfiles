@@ -81,25 +81,6 @@ MESSAGE String to emit."
   :type '(repeat directory))
 
 
-;; theming
-
-(when (display-graphic-p)
-  (defcustom ktz-font-size 12
-    "Font size in pt"
-    :type 'integer
-    :group 'ktz)
-
-  (defcustom ktz-font-monospace "Source Code Pro"
-    "Name of the monospace font to use"
-    :type 'string
-    :group 'ktz)
-
-  (defcustom ktz-font-proportional "Source Serif Pro"
-    "Name of the proportional font to use"
-    :type 'string
-    :group 'ktz))
-
-
 ;; bootstrapping
 
 ;;

@@ -1,19 +1,33 @@
 (defun ktz--init-org-base ()
 
-  ;; do not destroy current splits
-  (setq org-agenda-window-setup 'current-window)
+  ;; presentation
+  (use-package adaptive-wrap)
+  (use-package visual-fill-column)
 
-  ;; refile configuration
-  ;; see https://orgmode.org/manual/Refile-and-Copy.html
-  (setq org-refile-targets
-        '((nil :maxlevel . 3)
-          (org-agenda-files :maxlevel . 3)))
+  (use-package org
+    :straight (:type built-in)
+    :config
+    (setq
+     ;; do not destroy current splits
+     org-agenda-window-setup 'current-window
 
-  ;; hooks
-  (add-hook 'org-mode-hook 'org-indent-mode)
-  (add-hook 'org-mode-hook 'visual-line-mode)
+     ;; refile configuration
+     ;; see https://orgmode.org/manual/Refile-and-Copy.html
+     org-refile-targets
+     '((nil :maxlevel . 3)
+       (org-agenda-files :maxlevel . 3)))
 
-  t)
+    (defun ktz--org-visual-fill ()
+      (visual-line-mode)
+      (visual-fill-column-mode)
+      (adaptive-wrap-prefix-mode))
+
+    :hook
+    (org-mode . org-indent-mode)
+    (org-mode . ktz--org-visual-fill))
+
+;;; end ktz--init-org-base
+  )
 
 
 (defun ktz--init-org-roam ()
@@ -26,15 +40,10 @@
   ;;
   ;; roam
   ;;
-  (use-package visual-fill-column
-    :config
-    (defun ktz--org-visual-fill ()
-      (visual-fill-column-mode 1))
-    :hook (org-mode . ktz--org-visual-fill))
-
   ;; see also https://github.com/org-roam/org-roam#configuration
   (use-package org-roam
     :custom
+
     (org-log-done 'time)
     (org-roam-directory ktz--org-files-org)
     (org-agenda-files (list ktz--org-files-org))
@@ -214,17 +223,16 @@
         (org-agenda nil "a"))))
 
   ;; misc
-  (use-package org-bullets))
+  (use-package org-bullets
+    :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-(defun ktz--init-org ()
-  "Setup org related configuration"
-  (when (or ktz-org-enable-headless (display-graphic-p))
-    (ktz-log "org" "initializing configuration")
-    (ktz--init-org-base)
-    (when ktz-org-dir
-      (ktz--init-org-roam)))
+;;; end of ktz--init-org
+  )
 
-  t)
+(defun ktz--init-org()
+  (ktz--init-org-base)
+  (ktz--init-org-roam))
+
 
 (defun ktz-org ()
   "Initialize org related config manually"

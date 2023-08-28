@@ -22,6 +22,16 @@
 ;; vertice/orderless/consult
 (defun ktz--init-minimal-voc ()
 
+  ;; this spawns a shell (a sh subshell in case of fish)
+  ;; and reads the exported environment variables
+  ;; and sets exec-path accordingly
+  (use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)
+    (ktz-log ".emacs" "initialized exec-path-from-shell")))
+
+
   ;; vertical completion ui
   (use-package vertico :init (vertico-mode))
 

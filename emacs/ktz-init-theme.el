@@ -1,13 +1,8 @@
+
 (defun ktz--init-theme ()
 
   ;; non-terminal mode only
   (when (display-graphic-p)
-
-    ;; cannot use (use-package nano-emacs ...)
-    ;; https://github.com/rougier/nano-emacs/issues/43
-    ;; (straight-use-package
-    ;;  '(nano-emacs :host github :repo "rougier/nano-emacs"))
-    ;; (ktz--init-desktop-graphic-p)
 
     ;; disable window clutter
     (menu-bar-mode -1)
@@ -18,14 +13,46 @@
   (use-package modus-themes
     :config
 
+    ;; section 6.12 "Font configurations for Org and others"
+    ;; (set-face-attribute
+    ;;  'default nil :family "IBM Plex Mono")
+
+    (set-face-attribute
+     'variable-pitch nil
+     :foundry "IBM" :family "IBM Plex Sans"
+     :height 1.0 :width 'medium :slant 'normal)
+
+    (set-face-attribute
+     'fixed-pitch nil
+     :foundry "IBM" :family "IBM Plex Mono"
+     :height 1.0 :width 'medium :slant 'normal)
+
+    ;; general (non-modus) config
+    (setq-default line-spacing 0.1)
+
     (setq
 
+     org-todo-keyword-faces
+      '(("ARCH" . (:inherit (regular org-done)))
+        ("DONE" . (:inherit (regular org-done))))
      ;; Constructs
 
      modus-themes-italic-constructs t
      modus-themes-bold-constructs t
      modus-themes-mixed-fonts t
+     modus-themes-variable-pitch-ui t
 
+     modus-themes-custom-auto-reload t
+     modus-themes-disable-other-themes t
+
+     ;; org mode related
+
+     modus-themes-headings
+     '((1 . (variable-pitch 1.2))
+       (2 . (variable-pitch 1.1))
+       (agenda-date . (light 1.1))
+       (agenda-structure . (light 1.4))
+       (t . (variable-pitch semibold)))
 
      ;; Palette
 
@@ -59,11 +86,11 @@
        (bg-red-subtle      "#F8BBD0")  ;; 100
        (bg-red-nuanced     "#FCE4EC")  ;;  50
 
-       ;; teal
-       (green              "#00695c")  ;; 800
-       (bg-green-intense   "#80CBC4")  ;; 200
-       (bg-green-subtle    "#B2DFDB")  ;; 100
-       (bg-green-nuanced   "#E0F2F1")  ;;  50
+       ;; teal (tailwind)
+       (green              "#00796B")  ;; 800
+       (bg-green-intense   "#99f6e4")  ;; 200
+       (bg-green-subtle    "#ccfbf1")  ;; 100
+       (bg-green-nuanced   "#f0fdfa")  ;;  50
 
        ;; deep purple
        (magenta            "#4527A0")  ;; 800
@@ -214,16 +241,16 @@
 
 ;;;; Date mappings
 
-       (date-common magenta)
-       (date-deadline red)
-       (date-event fg-alt)
-       (date-holiday blue)
-       (date-holiday-other blue)
-       (date-now fg-main)
-       (date-range fg-alt)
-       (date-scheduled yellow)
-       (date-weekday fg-alt)
-       (date-weekend fg-dim)
+       (date-common fg-alt)
+       (date-deadline fg-alt)
+       (date-event "#FF0")
+       (date-holiday "#0FF")
+       (date-holiday-other "#0F0")
+       (date-now "#F0F")
+       (date-range "#00F")
+       (date-scheduled "#A0C")
+       (date-weekday fg-main)  ;; agenda heading
+       (date-weekend fg-dim)  ;; agenda heading
 
 ;;;; Link mappings
 
@@ -277,15 +304,26 @@
        (fg-heading-7 fg-alt)
        (fg-heading-8 fg-alt)
 
+;;;; Prose
+
+       (prose-done fg-dim)
+
 ;;; End of overrides
-       ))
+       )
+;; End of :config setq
+     )
 
 
     ;; load base theme after all customization
     (load-theme 'modus-operandi :no-confirm)
-    (ktz-log ".emacs" "Loaded modus theme"))
+    (ktz-log ".emacs" "Loaded modus theme")
 
+    ) ;; /use-package
   ) ;; /ktz--init-theme
 
+
+(defun ktz-load-theme ()
+  (interactive)
+  (ktz--init-theme))
 
 (provide 'ktz-init-theme)

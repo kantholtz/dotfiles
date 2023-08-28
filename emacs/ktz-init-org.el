@@ -1,11 +1,20 @@
 (defun ktz--init-org-base ()
 
   ;; presentation
-  (use-package adaptive-wrap)
+  ;;   1. visual-line-mode
+  ;;      This wraps text at the window boundaries.
+  ;;   2. visual-fill-column
+  ;;      Extends window margins to make the space for
+  ;;      text smaller. Can also center text.
+
   (use-package visual-fill-column)
+  (use-package org-bullets)
 
   (use-package org
     :straight (:type built-in)
+    :init
+    (customize-set-variable 'visual-fill-column-width 100)
+
     :config
     (setq
      ;; do not destroy current splits
@@ -17,14 +26,14 @@
      '((nil :maxlevel . 3)
        (org-agenda-files :maxlevel . 3)))
 
-    (defun ktz--org-visual-fill ()
+    (defun ktz--org-visual-hook ()
+      (org-indent-mode)
       (visual-line-mode)
       (visual-fill-column-mode)
-      (adaptive-wrap-prefix-mode))
+      (org-bullets-mode))
 
     :hook
-    (org-mode . org-indent-mode)
-    (org-mode . ktz--org-visual-fill))
+    (org-mode . ktz--org-visual-hook))
 
 ;;; end ktz--init-org-base
   )
@@ -221,10 +230,6 @@
              )))
       (when (and ktz-org-dir (equal (length command-line-args) 1))
         (org-agenda nil "a"))))
-
-  ;; misc
-  (use-package org-bullets
-    :init (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 ;;; end of ktz--init-org
   )

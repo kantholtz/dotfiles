@@ -48,11 +48,10 @@
      ;; org mode related
 
      modus-themes-headings
-     '((1 . (variable-pitch 1.2))
-       (2 . (variable-pitch 1.1))
-       (agenda-date . (light 1.1))
+     '((agenda-date . (light 1.1))
        (agenda-structure . (light 1.4))
-       (t . (variable-pitch semibold)))
+       (1 . (variable-pitch semibold 1.3))
+       (t . (variable-pitch semibold 1.1)))
 
      ;; Palette
 

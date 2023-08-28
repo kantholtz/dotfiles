@@ -20,16 +20,20 @@
   ;;   - open project using lsp
 
   ;; set up conda
-  (when ktz-conda-dir
-    (ktz-log "prog" "configuring conda")
-    (use-package conda
-      :custom
-      (conda-anaconda-home ktz-conda-dir)
-      :config
-      (conda-env-initialize-interactive-shells)
-      (conda-env-initialize-eshell)
-      (conda-env-activate ktz-conda-env)
-      (conda-env-autoactivate-mode)))
+  ;; (when ktz-conda-dir
+  ;;   (ktz-log "prog" "configuring conda")
+  ;;   (use-package conda
+  ;;     :custom
+  ;;     (conda-anaconda-home ktz-conda-dir)
+  ;;     :config
+  ;;     ;; conda.el overwrites (setq) the exec-path
+  ;;     ;; so we need to be very careful when to activate it
+
+  ;;     (conda-env-initialize-interactive-shells)
+  ;;     (conda-env-initialize-eshell)
+  ;;     (conda-env-activate ktz-conda-env)
+  ;;     (conda-env-autoactivate-mode)
+  ;;     ))
 
   (use-package python
     :hook
@@ -68,11 +72,13 @@
     :mode "\\.html\\'")
 
 
-  ;; https://azzamsa.com/n/vue-emacs/
-  (use-package vue-mode)
+  ;; searches upwards from cwd for node_modules/.bin
+  (use-package add-node-modules-path
+    :hook (js-mode . add-node-modules-path))
 
   (use-package prettier-js
-    :hook (js-mode web-mode typescript-mode vue-mode))
+    :after (add-node-modules-path)
+    :hook ((js-mode web-mode typescript-mode vue-mode) . prettier-js-mode))
 
   (use-package typescript-mode
     :config
@@ -86,8 +92,8 @@
     ;; (setq lsp-keymap-prefix "C-c l")
     (require 'dap-cpptools)
     (setq lsp-keymap-prefix "C-c l")
-    ;;(setq lsp-headerline-breadcrumb-icons-enable nil)
-    (setq lsp-headerline-breadcrumb-enable nil)
+    ;; (setq lsp-headerline-breadcrumb-icons-enable nil)
+    ;; (setq lsp-headerline-breadcrumb-enable nil)
 
     :config
     ;; following the performance tips of lsp-doctor
@@ -96,19 +102,21 @@
     (setq gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
 
     ;; TRAMP
-    (when ktz-conda-paths
-      (ktz-log "prog" "setting remote conda paths")
-      (dolist (path ktz-conda-paths)
-        (let ((exec-path (concat path "/bin")))
-          (ktz-log "prog" (format "  >> adding %s" exec-path))
-          ;; TODO understand connection-local variables
-          ;;   - https://debbugs.gnu.org/cgi/bugreport.cgi?bug=32090
-          (push exec-path tramp-remote-path)))
+    ;; currently disabled to debug exec-path related stuff
+    ;; (when ktz-conda-paths
+    ;;   (ktz-log "prog" "setting remote conda paths")
 
-      ;; it is working hard-coded but not with a variable???
-      (push "~/Complex/opt/conda/envs/lsp/bin" tramp-remote-path)
-      ;; https://stackoverflow.com/questions/26630640/tramp-ignores-tramp-remote-path
-      (add-to-list 'tramp-remote-path 'tramp-own-remote-path)) ;; /when ktz-conda-paths
+    ;;   ;; (dolist (path ktz-conda-paths)
+    ;;     ;; (let ((exec-path (concat path "/bin")))
+    ;;     ;;   (ktz-log "prog" (format "  >> adding %s" exec-path))
+    ;;     ;;   ;; TODO understand connection-local variables
+    ;;     ;;   ;;   - https://debbugs.gnu.org/cgi/bugreport.cgi?bug=32090
+    ;;     ;;   (push exec-path tramp-remote-path)))
+
+    ;;   ;; it is working hard-coded but not with a variable???
+    ;;   (push "~/Complex/opt/conda/envs/lsp/bin" tramp-remote-path)
+    ;;   ;; https://stackoverflow.com/questions/26630640/tramp-ignores-tramp-remote-path
+    ;;   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)) ;; /when ktz-conda-paths
 
     (lsp-register-client
      (make-lsp-client
@@ -138,14 +146,19 @@
     (company-minimum-prefix-length 1)
     (company-idle-delay 0.0))
 
+
   (use-package company-box
     :hook (company-mode . company-box-mode))
 
 
+  (use-package rainbow-mode
+    :config
+    (setq rainbow-x-colors nil))  ;; do not color names such as "red"
+
   ;; informations: M-x flycheck-verify-setup
-  (use-package flycheck
-    :after lsp-mode
-    :init (global-flycheck-mode))
+  ;; (use-package flycheck
+  ;;   :after lsp-mode
+  ;;   :init (global-flycheck-mode))
 
   ;; pyright --------------------
 

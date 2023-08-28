@@ -2,7 +2,7 @@
 
 ;; disables the extremely annoying *Warnings* buffer from
 ;; focusing on every native compilation warning
-(customize-set-variable 'warning-minimum-level :error)
+;; (customize-set-variable 'warning-minimum-level :error)
 
 
 ;; always only ask for y or n
@@ -27,37 +27,42 @@
 (setq-default truncate-lines t)
 
 
+;;(setq org-preview-latex-default-process nil)
+;; (setq org-preview-latex-process-alist nil)
+;; (setq font-latex-fontify-script nil)
+
 ;; taken from nano
 
-;; No frame title
-(setq frame-title-format nil)
+;; ;; No frame title
+;; (setq frame-title-format nil)
 
-;; No file dialog
-(setq use-file-dialog nil)
+;; ;; No file dialog
+;; (setq use-file-dialog nil)
 
-;; No dialog box
-(setq use-dialog-box nil)
+;; ;; No dialog box
+;; (setq use-dialog-box nil)
 
-;; No popup windows
-(setq pop-up-windows nil)
+;; ;; No popup windows
+;; (setq pop-up-windows nil)
 
-;; No empty line indicators
-(setq indicate-empty-lines nil)
+;; ;; No empty line indicators
+;; (setq indicate-empty-lines nil)
 
-;; No cursor in inactive windows
-(setq cursor-in-non-selected-windows nil)
+;; ;; No cursor in inactive windows
+;; (setq cursor-in-non-selected-windows nil)
 
-;; Moderate font lock
-(setq font-lock-maximum-decoration nil)
+;; ;; Moderate font lock
+;; (setq font-lock-maximum-decoration nil)
 
-;; No limit on font lock
-(setq font-lock-maximum-size nil)
+;; ;; No limit on font lock
+;; (setq font-lock-maximum-size nil)
 
-;; No line break space points
-(setq auto-fill-mode nil)
+;; ;; No line break space points
+;; (setq auto-fill-mode nil)
 
-;; Fill column at 80
-(setq fill-column 80)
+;; ;; Fill column at 80
+;; (setq fill-column 80)
+
 
 ;; Buffer encoding
 (prefer-coding-system       'utf-8)

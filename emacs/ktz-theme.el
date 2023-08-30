@@ -1,36 +1,36 @@
 (defun ktz--init-theme ()
+
+  (when (display-graphic-p)
+    ;; disable window clutter
+    (menu-bar-mode -1)
+    (tool-bar-mode -1)
+    (scroll-bar-mode -1))
+
+  ;; section 6.12 "Font configurations for Org and others"
+  ;; (set-face-attribute
+  ;;  'default nil :family "IBM Plex Mono")
+
+  (set-face-attribute
+   'variable-pitch nil
+   :foundry "IBM" :family "IBM Plex Sans"
+   :height 1.0 :width 'medium :slant 'normal)
+
+  (set-face-attribute
+   'fixed-pitch nil
+   :foundry "IBM" :family "IBM Plex Mono"
+   :height 1.0 :width 'medium :slant 'normal)
+
+  ;; general (non-modus) config
+  (setq-default line-spacing 0.1)
+
   (use-package modus-themes
     :config
 
-    (when (display-graphic-p)
-      ;; disable window clutter
-      (menu-bar-mode -1)
-      (tool-bar-mode -1)
-      (scroll-bar-mode -1))
-
-
-    ;; section 6.12 "Font configurations for Org and others"
-    ;; (set-face-attribute
-    ;;  'default nil :family "IBM Plex Mono")
-
-    (set-face-attribute
-     'variable-pitch nil
-     :foundry "IBM" :family "IBM Plex Sans"
-     :height 1.0 :width 'medium :slant 'normal)
-
-    (set-face-attribute
-     'fixed-pitch nil
-     :foundry "IBM" :family "IBM Plex Mono"
-     :height 1.0 :width 'medium :slant 'normal)
-
-    ;; general (non-modus) config
-    (setq-default line-spacing 0.1)
-
     (setq
-
      modus-themes-to-toggle '(modus-operandi modus-vivendi)
 
      ;; ESSENTIAL to make the underline move to the bottom of the box:
+     ;; TODO move to mode-line overrides
      x-underline-at-descent-line t
 
      ;; org-todo-keyword-faces
@@ -89,16 +89,16 @@
        (bg-magenta-nuanced "#EDE7F6")  ;;  50
 
        ;; amber
-       (yellow            "#ff8f00")  ;; 800
-       (bg-red-intense    "#FFE082")  ;; 200
-       (bg-red-subtle     "#FFECB3")  ;; 100
-       (bg-red-nuanced    "#FFF8E1")  ;;  50
+       (yellow             "#ff8f00")  ;; 800
+       (bg-yellow-intense  "#FFE082")  ;; 200
+       (bg-yellow-subtle   "#FFECB3")  ;; 100
+       (bg-yellow-nuanced  "#FFF8E1")  ;;  50
 
        ;; blue grey
-       (blue              "#546E7A")  ;; 600
-       (bg-blue-intense   "#B0BEC5")  ;; 200
-       (bg-blue-subtle    "#CFD8DC")  ;; 100
-       (bg-blue-nuanced   "#ECEFF1")  ;;  50
+       (blue               "#546E7A")  ;; 600
+       (bg-blue-intense    "#B0BEC5")  ;; 200
+       (bg-blue-subtle     "#CFD8DC")  ;; 100
+       (bg-blue-nuanced    "#ECEFF1")  ;;  50
 
        (bg-completion       bg-magenta-nuanced)
        (bg-hover            bg-green-nuanced)
@@ -107,12 +107,12 @@
        (bg-region           bg-active)
        (fg-region           fg-alt)
 
-       (bg-mode-line-active        unspecified)
+       (bg-mode-line-active        bg-main)
+       (bg-mode-line-inactive      bg-main)
        (fg-mode-line-active        fg-alt)
-       (border-mode-line-active    unspecified)
-       (bg-mode-line-inactive      unspecified)
        (fg-mode-line-inactive      fg-dim)
-       (border-mode-line-inactive  unspecified)
+       (border-mode-line-active    fg-dim)
+       (border-mode-line-inactive  fg-dim)
 
        (modeline-err     red)
        (modeline-warning magenta)
@@ -240,8 +240,8 @@
        (fg-mark-delete red)
        (bg-mark-select bg-blue-subtle)
        (fg-mark-select blue)
-       (bg-mark-other bg-yellow-subtle)
-       (fg-mark-other yellow)
+       (bg-mark-other bg-green-subtle)
+       (fg-mark-other green)
 
        (fg-prompt magenta)
        (bg-prompt unspecified)
@@ -271,20 +271,39 @@
        ) ;; end of overrides
      ) ;; end of setq
 
-    (message "ktz--modus-themes :config")
-    (load-theme (car modus-themes-to-toggle) :no-confirm)
+    (defun ktz--theme-custom-faces ()
+      (when (display-graphic-p)
+        (setq window-divider-default-places 'bottom-only
+              window-divider-default-bottom-width 15)
+        (window-divider-mode))
 
-    (define-key global-map (kbd "<f6>") #'modus-themes-toggle)
-    (define-key global-map (kbd "C-<f6>") #'modus-themes-toggle)
+      (modus-themes-with-colors
+        (set-face-attribute 'window-divider nil :foreground bg-main)
+
+        (custom-set-faces
+         `(mode-line
+           ((,c :underline ,border-mode-line-active
+                :overline ,border-mode-line-active
+                :box (:line-width 10 :color ,bg-mode-line-active))))
+         `(mode-line-inactive
+           ((,c :underline ,border-mode-line-inactive
+                :overline ,border-mode-line-inactive
+                :box (:line-width 10 :color ,bg-mode-line-inactive)))))))
+
+    (add-hook 'modus-themes-after-load-theme-hook #'ktz--theme-custom-faces)
+
+    (dolist (theme modus-themes-to-toggle)
+      (load-theme theme :no-confirm))
+    (modus-themes-toggle) ;; hooks are not called otherwise
 
     ;; does not work?
     ;; :bind ("<f6>" . modus-themes-toggle)
-
-    ))
+    (define-key global-map (kbd "<f6>") #'modus-themes-toggle)
+    (define-key global-map (kbd "C-<f6>") #'modus-themes-toggle)))
 
 
 (defun ktz-load-theme ()
   (interactive)
   (ktz--init-theme))
 
-(provide 'ktz-init-theme)
+(provide 'ktz-theme)

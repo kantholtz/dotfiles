@@ -120,8 +120,9 @@ MESSAGE String to emit."
 (require 'ktz-config)
 (require 'ktz-init-minimal)
 (require 'ktz-init-programming)
-(require 'ktz-init-theme)
 (require 'ktz-init-org)
+(require 'ktz-modeline)
+(require 'ktz-theme)
 
 
 ;; append
@@ -165,9 +166,9 @@ MESSAGE String to emit."
 	 (progn
 	   (ktz--init-minimal)
 	   (ktz--init-programming)
-     (message "init theme")
-     (ktz--init-theme)
-     (ktz--init-org))))
+     (ktz--init-org)
+     (ktz--init-modeline)
+     (ktz--init-theme))))
 
   (when ktz-mail-dir
     (load (concat ktz-mail-dir "/ktz-mu4e.el")))

@@ -16,12 +16,13 @@
     (customize-set-variable 'visual-fill-column-width 100)
 
     :config
-    (setq
-     ;; refile configuration
-     ;; see https://orgmode.org/manual/Refile-and-Copy.html
-     org-refile-targets
-     '((nil :maxlevel . 3)
-       (org-agenda-files :maxlevel . 3)))
+    (setq org-hide-emphasis-markers t
+
+          ;; refile configuration
+          ;; see https://orgmode.org/manual/Refile-and-Copy.html
+          org-refile-targets
+          '((nil :maxlevel . 3)
+            (org-agenda-files :maxlevel . 3)))
 
     (defun ktz--org-visual-hook ()
       (org-indent-mode)

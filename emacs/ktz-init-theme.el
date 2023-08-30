@@ -1,17 +1,13 @@
-
 (defun ktz--init-theme ()
-
-  ;; non-terminal mode only
-  (when (display-graphic-p)
-
-    ;; disable window clutter
-    (menu-bar-mode -1)
-    (tool-bar-mode -1)
-    (scroll-bar-mode -1))
-
-
   (use-package modus-themes
     :config
+
+    (when (display-graphic-p)
+      ;; disable window clutter
+      (menu-bar-mode -1)
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1))
+
 
     ;; section 6.12 "Font configurations for Org and others"
     ;; (set-face-attribute
@@ -32,9 +28,14 @@
 
     (setq
 
-     org-todo-keyword-faces
-      '(("ARCH" . (:inherit (regular org-done)))
-        ("DONE" . (:inherit (regular org-done))))
+     modus-themes-to-toggle '(modus-operandi modus-vivendi)
+
+     ;; ESSENTIAL to make the underline move to the bottom of the box:
+     x-underline-at-descent-line t
+
+     ;; org-todo-keyword-faces
+     ;;  '(("ARCH" . (:inherit ('regular 'org-done)))
+     ;;    ("DONE" . (:inherit ('regular 'org-done))))
      ;; Constructs
 
      modus-themes-italic-constructs t
@@ -58,14 +59,6 @@
      modus-operandi-palette-overrides
      '(
 
-;;; Colors
-
-       ;; The original palette offers many shades
-       ;; and options. The ktz palette is much more reduced
-       ;; (inspired by rougiers nano theme).
-
-;;; Basic values
-
        (bg-main   "#FFFFFF")  ;; white
        (bg-dim    "#FAFAFA")  ;; grey 50
        (bg-active "#F5F5F5")  ;; grey 100
@@ -76,8 +69,6 @@
 
        (bg-inactive bg-main)
        (border fg-dim)
-
-;;; Common accent foregrounds
 
        ;; pink
        (red                "#c2185b")  ;; 700
@@ -109,9 +100,6 @@
        (bg-blue-subtle    "#CFD8DC")  ;; 100
        (bg-blue-nuanced   "#ECEFF1")  ;;  50
 
-
-;;;; Special purpose ✓
-
        (bg-completion       bg-magenta-nuanced)
        (bg-hover            bg-green-nuanced)
        (bg-hover-secondary  bg-yellow-nuanced)
@@ -139,9 +127,6 @@
        (bg-char-1 "#00ff00")
        (bg-char-2 "#0000ff")
 
-
-;;; Diffs ✓
-
        (bg-added           bg-green-nuanced)
        (bg-added-faint     bg-green-nuanced)
        (bg-added-refine    bg-green-nuanced)
@@ -164,17 +149,11 @@
        (fg-removed-intense red)
 
        (bg-diff-context    fg-dim)
-
-;;; Paren match
-
        (bg-paren-match        bg-green-subtle)
        (bg-paren-expression   bg-magenta-subtle)
        (underline-paren-match unspecified)
 
-
-;;; Mappings
-
-;;;; General mappings
+       ;; mappings
 
        (fringe unspecified)
        (cursor fg-main)
@@ -198,7 +177,7 @@
        (bg-prominent-note bg-magenta-subtle)
        (fg-prominent-note magenta)
 
-;;;; Code mappings
+       ;; code
 
        (builtin magenta)
        (fnname magenta)
@@ -220,14 +199,10 @@
 
        (fnname magenta)
 
-;;;; Accent mappings
-
        (accent-0 blue)
        (accent-1 magenta)
        (accent-2 green)
        (accent-3 red)
-
-;;;; Completion mappings
 
        (fg-completion-match-0 magenta)
        (fg-completion-match-1 green)
@@ -238,20 +213,16 @@
        (bg-completion-match-2 unspecified)
        (bg-completion-match-3 unspecified)
 
-;;;; Date mappings
-
        (date-common fg-alt)
        (date-deadline fg-alt)
        (date-event "#FF0")
        (date-holiday "#0FF")
        (date-holiday-other "#0F0")
-       (date-now "#F0F")
        (date-range "#00F")
        (date-scheduled "#A0C")
+       (date-now fg-main)  ;; "now" bar in agenda
        (date-weekday fg-main)  ;; agenda heading
        (date-weekend fg-dim)  ;; agenda heading
-
-;;;; Link mappings
 
        (fg-link magenta)
        (bg-link unspecified)
@@ -265,8 +236,6 @@
        (bg-link-visited unspecified)
        (underline-link-visited bg-magenta-subtle)
 
-;;;; Mark mappings
-
        (bg-mark-delete bg-red-subtle)
        (fg-mark-delete red)
        (bg-mark-select bg-blue-subtle)
@@ -274,12 +243,8 @@
        (bg-mark-other bg-yellow-subtle)
        (fg-mark-other yellow)
 
-;;;; Prompt mappings
-
        (fg-prompt magenta)
        (bg-prompt unspecified)
-
-;;;; Rainbow mappings
 
        (rainbow-0 fg)
        (rainbow-1 red)
@@ -291,8 +256,6 @@
        (rainbow-7 green)
        (rainbow-8 blue)
 
-;;;; Heading mappings
-
        (fg-heading-0 fg-alt)
        (fg-heading-1 fg-alt)
        (fg-heading-2 fg-alt)
@@ -303,22 +266,21 @@
        (fg-heading-7 fg-alt)
        (fg-heading-8 fg-alt)
 
-;;;; Prose
-
        (prose-done fg-dim)
 
-;;; End of overrides
-       )
-;; End of :config setq
-     )
+       ) ;; end of overrides
+     ) ;; end of setq
 
+    (message "ktz--modus-themes :config")
+    (load-theme (car modus-themes-to-toggle) :no-confirm)
 
-    ;; load base theme after all customization
-    (load-theme 'modus-operandi :no-confirm)
-    (ktz-log ".emacs" "Loaded modus theme")
+    (define-key global-map (kbd "<f6>") #'modus-themes-toggle)
+    (define-key global-map (kbd "C-<f6>") #'modus-themes-toggle)
 
-    ) ;; /use-package
-  ) ;; /ktz--init-theme
+    ;; does not work?
+    ;; :bind ("<f6>" . modus-themes-toggle)
+
+    ))
 
 
 (defun ktz-load-theme ()

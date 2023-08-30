@@ -124,6 +124,34 @@ MESSAGE String to emit."
 (require 'ktz-init-org)
 
 
+;; append
+;; (goto-char (point-max))
+;; save current point
+;; (save-excursion ...)
+;; get things at point:
+;; (thing-at-point SYM) where
+;;   SYM in { 'word, 'sentence, 'sexp, 'url, ... }
+;; (thing-at-point SYM t) returns only the raw text
+;; (search-forward ...) (search-backward ...)
+
+(defun ktz-splash ()
+  (let ((splash-buffer-name "*ktz*"))
+    (with-output-to-temp-buffer splash-buffer-name
+      (switch-to-buffer splash-buffer-name)
+      (delete-other-windows)
+
+      (insert-file-contents
+       (concat ktz-root-dir "ktz-splash.txt"))
+
+      t))
+
+  )
+
+(defun ktz-show-splash ()
+  (interactive)
+  (ktz-splash))
+
+
 (defun ktz-init ()
   "Initializes the environment based on the ktz-init-type"
   (ktz-log "main" (format "initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
@@ -137,6 +165,7 @@ MESSAGE String to emit."
 	 (progn
 	   (ktz--init-minimal)
 	   (ktz--init-programming)
+     (message "init theme")
      (ktz--init-theme)
      (ktz--init-org))))
 
@@ -144,6 +173,10 @@ MESSAGE String to emit."
     (load (concat ktz-mail-dir "/ktz-mu4e.el")))
 
   (ktz-log "main" (format "initialization time: %s" (emacs-init-time)))
+
+  ;; splash screen
+  (ktz-splash)
+
   ) ;; /ktz-init
 
 

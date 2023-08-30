@@ -1,0 +1,8 @@
+
+  -------------------------------
+   K A N T H O L T Z   E M A C S
+  -------------------------------
+
+      <F3> Show Agenda
+      <F4> Open Bookmarks
+      <F6> Toggle Theme

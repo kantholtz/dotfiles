@@ -22,16 +22,6 @@
 ;; vertice/orderless/consult
 (defun ktz--init-minimal-voc ()
 
-  ;; this spawns a shell (a sh subshell in case of fish)
-  ;; and reads the exported environment variables
-  ;; and sets exec-path accordingly
-  (use-package exec-path-from-shell
-  :config
-  (when (memq window-system '(mac ns x))
-    (exec-path-from-shell-initialize)
-    (ktz-log ".emacs" "initialized exec-path-from-shell")))
-
-
   ;; vertical completion ui
   (use-package vertico :init (vertico-mode))
 
@@ -68,11 +58,6 @@
   )
 
 
-(defun ktz--prog-mode-hooks ()
-  (setq-default show-trailing-whitespace t)
-  (display-line-numbers-mode))
-
-
 (defun ktz--init-minimal ()
   "Setup minimal configuration"
   (ktz-log "min" "initializing configuration")
@@ -84,17 +69,19 @@
     :config
     (global-set-key (kbd "<escape>") #'god-mode-all)
 
-    (defun ktz--god-mode-hook ()
-      (set-cursor-color
-            (if (or god-local-mode buffer-read-only)
-                "gray" "black")))
-
-    :hook
-    (post-command . ktz--god-mode-hook))
+    ;; (defun ktz--god-mode-hook ()
+    ;;   (set-cursor-color
+    ;;         (if (or god-local-mode buffer-read-only)
+    ;;             "gray" "black")))
+    ;; :hook
+    ;; (post-command . ktz--god-mode-hook)
+    )
 
   (use-package magit
-    :config
-    (global-set-key (kbd "C-x g") 'magit-status))
+    :init
+    (setq magit-last-seen-setup-instructions "1.4.0")
+    :bind (("C-x g" . magit-status)
+           ("<f6>" . magit-status)))
 
   (use-package yasnippet
     :config
@@ -110,6 +97,15 @@
   (use-package which-key
     :config (which-key-mode))
 
+  ;; this spawns a shell (a sh subshell in case of fish)
+  ;; and reads the exported environment variables
+  ;; and sets exec-path accordingly
+  (use-package exec-path-from-shell
+  :config
+  (when (memq window-system '(mac ns x))
+    (exec-path-from-shell-initialize)
+    (ktz-log ".emacs" "initialized exec-path-from-shell")))
+
     ;; server
   (use-package yaml-mode)
   (use-package fish-mode)
@@ -124,9 +120,16 @@
   (global-set-key (kbd "M-<up>") 'ktz--move-line-up)
   (global-set-key (kbd "M-<down>") 'ktz--move-line-down)
 
+  (global-set-key (kbd "<f4>") #'bookmark-jump)
+  (global-set-key (kbd "C-<f4>") #'bookmark-jump)
+
   (ktz--init-minimal-voc)
 
   ;; hooks
+  (defun ktz--prog-mode-hooks ()
+    (setq-default show-trailing-whitespace t)
+    (display-line-numbers-mode))
+
   (add-hook 'prog-mode-hook 'ktz--prog-mode-hooks))
 
 

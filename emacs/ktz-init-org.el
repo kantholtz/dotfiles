@@ -17,9 +17,6 @@
 
     :config
     (setq
-     ;; do not destroy current splits
-     org-agenda-window-setup 'current-window
-
      ;; refile configuration
      ;; see https://orgmode.org/manual/Refile-and-Copy.html
      org-refile-targets
@@ -55,8 +52,6 @@
 
     (org-log-done 'time)
     (org-roam-directory ktz--org-files-org)
-    (org-agenda-files (list ktz--org-files-org))
-    (org-agenda-start-with-log-mode t)
     (org-roam-completion-everywhere t)
     (org-link-file-path-type 'relative) ;; all file links should be relative
 
@@ -90,8 +85,12 @@
        ))
 
     :init
-    (setq org-roam-v2-ack t)
-    ;; to be tested
+    (setq org-roam-v2-ack t
+          ;; do not destroy current splits
+          org-agenda-window-setup 'current-window
+          ;; org-agenda-start-with-log-mode t
+          org-agenda-files (list ktz--org-files-org))
+
     (when (not (version< emacs-version "29"))
       (use-package emacsql-sqlite-builtin)
       (setq org-roam-database-connector 'sqlite-builtin))
@@ -228,8 +227,14 @@
                     ;; Single arguments given alone
                     :priority "A")
              )))
-      (when (and ktz-org-dir (equal (length command-line-args) 1))
-        (org-agenda nil "a"))))
+      ;; show agenda on startup
+      ;; (when (and ktz-org-dir (equal (length command-line-args) 1))
+      ;;   (org-agenda nil "a")))
+      )
+
+    :bind (
+           ("<f3>" . org-agenda)
+           ("C-<f3>")))
 
 ;;; end of ktz--init-org
   )

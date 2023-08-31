@@ -308,6 +308,8 @@
          )))
 
     (defun ktz--theme-custom-faces ()
+
+      ;; add some space between windows
       (when (display-graphic-p)
         (setq window-divider-default-places 'bottom-only
               window-divider-default-bottom-width 15)
@@ -315,6 +317,22 @@
         (modus-themes-with-colors
           (set-face-attribute 'window-divider nil :foreground bg-main)))
 
+      ;; change cursor based on god-mode state
+      (defun ktz--theme-god-hook ()
+        (modus-themes-with-colors
+          (if (or god-local-mode buffer-read-only)
+              (progn
+                (set-cursor-color fg-dim)
+                (setq cursor-type 'hollow))
+            (set-cursor-color fg-alt)
+            (setq cursor-type 'box))))
+      (add-hook 'post-command-hook #'ktz--theme-god-hook)
+
+      ;; misc not worth their own functions
+      (modus-themes-with-colors
+        (set-face-attribute 'pulsar-green nil :background bg-green-intense))
+
+      ;; more involved groups
       (ktz--theme-modus-faces)
       (ktz--theme-lsp-faces)
       (ktz-modeline-set-faces))

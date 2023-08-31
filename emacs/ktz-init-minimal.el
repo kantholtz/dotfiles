@@ -64,18 +64,17 @@
 
   ;; lay your weary pinky to rest
   (use-package god-mode
-    :init
-    (god-mode)
     :config
     (global-set-key (kbd "<escape>") #'god-mode-all)
+    (god-mode))
 
-    ;; (defun ktz--god-mode-hook ()
-    ;;   (set-cursor-color
-    ;;         (if (or god-local-mode buffer-read-only)
-    ;;             "gray" "black")))
-    ;; :hook
-    ;; (post-command . ktz--god-mode-hook)
-    )
+  (use-package pulsar
+    :config
+    (setq pulsar-pulse t
+          pulsar-delay 0.025
+          pulsar-iterations 10
+          pulsar-face 'pulsar-green)
+    (pulsar-global-mode 1))
 
   (use-package magit
     :init

@@ -15,13 +15,28 @@
    :foundry "IBM" :family "IBM Plex Sans"
    :height 1.0 :width 'medium :slant 'normal)
 
-  (set-face-attribute
-   'fixed-pitch nil
-   :foundry "IBM" :family "IBM Plex Mono"
-   :height 1.0 :width 'medium :slant 'normal)
+    (if (eq system-type 'windows-nt)
+        (progn
+          (set-face-attribute
+           'variable-pitch nil
+           :foundry "IBM" :family "IBM Plex Sans"
+           :height 1.0 :width 'medium)
 
-  ;; general (non-modus) config
-  (setq-default line-spacing 0.1)
+          (set-face-attribute
+           'fixed-pitch nil
+           :family "Cascadia Mono" :foundry "outline"
+           :height 1.0 :slant 'normal :weight 'normal :width 'medium :weight 'normal))
+
+      (progn
+        (set-face-attribute
+           'variable-pitch nil
+           :foundry "IBM" :family "IBM Plex Sans"
+           :height 1.0 :width 'medium :slant 'normal)
+
+          (set-face-attribute
+           'fixed-pitch nil
+           :foundry "IBM" :family "IBM Plex Mono"
+           :height 1.0 :width 'medium :slant 'normal)))
 
   (use-package modus-themes
     :config

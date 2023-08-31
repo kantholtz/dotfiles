@@ -107,8 +107,8 @@
        (bg-region           bg-active)
        (fg-region           fg-alt)
 
-       (bg-mode-line-active        bg-main)
-       (bg-mode-line-inactive      bg-main)
+       (bg-mode-line-active        bg-dim)
+       (bg-mode-line-inactive      bg-dim)
        (fg-mode-line-active        fg-alt)
        (fg-mode-line-inactive      fg-dim)
        (border-mode-line-active    fg-dim)
@@ -275,20 +275,11 @@
       (when (display-graphic-p)
         (setq window-divider-default-places 'bottom-only
               window-divider-default-bottom-width 15)
-        (window-divider-mode))
+        (window-divider-mode)
+        (modus-themes-with-colors
+          (set-face-attribute 'window-divider nil :foreground bg-main)))
 
-      (modus-themes-with-colors
-        (set-face-attribute 'window-divider nil :foreground bg-main)
-
-        (custom-set-faces
-         `(mode-line
-           ((,c :underline ,border-mode-line-active
-                :overline ,border-mode-line-active
-                :box (:line-width 10 :color ,bg-mode-line-active))))
-         `(mode-line-inactive
-           ((,c :underline ,border-mode-line-inactive
-                :overline ,border-mode-line-inactive
-                :box (:line-width 10 :color ,bg-mode-line-inactive)))))))
+      (ktz-modeline-set-faces))
 
     (add-hook 'modus-themes-after-load-theme-hook #'ktz--theme-custom-faces)
 

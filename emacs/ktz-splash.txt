@@ -5,4 +5,5 @@
 
       <F3> Show Agenda
       <F4> Open Bookmarks
+      <F5> Find Nodes
       <F6> Toggle Theme

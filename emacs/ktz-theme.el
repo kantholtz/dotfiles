@@ -271,6 +271,42 @@
        ) ;; end of overrides
      ) ;; end of setq
 
+
+    (defun ktz--theme-modus-faces ()
+      "Adjust modus-themes-* faces."
+      (modus-themes-with-colors
+        (custom-set-faces
+         `(modus-themes-lang-error
+           ((,c :underline nil :background ,bg-red-nuanced)))
+         `(modus-themes-lang-note
+           ((,c :underline nil :background ,bg-magenta-nuanced)))
+         `(modus-themes-lang-warning
+           ((,c :underline nil :background ,bg-yellow-nuanced)))
+         )))
+
+
+    (defun ktz--theme-lsp-faces ()
+      "Adjust lsp-mode faces."
+      (modus-themes-with-colors
+        (custom-set-faces
+         `(lsp-headerline-breadcrumb-path-face
+           ((,c :foreground ,fg-main)))
+         `(lsp-headerline-breadcrumb-path-error-face
+           ((,c :foreground ,red)))
+         `(lsp-headerline-breadcrumb-path-warning-face
+           ((,c :foreground ,yellow)))
+         `(lsp-headerline-breadcrumb-path-hint-face
+           ((,c :foreground ,green)))
+         `(lsp-headerline-breadcrumb-path-info-face
+           ((,c :foreground ,magenta)))
+
+         `(header-line
+           ((,c :background ,bg-dim
+                :underline ,fg-dim
+                :overline ,fg-dim
+                :box (:line-width 5 :color ,bg-dim))))
+         )))
+
     (defun ktz--theme-custom-faces ()
       (when (display-graphic-p)
         (setq window-divider-default-places 'bottom-only
@@ -279,6 +315,8 @@
         (modus-themes-with-colors
           (set-face-attribute 'window-divider nil :foreground bg-main)))
 
+      (ktz--theme-modus-faces)
+      (ktz--theme-lsp-faces)
       (ktz-modeline-set-faces))
 
     (add-hook 'modus-themes-after-load-theme-hook #'ktz--theme-custom-faces)

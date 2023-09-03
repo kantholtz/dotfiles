@@ -67,7 +67,7 @@
      '((agenda-date . (light 1.1))
        (agenda-structure . (light 1.4))
        (1 . (variable-pitch semibold 1.3))
-       (t . (variable-pitch semibold 1.1)))
+       (t . (variable-pitch normal  1.1)))
 
      ;; Palette
 
@@ -85,6 +85,13 @@
        (bg-inactive bg-main)
        (border fg-dim)
 
+       ;; using cyan to define additional shades of grey
+       (cyan-faint         "#e5e5e5")  ;; 200
+       (cyan-cooler        "#d4d4d4")  ;; 300
+       (cyan-warmer        "#737373")  ;; 500
+       (cyan               "#404040")  ;; 700
+       (cyan-intense       "#171717")  ;; 900
+
        ;; pink
        (red                "#c2185b")  ;; 700
        (bg-red-intense     "#F48FB1")  ;; 200
@@ -92,7 +99,7 @@
        (bg-red-nuanced     "#FCE4EC")  ;;  50
 
        ;; teal (tailwind)
-       (green              "#00796B")  ;; 800
+       (green              "#115e59")  ;; 800
        (bg-green-intense   "#99f6e4")  ;; 200
        (bg-green-subtle    "#ccfbf1")  ;; 100
        (bg-green-nuanced   "#f0fdfa")  ;;  50
@@ -315,15 +322,40 @@
          `(lsp-headerline-breadcrumb-path-info-face
            ((,c :foreground ,magenta)))
 
+         `(lsp-headerline-breadcrumb-symbols-error-face
+           ((,c :foreground ,red :slant italic)))
+         `(lsp-headerline-breadcrumb-symbols-warning-face
+           ((,c :foreground ,yellow :slant italic)))
+         `(lsp-headerline-breadcrumb-symbols-hint-face
+           ((,c :foreground ,green :slant italic)))
+         `(lsp-headerline-breadcrumb-symbols-info-face
+           ((,c :foreground ,magenta :slant italic)))
+
          `(header-line
            ((,c :background ,bg-dim
                 :underline ,fg-dim
                 :overline ,fg-dim
-                :box (:line-width 5 :color ,bg-dim))))
+                :box (:line-width (2 . 5) :color ,bg-dim))))
+         )))
+
+    (defun ktz--theme-org-faces ()
+      "Adjust org related faces"
+      (modus-themes-with-colors
+        (set-face-attribute
+         'org-level-1 nil
+         :box `(:line-width (-1 . 1) :color ,bg-main))
+        (set-face-attribute
+         'org-level-2 nil
+         :box `(:line-width (-1 . 1) :color ,bg-main)
+         :weight 'semi-bold)
+
+        (custom-set-faces
+         `(org-tag ((,c :foreground ,cyan-cooler :weight normal)))
+         `(org-checkbox ((,c :foreground ,fg-dim)))
+         `(org-priority ((,c :foreground ,fg-dim)))
          )))
 
     (defun ktz--theme-custom-faces ()
-
       ;; add some space between windows
       (when (display-graphic-p)
         (setq window-divider-default-places 'bottom-only
@@ -337,7 +369,7 @@
         (modus-themes-with-colors
           (if (or god-local-mode buffer-read-only)
               (progn
-                (set-cursor-color fg-dim)
+                (set-cursor-color fg-alt)
                 (setq cursor-type 'hollow))
             (set-cursor-color fg-alt)
             (setq cursor-type 'box))))
@@ -345,11 +377,18 @@
 
       ;; misc not worth their own functions
       (modus-themes-with-colors
-        (set-face-attribute 'pulsar-green nil :background bg-green-intense))
+        (custom-set-faces
+         `(highlight
+           ((,c :background ,bg-green-subtle :foreground ,green))))
+
+        ;; Debugger entered--Lisp error: (void-function \,)
+        ;;(set-face-attribute 'pulsar-green nil :background ,bg-green-subtle)
+        )
 
       ;; more involved groups
       (ktz--theme-modus-faces)
       (ktz--theme-lsp-faces)
+      (ktz--theme-org-faces)
       (ktz-modeline-set-faces))
 
     (add-hook 'modus-themes-after-load-theme-hook #'ktz--theme-custom-faces)

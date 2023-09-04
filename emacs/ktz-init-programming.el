@@ -20,20 +20,19 @@
   ;;   - open project using lsp
 
   ;; set up conda
-  ;; (when ktz-conda-dir
-  ;;   (ktz-log "prog" "configuring conda")
-  ;;   (use-package conda
-  ;;     :custom
-  ;;     (conda-anaconda-home ktz-conda-dir)
-  ;;     :config
-  ;;     ;; conda.el overwrites (setq) the exec-path
-  ;;     ;; so we need to be very careful when to activate it
+  (when ktz-conda-dir
+    (ktz-log "prog" "configuring conda")
+    (use-package conda
+      :custom
+      (conda-anaconda-home ktz-conda-dir)
+      :config
+      ;; conda.el overwrites (setq) the exec-path
+      ;; so we need to be very careful when to activate it
 
-  ;;     (conda-env-initialize-interactive-shells)
-  ;;     (conda-env-initialize-eshell)
-  ;;     (conda-env-activate ktz-conda-env)
-  ;;     (conda-env-autoactivate-mode)
-  ;;     ))
+      (conda-env-initialize-interactive-shells)
+      (conda-env-initialize-eshell)
+      (conda-env-activate ktz-conda-env)
+      (conda-env-autoactivate-mode)))
 
   (use-package python
     :hook
@@ -82,15 +81,13 @@
     :init
     ;; (setq lsp-keymap-prefix "C-c l")
     (require 'dap-cpptools)
-    (setq
-     lsp-keymap-prefix "C-c l"
-     lsp-headerline-breadcrumb-icons-enable nil)
 
     :config
     ;; following the performance tips of lsp-doctor
-    (when (boundp 'read-process-output-max)
-      (setq-local read-process-output-max (* 1024 1024)))
-    (setq gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
+    (setq lsp-keymap-prefix "C-c l"
+          lsp-headerline-breadcrumb-icons-enable nil
+          read-process-output-max (* 1024 1024)
+          gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
 
     ;; TRAMP
     ;; currently disabled to debug exec-path related stuff
@@ -109,18 +106,17 @@
     ;;   ;; https://stackoverflow.com/questions/26630640/tramp-ignores-tramp-remote-path
     ;;   (add-to-list 'tramp-remote-path 'tramp-own-remote-path)) ;; /when ktz-conda-paths
 
-    (lsp-register-client
-     (make-lsp-client
-      :new-connection (lsp-tramp-connection "pylsp")
-      :major-modes '(python-mode)
-      :remote? t
-      :server-id 'pylsp-remote))
+    ;; (lsp-register-client
+    ;;  (make-lsp-client
+    ;;   :new-connection (lsp-tramp-connection "pylsp")
+    ;;   :major-modes '(python-mode)
+    ;;   :remote? t
+    ;;   :server-id 'pylsp-remote))
 
     :hook
     (c-mode . lsp) ;; using `clangd`
     (python-mode . lsp)
     (lsp-mode . lsp-enable-which-key-integration)
-    ;; (flycheck-mode . (lambda () (flycheck-select-checker 'python-flake8)))
 
     :commands lsp)
 

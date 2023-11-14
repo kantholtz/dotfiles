@@ -1,9 +1,10 @@
 
-  -------------------------------
-   K A N T H O L T Z   E M A C S
-  -------------------------------
 
-      <F3> Show Agenda
-      <F4> Open Bookmarks
-      <F5> Find Nodes
-      <F6> Toggle Theme
+
+   K A N T H O L T Z   E M A C S
+  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+      <F3>  Show Agenda
+      <F4>  Open Bookmarks
+      <F5>  Find Nodes
+      <F6>  Toggle Dark/Light

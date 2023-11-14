@@ -100,12 +100,6 @@
           read-process-output-max (* 1024 1024)
           gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
 
-    (lsp-register-custom-settings
-     '(("pyls.plugins.pyls_mypy.enabled" t t)
-       ("pyls.plugins.pyls_mypy.live_mode" nil t)
-       ("pylsp.plugins.pylsp_mypy.enabled" t t)
-       ("pylsp.plugins.pylsp_mypy.live_mode" nil t)))
-
     (defun ktz--lsp-mode-python-hook ()
       (if (and
              (boundp 'conda-env-current-name)

@@ -111,6 +111,7 @@
   (use-package nginx-mode)
   (use-package apache-mode)
   (use-package markdown-mode)
+  (use-package dockerfile-mode)
 
   (auto-fill-mode t)
   (column-number-mode t)

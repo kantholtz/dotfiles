@@ -81,16 +81,7 @@ MESSAGE String to emit."
   :type '(repeat directory))
 
 
-;; bootstrapping
-
-;;
-;;  update packages with M-x straight-pull-all
-;;  remove packages:
-;;    - simply remove the corresponding (straight-use-package ...)
-;;    - if they need to be gone completely: M-x straight-remove-unused-repos
-
-;; intialization: bootstrapping straight.el
-;; code from: https://github.com/raxod502/straight.el#getting-started
+;; install straight.el
 (defvar bootstrap-version)
 (let ((bootstrap-file
        (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))

@@ -5,6 +5,11 @@
   "Setup programming configuration"
   (ktz-log "prog" "initializing configuration")
 
+  (use-package dap-mode)
+  (use-package company)
+  (use-package which-key
+    :config (which-key-mode))
+
   ;; python ----------------------------------------
 
   (when ktz-conda-dir
@@ -17,16 +22,34 @@
       (message "conda-env-autoactivate-mode t")
       :config
       (conda-env-activate ktz-conda-env)
-      :hook
-      (conda-postactivate . lsp)
+      ;; :hook
+      ;; (conda-postactivate . lsp)
       ))
 
   (use-package python
     :config
-    (defun ktz--python-hooks ()
+    (defun ktz--python-pyright-hooks ()
+      (py-isort-buffer)
+      (python-black-buffer))
+
+    (defun ktz--python-lsp-hooks ()
       (lsp-format-buffer)
       (lsp-organize-imports))
-    :hook (before-save . ktz--python-hooks))
+
+    :hook (before-save . ktz--python-pyright-hooks))
+
+  ;; pyright config
+  (use-package lsp-pyright
+    :ensure t
+    :hook (python-mode
+           . (lambda ()
+               (require 'lsp-pyright)
+               (lsp))))  ; or lsp-deferred
+
+  (use-package py-isort)
+  (use-package python-black
+    :after python)
+  ;; /pyright config
 
   (use-package ein)
   (use-package numpydoc)
@@ -77,6 +100,12 @@
           read-process-output-max (* 1024 1024)
           gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
 
+    (lsp-register-custom-settings
+     '(("pyls.plugins.pyls_mypy.enabled" t t)
+       ("pyls.plugins.pyls_mypy.live_mode" nil t)
+       ("pylsp.plugins.pylsp_mypy.enabled" t t)
+       ("pylsp.plugins.pylsp_mypy.live_mode" nil t)))
+
     (defun ktz--lsp-mode-python-hook ()
       (if (and
              (boundp 'conda-env-current-name)
@@ -97,14 +126,6 @@
     (setq lsp-ui-doc-show-with-cursor nil
           lsp-ui-doc-include-signature t
           lsp-ui-doc-border (face-foreground 'default)))
-
-  (use-package dap-mode)
-
-  (use-package which-key
-    :config (which-key-mode))
-
-  (use-package company-lsp
-    :config (push 'company-lsp company-backends))
 
   (use-package rainbow-mode
     :config

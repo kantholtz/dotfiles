@@ -29,12 +29,13 @@
   (use-package python
     :config
     (defun ktz--python-pyright-hooks ()
-      (py-isort-buffer)
-      (python-black-buffer))
+      (when (eq major-mode 'python-mode)
+        (py-isort-buffer)
+        (python-black-buffer)))
 
-    (defun ktz--python-lsp-hooks ()
-      (lsp-format-buffer)
-      (lsp-organize-imports))
+    ;; (defun ktz--python-lsp-hooks ()
+    ;;   (lsp-format-buffer)
+    ;;   (lsp-organize-imports))
 
     :hook (before-save . ktz--python-pyright-hooks))
 

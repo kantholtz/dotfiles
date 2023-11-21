@@ -1,0 +1,9 @@
+# this is an example of how to apply the playbook.
+# it installs all files locally
+
+all:
+  hosts:
+    localhost:
+      ansible_host: localhost
+  vars:
+    ktz_dotfiles: ~/Complex/scm/dotfiles

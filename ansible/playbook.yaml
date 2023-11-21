@@ -1,11 +1,11 @@
 - hosts: all
   tasks:
 
-    # # dotfiles
-    # - name: checkout dotfiles
-    #   git:
-    #     repo: https://github.com/kantholtz/dotfiles.git
-    #     dest: "{{ ktz_dotfiles }}"
+    # dotfiles
+    - name: checkout dotfiles
+      git:
+        repo: https://github.com/kantholtz/dotfiles.git
+        dest: "{{ ktz_dotfiles }}"
 
     # tmux
     - name: checkout tpm

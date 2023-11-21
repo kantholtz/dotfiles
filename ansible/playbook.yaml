@@ -1,4 +1,4 @@
-- hosts: all
+- hosts: all,!localhost
   tasks:
 
     # dotfiles
@@ -7,6 +7,9 @@
         repo: https://github.com/kantholtz/dotfiles.git
         dest: "{{ ktz_dotfiles }}"
 
+
+- hosts: all
+  tasks:
     # tmux
     - name: checkout tpm
       git:
@@ -29,11 +32,14 @@
           ;; configure it with M-x ktz-customize
           (add-to-list 'load-path "{{ ktz_dotfiles }}/emacs")
           (require 'ktz)
+
+    # fish
     - name: set fish config
       blockinfile:
-        path: /root/.config/fish/config.fish
+        path: ~/.config/fish/config.fish
         insertbefore: BOF
         create: true
         marker: "# {mark} ansible configuration"
         block: |
           source {{ ktz_dotfiles }}/fish/config.fish
+

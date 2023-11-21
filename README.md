@@ -1,4 +1,4 @@
-# dotfiles #
+# ktz dotfiles #
 
 > Then world behind and home ahead,
 > We'll wander back to home and bed.
@@ -6,24 +6,10 @@
 
 ## Installation ##
 
-For the *fish* shell, you simply add the following to your local `fish.config`:
-
+```console
+# see example ansible/inventory.yaml
+ansible-playbook -i <inventory-file> ansible/playbook.yaml
 ```
-source path/to/dotfiles/fish/config.fish
-```
-
-To configure *emacs* add the following to your `.emacs` and run `M-x
-ktz-customize` (an alias for `M-x customize-group RET ktz RET`) and
-choose a mode:
-
-```elisp
-;; configure it with M-x ktz-customize
-(add-to-list 'load-path "~/path/to/dotfiles/emacs")
-(require 'ktz)
-```
-
-For *tmux*, you can simply link the configuration file in `tmux` to
-your home directory.
 
 
 ### Windows

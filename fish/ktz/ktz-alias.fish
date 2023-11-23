@@ -50,6 +50,12 @@ function k -d "ktz aliases"
 end
 
 
+# not exec'ed but aliased
+
+function ll -d 'list dirs verbose'
+    ls -lAFvh $argv
+end
+
 
 # git
 

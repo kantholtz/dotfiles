@@ -41,7 +41,7 @@ ktz-echo "ktz.fish" (echo \
 # exports
 
 # setting TERM for tmux color support
-set -x TERM xterm-256color
+# set -x TERM xterm-256color
 
 # own color definitions
 

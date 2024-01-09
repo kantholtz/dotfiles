@@ -235,7 +235,7 @@ With optional FACE, use it to propertize the BRANCH."
     '(:eval (ktz--modeline-get-buffer-name))
   "Current file/buffer name")
 (defvar-local ktz--modeline-position
-    '(:eval (ktz--modeline-get-position))
+    '(:eval (if (mode-line-window-selected-p) (ktz--modeline-get-position) ""))
   "Current cursor position")
 (defvar-local ktz--modeline-major-mode
     '(:eval (if (mode-line-window-selected-p) (ktz--modeline-get-major-mode) ""))

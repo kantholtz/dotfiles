@@ -137,6 +137,12 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
   (ktz--modeline-pad-strbox (buffer-name)))
 
 
+(defun ktz--modeline-get-position ()
+  "Returns line and char offset for the current point"
+  (propertize (format-mode-line "%l:%c")
+              'face 'ktz-modeline-fg-middle))
+
+
 (defun ktz--modeline-get-major-mode ()
   "Returns the major mode name"
   (format "%s %s"
@@ -228,6 +234,9 @@ With optional FACE, use it to propertize the BRANCH."
 (defvar-local ktz--modeline-buffer-name
     '(:eval (ktz--modeline-get-buffer-name))
   "Current file/buffer name")
+(defvar-local ktz--modeline-position
+    '(:eval (ktz--modeline-get-position))
+  "Current cursor position")
 (defvar-local ktz--modeline-major-mode
     '(:eval (if (mode-line-window-selected-p) (ktz--modeline-get-major-mode) ""))
   "Major mode name")
@@ -251,6 +260,7 @@ With optional FACE, use it to propertize the BRANCH."
 (dolist (construct '(ktz--modeline-god-indicator
                      ktz--modeline-status-indicator
                      ktz--modeline-buffer-name
+                     ktz--modeline-position
                      ktz--modeline-major-mode
                      ktz--modeline-minor-modes
                      ktz--modeline-vc-info
@@ -269,7 +279,8 @@ With optional FACE, use it to propertize the BRANCH."
      ktz--modeline-major-mode
      ktz--modeline-minor-modes
      ktz--modeline-vc-info
-     ktz--modeline-conda)))
+     ktz--modeline-conda
+     ktz--modeline-position)))
 
 
 (provide 'ktz-modeline)

@@ -101,9 +101,9 @@
   ;; and sets exec-path accordingly
   (use-package exec-path-from-shell
   :config
-  (when (memq window-system '(mac ns x))
+  (when (memq window-system '(mac ns x pgtk))
     (exec-path-from-shell-initialize)
-    (ktz-log ".emacs" "initialized exec-path-from-shell")))
+    (ktz-log "min" "initialized exec-path-from-shell")))
 
     ;; server
   (use-package yaml-mode)

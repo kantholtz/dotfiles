@@ -31,6 +31,10 @@
          :height 1.0 :width 'medium :slant 'normal))))
 
   (use-package modus-themes
+    :straight (modus-themes-fork
+               :host github
+               :repo "protesilaos/modus-themes")
+
     :config
 
     (setq

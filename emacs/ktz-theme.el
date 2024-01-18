@@ -586,13 +586,13 @@
 
       ;; change cursor based on god-mode state
       (defun ktz--theme-god-hook ()
-        (modus-themes-with-colors
-          (if (or god-local-mode buffer-read-only)
-              (progn
-                (set-cursor-color fg-alt)
-                (setq cursor-type 'hollow))
-            (set-cursor-color fg-alt)
-            (setq cursor-type 'box))))
+        ;; not using modus-themes-with-colors for now for performance reasons
+        (if (or god-local-mode buffer-read-only)
+            (progn
+              (set-cursor-color "gray")
+              (setq cursor-type 'hollow))
+          (set-cursor-color "black")
+          (setq cursor-type 'box)))
       (add-hook 'post-command-hook #'ktz--theme-god-hook)
 
       ;; misc not worth their own functions

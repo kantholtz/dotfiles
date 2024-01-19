@@ -19,23 +19,34 @@
   (use-package pet
     :hook (python-mode . pet-mode))
 
-  ;; requires 'isort' to be installed as python module
+
+  ;; IDE features
+
   (use-package isortify
+    ;; requires 'isort' to be installed as python module
     :hook (python-mode . isortify-mode))
 
-  ;; requires 'black' to be installed as python module
   (use-package blacken
+    ;; requires 'black' to be installed as python module
+    :after python
     :hook (python-mode . blacken-mode))
 
   ;; enable lsp support for python
   (use-package eglot
-    :hook (python-mode . eglot-ensure))
+    :hook (python-mode . eglot-ensure)
+    :config
+    (setq eldoc-idle-delay 0.3)
+    (setq company-idle-delay 0.3)
+    (setq flymake-no-changes-timeout 0.2))
 
     ;; :bind (:map eglot-mode-map
     ;;             ("C-c r" . eglot-rename)
     ;;             ("C-c h" . eldoc)
     ;;             ("C-c f" . eglot-format)
     ;;             ("C-c F" . eglot-format-buffer))
+
+  (use-package breadcrumb
+    :config (breadcrumb-mode))
 
   (use-package ein)
   (use-package numpydoc)
@@ -63,39 +74,7 @@
 
   (add-hook 'after-init-hook #'global-prettier-mode)
 
-  ;; lsp ---------------------------------------------
-
-  ;; (use-package lsp-mode
-  ;;   :config
-  ;;   ;; following the performance tips of lsp-doctor
-  ;;   (setq lsp-keymap-prefix "C-c l"
-  ;;         lsp-headerline-breadcrumb-icons-enable nil
-  ;;         read-process-output-max (* 1024 1024)
-  ;;         gc-cons-threshold (* 1024 1024 100))  ;; ~10mb
-
-  ;;   (defun ktz--lsp-mode-python-hook ()
-  ;;     (if (and
-  ;;            (boundp 'conda-env-current-name)
-  ;;            (not (string= "base" conda-env-current-name)))
-  ;;         (lsp)
-  ;;       (message "activate a conda environment first!")))
-
-  ;;   :hook
-  ;;   (c-mode . lsp) ;; using `clangd`
-  ;;   (python-mode . ktz--lsp-mode-python-hook)
-  ;;   (lsp-mode . lsp-enable-which-key-integration)
-
-  ;;   :commands lsp)
-
-  ;; (use-package lsp-ui
-  ;;   :commands lsp-ui-mode
-  ;;   :config
-  ;;   (setq lsp-ui-doc-show-with-cursor nil
-  ;;         lsp-ui-doc-include-signature t
-  ;;         lsp-ui-doc-border (face-foreground 'default)))
-
-  ;; eglot
-  
+  ;; misc ----------------------------------------
 
   (use-package rainbow-mode
     :config

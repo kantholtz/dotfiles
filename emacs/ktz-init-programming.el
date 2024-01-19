@@ -37,10 +37,12 @@
     :config
     (setq eldoc-idle-delay 0.3)
     (setq company-idle-delay 0.3)
-    (setq flymake-no-changes-timeout 0.2))
+    (setq flymake-no-changes-timeout 0.2)
 
-    ;; :bind (:map eglot-mode-map
-    ;;             ("C-c r" . eglot-rename)
+    ;; TODO figure out how to create a nested keymap (?)
+    ;; <C-c e r> <C-c e l> etc.
+    :bind (:map eglot-mode-map
+                ("C-c C-e r" . eglot-rename)))
     ;;             ("C-c h" . eldoc)
     ;;             ("C-c f" . eglot-format)
     ;;             ("C-c F" . eglot-format-buffer))

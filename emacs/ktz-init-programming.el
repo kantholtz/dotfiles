@@ -1,6 +1,5 @@
 ;;; ktz-init-programming.el --- Programming initialization.
 
-
 (defun ktz--init-programming ()
   "Setup programming configuration"
   (ktz-log "prog" "initializing configuration")
@@ -15,10 +14,23 @@
 
   ;; python (eglot/poetry/pyright)
 
+  (when ktz-conda-dir
+    (ktz-log "prog" "configuring conda")
+    (use-package conda
+      :custom
+      (conda-anaconda-home ktz-conda-dir)
+      :init
+      (conda-env-autoactivate-mode t)
+      (message "conda-env-autoactivate-mode t")
+      :config
+      (conda-env-activate ktz-conda-env)
+      ;; :hook
+      ;; (conda-postactivate . lsp)
+      ))
+
   ;; will find out about poetry
   (use-package pet
     :hook (python-mode . pet-mode))
-
 
   ;; IDE features
 
@@ -26,10 +38,17 @@
     ;; requires 'isort' to be installed as python module
     :hook (python-mode . isortify-mode))
 
-  (use-package blacken
-    ;; requires 'black' to be installed as python module
-    :after python
-    :hook (python-mode . blacken-mode))
+  (use-package apheleia
+    :config
+    (setf (alist-get 'isort apheleia-formatters)
+          '("isort" "--stdout" "-"))
+    (setf (alist-get 'python-mode apheleia-mode-alist)
+          '(isort black)))
+
+  ;; (use-package blacken
+  ;;   ;; requires 'black' to be installed as python module
+  ;;   :after python
+  ;;   :hook (python-mode . blacken-mode))
 
   ;; enable lsp support for python
   (use-package eglot

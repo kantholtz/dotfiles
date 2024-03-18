@@ -1,5 +1,5 @@
 [Background]
-Color=11,44,64
+Color=8,34,49
 
 [BackgroundFaint]
 Color=11,44,64
@@ -80,7 +80,7 @@ Color=172,123,112
 Color=187,181,164
 
 [Foreground]
-Color=43,177,255
+Color=116,199,255
 
 [ForegroundFaint]
 Color=21,88,127
@@ -89,7 +89,12 @@ Color=21,88,127
 Color=255,255,255
 
 [General]
+Anchor=0.5,0.5
 Blur=false
+ColorRandomization=false
 Description=kantholtz-dark
+FillStyle=Tile
 Opacity=1
 Wallpaper=
+WallpaperFlipType=NoFlip
+WallpaperOpacity=1

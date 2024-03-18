@@ -84,7 +84,9 @@
 
   (use-package yasnippet
     :config
-    (straight-use-package '(yasnippet-snippets :type git :host github :repo "AndreaCrotti/yasnippet-snippets"))
+    (straight-use-package
+     '(yasnippet-snippets
+       :type git :host github :repo "AndreaCrotti/yasnippet-snippets"))
     (yas-global-mode t)
     (global-set-key (kbd "C-c j") 'yas-expand))
 

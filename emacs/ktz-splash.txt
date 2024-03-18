@@ -1,10 +1,14 @@
 
 
 
-   K A N T H O L T Z   E M A C S
-  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      K A N T H O L T Z   E M A C S
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-      <F3>  Show Agenda
-      <F4>  Open Bookmarks
-      <F5>  Find Nodes
-      <F6>  Toggle Dark/Light
+         <F3>  Show Agenda
+         <F4>  Find Nodes
+         <F5>  Open Bookmarks
+         <F6>  Toggle Dark/Light
+
+
+      Back already? No matter.
+      Lay out your arms.

@@ -95,7 +95,7 @@
        (bg-red-nuanced     "#FCE4EC")  ;;  50
 
        ;; teal (tailwind)
-       (green              "#115e59")  ;; 800
+       (green              "#0d9488")  ;; 600
        (bg-green-intense   "#99f6e4")  ;; 200
        (bg-green-subtle    "#ccfbf1")  ;; 100
        (bg-green-nuanced   "#f0fdfa")  ;;  50
@@ -573,6 +573,27 @@
          `(org-tag ((,c :foreground ,cyan-cooler :weight normal)))
          `(org-checkbox ((,c :foreground ,fg-dim)))
          `(org-priority ((,c :foreground ,fg-dim)))
+
+         ;; org agenda
+
+         ;; org-imminent-deadline ← org-agenda-deadline-faces
+         ;;   (missed/close deadlines)
+         ;; org-upcoming-deadline
+         ;;   (regular deadlines)
+
+         ;; org-agenda-deadline-faces:
+         ;;
+         ;;   ((1.0 . org-imminent-deadline)
+         ;;    (0.5 . org-upcoming-deadline)
+         ;;    (0.0 . org-upcoming-distant-deadline))
+         ;;
+         ;; Each car is a fraction of the head-warning time that must
+         ;; have passed for this the face in the cdr to be used for
+         ;; display.
+         `(org-upcoming-distant-deadline ((,c :foreground ,fg-dim)))
+         `(org-upcoming-deadline ((,c :weight normal)))
+         `(org-imminent-deadline ((,c :weight normal :foreground ,magenta)))
+
          )))
 
     (defun ktz--theme-custom-faces ()

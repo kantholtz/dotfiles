@@ -15,14 +15,15 @@ function ktz-ssh-config -a name -d "switch ssh config"
     set -l conf_dir "$HOME"/.ssh
     set -l conf "$conf_dir"/config
 
+    # exists but is not a symbolic link
     test -e "$conf" -a ! -L "$conf"
-    set -l missing $status
+    set -l invalid $status
 
     # no arg: print helpful message
 
     if [ -z "$name" ]
         echo "Usage: ktz-ssh-config NAME"
-        if [ $missing -eq 0 ]
+        if [ $invalid -eq 0 ]
             echo "No config active."
         else
             echo "Current state:"
@@ -31,10 +32,20 @@ function ktz-ssh-config -a name -d "switch ssh config"
         return 0
     end
 
+    # TODO see https://fishshell.com/docs/current/cmds/argparse.html
+    if [ "$name" = "-q" ]
+        return ([ -L "$conf" ])
+    end
+
+    if [ "$name" = "-n" ]
+        echo (basename (readlink -f ~/.ssh/config) | cut -d '.' -f 2)
+        return $status
+    end
+
     # conf in undesirable state
 
-    if [ $missing -eq 0 ]
-        echo "$conf exists or is not a symbolic link"
+    if [ $invalid -eq 0 ]
+        echo "$conf exists and is not a symbolic link"
         echo "will not overwrite existing config!"
         return 2
     end

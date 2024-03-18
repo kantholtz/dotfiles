@@ -22,10 +22,16 @@ end
 
 
 function __ktz-prompt-hostname
-    printf ' %s %s %s ' \
-        $ktz_prompt_delim \
-        (prompt_hostname) \
-        $ktz_prompt_delim
+    printf '%s' (prompt_hostname)
+end
+
+
+function __ktz-prompt-ktz-ssh-config
+    if ktz-ssh-config -q
+        set_color $ktz_clr_subtle_light
+        printf ":%s" (ktz-ssh-config -n)
+        set_color normal
+    end
 end
 
 
@@ -41,12 +47,11 @@ function __ktz-prompt-git
     set_color $fish_color_command
     printf '[%s]' $branch
     set_color normal
-
 end
 
 
 function __ktz-prompt-python
-    echo (python --version 2>&1 | sed -E 's/Python ([0-9.]+).*/\1/')
+    echo (python3 --version 2>&1 | sed -E 's/Python ([0-9.]+).*/\1/')
 end
 
 
@@ -83,9 +88,13 @@ function ktz-prompt
         return
     end
 
-    __ktz-prompt-status $laststatus
-    __ktz-prompt-username
-    __ktz-prompt-hostname
+    printf "%s%s %s %s%s %s " \
+        (__ktz-prompt-status $laststatus) \
+        (__ktz-prompt-username) \
+        $ktz_prompt_delim \
+        (__ktz-prompt-hostname) \
+        (__ktz-prompt-ktz-ssh-config) \
+        $ktz_prompt_delim
 
     # location
     # set_color $ktz_clr_primary

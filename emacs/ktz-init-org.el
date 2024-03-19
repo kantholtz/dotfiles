@@ -28,7 +28,9 @@
       (org-indent-mode)
       (visual-line-mode)
       (visual-fill-column-mode)
-      (org-bullets-mode))
+
+      (when (not (eq system-type 'windows-nt))
+        (org-bullets-mode)))
 
     :hook
     (org-mode . ktz--org-visual-hook))

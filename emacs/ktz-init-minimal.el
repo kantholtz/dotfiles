@@ -122,8 +122,8 @@
   (global-set-key (kbd "M-<up>") 'ktz--move-line-up)
   (global-set-key (kbd "M-<down>") 'ktz--move-line-down)
 
-  (global-set-key (kbd "<f4>") #'bookmark-jump)
-  (global-set-key (kbd "C-<f4>") #'bookmark-jump)
+  (global-set-key (kbd "<f5>") #'bookmark-jump)
+  (global-set-key (kbd "C-<f5>") #'bookmark-jump)
 
   (ktz--init-minimal-voc)
 

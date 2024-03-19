@@ -127,17 +127,39 @@ MESSAGE String to emit."
 ;; (search-forward ...) (search-backward ...)
 
 (defun ktz-splash ()
-  (let ((splash-buffer-name "*ktz*"))
-    (with-output-to-temp-buffer splash-buffer-name
-      (switch-to-buffer splash-buffer-name)
-      (delete-other-windows)
+  (when (= 1 (length command-line-args))
 
-      (insert-file-contents
-       (concat ktz-root-dir "ktz-splash.txt"))
+    (let ((splash-buffer-name "*ktz*"))
+      (with-output-to-temp-buffer splash-buffer-name
+        ;; select and style
+        (switch-to-buffer splash-buffer-name)
+        (delete-other-windows)
 
-      t))
+        (set-window-margins nil 10)
+        (newline 4)
+        (insert-file-contents
+         (concat ktz-root-dir "ktz-splash.md"))
 
-  )
+        ;; style and interaction
+        (markdown-mode)
+        ;; doesn't work atm; maybe because god-mode
+        ;; hooks overwrite the cursor-type
+        (setq cursor-type nil)
+        (setq buffer-read-only t)))
+    ))
+
+      ;; (with-output-to-temp-buffer splash-buffer-name
+      ;;   ;; select window
+      ;;   (switch-to-buffer splash-buffer-name)
+      ;;   (delete-other-windows)
+      ;;   ;; adjust display
+      ;;   (newline 5)
+      ;;   (set-window-margins nil 10)
+      ;;   ;; load and style file
+      ;;   (insert-file-contents
+      ;;    (concat ktz-root-dir "ktz-splash.md"))
+      ;;   (markdown-mode)))))
+
 
 (defun ktz-show-splash ()
   (interactive)

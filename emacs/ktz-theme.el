@@ -516,7 +516,7 @@
       (modus-themes-with-colors
         (custom-set-faces
          `(modus-themes-lang-error
-           ((,c :underline nil :background ,bg-red-nuanced)))
+           ((,c :underline nil :foreground ,red :background ,bg-red-nuanced)))
          `(modus-themes-lang-note
            ((,c :underline nil :background ,bg-magenta-nuanced)))
          `(modus-themes-lang-warning

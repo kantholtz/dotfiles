@@ -239,7 +239,7 @@
 
     :bind (
            ("<f3>" . org-agenda)
-           ("C-<f3>")))
+           ("C-<f3>" . org-agenda)))
 
 ;;; end of ktz--init-org
   )

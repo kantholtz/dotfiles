@@ -50,21 +50,41 @@
   ;;   :after python
   ;;   :hook (python-mode . blacken-mode))
 
-  ;; enable lsp support for python
+  ;; enable lsp support
   (use-package eglot
     :hook (python-mode . eglot-ensure)
+
     :config
     (setq eldoc-idle-delay 0.3)
     (setq company-idle-delay 0.3)
     (setq flymake-no-changes-timeout 0.2)
 
-    ;; TODO figure out how to create a nested keymap (?)
-    ;; <C-c e r> <C-c e l> etc.
-    :bind (:map eglot-mode-map
-                ("C-c C-e r" . eglot-rename)))
-    ;;             ("C-c h" . eldoc)
-    ;;             ("C-c f" . eglot-format)
-    ;;             ("C-c F" . eglot-format-buffer))
+    ;; TODO this nesting does not work if god-mode is active
+
+    (defvar-keymap ktz-eglot-find-map
+      :doc "Traversal and search"
+      "d" #'eglot-find-declaration
+      "i" #'eglot-find-implementation
+      "t" #'eglot-find-typeDefinition)
+
+    (defvar-keymap ktz-eglot-refactor-map
+      :doc "Refactor code"
+      "r" #'eglot-rename
+      "f" #'eglot-format
+      "F" #'eglot-format-buffer)
+
+    (defvar-keymap ktz-eglot-control-map
+      :doc "Control commands"
+      "s" #'eglot-shutdown
+      "S" #'eglot-shutdown-all)
+
+    (defvar-keymap ktz-eglot-map
+      :doc "Eglot keybindings"
+      "f" `("find" . ,ktz-eglot-find-map)
+      "r" `("refactor" . ,ktz-eglot-refactor-map)
+      "c" `("control" . `ktz-eglot-control-map))
+
+    :bind-keymap ("C-c e" . ktz-eglot-map))
 
   (use-package breadcrumb
     :config (breadcrumb-mode))

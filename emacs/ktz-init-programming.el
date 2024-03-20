@@ -30,7 +30,8 @@
 
   ;; will find out about poetry
   (use-package pet
-    :hook (python-mode . pet-mode))
+    :config
+    (add-hook 'python-base-mode-hook 'pet-mode -10))
 
   ;; IDE features
 

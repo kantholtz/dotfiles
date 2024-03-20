@@ -5,6 +5,6 @@
    <F5>  Open Bookmarks
    <F6>  Toggle Dark/Light
 
-   *Back already? No matter.
-    Lay out your arms.*
+   *Back already? No matter.*
+   *Lay out your arms.*
 

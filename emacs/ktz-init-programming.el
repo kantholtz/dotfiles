@@ -12,21 +12,14 @@
   (use-package which-key
     :config (which-key-mode))
 
-  ;; python (eglot/poetry/pyright)
+  ;; python
+  ;;   stack: conda → poetry → pyright → eglot
 
   (when ktz-conda-dir
-    (ktz-log "prog" "configuring conda")
     (use-package conda
-      :custom
-      (conda-anaconda-home ktz-conda-dir)
-      :init
-      (conda-env-autoactivate-mode t)
-      (message "conda-env-autoactivate-mode t")
-      :config
-      (conda-env-activate ktz-conda-env)
-      ;; :hook
-      ;; (conda-postactivate . lsp)
-      ))
+      :custom (conda-anaconda-home ktz-conda-dir)
+      :init (conda-env-autoactivate-mode t)
+      :config (conda-env-activate ktz-conda-env)))
 
   ;; will find out about poetry
   (use-package pet
@@ -44,7 +37,10 @@
     (setf (alist-get 'isort apheleia-formatters)
           '("isort" "--stdout" "-"))
     (setf (alist-get 'python-mode apheleia-mode-alist)
-          '(isort black)))
+          '(isort black))
+
+    (apheleia-global-mode +1))
+
 
   ;; (use-package blacken
   ;;   ;; requires 'black' to be installed as python module

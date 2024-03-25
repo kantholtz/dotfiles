@@ -102,17 +102,18 @@
   ;; and reads the exported environment variables
   ;; and sets exec-path accordingly
   (use-package exec-path-from-shell
-  :config
-  (when (memq window-system '(mac ns x pgtk))
-    (exec-path-from-shell-initialize)
-    (ktz-log "min" "initialized exec-path-from-shell")))
+    :config
+    (when (memq window-system '(mac ns x pgtk))
+      (exec-path-from-shell-initialize)
+      (ktz-log "min" "initialized exec-path-from-shell")))
 
-    ;; server
+  ;; server
   (use-package yaml-mode)
   (use-package fish-mode)
   (use-package nginx-mode)
   (use-package apache-mode)
   (use-package markdown-mode)
+  (use-package markdown-toc)
   (use-package dockerfile-mode)
 
   (auto-fill-mode t)

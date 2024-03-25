@@ -83,7 +83,7 @@
       :doc "Eglot keybindings"
       "f" `("find" . ,ktz-eglot-find-map)
       "r" `("refactor" . ,ktz-eglot-refactor-map)
-      "c" `("control" . `ktz-eglot-control-map))
+      "c" `("control" . ,ktz-eglot-control-map))
 
     :bind-keymap ("C-c e" . ktz-eglot-map))
 

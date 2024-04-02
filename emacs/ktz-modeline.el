@@ -46,7 +46,7 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
 (defun ktz--modeline-pad-strbox (str &optional padding)
   "Pad a string symmetrically with the provided padding"
   (let ((d (if padding padding 2)))
-        (format (format "%%%ds%%s%%%ds" d d) "" str "")))
+    (format (format "%%%ds%%s%%%ds" d d) "" str "")))
 
 
 (defface ktz-modeline-fg-subtle '()
@@ -66,8 +66,10 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
   "whether the file is read only")
 (defface ktz-modeline-indicator-rw '()
   "whether the file can be written to")
-(defface ktz-modeline-indicator-god '()
-  "whether god mode is active")
+(defface ktz-modeline-indicator-god-active '()
+  "when god mode is active")
+(defface ktz-modeline-indicator-god-inactive '()
+  "when god mode is inactive")
 
 
 ;; callback of modus-themes toggler to set faces
@@ -102,12 +104,15 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
               :foreground ,green)))
        `(ktz-modeline-indicator-ro
          ((,c :inherit ktz-modeline-indicator-base
-              :background ,cyan-faint)))
-       `(ktz-modeline-indicator-god
+              :background ,(if (eq ktz-theme-current 'light) cyan-faint bg-dim))))
+       `(ktz-modeline-indicator-god-active
          ((,c :inherit ktz-modeline-indicator-base
-              :background ,fg-alt :foreground ,bg-main)))
-
-     ))))
+              :background ,(if (eq ktz-theme-current 'light) fg-alt bg-main)
+              :foreground ,(if (eq ktz-theme-current 'light) bg-main fg-alt))))
+       `(ktz-modeline-indicator-god-inactive
+         ((,c :inherit ktz-modeline-indicator-base
+              :foreground ,(when (eq ktz-theme-current 'dark) fg-dim))))
+       ))))
 
 
 ;; getter functions: build and propertize strings
@@ -115,8 +120,8 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
 (defun ktz--modeline-get-god-indicator ()
   (let ((str (ktz--modeline-pad-strbox "GOD" 1)))
     (if god-local-mode
-        (propertize str 'face 'ktz-modeline-indicator-god)
-      (propertize str 'face 'ktz-modeline-indicator-base))))
+        (propertize str 'face 'ktz-modeline-indicator-god-active)
+      (propertize str 'face 'ktz-modeline-indicator-god-inactive))))
 
 
 (defun ktz--modeline-get-status-indicator ()
@@ -211,7 +216,7 @@ With optional FACE, use it to propertize the BRANCH."
 
 (defun ktz--modeline-vc-get-face (key)
   "Get face from KEY in `ktz--modeline-vc-faces'."
-   (alist-get key ktz--modeline-vc-faces 'up-to-date))
+  (alist-get key ktz--modeline-vc-faces 'up-to-date))
 
 (defun ktz--modeline-vc-face (file backend)
   "Return VC state face for FILE with BACKEND."

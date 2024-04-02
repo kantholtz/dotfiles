@@ -118,6 +118,7 @@
        (bg-blue-subtle     "#CFD8DC")  ;; 100
        (bg-blue-nuanced    "#ECEFF1")  ;;  50
 
+       ;; completion and search
        (bg-completion       bg-magenta-nuanced)
        (bg-hover            bg-green-nuanced)
        (bg-hover-secondary  bg-yellow-nuanced)
@@ -132,6 +133,7 @@
        (border-mode-line-active    fg-dim)
        (border-mode-line-inactive  fg-dim)
 
+       ;; modeline
        (modeline-err     red)
        (modeline-warning magenta)
        (modeline-info    green)
@@ -291,54 +293,57 @@
      modus-vivendi-palette-overrides
      '(
 
-       (bg-main   "#000000")  ;; black
-       (bg-dim    "#171717")  ;; grey 900
-       (bg-active "#262626")  ;; grey 800
+       ;; stone
+       ;; (bg-main   "#000000") ;; TODO add "OLED mode"
+       (bg-main   "#1c1917")
+       (bg-dim    "#292524")  ;; 800
+       (bg-active "#44403c")  ;; 700
 
-       (fg-dim   "#d4d4d4")  ;; grey 300
-       (fg-main  "#f5f5f5")  ;; grey 100
+       (fg-dim   "#57534e")  ;; 600
+       (fg-main  "#a8a29e")  ;; 400
        (fg-alt   "#ffffff")  ;; white
 
        (bg-inactive bg-main)
        (border fg-dim)
 
        ;; using cyan to define additional shades of grey
-       (cyan-faint         "#404040")  ;; 700
-       (cyan-cooler        "#525252")  ;; 600
-       (cyan-warmer        "#737373")  ;; 500
-       (cyan               "#a3a3a3")  ;; 400
-       (cyan-intense       "#e5e5e5")  ;; 200
+       (cyan-faint   "#a3a3a3")  ;; 400
+       (cyan-cooler  "#737373")  ;; 500
+       (cyan-warmer  "#525252")  ;; 600
+       (cyan         "#404040")  ;; 700
+       (cyan-intense "#1c1917")  ;; 900
 
        ;; pink
-       (red                "#c2185b")  ;; 700
-       (bg-red-intense     "#F48FB1")  ;; 200
-       (bg-red-subtle      "#F8BBD0")  ;; 100
-       (bg-red-nuanced     "#FCE4EC")  ;;  50
+       (red                "#db2777")  ;; 600
+       (bg-red-intense     "#9d174d")  ;; 800
+       (bg-red-subtle      "#500724")  ;; 950
+       (bg-red-nuanced     "#500724")  ;; 950
 
-       ;; teal (tailwind)
-       (green              "#115e59")  ;; 800
-       (bg-green-intense   "#99f6e4")  ;; 200
-       (bg-green-subtle    "#ccfbf1")  ;; 100
-       (bg-green-nuanced   "#f0fdfa")  ;;  50
+       ;; cyan/sky
+       (green              "#67e8f9")  ;; 400
+       (bg-green-intense   "#075985")  ;; 800
+       (bg-green-subtle    "#0c4a6e")  ;; 900
+       (bg-green-nuanced   "#082f49")  ;; 950
 
-       ;; deep purple
-       (magenta            "#4527A0")  ;; 800
-       (bg-magenta-intense "#B39DDB")  ;; 200
-       (bg-magenta-subtle  "#D1C4E9")  ;; 100
-       (bg-magenta-nuanced "#EDE7F6")  ;;  50
+       ;; purple
+       (magenta            "#B39DDB")  ;; 200
+       (bg-magenta-intense "#5b21b6")  ;; 800
+       (bg-magenta-subtle  "#581c87")  ;; 900
+       (bg-magenta-nuanced "#3b0764")  ;; 950
 
-       ;; amber
-       (yellow             "#ff8f00")  ;; 800
-       (bg-yellow-intense  "#FFE082")  ;; 200
-       (bg-yellow-subtle   "#FFECB3")  ;; 100
-       (bg-yellow-nuanced  "#FFF8E1")  ;;  50
+       ;; orange
+       (yellow             "#fed7aa")  ;; 200
+       (bg-yellow-intense  "#9a3412")  ;; 800
+       (bg-yellow-subtle   "#7c2d12")  ;; 900
+       (bg-yellow-nuanced  "#431407")  ;; 950
 
-       ;; blue grey
-       (blue               "#546E7A")  ;; 600
-       (bg-blue-intense    "#B0BEC5")  ;; 200
-       (bg-blue-subtle     "#CFD8DC")  ;; 100
-       (bg-blue-nuanced    "#ECEFF1")  ;;  50
+       ;; slate
+       (blue               "#e2e8f0")  ;; 200
+       (bg-blue-intense    "#1e293b")  ;; 800
+       (bg-blue-subtle     "#0f172a")  ;; 900
+       (bg-blue-nuanced    "#020617")  ;; 950
 
+       ;; completion and search
        (bg-completion       bg-magenta-nuanced)
        (bg-hover            bg-green-nuanced)
        (bg-hover-secondary  bg-yellow-nuanced)
@@ -346,6 +351,7 @@
        (bg-region           bg-active)
        (fg-region           fg-alt)
 
+       ;; modeline
        (bg-mode-line-active        bg-dim)
        (bg-mode-line-inactive      bg-dim)
        (fg-mode-line-active        fg-alt)
@@ -354,7 +360,7 @@
        (border-mode-line-inactive  fg-dim)
 
        (modeline-err     red)
-       (modeline-warning magenta)
+       (modeline-warning yellow)
        (modeline-info    green)
 
        (bg-tab-bar      fg-dim)
@@ -397,9 +403,9 @@
        (fringe unspecified)
        (cursor fg-main)
 
-       (keybind magenta)
-       (name magenta)
-       (identifier magenta)
+       (keybind yellow)
+       (name yellow)
+       (identifier yellow)
 
        (err red)
        (warning yellow)
@@ -418,9 +424,9 @@
 
        ;; code
 
-       (builtin magenta)
-       (fnname magenta)
-       (type magenta)
+       (builtin yellow)
+       (fnname yellow)
+       (type yellow)
 
        (keyword fg-alt)
        (constant fg-alt)
@@ -434,16 +440,16 @@
 
        (preprocessor red)
        (rx-construct green)
-       (rx-backslash magenta)
+       (rx-backslash yellow)
 
-       (fnname magenta)
+       (fnname yellow)
 
        (accent-0 blue)
-       (accent-1 magenta)
+       (accent-1 yellow)
        (accent-2 green)
        (accent-3 red)
 
-       (fg-completion-match-0 magenta)
+       (fg-completion-match-0 yellow)
        (fg-completion-match-1 green)
        (fg-completion-match-2 fg-alt)
        (fg-completion-match-3 blue)
@@ -463,17 +469,17 @@
        (date-weekday fg-main)  ;; agenda heading
        (date-weekend fg-dim)  ;; agenda heading
 
-       (fg-link magenta)
+       (fg-link yellow)
        (bg-link unspecified)
-       (underline-link bg-magenta-subtle)
+       (underline-link bg-yellow-subtle)
 
        (fg-link-symbolic green)
        (bg-link-symbolic unspecified)
        (underline-link-symbolic bg-green-subtle)
 
-       (fg-link-visited magenta)
+       (fg-link-visited yellow)
        (bg-link-visited unspecified)
-       (underline-link-visited bg-magenta-subtle)
+       (underline-link-visited bg-yellow-subtle)
 
        (bg-mark-delete bg-red-subtle)
        (fg-mark-delete red)
@@ -482,16 +488,16 @@
        (bg-mark-other bg-green-subtle)
        (fg-mark-other green)
 
-       (fg-prompt magenta)
+       (fg-prompt yellow)
        (bg-prompt unspecified)
 
        (rainbow-0 fg)
        (rainbow-1 red)
-       (rainbow-2 magenta)
+       (rainbow-2 yellow)
        (rainbow-3 green)
        (rainbow-4 blue)
        (rainbow-5 red)
-       (rainbow-6 magenta)
+       (rainbow-6 yellow)
        (rainbow-7 green)
        (rainbow-8 blue)
 
@@ -518,44 +524,9 @@
          `(modus-themes-lang-error
            ((,c :underline nil :foreground ,red :background ,bg-red-nuanced)))
          `(modus-themes-lang-note
-           ((,c :underline nil :background ,bg-magenta-nuanced)))
+           ((,c :underline nil :background ,bg-yellow-nuanced)))
          `(modus-themes-lang-warning
            ((,c :underline nil :background ,bg-yellow-nuanced)))
-         )))
-
-
-    (defun ktz--theme-lsp-faces ()
-      "Adjust lsp-mode faces."
-      (modus-themes-with-colors
-        (custom-set-faces
-         `(lsp-headerline-breadcrumb-path-face
-           ((,c :foreground ,fg-main)))
-         `(lsp-headerline-breadcrumb-path-error-face
-           ((,c :foreground ,red)))
-         `(lsp-headerline-breadcrumb-path-warning-face
-           ((,c :foreground ,yellow)))
-         `(lsp-headerline-breadcrumb-path-hint-face
-           ((,c :foreground ,green)))
-         `(lsp-headerline-breadcrumb-path-info-face
-           ((,c :foreground ,magenta)))
-
-         `(lsp-headerline-breadcrumb-symbols-error-face
-           ((,c :foreground ,red :slant italic)))
-         `(lsp-headerline-breadcrumb-symbols-warning-face
-           ((,c :foreground ,yellow :slant italic)))
-         `(lsp-headerline-breadcrumb-symbols-hint-face
-           ((,c :foreground ,green :slant italic)))
-         `(lsp-headerline-breadcrumb-symbols-info-face
-           ((,c :foreground ,magenta :slant italic)))
-
-         `(header-line
-           ((,c :background ,bg-dim
-                :underline ,fg-dim
-                :overline ,fg-dim
-                :box (:line-width (2 . 5) :color ,bg-dim))))
-
-         `(lsp-ui-doc-background
-           ((,c :backgorund ,bg-active)))
          )))
 
     (defun ktz--theme-org-faces ()
@@ -596,7 +567,13 @@
 
          )))
 
+    ;; follows modus-themes-to-toggle by using dark is initial value and toggling once
+    (defvar ktz-theme-current 'dark "Either 'light or 'dark")
     (defun ktz--theme-custom-faces ()
+      (if (eq ktz-theme-current 'light)
+          (setq ktz-theme-current 'dark)
+        (setq ktz-theme-current 'light))
+
       ;; add some space between windows
       (when (display-graphic-p)
         (setq window-divider-default-places 'bottom-only
@@ -612,31 +589,45 @@
             (progn
               (set-cursor-color "gray")
               (setq cursor-type 'hollow))
-          (set-cursor-color "black")
+          (set-cursor-color (if (eq ktz-theme-current 'light) "black" "white"))
           (setq cursor-type 'box)))
       (add-hook 'post-command-hook #'ktz--theme-god-hook)
 
       ;; misc not worth their own functions
       (modus-themes-with-colors
         (custom-set-faces
+
+         ;; highlighting and search
          `(highlight
-           ((,c :background ,bg-green-subtle :foreground ,green)))))
+           ((,c :background ,bg-green-subtle :foreground ,green)))
+         `(lazy-highlight
+           ((,c :background ,bg-yellow-nuanced :foreground ,yellow)))
+         `(isearch
+           ((,c :background ,bg-green-nuanced :foreground ,green)))
+         `(query-replace
+           ((,c :background ,bg-red-nuanced :foreground ,red)))
+
+         ;; pulsar
+         `(pulsar-green
+           ((,c :background ,bg-green-intense :foreground ,green )))
+
+         ;; misc
+         `(mmm-default-submode-face
+           ((,c :background ,bg-main)))))
 
       ;; more involved groups
       (ktz--theme-modus-faces)
-      (ktz--theme-lsp-faces)
       (ktz--theme-org-faces)
       (ktz-modeline-set-faces))
 
-    (add-hook 'modus-themes-after-load-theme-hook #'ktz--theme-custom-faces)
+    (add-hook
+     'modus-themes-after-load-theme-hook
+     #'ktz--theme-custom-faces)
 
     (dolist (theme modus-themes-to-toggle)
       (load-theme theme :no-confirm))
     (modus-themes-toggle) ;; hooks are not called otherwise
-    ;; (modus-themes-toggle)
 
-    ;; does not work?
-    ;; :bind ("<f6>" . modus-themes-toggle)
     (define-key global-map (kbd "<f6>") #'modus-themes-toggle)
     (define-key global-map (kbd "C-<f6>") #'modus-themes-toggle)))
 

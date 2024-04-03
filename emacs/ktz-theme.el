@@ -328,11 +328,11 @@
        (bg-green-subtle    "#0c4a6e")  ;; 900
        (bg-green-nuanced   "#082f49")  ;; 950
 
-       ;; orange
-       (magenta             "#fed7aa")  ;; 200
-       (bg-magenta-intense  "#9a3412")  ;; 800
-       (bg-magenta-subtle   "#7c2d12")  ;; 900
-       (bg-magenta-nuanced  "#431407")  ;; 950
+       ;; stone
+       (magenta             "#e7e5e4")  ;; 200
+       (bg-magenta-intense  "#292524")  ;; 800
+       (bg-magenta-subtle   "#1c1917")  ;; 900
+       (bg-magenta-nuanced  "#0c0a09")  ;; 950
 
        ;; orange
        (yellow             "#fed7aa")  ;; 200

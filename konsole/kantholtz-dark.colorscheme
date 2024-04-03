@@ -1,92 +1,104 @@
 [Background]
-Color=8,34,49
+Color=28,25,23
+RandomHueRange=360
+RandomSaturationRange=100
 
 [BackgroundFaint]
-Color=11,44,64
+Color=41,37,36
+RandomHueRange=360
+RandomSaturationRange=100
 
 [BackgroundIntense]
-Color=104,104,104
+Color=68,64,60
+RandomHueRange=360
+RandomSaturationRange=100
 
 [Color0]
-Color=0,0,0
+Color=195,164,131
 
 [Color0Faint]
-Color=24,24,24
+Color=177,150,119
 
 [Color0Intense]
-Color=104,104,104
+Color=254,215,170
 
 [Color1]
-Color=255,62,114
+Color=194,24,91
 
 [Color1Faint]
-Color=127,31,57
+Color=158,55,88
 
 [Color1Intense]
-Color=255,62,114
+Color=219,39,119
 
 [Color2]
-Color=43,177,255
+Color=43,38,35
 
 [Color2Faint]
-Color=21,88,127
+Color=131,117,107
 
 [Color2Intense]
-Color=43,177,255
+Color=255,255,255
 
 [Color3]
-Color=255,221,171
+Color=194,24,91
 
 [Color3Faint]
-Color=127,110,85
+Color=116,40,64
 
 [Color3Intense]
-Color=255,221,171
+Color=255,0,93
 
 [Color4]
-Color=21,88,127
+Color=207,216,220
 
 [Color4Faint]
-Color=21,88,127
+Color=207,216,220
 
 [Color4Intense]
-Color=187,181,164
+Color=158,167,170
 
 [Color5]
-Color=21,88,127
+Color=195,164,131
 
 [Color5Faint]
-Color=127,31,57
+Color=177,150,119
 
 [Color5Intense]
-Color=255,62,114
+Color=254,215,170
 
 [Color6]
-Color=187,181,164
+Color=71,64,62
 
 [Color6Faint]
-Color=172,123,112
+Color=197,167,132
 
 [Color6Intense]
-Color=187,181,164
+Color=255,214,171
 
 [Color7]
-Color=187,181,164
+Color=28,25,23
 
 [Color7Faint]
-Color=172,123,112
+Color=41,37,36
 
 [Color7Intense]
-Color=187,181,164
+Color=68,64,60
 
 [Foreground]
-Color=116,199,255
+Color=168,162,158
+RandomHueRange=360
+RandomSaturationRange=100
 
 [ForegroundFaint]
-Color=21,88,127
+Color=62,59,56
+RandomHueRange=360
+RandomSaturationRange=100
 
 [ForegroundIntense]
 Color=255,255,255
+RandomHueRange=360
+RandomSaturationRange=100
 
 [General]
 Anchor=0.5,0.5

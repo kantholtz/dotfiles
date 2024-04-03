@@ -41,12 +41,6 @@
 
     (apheleia-global-mode +1))
 
-
-  ;; (use-package blacken
-  ;;   ;; requires 'black' to be installed as python module
-  ;;   :after python
-  ;;   :hook (python-mode . blacken-mode))
-
   ;; enable lsp support
   (use-package eglot
     :hook (python-mode . eglot-ensure)

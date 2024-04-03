@@ -37,8 +37,9 @@
 
     :config
 
+    (defvar ktz-theme-current 'light "Either 'light or 'dark")
     (setq
-     modus-themes-to-toggle '(modus-operandi modus-vivendi)
+     modus-themes-to-toggle '(modus-vivendi modus-operandi)
 
      ;; ESSENTIAL to make the underline move to the bottom of the box:
      ;; TODO move to mode-line overrides
@@ -327,11 +328,11 @@
        (bg-green-subtle    "#0c4a6e")  ;; 900
        (bg-green-nuanced   "#082f49")  ;; 950
 
-       ;; purple
-       (magenta            "#B39DDB")  ;; 200
-       (bg-magenta-intense "#5b21b6")  ;; 800
-       (bg-magenta-subtle  "#581c87")  ;; 900
-       (bg-magenta-nuanced "#3b0764")  ;; 950
+       ;; orange
+       (magenta             "#fed7aa")  ;; 200
+       (bg-magenta-intense  "#9a3412")  ;; 800
+       (bg-magenta-subtle   "#7c2d12")  ;; 900
+       (bg-magenta-nuanced  "#431407")  ;; 950
 
        ;; orange
        (yellow             "#fed7aa")  ;; 200
@@ -572,7 +573,6 @@
          )))
 
     ;; follows modus-themes-to-toggle by using dark is initial value and toggling once
-    (defvar ktz-theme-current 'dark "Either 'light or 'dark")
     (defun ktz--theme-custom-faces ()
       (if (eq ktz-theme-current 'light)
           (setq ktz-theme-current 'dark)
@@ -634,19 +634,19 @@
          `(header-line
            ((,c :underline ,border-mode-line-active
                 :overline ,border-mode-line-active
-                :box (:line-width 5 :color ,bg-mode-line-active))))))))
+                :box (:line-width 5 :color ,bg-mode-line-active)))))))
 
 
-  (add-hook
-   'modus-themes-after-load-theme-hook
-   #'ktz--theme-custom-faces)
+    (add-hook
+     'modus-themes-after-load-theme-hook
+     #'ktz--theme-custom-faces)
 
-  (dolist (theme modus-themes-to-toggle)
-    (load-theme theme :no-confirm))
-  (modus-themes-toggle) ;; hooks are not called otherwise
+    (dolist (theme modus-themes-to-toggle)
+      (load-theme theme :no-confirm))
+    (modus-themes-toggle) ;; hooks are not called otherwise
 
-  (define-key global-map (kbd "<f6>") #'modus-themes-toggle)
-  (define-key global-map (kbd "C-<f6>") #'modus-themes-toggle)))
+    (define-key global-map (kbd "<f6>") #'modus-themes-toggle)
+    (define-key global-map (kbd "C-<f6>") #'modus-themes-toggle)))
 
 
 (defun ktz-load-theme ()

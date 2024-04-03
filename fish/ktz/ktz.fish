@@ -5,7 +5,7 @@ function ktz-echo \
     -a from msg exitcode \
     -d "echo things if KTZ_DEBUG is set or exit with an error message"
 
-    if [ -n "$exitcode" ];
+    if [ -n "$exitcode" ]
         echo $msg
         exit $exitcode
     end
@@ -34,40 +34,51 @@ ktz-echo "ktz.fish" (echo \
     "  ktz_dir_root $ktz_dir_root\n" \
     "  ktz_dir_dotfiles $ktz_dir_dotfiles\n" \
     | string collect 2>/dev/null)
-    # string collect:
-    # this can fail for older fish versions
+# string collect:
+# this can fail for older fish versions
 
 
 # exports
-
-# setting TERM for tmux color support
-# set -x TERM xterm-256color
+set -x TERM xterm-256color
 
 # own color definitions
+# set_color --print-colors
 
 # red
-set -g ktz_clr_primary         'c2185b'
-set -g ktz_clr_primary_light   'fa5788'
-set -g ktz_clr_primary_dark    '8c0032'
+# set -g ktz_clr_primary         'c2185b'
+# set -g ktz_clr_primary_light   'fa5788'
+# set -g ktz_clr_primary_dark    '8c0032'
 
-set -g ktz_clr_primary_fallback   magenta
+set -g ktz_clr_primary brgreen
+set -g ktz_clr_primary_light brblue
+set -g ktz_clr_primary_dark brblue
+
+set -g ktz_clr_primary_fallback brgreen
 set -g ktz_clr_primary_brfallback brmagenta
 
-# green
-set -g ktz_clr_secondary        '00695c'
-set -g ktz_clr_secondary_light  '439688'
-set -g ktz_clr_secondary_dark   '003d32'
+# # green
+# set -g ktz_clr_secondary        '00695c'
+# set -g ktz_clr_secondary_light  '439688'
+# set -g ktz_clr_secondary_dark   '003d32'
 
-set -g ktz_clr_secondary_fallback    green
-set -g ktz_clr_secondary_brfallback  brgreen
+set -g ktz_clr_secondary brcyan
+set -g ktz_clr_secondary_light magenta
+set -g ktz_clr_secondary_dark magenta
 
-# steel blue
-set -g ktz_clr_subtle           '455a64'
-set -g ktz_clr_subtle_light     '9ea7aa'
-set -g ktz_clr_subtle_dark      '1c313a'
+set -g ktz_clr_secondary_fallback brcyan
+set -g ktz_clr_secondary_brfallback magenta
 
-set -g ktz_clr_subtle_fallback    brgreen
-set -g ktz_clr_subtle_brfallback  brblack
+# # steel blue
+# set -g ktz_clr_subtle           '455a64'
+# set -g ktz_clr_subtle_light     '9ea7aa'
+# set -g ktz_clr_subtle_dark      '1c313a'
+
+set -g ktz_clr_subtle brblue
+set -g ktz_clr_subtle_light brblue
+set -g ktz_clr_subtle_dark brblue
+
+set -g ktz_clr_subtle_fallback brblue
+set -g ktz_clr_subtle_brfallback brblue
 
 
 # to autoload ktz functions
@@ -86,7 +97,7 @@ set fish_color_command \
     $ktz_clr_secondary \
     $ktz_clr_secondary_fallback
 
-set fish_color_param   \
+set fish_color_param \
     $ktz_clr_secondary_light \
     $ktz_clr_secondary_brfallback
 

@@ -169,9 +169,11 @@
        (fg-removed-intense red)
 
        (bg-diff-context    fg-dim)
-       (bg-paren-match        bg-green-subtle)
        (bg-paren-expression   bg-magenta-subtle)
        (underline-paren-match unspecified)
+
+       (fg-paren-match        green)
+       (bg-paren-match        bg-green-subtle)
 
        ;; mappings
 
@@ -393,8 +395,10 @@
        (fg-removed         red)
        (fg-removed-intense red)
 
+       (fg-paren-match green)
+       (bg-paren-match bg-green-subtle)
+
        (bg-diff-context    fg-dim)
-       (bg-paren-match        bg-green-subtle)
        (bg-paren-expression   bg-magenta-subtle)
        (underline-paren-match unspecified)
 
@@ -611,25 +615,38 @@
          `(pulsar-green
            ((,c :background ,bg-green-intense :foreground ,green )))
 
-         ;; misc
+         ;; headerline
+         `(header-line
+           ((,c :background ,bg-dim)))
+
+         ;; mmm
          `(mmm-default-submode-face
            ((,c :background ,bg-main)))))
 
       ;; more involved groups
       (ktz--theme-modus-faces)
       (ktz--theme-org-faces)
-      (ktz-modeline-set-faces))
+      (ktz-modeline-set-faces)
 
-    (add-hook
-     'modus-themes-after-load-theme-hook
-     #'ktz--theme-custom-faces)
+      ;; move to own file at some point?
+      (modus-themes-with-colors
+        (custom-set-faces
+         `(header-line
+           ((,c :underline ,border-mode-line-active
+                :overline ,border-mode-line-active
+                :box (:line-width 5 :color ,bg-mode-line-active))))))))
 
-    (dolist (theme modus-themes-to-toggle)
-      (load-theme theme :no-confirm))
-    (modus-themes-toggle) ;; hooks are not called otherwise
 
-    (define-key global-map (kbd "<f6>") #'modus-themes-toggle)
-    (define-key global-map (kbd "C-<f6>") #'modus-themes-toggle)))
+  (add-hook
+   'modus-themes-after-load-theme-hook
+   #'ktz--theme-custom-faces)
+
+  (dolist (theme modus-themes-to-toggle)
+    (load-theme theme :no-confirm))
+  (modus-themes-toggle) ;; hooks are not called otherwise
+
+  (define-key global-map (kbd "<f6>") #'modus-themes-toggle)
+  (define-key global-map (kbd "C-<f6>") #'modus-themes-toggle)))
 
 
 (defun ktz-load-theme ()

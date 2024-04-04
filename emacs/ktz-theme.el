@@ -291,7 +291,7 @@
 
        (prose-done fg-dim)
 
-       ) ;; end of overrides
+       ) ;; end of overrides for operandi
 
      modus-vivendi-palette-overrides
      '(
@@ -309,18 +309,18 @@
        (bg-inactive bg-main)
        (border fg-dim)
 
-       ;; using cyan to define additional shades of grey
-       (cyan-faint   "#a3a3a3")  ;; 400
-       (cyan-cooler  "#737373")  ;; 500
-       (cyan-warmer  "#525252")  ;; 600
-       (cyan         "#404040")  ;; 700
-       (cyan-intense "#1c1917")  ;; 900
+       ;; using cyan to define additional shades of stone
+       (cyan-faint         "#0c0a09")  ;; 950
+       (cyan-cooler        "#78716c")  ;; 500
+       (cyan-warmer        "#d6d3d1")  ;; 300
+       (cyan               "#e7e5e4")  ;; 200
+       (cyan-intense       "#f5f5f4")  ;; 100
 
        ;; pink
        (red                "#db2777")  ;; 600
        (bg-red-intense     "#9d174d")  ;; 800
        (bg-red-subtle      "#500724")  ;; 950
-       (bg-red-nuanced     "#500724")  ;; 950
+       (bg-red-nuanced     "#2e0515")  ;; custom
 
        ;; cyan/sky
        (green              "#67e8f9")  ;; 400
@@ -518,7 +518,7 @@
 
        (prose-done fg-dim)
 
-       ) ;; end of overrides
+       ) ;; end of overrides for vivendi
      ) ;; end of setq
 
 
@@ -528,10 +528,10 @@
         (custom-set-faces
          `(modus-themes-lang-error
            ((,c :underline nil :foreground ,red :background ,bg-red-nuanced)))
-         `(modus-themes-lang-note
-           ((,c :underline nil :background ,bg-yellow-nuanced)))
          `(modus-themes-lang-warning
-           ((,c :underline nil :background ,bg-yellow-nuanced)))
+           ((,c :underline nil :foreground ,yellow :background ,bg-yellow-nuanced)))
+         `(modus-themes-lang-note
+           ((,c :underline nil :foreground ,fg-alt :background ,cyan-faint)))
          )))
 
     (defun ktz--theme-org-faces ()
@@ -572,8 +572,9 @@
 
          )))
 
-    ;; follows modus-themes-to-toggle by using dark is initial value and toggling once
+
     (defun ktz--theme-custom-faces ()
+      ;; follows modus-themes-to-toggle
       (if (eq ktz-theme-current 'light)
           (setq ktz-theme-current 'dark)
         (setq ktz-theme-current 'light))
@@ -603,17 +604,21 @@
 
          ;; highlighting and search
          `(highlight
-           ((,c :background ,bg-green-subtle :foreground ,green)))
+           ((,c :foreground ,green :background ,bg-green-subtle)))
          `(lazy-highlight
-           ((,c :background ,bg-yellow-nuanced :foreground ,yellow)))
+           ((,c :foreground ,yellow :background ,bg-yellow-nuanced)))
          `(isearch
-           ((,c :background ,bg-green-nuanced :foreground ,green)))
+           ((,c :foreground ,green :background ,bg-green-nuanced)))
          `(query-replace
-           ((,c :background ,bg-red-nuanced :foreground ,red)))
+           ((,c :foreground ,red :background ,bg-red-nuanced)))
 
          ;; pulsar
          `(pulsar-green
            ((,c :background ,bg-green-intense :foreground ,green )))
+
+         ;; ;; flymake
+         ;; `(flymake-error
+         ;;   ((,c :background ,bg-red-subtle)))
 
          ;; headerline
          `(header-line

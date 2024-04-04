@@ -76,43 +76,44 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
 ;; based on the active theme defintions
 (defun ktz-modeline-set-faces ()
   (modus-themes-with-colors
-    (let ((active-p (mode-line-window-selected-p)))
-      (custom-set-faces
-       `(mode-line
-         ((,c :underline ,border-mode-line-active
-              :overline ,border-mode-line-active
-              :box (:line-width 5 :color ,bg-mode-line-active))))
-       `(mode-line-inactive
-         ((,c :underline ,border-mode-line-inactive
-              :overline ,border-mode-line-inactive
-              :box (:line-width 5 :color ,bg-mode-line-inactive))))
+    (custom-set-faces
+     `(mode-line
+       ((,c :underline ,border-mode-line-active
+            :overline ,border-mode-line-active
+            :box (:line-width 5 :color ,bg-mode-line-active))))
+     `(mode-line-inactive
+       ((,c :underline ,border-mode-line-inactive
+            :overline ,border-mode-line-inactive
+            :box (:line-width 5 :color ,bg-mode-line-inactive))))
 
-       `(ktz-modeline-fg-subtle
-         ((,c :foreground ,fg-dim)))
-       `(ktz-modeline-fg-middle
-         ((,c :foreground ,fg-main)))
-       `(ktz-modeline-bg-subtle
-         ((,c :background ,cyan-faint)))
+     `(ktz-modeline-fg-subtle
+       ((,c :foreground ,fg-dim)))
+     `(ktz-modeline-fg-middle
+       ((,c :foreground ,fg-main)))
+     `(ktz-modeline-bg-subtle
+       ((,c :background ,cyan-faint)))
 
-       `(ktz-modeline-indicator-mod
-         ((,c :inherit ktz-modeline-indicator-base
-              :background ,(if active-p red cyan-faint)
-              :foreground ,bg-main)))
-       `(ktz-modeline-indicator-rw
-         ((,c :inherit ktz-modeline-indicator-base
-              :background ,(if active-p bg-green-intense cyan-faint)
-              :foreground ,green)))
-       `(ktz-modeline-indicator-ro
-         ((,c :inherit ktz-modeline-indicator-base
-              :background ,(if (eq ktz-theme-current 'light) cyan-faint bg-dim))))
-       `(ktz-modeline-indicator-god-active
-         ((,c :inherit ktz-modeline-indicator-base
-              :background ,(if (eq ktz-theme-current 'light) fg-alt bg-main)
-              :foreground ,(if (eq ktz-theme-current 'light) bg-main fg-alt))))
-       `(ktz-modeline-indicator-god-inactive
-         ((,c :inherit ktz-modeline-indicator-base
-              :foreground ,(when (eq ktz-theme-current 'dark) fg-dim))))
-       ))))
+     `(ktz-modeline-indicator-mod
+       ((,c :inherit ktz-modeline-indicator-base
+            :background ,(if (eq ktz-theme-current 'light)
+                             red bg-red-nuanced)
+            :foreground ,(if (eq ktz-theme-current 'light)
+                             bg-main red))))
+     `(ktz-modeline-indicator-rw
+       ((,c :inherit ktz-modeline-indicator-base
+            :foreground ,magenta
+            :background ,bg-magenta-subtle)))
+     `(ktz-modeline-indicator-ro
+       ((,c :inherit ktz-modeline-indicator-base
+            :background ,(if (eq ktz-theme-current 'light) cyan-faint bg-dim))))
+     `(ktz-modeline-indicator-god-active
+       ((,c :inherit ktz-modeline-indicator-base
+            :background ,(if (eq ktz-theme-current 'light) fg-alt bg-main)
+            :foreground ,(if (eq ktz-theme-current 'light) bg-main fg-alt))))
+     `(ktz-modeline-indicator-god-inactive
+       ((,c :inherit ktz-modeline-indicator-base
+            :foreground ,(when (eq ktz-theme-current 'dark) fg-dim))))
+     )))
 
 
 ;; getter functions: build and propertize strings
@@ -127,13 +128,13 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
 (defun ktz--modeline-get-status-indicator ()
   (let ((pad 1))
     (cond (buffer-read-only
-           (propertize (ktz--modeline-pad-strbox "RO" pad)
+           (propertize (ktz--modeline-pad-strbox "◇" pad)
                        'face 'ktz-modeline-indicator-ro))
           ((buffer-modified-p)
-           (propertize (ktz--modeline-pad-strbox "ツ" pad) ;; †⸸
+           (propertize (ktz--modeline-pad-strbox "◆" pad)
                        'face 'ktz-modeline-indicator-mod))
           (t
-           (propertize (ktz--modeline-pad-strbox "RW" pad)
+           (propertize (ktz--modeline-pad-strbox "◆" pad)
                        'face 'ktz-modeline-indicator-rw)))))
 
 

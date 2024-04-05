@@ -101,11 +101,9 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
                              bg-main red))))
      `(ktz-modeline-indicator-rw
        ((,c :inherit ktz-modeline-indicator-base
-            :foreground ,magenta
-            :background ,bg-magenta-subtle)))
+            :foreground ,fg-alt)))
      `(ktz-modeline-indicator-ro
-       ((,c :inherit ktz-modeline-indicator-base
-            :background ,(if (eq ktz-theme-current 'light) cyan-faint bg-dim))))
+       ((,c :inherit ktz-modeline-indicator-base)))
      `(ktz-modeline-indicator-god-active
        ((,c :inherit ktz-modeline-indicator-base
             :background ,(if (eq ktz-theme-current 'light) fg-alt bg-main)

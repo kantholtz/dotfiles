@@ -113,6 +113,18 @@
                langtool-http-server-host ktz-languagetool-host
                langtool-http-server-port ktz-languagetool-port)))
 
+  (when ktz-openai-api-key
+    (use-package chatgpt
+      :init
+      (setenv "OPENAI_API_KEY" ktz-openai-api-key)
+      :straight (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el"))
+      :bind ("C-c q" . chatgpt-query)
+      :config
+      (defun ktz--chatgpt-hook ()
+        (setq show-trailing-whitespace nil)
+        (visual-line-fill-column-mode))
+      :hook (chatgpt-mode . ktz--chatgpt-hook)))
+
 
   ;; server
   (use-package yaml-mode)

@@ -62,6 +62,12 @@ MESSAGE String to emit."
   :group 'ktz)
 
 
+;; follow configuration in https://github.com/joshcho/ChatGPT.el
+(defcustom ktz-openai-api-key nil
+  "OpenAI API access"
+  :type '(choice string (const nil))
+  :group 'ktz)
+
 
 ;; mail
 

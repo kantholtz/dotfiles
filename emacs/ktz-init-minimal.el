@@ -107,6 +107,13 @@
       (exec-path-from-shell-initialize)
       (ktz-log "min" "initialized exec-path-from-shell")))
 
+  (when (and ktz-languagetool-host ktz-languagetool-port)
+    (use-package langtool
+      :config (setq
+               langtool-http-server-host ktz-languagetool-host
+               langtool-http-server-port ktz-languagetool-port)))
+
+
   ;; server
   (use-package yaml-mode)
   (use-package fish-mode)

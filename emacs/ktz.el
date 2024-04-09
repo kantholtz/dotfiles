@@ -13,7 +13,7 @@ MESSAGE String to emit."
 ;; user interface
 
 (defun ktz-configuration ()
-    "Customize ktz"
+  "Customize ktz"
   (interactive)
   (customize-group "ktz"))
 
@@ -21,17 +21,17 @@ MESSAGE String to emit."
 (defgroup ktz nil
   "Kantholz' dotfiles customizations")
 
-(setq ktz--defcustom-choice-dir
+(setq ktz--defcustom-choice
       '(choice
-          (string :tag "Directory")
-          (const :tag "Disabled" nil)))
+        (string :tag "Directory or File")
+        (const :tag "Disabled" nil)))
 
 (defcustom ktz-init-type 'minimal
   "How minimalistic the configuration should be"
   :type '(choice
-	  (const :tag "Disabled: only bootstrap straight.el" nil)
-	  (const :tag "Minimum: for configuration on servers" minimal)
-	  (const :tag "Programming: IDE features" programming))
+	        (const :tag "Disabled: only bootstrap straight.el" nil)
+	        (const :tag "Minimum: for configuration on servers" minimal)
+	        (const :tag "Programming: IDE features" programming))
   :group 'ktz)
 
 
@@ -39,7 +39,7 @@ MESSAGE String to emit."
 
 (defcustom ktz-org-dir nil
   "Directory where the .org files reside (e.g. path/to/Roam)"
-  :type ktz--defcustom-choice-dir
+  :type ktz--defcustom-choice
   :group 'ktz)
 
 
@@ -51,16 +51,28 @@ MESSAGE String to emit."
   :group 'ktz)
 
 
+(defcustom ktz-languagetool-host nil
+  "Languagetool server host"
+  :type '(choice string (const nil))
+  :group 'ktz)
+
+(defcustom ktz-languagetool-port nil
+  "Languagetool server port"
+  :type '(choice integer (const nil))
+  :group 'ktz)
+
+
+
 ;; mail
 
 (defcustom ktz-mail-dir nil
   "Directory where a ktz-mu4e.el file and local mail folders are found"
-  :type ktz--defcustom-choice-dir
+  :type ktz--defcustom-choice
   :group 'ktz)
 
 (defcustom ktz-mail-mu4e-dir nil
   "Directory where the configure file of mu can be found"
-  :type ktz--defcustom-choice-dir
+  :type ktz--defcustom-choice
   :group 'ktz)
 
 
@@ -68,7 +80,7 @@ MESSAGE String to emit."
 
 (defcustom ktz-conda-dir nil
   "Directory where the conda installation can be found"
-  :type ktz--defcustom-choice-dir
+  :type ktz--defcustom-choice
   :group 'ktz)
 
 (defcustom ktz-conda-env "base"
@@ -148,17 +160,17 @@ MESSAGE String to emit."
         (setq buffer-read-only t)))
     ))
 
-      ;; (with-output-to-temp-buffer splash-buffer-name
-      ;;   ;; select window
-      ;;   (switch-to-buffer splash-buffer-name)
-      ;;   (delete-other-windows)
-      ;;   ;; adjust display
-      ;;   (newline 5)
-      ;;   (set-window-margins nil 10)
-      ;;   ;; load and style file
-      ;;   (insert-file-contents
-      ;;    (concat ktz-root-dir "ktz-splash.md"))
-      ;;   (markdown-mode)))))
+;; (with-output-to-temp-buffer splash-buffer-name
+;;   ;; select window
+;;   (switch-to-buffer splash-buffer-name)
+;;   (delete-other-windows)
+;;   ;; adjust display
+;;   (newline 5)
+;;   (set-window-margins nil 10)
+;;   ;; load and style file
+;;   (insert-file-contents
+;;    (concat ktz-root-dir "ktz-splash.md"))
+;;   (markdown-mode)))))
 
 
 (defun ktz-show-splash ()
@@ -170,18 +182,18 @@ MESSAGE String to emit."
   "Initializes the environment based on the ktz-init-type"
   (ktz-log "main" (format "initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
 
-   ;; mode initialization
+  ;; mode initialization
 
   (cond ((eq ktz-init-type 'minimal)
-	 (ktz--init-minimal))
+	       (ktz--init-minimal))
 
-	((eq ktz-init-type 'programming)
-	 (progn
-	   (ktz--init-minimal)
-	   (ktz--init-programming)
-     (ktz--init-org)
-     (ktz--init-modeline)
-     (ktz--init-theme))))
+	      ((eq ktz-init-type 'programming)
+	       (progn
+	         (ktz--init-minimal)
+	         (ktz--init-programming)
+           (ktz--init-org)
+           (ktz--init-modeline)
+           (ktz--init-theme))))
 
   (when ktz-mail-dir
     (load (concat ktz-mail-dir "/ktz-mu4e.el")))

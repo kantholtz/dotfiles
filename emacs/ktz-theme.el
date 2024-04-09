@@ -612,13 +612,13 @@
          `(query-replace
            ((,c :foreground ,red :background ,bg-red-nuanced)))
 
+         ;; emacs builtin interaction elements
+         `(widget-field
+           ((,c :background ,bg-active)))
+
          ;; pulsar
          `(pulsar-green
            ((,c :background ,bg-green-intense :foreground ,green )))
-
-         ;; ;; flymake
-         ;; `(flymake-error
-         ;;   ((,c :background ,bg-red-subtle)))
 
          ;; headerline
          `(header-line
@@ -626,7 +626,10 @@
 
          ;; mmm
          `(mmm-default-submode-face
-           ((,c :background ,bg-main)))))
+           ((,c :background ,bg-main)))
+
+         `(langtool-errline
+           ((t :inherit error)))))
 
       ;; more involved groups
       (ktz--theme-modus-faces)

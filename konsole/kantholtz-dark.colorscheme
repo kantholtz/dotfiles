@@ -14,7 +14,7 @@ RandomHueRange=360
 RandomSaturationRange=100
 
 [Color0]
-Color=195,164,131
+Color=255,255,255
 
 [Color0Faint]
 Color=177,150,119
@@ -32,13 +32,13 @@ Color=158,55,88
 Color=219,39,119
 
 [Color2]
-Color=43,38,35
+Color=195,164,131
 
 [Color2Faint]
-Color=131,117,107
+Color=158,55,88
 
 [Color2Intense]
-Color=255,255,255
+Color=219,39,119
 
 [Color3]
 Color=194,24,91
@@ -68,7 +68,7 @@ Color=177,150,119
 Color=254,215,170
 
 [Color6]
-Color=71,64,62
+Color=168,162,158
 
 [Color6Faint]
 Color=197,167,132

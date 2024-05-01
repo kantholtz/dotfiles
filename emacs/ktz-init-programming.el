@@ -28,9 +28,9 @@
 
   ;; IDE features
 
-  (use-package isortify
-    ;; requires 'isort' to be installed as python module
-    :hook (python-mode . isortify-mode))
+  ;; (use-package isortify
+  ;;   ;; requires 'isort' to be installed as python module
+  ;;   :hook (python-mode . isortify-mode))
 
   (use-package apheleia
     :config

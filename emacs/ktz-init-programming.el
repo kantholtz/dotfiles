@@ -54,6 +54,7 @@
 
     (defvar-keymap ktz-eglot-find-map
       :doc "Traversal and search"
+      "r" #'xref-find-references
       "d" #'eglot-find-declaration
       "i" #'eglot-find-implementation
       "t" #'eglot-find-typeDefinition)

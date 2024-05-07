@@ -113,6 +113,9 @@
   ;; scientific stuff
   ;;   see also roam:research.topics
 
+  ;; overleaf
+  (use-package git-auto-commit-mode)
+
   (defvar ktz--cite-pdfs
     (list (concat ktz--org-files-ref "pdfs/")))
 
@@ -121,14 +124,15 @@
 
   (defvar ktz--cite-bibfiles
     (list ;; the first element is used for automatic appends by org-ref/gscholar
-     (concat ktz--org-files-ref "bibliography.bib")
-     (concat ktz--org-files-ref "ramlimit.bib")))
+     (concat ktz--org-files-ref "bibliography.bib")))
 
   ;; citar
   ;;   frontend to access bibliography
 
+  (use-package auctex)
+
   (use-package citar
-    :after org-roam
+    :after (org-roam auctex)
     :bind
     (("C-c b" . citar-insert-citation)
      :map minibuffer-local-map
@@ -167,8 +171,8 @@
              (ktz-log "org" (format "cleaning %s" key))
              (org-ref-clean-bibtex-entry)))))))
 
-    ;; automatically clean up the library file
-    ;;(add-hook 'after-save-hook 'ktz--cite-reformat-bib))
+  ;; automatically clean up the library file
+  ;;(add-hook 'after-save-hook 'ktz--cite-reformat-bib))
 
   (use-package org-ref
     :after org bibtex

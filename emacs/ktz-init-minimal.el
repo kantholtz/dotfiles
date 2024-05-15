@@ -123,6 +123,18 @@
       (defun ktz--chatgpt-hook ()
         (setq show-trailing-whitespace nil)
         (visual-line-fill-column-mode))
+      (setq chatgpt-code-query-map
+            '(
+              ;; ChatGPT.el defaults, string for each shortcut
+              ("bug" . "There is a bug in the following, please help me fix it.")
+              ("doc" . "Please write the documentation for the following.")
+              ("improve" . "Please improve the following.")
+              ("understand" . "What is the following?")
+              ("refactor" . "Please refactor the following.")
+              ("suggest" . "Please make suggestions for the following.")
+              ;; your shortcut
+              ("formulate" . "Please formulate a continuous text based on the following key points.")))
+
       :hook (chatgpt-mode . ktz--chatgpt-hook)))
 
 

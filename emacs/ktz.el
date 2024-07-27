@@ -125,6 +125,10 @@ MESSAGE String to emit."
 ;; and the requiring of the ktz-init-* files matters.
 
 
+;; https://github.com/radian-software/straight.el/issues/1146
+(straight-use-package 'project)
+
+
 ;; modes and mode config
 (require 'ktz-config)
 (require 'ktz-init-minimal)

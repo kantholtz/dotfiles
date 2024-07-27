@@ -46,9 +46,9 @@
     :hook (python-mode . eglot-ensure)
 
     :config
-    (setq eldoc-idle-delay 0.3)
-    (setq company-idle-delay 0.3)
-    (setq flymake-no-changes-timeout 0.2)
+    ;; (setq eldoc-idle-delay 0.3)
+    ;; (setq company-idle-delay 0.3)
+    ;; (setq flymake-no-changes-timeout 0.2)
 
     ;; TODO this nesting does not work if god-mode is active
 

@@ -35,4 +35,4 @@ Then add `<msys2 install dir>/usr/bin` to the windows `%PATH%` (Win+R
 `.emacs.d/elpa/gnupg` thing as emacs is confused with the paths; the
 keys are installed to the msys2 home directory). In `.emacs` add
 `'(package-gnupghome-dir nil)` to use the default dir.
-2
+

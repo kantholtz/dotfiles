@@ -98,6 +98,10 @@
   (use-package which-key
     :config (which-key-mode))
 
+  (use-package rg
+    :config
+    (rg-enable-menu))
+
   ;; this spawns a shell (a sh subshell in case of fish)
   ;; and reads the exported environment variables
   ;; and sets exec-path accordingly
@@ -138,6 +142,10 @@
       :hook (chatgpt-mode . ktz--chatgpt-hook)))
 
 
+  ;; finance
+  (use-package beancount
+    :mode ("\\.ledger\\'" . beancount-mode))
+
   ;; server
   (use-package yaml-mode)
   (use-package fish-mode)
@@ -150,6 +158,8 @@
   (auto-fill-mode t)
   (column-number-mode t)
   (show-paren-mode t)
+
+  ;; --
 
   (global-set-key (kbd "M-<up>") 'ktz--move-line-up)
   (global-set-key (kbd "M-<down>") 'ktz--move-line-down)

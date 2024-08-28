@@ -117,6 +117,7 @@
                langtool-http-server-host ktz-languagetool-host
                langtool-http-server-port ktz-languagetool-port)))
 
+  ;; TODO try out https://github.com/karthink/gptel
   (when ktz-openai-api-key
     (use-package chatgpt
       :init
@@ -144,7 +145,10 @@
 
   ;; finance
   (use-package beancount
-    :mode ("\\.ledger\\'" . beancount-mode))
+    :mode ("\\.ledger\\'" . beancount-mode)
+    :bind (:map beancount-mode-map
+                ("M-p" . beancount-goto-previous-transaction)
+                ("M-n" . beancount-goto-next-transaction)))
 
   ;; server
   (use-package yaml-mode)

@@ -56,7 +56,7 @@ end
 
 
 function __ktz-prompt-conda
-    if [ $CONDA_DEFAULT_ENV = "base" ]
+    if [ $CONDA_DEFAULT_ENV = base ]
         return
     end
 
@@ -83,7 +83,7 @@ function ktz-prompt
     set -l laststatus $status
     echo
 
-    if [ "$TERM" = dumb ];
+    if [ "$TERM" = dumb ]
         __ktz-prompt-dumb
         return
     end

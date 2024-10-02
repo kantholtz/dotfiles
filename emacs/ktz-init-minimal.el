@@ -117,31 +117,6 @@
                langtool-http-server-host ktz-languagetool-host
                langtool-http-server-port ktz-languagetool-port)))
 
-  ;; ;; TODO try out https://github.com/karthink/gptel
-  ;; (when ktz-openai-api-key
-  ;;   (use-package chatgpt
-  ;;     :init
-  ;;     (setenv "OPENAI_API_KEY" ktz-openai-api-key)
-  ;;     :straight (:host github :repo "joshcho/ChatGPT.el" :files ("dist" "*.el"))
-  ;;     :bind ("C-c q" . chatgpt-query)
-  ;;     :config
-  ;;     (defun ktz--chatgpt-hook ()
-  ;;       (setq show-trailing-whitespace nil)
-  ;;       (visual-line-fill-column-mode))
-  ;;     (setq chatgpt-code-query-map
-  ;;           '(
-  ;;             ;; ChatGPT.el defaults, string for each shortcut
-  ;;             ("bug" . "There is a bug in the following, please help me fix it.")
-  ;;             ("doc" . "Please write the documentation for the following.")
-  ;;             ("improve" . "Please improve the following.")
-  ;;             ("understand" . "What is the following?")
-  ;;             ("refactor" . "Please refactor the following.")
-  ;;             ("suggest" . "Please make suggestions for the following.")
-  ;;             ;; your shortcut
-  ;;             ("formulate" . "Please formulate a continuous text based on the following key points.")))
-
-  ;;     :hook (chatgpt-mode . ktz--chatgpt-hook)))
-
   (use-package gptel
     :custom
     (gptel-api-key ktz-openai-api-key)

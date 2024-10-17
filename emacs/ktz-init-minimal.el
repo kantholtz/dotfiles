@@ -121,6 +121,8 @@
     :custom
     (gptel-api-key ktz-openai-api-key)
     (gptel-model "gpt-4o-mini")
+    :hook
+    (text-mode . gptel-mode)
     :config
     (local-set-key (kbd "C-c q") 'gptel-send))
 

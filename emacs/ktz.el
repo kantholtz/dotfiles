@@ -26,13 +26,24 @@ MESSAGE String to emit."
         (string :tag "Directory or File")
         (const :tag "Disabled" nil)))
 
-(defcustom ktz-init-type 'minimal
-  "How minimalistic the configuration should be"
-  :type '(choice
-	        (const :tag "Disabled: only bootstrap straight.el" nil)
-	        (const :tag "Minimum: for configuration on servers" minimal)
-	        (const :tag "Programming: IDE features" programming))
+
+(defcustom ktz-modules '()
+  "Select what modules to load."
+  :type '(set (const :tag "IDE: programming support" ide)
+              (const :tag "Org: org, roam and agenda" org)
+              (const :tag "Tex: latex, bibtex, and pdf support" tex)
+              (const :tag "Modeline: clean and shiny" modeline)
+              (const :tag "Theme: both dark and light" theme))
   :group 'ktz)
+
+
+;; (defcustom ktz-init-type 'minimal
+;;   "How minimalistic the configuration should be"
+;;   :type '(choice
+;; 	        (const :tag "Disabled: only bootstrap straight.el" nil)
+;; 	        (const :tag "Minimum: for configuration on servers" minimal)
+;; 	        (const :tag "Programming: IDE features" programming))
+;;   :group 'ktz)
 
 
 ;; org
@@ -132,11 +143,6 @@ MESSAGE String to emit."
 ;; modes and mode config
 (require 'ktz-config)
 (require 'ktz-init-minimal)
-(require 'ktz-init-programming)
-(require 'ktz-init-org)
-(require 'ktz-modeline)
-(require 'ktz-theme)
-
 
 ;; append
 ;; (goto-char (point-max))
@@ -189,21 +195,30 @@ MESSAGE String to emit."
 
 
 (defun ktz-init ()
-  "Initializes the environment based on the ktz-init-type"
-  (ktz-log "main" (format "initializing (type=%s) (root-dir=%s)" ktz-init-type ktz-root-dir))
+  "Initializes the environment based on the chosen modules"
+  (ktz-log "main" (format "initializing (root-dir=%s)" ktz-root-dir))
 
   ;; mode initialization
+  ;; always provide minimal configuration
+  (ktz--init-minimal)
 
-  (cond ((eq ktz-init-type 'minimal)
-	       (ktz--init-minimal))
+  (setq mods '((ide      ktz-init-programming ktz--init-programming)
+               (org      ktz-init-org         ktz--init-org)
+               (tex      ktz-init-tex         ktz--init-tex)
+               (modeline ktz-modeline         ktz--init-modeline)
+               (theme    ktz-theme            ktz--init-theme)))
 
-	      ((eq ktz-init-type 'programming)
-	       (progn
-	         (ktz--init-minimal)
-	         (ktz--init-programming)
-           (ktz--init-org)
-           (ktz--init-modeline)
-           (ktz--init-theme))))
+  (message "selected modules: %s" ktz-modules)
+  (dolist (moddef mods)
+    (let ((mod  (nth 0 moddef))
+          (req  (nth 1 moddef))
+          (init (nth 2 moddef)))
+
+      (message "checking mod=%s %s" mod (member mod ktz-modules))
+      (when (member mod ktz-modules)
+        (message "initializing mod=%s req=%s init=%s" mod req init)
+        (require req)
+        (funcall init))))
 
   (when ktz-mail-dir
     (load (concat ktz-mail-dir "/ktz-mu4e.el")))
@@ -230,3 +245,4 @@ MESSAGE String to emit."
 (add-hook 'emacs-startup-hook 'ktz-init)
 (provide 'ktz)
 ;;; ktz.el ends here
+

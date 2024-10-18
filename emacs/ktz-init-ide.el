@@ -1,6 +1,6 @@
-;;; ktz-init-programming.el --- Programming initialization.
+;;; ktz-init-ide.el --- Programming initialization.
 
-(defun ktz--init-programming ()
+(defun ktz--init-ide ()
   "Setup programming configuration"
   (ktz-log "prog" "initializing configuration")
 
@@ -113,6 +113,13 @@
     :config
     (setq rainbow-x-colors nil))  ;; do not color names such as "red"
 
-  ) ;; /ktz--init-programming
+  ) ;; /ktz--init-ide
 
-(provide 'ktz-init-programming)
+
+(defun ktz-init-ide ()
+  "Initialize org related config manually"
+  (interactive)
+  (ktz--init-ide))
+
+
+(provide 'ktz-init-ide)

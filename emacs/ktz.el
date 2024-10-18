@@ -32,18 +32,11 @@ MESSAGE String to emit."
   :type '(set (const :tag "IDE: programming support" ide)
               (const :tag "Org: org, roam and agenda" org)
               (const :tag "Tex: latex, bibtex, and pdf support" tex)
+              (const :tag "Lexi: textual assistance" lexi)
+              (const :tag "Server: infrastructure modes" server)
               (const :tag "Modeline: clean and shiny" modeline)
               (const :tag "Theme: both dark and light" theme))
   :group 'ktz)
-
-
-;; (defcustom ktz-init-type 'minimal
-;;   "How minimalistic the configuration should be"
-;;   :type '(choice
-;; 	        (const :tag "Disabled: only bootstrap straight.el" nil)
-;; 	        (const :tag "Minimum: for configuration on servers" minimal)
-;; 	        (const :tag "Programming: IDE features" programming))
-;;   :group 'ktz)
 
 
 ;; org
@@ -176,18 +169,6 @@ MESSAGE String to emit."
         (setq buffer-read-only t)))
     ))
 
-;; (with-output-to-temp-buffer splash-buffer-name
-;;   ;; select window
-;;   (switch-to-buffer splash-buffer-name)
-;;   (delete-other-windows)
-;;   ;; adjust display
-;;   (newline 5)
-;;   (set-window-margins nil 10)
-;;   ;; load and style file
-;;   (insert-file-contents
-;;    (concat ktz-root-dir "ktz-splash.md"))
-;;   (markdown-mode)))))
-
 
 (defun ktz-show-splash ()
   (interactive)
@@ -202,23 +183,24 @@ MESSAGE String to emit."
   ;; always provide minimal configuration
   (ktz--init-minimal)
 
-  (setq mods '((ide      ktz-init-programming ktz--init-programming)
+  (setq mods '((ide      ktz-init-ide         ktz--init-ide)
                (org      ktz-init-org         ktz--init-org)
                (tex      ktz-init-tex         ktz--init-tex)
+               (lexi     ktz-init-lexi        ktz--init-lexi)
+               (server   ktz-init-server      ktz--init-server)
                (modeline ktz-modeline         ktz--init-modeline)
                (theme    ktz-theme            ktz--init-theme)))
 
-  (message "selected modules: %s" ktz-modules)
+  (ktz-log "main" (format "selected modules: %s" ktz-modules))
   (dolist (moddef mods)
-    (let ((mod  (nth 0 moddef))
-          (req  (nth 1 moddef))
-          (init (nth 2 moddef)))
+    (let ((mod (nth 0 moddef))
+          (req (nth 1 moddef))
+          (fun (nth 2 moddef)))
 
-      (message "checking mod=%s %s" mod (member mod ktz-modules))
       (when (member mod ktz-modules)
-        (message "initializing mod=%s req=%s init=%s" mod req init)
+        (ktz-log "main" (format "initializing mod=%s req=%s fun=%s" mod req fun))
         (require req)
-        (funcall init))))
+        (funcall fun))))
 
   (when ktz-mail-dir
     (load (concat ktz-mail-dir "/ktz-mu4e.el")))

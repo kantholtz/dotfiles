@@ -82,13 +82,13 @@
     :bind (("C-x g" . magit-status)
            ("<f6>" . magit-status)))
 
-  (use-package yasnippet
-    :config
-    (straight-use-package
-     '(yasnippet-snippets
-       :type git :host github :repo "AndreaCrotti/yasnippet-snippets"))
-    (yas-global-mode t)
-    (global-set-key (kbd "C-c j") 'yas-expand))
+  ;; (use-package yasnippet
+  ;;   :config
+  ;;   (straight-use-package
+  ;;    '(yasnippet-snippets
+  ;;      :type git :host github :repo "AndreaCrotti/yasnippet-snippets"))
+  ;;   (yas-global-mode t)
+  ;;   (global-set-key (kbd "C-c j") 'yas-expand))
 
   (use-package multiple-cursors
     :config
@@ -111,37 +111,12 @@
       (exec-path-from-shell-initialize)
       (ktz-log "min" "initialized exec-path-from-shell")))
 
-  (when (and ktz-languagetool-host ktz-languagetool-port)
-    (use-package langtool
-      :config (setq
-               langtool-http-server-host ktz-languagetool-host
-               langtool-http-server-port ktz-languagetool-port)))
-
-  (use-package gptel
-    :custom
-    (gptel-api-key ktz-openai-api-key)
-    (gptel-model "gpt-4o-mini")
-    :hook
-    (text-mode . gptel-mode)
-    :config
-    (local-set-key (kbd "C-c q") 'gptel-send))
-
   ;; finance
   (use-package beancount
     :mode ("\\.ledger\\'" . beancount-mode)
     :bind (:map beancount-mode-map
                 ("M-p" . beancount-goto-previous-transaction)
                 ("M-n" . beancount-goto-next-transaction)))
-
-  ;; server
-  (use-package yaml-mode)
-  (use-package fish-mode)
-  (use-package nginx-mode)
-  (use-package apache-mode)
-  (use-package markdown-toc)
-  (use-package dockerfile-mode)
-  (use-package markdown-mode
-    :hook (markdown-mode . visual-line-mode))
 
   (auto-fill-mode t)
   (column-number-mode t)

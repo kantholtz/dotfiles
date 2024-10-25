@@ -4,9 +4,7 @@
   (use-package nginx-mode)
   (use-package apache-mode)
   (use-package markdown-toc)
-  (use-package dockerfile-mode)
-  (use-package markdown-mode
-    :hook (markdown-mode . visual-line-mode)))
+  (use-package dockerfile-mode))
 
 (defun ktz-init-server ()
   "Initialize org related config manually"

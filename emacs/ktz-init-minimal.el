@@ -76,12 +76,6 @@
           pulsar-face 'pulsar-green)
     (pulsar-global-mode 1))
 
-  (use-package magit
-    :init
-    (setq magit-last-seen-setup-instructions "1.4.0")
-    :bind (("C-x g" . magit-status)
-           ("<f6>" . magit-status)))
-
   ;; (use-package yasnippet
   ;;   :config
   ;;   (straight-use-package
@@ -101,6 +95,15 @@
   (use-package rg
     :config
     (rg-enable-menu))
+
+  (use-package magit
+    :init
+    (setq magit-last-seen-setup-instructions "1.4.0")
+    :bind (("C-x g" . magit-status)
+           ("<f6>" . magit-status)))
+
+  (use-package markdown-mode
+    :hook (markdown-mode . visual-line-mode))
 
   ;; this spawns a shell (a sh subshell in case of fish)
   ;; and reads the exported environment variables
@@ -141,4 +144,3 @@
 
 
 (provide 'ktz-init-minimal)
-

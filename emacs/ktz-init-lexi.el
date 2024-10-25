@@ -9,8 +9,8 @@
     :custom
     (gptel-api-key ktz-openai-api-key)
     (gptel-model "gpt-4o-mini")
-    :hook
-    (text-mode . gptel-mode)))
+    :config
+    (global-set-key (kbd "C-c q") 'gptel-send)))
 
 (defun ktz-init-lexi ()
   "Initialize prose related config manually"

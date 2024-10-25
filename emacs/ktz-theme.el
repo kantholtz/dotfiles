@@ -525,52 +525,59 @@
     (defun ktz--theme-modus-faces ()
       "Adjust modus-themes-* faces."
       (modus-themes-with-colors
-        (custom-set-faces
-         `(modus-themes-lang-error
-           ((,c :underline nil :foreground ,red :background ,bg-red-nuanced)))
-         `(modus-themes-lang-warning
-           ((,c :underline nil :foreground ,yellow :background ,bg-yellow-nuanced)))
-         `(modus-themes-lang-note
-           ((,c :underline nil :foreground ,fg-alt :background ,cyan-faint)))
-         )))
+        (set-face-attribute 'modus-themes-lang-error nil
+                            :underline nil :foreground red :background bg-red-nuanced)
+        (set-face-attribute 'modus-themes-lang-warning nil
+                            :underline nil :foreground yellow :background bg-yellow-nuanced)
+        (set-face-attribute 'modus-themes-lang-note nil
+                            :underline nil :foreground fg-alt :background cyan-faint)
+        ))
 
     (defun ktz--theme-org-faces ()
       "Adjust org related faces"
       (modus-themes-with-colors
+
         (set-face-attribute
          'org-level-1 nil
          :box `(:line-width (-1 . 1) :color ,bg-main))
+
         (set-face-attribute
          'org-level-2 nil
          :box `(:line-width (-1 . 1) :color ,bg-main)
          :weight 'semi-bold)
 
-        (custom-set-faces
-         `(org-tag ((,c :foreground ,cyan-cooler :weight normal)))
-         `(org-checkbox ((,c :foreground ,fg-dim)))
-         `(org-priority ((,c :foreground ,fg-dim)))
 
-         ;; org agenda
+        (set-face-attribute 'org-tag nil
+                            :foreground cyan-cooler :weight 'normal)
+        (set-face-attribute 'org-checkbox nil
+                            :foreground fg-dim)
+        (set-face-attribute 'org-priority nil
+                            :foreground fg-dim)
 
-         ;; org-imminent-deadline ← org-agenda-deadline-faces
-         ;;   (missed/close deadlines)
-         ;; org-upcoming-deadline
-         ;;   (regular deadlines)
+        ;; org agenda
 
-         ;; org-agenda-deadline-faces:
-         ;;
-         ;;   ((1.0 . org-imminent-deadline)
-         ;;    (0.5 . org-upcoming-deadline)
-         ;;    (0.0 . org-upcoming-distant-deadline))
-         ;;
-         ;; Each car is a fraction of the head-warning time that must
-         ;; have passed for this the face in the cdr to be used for
-         ;; display.
-         `(org-upcoming-distant-deadline ((,c :foreground ,fg-dim)))
-         `(org-upcoming-deadline ((,c :weight normal)))
-         `(org-imminent-deadline ((,c :weight normal :foreground ,magenta)))
+        ;; org-imminent-deadline ← org-agenda-deadline-faces
+        ;;   (missed/close deadlines)
+        ;; org-upcoming-deadline
+        ;;   (regular deadlines)
 
-         )))
+        ;; org-agenda-deadline-faces:
+        ;;
+        ;;   ((1.0 . org-imminent-deadline)
+        ;;    (0.5 . org-upcoming-deadline)
+        ;;    (0.0 . org-upcoming-distant-deadline))
+        ;;
+        ;; Each car is a fraction of the head-warning time that must
+        ;; have passed for this the face in the cdr to be used for
+        ;; display.
+        (set-face-attribute 'org-upcoming-distant-deadline nil
+                            :foreground fg-dim)
+        (set-face-attribute 'org-upcoming-deadline nil
+                            :weight 'normal)
+        (set-face-attribute 'org-imminent-deadline nil
+                            :weight 'normal :foreground magenta)
+
+        ))
 
 
     (defun ktz--theme-custom-faces ()
@@ -600,36 +607,34 @@
 
       ;; misc not worth their own functions
       (modus-themes-with-colors
-        (custom-set-faces
 
-         ;; highlighting and search
-         `(highlight
-           ((,c :foreground ,green :background ,bg-green-subtle)))
-         `(lazy-highlight
-           ((,c :foreground ,yellow :background ,bg-yellow-nuanced)))
-         `(isearch
-           ((,c :foreground ,green :background ,bg-green-nuanced)))
-         `(query-replace
-           ((,c :foreground ,red :background ,bg-red-nuanced)))
+        ;; highlighting and search
+        (set-face-attribute 'highlight nil
+                            :foreground green :background bg-green-subtle)
+        (set-face-attribute 'lazy-highlight nil
+                            :foreground yellow :background bg-yellow-nuanced)
+        (set-face-attribute 'isearch nil
+                            :foreground green :background bg-green-nuanced)
+        (set-face-attribute 'query-replace nil
+                            :foreground red :background bg-red-nuanced)
 
-         ;; emacs builtin interaction elements
-         `(widget-field
-           ((,c :background ,bg-active)))
+        ;;; emacs builtin
+        ;; interaction elements
+        (set-face-attribute 'widget-field nil
+                            :background bg-active)
+        ;; headerline
+        (set-face-attribute 'header-line nil
+                            :background bg-dim)
 
-         ;; pulsar
-         `(pulsar-green
-           ((,c :background ,bg-green-intense :foreground ,green )))
-
-         ;; headerline
-         `(header-line
-           ((,c :background ,bg-dim)))
-
-         ;; mmm
-         `(mmm-default-submode-face
-           ((,c :background ,bg-main)))
-
-         `(langtool-errline
-           ((t :inherit error)))))
+        ;;; other packages
+        ;; pulsar
+        (when (facep 'pulsar-green)
+          (set-face-attribute 'pulsar-green nil
+                              :foreground green :background bg-green-intense))
+        ;; languagetool
+        (when (facep 'langtool-errline)
+          (set-face-attribute 'langtool-errline nil
+                              :inherit 'error)))
 
       ;; more involved groups
       (ktz--theme-modus-faces)
@@ -651,6 +656,7 @@
 
     (dolist (theme modus-themes-to-toggle)
       (load-theme theme :no-confirm))
+
     (modus-themes-toggle) ;; hooks are not called otherwise
 
     (define-key global-map (kbd "<f6>") #'modus-themes-toggle)

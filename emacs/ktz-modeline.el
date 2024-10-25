@@ -60,15 +60,21 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
 (defface ktz-modeline-indicator-base '((t :inherit 'fixed-pitch)) "")
 (set-face-attribute 'ktz-modeline-indicator-base nil :box '(:line-width 1))
 
-(defface ktz-modeline-indicator-mod '()
+(defface ktz-modeline-indicator-mod
+  '((t :inherit 'ktz-modeline-indicator-base))
   "whether the file has been modified")
-(defface ktz-modeline-indicator-ro '()
+
+(defface ktz-modeline-indicator-ro
+  '((t :inherit 'ktz-modeline-indicator-base))
   "whether the file is read only")
-(defface ktz-modeline-indicator-rw '()
+(defface ktz-modeline-indicator-rw
+  '((t :inherit 'ktz-modeline-indicator-base))
   "whether the file can be written to")
-(defface ktz-modeline-indicator-god-active '()
+(defface ktz-modeline-indicator-god-active
+  '((t :inherit 'ktz-modeline-indicator-base))
   "when god mode is active")
-(defface ktz-modeline-indicator-god-inactive '()
+(defface ktz-modeline-indicator-god-inactive
+  '((t :inherit 'ktz-modeline-indicator-base))
   "when god mode is inactive")
 
 
@@ -76,42 +82,45 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
 ;; based on the active theme defintions
 (defun ktz-modeline-set-faces ()
   (modus-themes-with-colors
-    (custom-set-faces
-     `(mode-line
-       ((,c :underline ,border-mode-line-active
-            :overline ,border-mode-line-active
-            :box (:line-width 5 :color ,bg-mode-line-active))))
-     `(mode-line-inactive
-       ((,c :underline ,border-mode-line-inactive
-            :overline ,border-mode-line-inactive
-            :box (:line-width 5 :color ,bg-mode-line-inactive))))
 
-     `(ktz-modeline-fg-subtle
-       ((,c :foreground ,fg-dim)))
-     `(ktz-modeline-fg-middle
-       ((,c :foreground ,fg-main)))
-     `(ktz-modeline-bg-subtle
-       ((,c :background ,cyan-faint)))
+    (set-face-attribute 'mode-line nil
+                        :underline border-mode-line-active
+                        :overline border-mode-line-active
+                        :box `(:line-width 5 :color ,bg-mode-line-active))
 
-     `(ktz-modeline-indicator-mod
-       ((,c :inherit ktz-modeline-indicator-base
-            :background ,(if (eq ktz-theme-current 'light)
-                             red bg-red-nuanced)
-            :foreground ,(if (eq ktz-theme-current 'light)
-                             bg-main red))))
-     `(ktz-modeline-indicator-rw
-       ((,c :inherit ktz-modeline-indicator-base
-            :foreground ,fg-alt)))
-     `(ktz-modeline-indicator-ro
-       ((,c :inherit ktz-modeline-indicator-base)))
-     `(ktz-modeline-indicator-god-active
-       ((,c :inherit ktz-modeline-indicator-base
-            :background ,(if (eq ktz-theme-current 'light) fg-alt bg-main)
-            :foreground ,(if (eq ktz-theme-current 'light) bg-main fg-alt))))
-     `(ktz-modeline-indicator-god-inactive
-       ((,c :inherit ktz-modeline-indicator-base
-            :foreground ,(when (eq ktz-theme-current 'dark) fg-dim))))
-     )))
+    (set-face-attribute 'mode-line-inactive nil
+                        :underline border-mode-line-inactive
+                        :overline border-mode-line-inactive
+                        :box `(:line-width 5 :color ,bg-mode-line-inactive))
+
+    (set-face-attribute 'ktz-modeline-fg-subtle nil
+                        :foreground fg-dim)
+
+    (set-face-attribute 'ktz-modeline-fg-middle nil
+                        :foreground fg-main)
+
+    (set-face-attribute 'ktz-modeline-bg-subtle nil
+                        :background cyan-faint)
+
+    (set-face-attribute 'ktz-modeline-indicator-mod nil
+                        :background (if (eq ktz-theme-current 'light)
+                                        red bg-red-nuanced)
+                        :foreground (if (eq ktz-theme-current 'light)
+                                        bg-main red))
+
+    (set-face-attribute 'ktz-modeline-indicator-rw nil
+                        :foreground fg-alt)
+
+    (set-face-attribute 'ktz-modeline-indicator-god-active nil
+                        :background (if (eq ktz-theme-current 'light)
+                                        fg-alt bg-main)
+                        :foreground (if (eq ktz-theme-current 'light)
+                                        bg-main fg-alt))
+
+    (set-face-attribute 'ktz-modeline-indicator-god-inactive nil
+                        :foreground (when (eq ktz-theme-current 'dark)
+                                      fg-dim))
+    ))
 
 
 ;; getter functions: build and propertize strings

@@ -9,12 +9,7 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 (customize-set-variable 'visible-bell nil)
 
-;; No startup screens or messages
 ;; No message in scratch buffer
-(customize-set-variable 'inhibit-splash-screen t)
-(customize-set-variable 'inhibit-startup-screen t)
-(customize-set-variable 'inhibit-startup-message t)
-(customize-set-variable 'inhibit-startup-echo-area-message t)
 (customize-set-variable 'initial-scratch-message nil)
 
 (setq calendar-week-start-day 1
@@ -32,7 +27,6 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment   'utf-8)
-
 
 ;; ---
 

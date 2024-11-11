@@ -27,7 +27,7 @@
         path: ~/.emacs
         insertbefore: BOF
         create: true
-        marker: ;; {mark} ansbile configuration
+        marker: ;; {mark} ansible configuration
         block: |
           ;; configure it with M-x ktz-customize
           (add-to-list 'load-path "{{ ktz_dotfiles }}/emacs")

@@ -24,6 +24,10 @@
               (const :tag "Theme: both dark and light" theme))
   :group 'ktz)
 
+(defcustom ktz-god-default nil
+  "Whether to start god-mode globally by default"
+  :type 'boolean
+  :group 'ktz)
 
 ;; org
 

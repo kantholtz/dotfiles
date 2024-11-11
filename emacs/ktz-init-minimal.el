@@ -66,7 +66,8 @@
   (use-package god-mode
     :config
     (global-set-key (kbd "<escape>") #'god-mode-all)
-    (god-mode))
+    (when ktz-god-default
+      (god-mode)))
 
   (use-package pulsar
     :config

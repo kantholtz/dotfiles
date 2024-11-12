@@ -1,5 +1,48 @@
 ;;; ktz-init-minimal.el --- Minimal initialization.
 
+;; always only ask for y or n
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(setq ;; misc
+ ;; now pls tell me how to deactivate this on windows aswell
+ visible-bell nil
+ ;; no message in scratch buffer
+ initial-scratch-message nil
+ ;; follow symlinks to scm'ed files
+ vc-follow-symlinks t
+ ;; revert dired and others
+ global-auto-revert-non-file-buffers t
+ ;; silence compiler warnings
+ native-comp-async-report-warnings-errors nil
+ ;; wir sind hier in deutschland
+ calendar-week-start-day 1
+ ;; gather backup files in a central directory
+ backup-directory-alist '(("." . (concat user-emacs-directory "backups")))
+ ;; better to rely on the most widely distributed one
+ explicit-shell-file-name "/bin/bash"
+ ;; also use /bin/sh for tramp connections
+ tramp-default-method "sshx")
+
+(setq-default
+ indent-tabs-mode nil
+ tab-width 2
+ truncate-lines t)
+
+
+;; Buffer encoding
+(prefer-coding-system       'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(set-language-environment   'utf-8)
+
+;; ---
+
+(defun ktz--init-config ()
+  (add-to-list
+   'load-path
+   (concat ktz-root-dir "/lib")))
+
 
 ;; move lines up and down
 ;; https://emacsredux.com/blog/2013/04/02/move-current-line-up-or-down/

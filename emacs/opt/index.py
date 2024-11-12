@@ -18,24 +18,19 @@ end
 
 """
 
-import orgparse
-from ktz.filesystem import path
-from ktz.dataclasses import Builder
-
-import sys
-import enum
 import argparse
+import enum
+import sys
 import traceback
-from pathlib import Path
+from collections import Counter, defaultdict
+from dataclasses import dataclass, field
 from datetime import datetime
-from collections import Counter
-from collections import defaultdict
-from dataclasses import field
-from dataclasses import dataclass
+from pathlib import Path
+from typing import Optional, TextIO
 
-from typing import TextIO
-from typing import Optional
-
+import orgparse
+from ktz.dataclasses import Builder
+from ktz.filesystem import path
 
 # ---
 
@@ -52,7 +47,6 @@ def _parse_meta(blob: str):
 
 
 class State(enum.Enum):
-
     NEXT = "NEXT"
     TODO = "TODO"
     TBDI = "TBDI"
@@ -77,7 +71,6 @@ AGGREGATORS = {"Current", "Archive", "Meetings"}
 
 @dataclass
 class Org:
-
     id: str
     created: datetime
     breadcrumbs: tuple[str]
@@ -91,13 +84,15 @@ class Org:
 
     @classmethod
     def from_file(Self: "Org", fd: TextIO):
-
         build = Builder(Klass=Self, immutable=True)
         parsed = orgparse.load(fd)
 
         # read timestamp from filename
-        created = Path(fd.name).name.split("-", maxsplit=1)[0]
-        created = datetime.strptime(created, "%Y%m%d%H%M%S")
+        try:
+            created = Path(fd.name).name.split("-", maxsplit=1)[0]
+            created = datetime.strptime(created, "%Y%m%d%H%M%S")
+        except (IndexError, ValueError):
+            return None
 
         build.add(created=created)
 
@@ -153,7 +148,6 @@ def _nodefac():
 
 @dataclass
 class Node:
-
     children: dict[str, "Node"] = field(default_factory=_nodefac)
     org: Optional[Org] = None
 
@@ -163,12 +157,15 @@ def read_files(roam_path) -> Node:
 
     # build hierarchy
     for org_path in roam_path.glob("*.org"):
-        if org_path.name.startswith('.#'):
+        if org_path.name.startswith(".#"):
             continue
 
         try:
             with org_path.open(mode="r", encoding="utf-8") as fd:
                 org = Org.from_file(fd=fd)
+                if org is None:
+                    print(f"unable to parse {org_path}")
+                    continue
 
                 # populate recursively
                 place = root
@@ -208,7 +205,6 @@ def _recurse(buf: list[str], node: Node, name: str, depth: int):
 
 def write_index(index_path: Path, tree: Node):
     with index_path.open(mode="r") as fd:
-
         content, found = [], False
         for line in map(str.strip, fd.readlines()):
             content.append(line)
@@ -231,7 +227,6 @@ def main(
     index_path: Path,
     roam_path: Path,
 ):
-
     tree = read_files(roam_path=roam_path)
     write_index(index_path=index_path, tree=tree)
 

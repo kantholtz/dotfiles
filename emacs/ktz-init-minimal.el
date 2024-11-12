@@ -17,7 +17,7 @@
  ;; wir sind hier in deutschland
  calendar-week-start-day 1
  ;; gather backup files in a central directory
- backup-directory-alist '(("." . (concat user-emacs-directory "backups")))
+ backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
  ;; better to rely on the most widely distributed one
  explicit-shell-file-name "/bin/bash"
  ;; also use /bin/sh for tramp connections

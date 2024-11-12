@@ -48,9 +48,8 @@ MESSAGE String to emit."
 
 ;; CONFIGURATION
 ;; modes and mode config
-(require 'ktz-config)
-(require 'ktz-splash)
 (require 'ktz-init-minimal)
+(require 'ktz-splash)
 
 
 (defun ktz-init ()

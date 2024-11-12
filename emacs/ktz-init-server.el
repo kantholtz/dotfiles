@@ -14,6 +14,8 @@
     (unless (display-graphic-p frame)
       (set-face-background 'default "unspecified-bg" frame)))
 
+  ;; TODO load wombat as dark theme
+  ;; TODO determine good light theme
   (unless (display-graphic-p)
     (add-hook 'after-make-frame-functions 'ktz--server-clear-bg)
     (add-hook 'window-setup-hook 'ktz--server-clear-bg)

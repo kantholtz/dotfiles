@@ -81,7 +81,9 @@
   (use-package breadcrumb
     :config (breadcrumb-mode))
 
-  (use-package ein)
+  (use-package ein
+    :config (setq ein:output-area-inlined-images t))
+
   (use-package numpydoc)
 
   ;; frontend ----------------------------------------

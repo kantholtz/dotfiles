@@ -2,9 +2,9 @@
 
   (when (display-graphic-p)
     ;; disable window clutter
-    (menu-bar-mode -1)
-    (tool-bar-mode -1)
-    (scroll-bar-mode -1)
+    (menu-bar-mode 0)
+    (tool-bar-mode 0)
+    (scroll-bar-mode 0)
 
     ;; section 6.12 "Font configurations for Org and others"
     (if (eq system-type 'windows-nt)
@@ -639,7 +639,8 @@
       ;; more involved groups
       (ktz--theme-modus-faces)
       (ktz--theme-org-faces)
-      (ktz-modeline-set-faces)
+      (when (fboundp 'ktz-modeline-set-faces)
+        (ktz-modeline-set-faces))
 
       ;; move to own file at some point?
       (modus-themes-with-colors

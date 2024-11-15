@@ -8,7 +8,7 @@
 
 ```console
 # see example ansible/inventory.yaml
-ansible-playbook -i <inventory-file> ansible/playbook.yaml
+ansible-playbook -i <inventory-file> ansible/playbook.yaml [--connection local] [--ask-become-pass]
 ```
 
 

@@ -3,7 +3,7 @@
 #  Aliases work by parsing the ./alias/*.alias files
 #  and translating them into their proper commands.
 #  The translated command is then executed by fish.
-ktz-echo "ktz-alias" "loading file"
+ktz-echo ktz-alias "loading file"
 
 
 function __ktz-alias-resolve
@@ -52,6 +52,16 @@ end
 
 # not exec'ed but aliased
 
+
+function l -d eza
+    eza -l $argv
+end
+
+function r -d bat
+    batcat $argv
+end
+
+
 function ll -d 'list dirs verbose'
     ls -lAFvh $argv
 end
@@ -60,10 +70,10 @@ end
 # git
 
 function __ktz_g_gps
-  for rt in (g rt)
-    echo "pushing to $rt"
-    g ps $rt $argv[2..-1]
-  end
+    for rt in (g rt)
+        echo "pushing to $rt"
+        g ps $rt $argv[2..-1]
+    end
 end
 
 function __ktz_g_gpl

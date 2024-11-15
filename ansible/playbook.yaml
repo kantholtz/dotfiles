@@ -7,9 +7,32 @@
         repo: https://github.com/kantholtz/dotfiles.git
         dest: "{{ ktz_dotfiles }}"
 
-
 - hosts: all
   tasks:
+    - name: show current user id
+      debug:
+        msg: "current user: {{ ansible_env.LOGNAME }}"
+
+    # install packages
+    - name: install packages
+      apt:
+        name:
+          - fish
+          - tmux
+          - strace
+          - htop
+          - rsync
+          - dnsutils
+          - tcpdump
+          - traceroute
+          - vim
+          - fzf
+          - eza
+          - bat
+        state: present
+      become: true
+      when: ansible_env.LOGNAME != 'root'
+
     # tmux
     - name: checkout tpm
       git:

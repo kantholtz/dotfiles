@@ -93,6 +93,9 @@
     :init (emmet-mode)
     :mode "\\.html\\'")
 
+  (use-package nvm
+    :straight (:host github :repo "rejeep/nvm.el")
+    :config (nvm-use "22"))
 
   ;; searches upwards from cwd for node_modules/.bin
   (use-package add-node-modules-path

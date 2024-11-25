@@ -577,6 +577,10 @@
         (set-face-attribute 'org-imminent-deadline nil
                             :weight 'normal :foreground magenta)
 
+        ;; org-cite
+        (set-face-attribute 'org-cite-key nil
+                            :foreground green)
+
         ))
 
 

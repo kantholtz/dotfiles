@@ -76,15 +76,6 @@
         (file ,(concat ktz--org-templates "/roam-research.org"))
         :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" "")
         :unnarrowed t)
-       ;; mailing
-       ;; TODO load from ktz-mu4e.el
-       ("m" "mail")
-       ("mp" "paper heap" entry
-        (file+olp ,(concat ktz--org-files-org "20211003154535-diss_paper_heap.org") "Scholar")
-        (file ,(concat ktz--org-templates "/mail-paper_heap.org")))
-       ("mq" "mail queries" entry
-        (file+olp ,(concat ktz--org-files-org "20220307104213-mail.org") "Scholar")
-        "TODO %:date ")
        ))
 
     :init
@@ -94,9 +85,9 @@
           ;; org-agenda-start-with-log-mode t
           org-agenda-files (list ktz--org-files-org))
 
-    (when (not (version< emacs-version "29"))
-      (use-package emacsql-sqlite-builtin)
-      (setq org-roam-database-connector 'sqlite-builtin))
+    ;; (unless (vesion< emacs-version "29")
+    ;;   (use-package emacsql-sqlite-builtin)
+    ;;   (setq org-roam-database-connector 'sqlite-builtin))
 
 
     :bind (("C-c n l" . org-roam-buffer-toggle)

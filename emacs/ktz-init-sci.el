@@ -3,7 +3,7 @@
 ;;   see also roam:research.topics
 ;;   depends on ktz-init-org.el
 
-(defun ktz--init-tex ()
+(defun ktz--init-sci ()
   ;; overleaf
   (use-package git-auto-commit-mode)
 
@@ -127,10 +127,10 @@
 
   ;; automatically clean up the library file
   ;;(add-hook 'after-save-hook 'ktz--cite-reformat-bib))
-  ) ;; end ktz--init-tex
+  ) ;; end ktz--init-sci
 
-(defun ktz-init-tex ()
+(defun ktz-init-sci ()
   (interactive)
-  (ktz--init-tex))
+  (ktz--init-sci))
 
-(provide 'ktz-init-tex)
+(provide 'ktz-init-sci)

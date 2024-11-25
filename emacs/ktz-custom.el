@@ -4,6 +4,9 @@
   (customize-group "ktz"))
 
 
+;; TODO when this gets too large, consider subgroups
+
+
 (defgroup ktz nil
   "Kantholz' dotfiles customizations")
 
@@ -17,9 +20,9 @@
   "Select what modules to load."
   :type '(set (const :tag "IDE: programming support" ide)
               (const :tag "Org: org, roam and agenda" org)
-              (const :tag "Tex: latex, bibtex, and pdf support" tex)
-              (const :tag "Lexi: textual assistance" lexi)
-              (const :tag "Server: infrastructure modes" server)
+              (const :tag "Sci: latex, bibtex, and pdf support" sci)
+              (const :tag "Lex: textual assistance" lex)
+              (const :tag "Server: infrastructure modes" srv)
               (const :tag "Modeline: clean and shiny" modeline)
               (const :tag "Theme: both dark and light" theme))
   :group 'ktz)
@@ -29,7 +32,8 @@
   :type 'boolean
   :group 'ktz)
 
-;; org
+
+;; ORG
 
 (defcustom ktz-org-dir nil
   "Directory where the .org files reside (e.g. path/to/Roam)"
@@ -37,45 +41,41 @@
   :group 'ktz)
 
 
-;; if this is set to nil (the default) you can always
-;; invoke M-x ktz-org RET to manually initialize org+roam
-(defcustom ktz-org-enable-headless nil
-  "Whether to initialize the whole org+roam setup in the terminal"
-  :type 'boolean
-  :group 'ktz)
+;; LEX
 
-
-(defcustom ktz-languagetool-host nil
+(defcustom ktz-lex-languagetool-host nil
   "Languagetool server host"
   :type '(choice string (const nil))
   :group 'ktz)
 
-(defcustom ktz-languagetool-port nil
+(defcustom ktz-lex-languagetool-port nil
   "Languagetool server port"
   :type '(choice integer (const nil))
   :group 'ktz)
 
 
 ;; follow configuration in https://github.com/joshcho/ChatGPT.el
-(defcustom ktz-openai-api-key nil
+(defcustom ktz-lex-openai-api-key nil
   "OpenAI API access"
   :type '(choice string (const nil))
   :group 'ktz)
 
 
-;; conda
+;; IDE
 
-(defcustom ktz-conda-dir nil
+;;; conda
+
+(defcustom ktz-ide-conda-dir nil
   "Directory where the conda installation can be found"
   :type ktz--defcustom-choice
   :group 'ktz)
 
-(defcustom ktz-conda-env "base"
+(defcustom ktz-ide-conda-env "base"
   "Default conda environment"
   :type 'string
   :group 'ktz)
 
-(defcustom ktz-conda-paths nil
+(defcustom ktz-ide-conda-paths nil
   "Possible conda installation paths; Required for tramp+lsp."
   :type '(repeat directory))
 

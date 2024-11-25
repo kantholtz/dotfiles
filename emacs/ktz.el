@@ -62,9 +62,9 @@ MESSAGE String to emit."
 
   (setq mods '((ide      ktz-init-ide         ktz--init-ide)
                (org      ktz-init-org         ktz--init-org)
-               (tex      ktz-init-tex         ktz--init-tex)
-               (lexi     ktz-init-lexi        ktz--init-lexi)
-               (server   ktz-init-server      ktz--init-server)
+               (sci      ktz-init-sci         ktz--init-sci)
+               (lex      ktz-init-lex         ktz--init-lex)
+               (srv      ktz-init-srv         ktz--init-srv)
                (modeline ktz-modeline         ktz--init-modeline)
                (theme    ktz-theme            ktz--init-theme)))
 

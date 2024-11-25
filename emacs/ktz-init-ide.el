@@ -15,11 +15,11 @@
   ;; python
   ;;   stack: conda → poetry → pyright → eglot
 
-  (when ktz-conda-dir
+  (when ktz-ide-conda-dir
     (use-package conda
-      :custom (conda-anaconda-home ktz-conda-dir)
+      :custom (conda-anaconda-home ktz-ide-conda-dir)
       :init (conda-env-autoactivate-mode t)
-      :config (conda-env-activate ktz-conda-env)))
+      :config (conda-env-activate ktz-ide-conda-env)))
 
   ;; will find out about poetry
   (use-package pet

@@ -16,7 +16,8 @@
     (customize-set-variable 'visual-fill-column-width 100)
 
     :config
-    (setq org-hide-emphasis-markers t
+    (setq org-startup-folded 'show2levels
+          org-hide-emphasis-markers t
 
           ;; refile configuration
           ;; see https://orgmode.org/manual/Refile-and-Copy.html

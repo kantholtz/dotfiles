@@ -14,8 +14,10 @@
     (list (concat ktz--org-files-ref "notes/")))
 
   (defvar ktz--cite-bibfiles
-    (list ;; the first element is used for automatic appends by org-ref/gscholar
-     (concat ktz--org-files-ref "bibliography.bib")))
+    ;; the first element is used for automatic appends by org-ref/gscholar
+    (list
+     (concat ktz--org-files-ref "bibliography.bib")
+     (concat ktz--org-files-ref "bibliography-retained.bib")))
 
   (use-package org-ref
     :after org bibtex

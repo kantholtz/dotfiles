@@ -8,7 +8,7 @@
   (use-package gptel
     :custom
     (gptel-api-key ktz-lex-openai-api-key)
-    (gptel-model "gpt-4o-mini")
+    (gptel-model 'gpt-4o-mini)
     :config
     (global-set-key (kbd "C-c q") 'gptel-send)))
 

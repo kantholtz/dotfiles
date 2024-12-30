@@ -68,18 +68,18 @@
 
   ;; tex and pdf
 
-  (use-package pdf-tools
-    :ensure t
-    :init
-    ;; Install pdf-tools on first use
-    (pdf-tools-install)
+  (unless (eq system-type 'windows-nt)
+    (use-package pdf-tools
+      :init
+      ;; Install pdf-tools on first use
+      (pdf-tools-install)
 
-    :config
-    (global-auto-revert-mode t)
-    (setq pdf-view-display-size 'fit-page)
+      :config
+      (global-auto-revert-mode t)
+      (setq pdf-view-display-size 'fit-page)
 
-    :hook
-    (pdf-view-mode . auto-revert))
+      :hook
+      (pdf-view-mode . auto-revert)))
 
 
   (use-package auctex)

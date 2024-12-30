@@ -41,19 +41,6 @@
   :group 'ktz)
 
 
-;; LEX
-
-(defcustom ktz-lex-languagetool-host nil
-  "Languagetool server host"
-  :type '(choice string (const nil))
-  :group 'ktz)
-
-(defcustom ktz-lex-languagetool-port nil
-  "Languagetool server port"
-  :type '(choice integer (const nil))
-  :group 'ktz)
-
-
 ;; follow configuration in https://github.com/joshcho/ChatGPT.el
 (defcustom ktz-lex-openai-api-key nil
   "OpenAI API access"

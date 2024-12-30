@@ -1,9 +1,9 @@
 (defun ktz--init-lex ()
-  (when (and ktz-lex-languagetool-host ktz-lex-languagetool-port)
-    (use-package langtool
-      :config (setq
-               langtool-http-server-host ktz-lex-languagetool-host
-               langtool-http-server-port ktz-lex-languagetool-port)))
+  (use-package lsp-ltex
+    :hook (text-mode . (lambda ()
+                         (require 'lsp-ltex)
+                         (lsp)))  ; or lsp-deferred
+    :init (setq lsp-ltex-version "16.0.0")) ;; still required?
 
   (use-package gptel
     :custom

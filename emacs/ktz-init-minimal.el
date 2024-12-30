@@ -159,11 +159,13 @@
       (ktz-log "min" "initialized exec-path-from-shell")))
 
   ;; finance
-  (use-package beancount
-    :mode ("\\.ledger\\'" . beancount-mode)
-    :bind (:map beancount-mode-map
-                ("M-p" . beancount-goto-previous-transaction)
-                ("M-n" . beancount-goto-next-transaction)))
+  (unless (eq system-type 'windows-nt)
+    (use-package beancount
+      :mode ("\\.ledger\\'" . beancount-mode)
+      :hook (beancount-mode . outline-minor-mode)
+      :bind (:map beancount-mode-map
+                  ("M-p" . beancount-goto-previous-transaction)
+                  ("M-n" . beancount-goto-next-transaction))))
 
   (auto-fill-mode t)
   (column-number-mode t)

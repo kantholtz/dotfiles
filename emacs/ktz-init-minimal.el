@@ -120,13 +120,13 @@
           pulsar-face 'pulsar-green)
     (pulsar-global-mode 1))
 
-  ;; (use-package yasnippet
-  ;;   :config
-  ;;   (straight-use-package
-  ;;    '(yasnippet-snippets
-  ;;      :type git :host github :repo "AndreaCrotti/yasnippet-snippets"))
-  ;;   (yas-global-mode t)
-  ;;   (global-set-key (kbd "C-c j") 'yas-expand))
+  (use-package yasnippet
+    :config
+    (straight-use-package
+     '(yasnippet-snippets
+       :type git :host github :repo "AndreaCrotti/yasnippet-snippets"))
+    (yas-global-mode t)
+    (global-set-key (kbd "C-c j") 'yas-expand))
 
   (use-package multiple-cursors
     :config

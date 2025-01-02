@@ -1,8 +1,13 @@
 (defun ktz--init-lex ()
   (use-package lsp-ltex
-    :hook (text-mode . (lambda ()
-                         (require 'lsp-ltex)
-                         (lsp)))  ; or lsp-deferred
+    :config
+    (defun ktz--lex-ltex-hook ()
+      (require 'lsp-ltex)
+      (lsp))  ; or lsp-deferred
+
+    :hook
+    (org-mode . ktz--lex-ltex-hook)
+    (markdown-mode . ktz--lex-ltex-hook)
     :init (setq lsp-ltex-version "16.0.0")) ;; still required?
 
   (use-package gptel

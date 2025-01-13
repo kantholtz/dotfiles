@@ -41,9 +41,17 @@
   :group 'ktz)
 
 
+;; LEX
+
 ;; follow configuration in https://github.com/joshcho/ChatGPT.el
 (defcustom ktz-lex-openai-api-key nil
   "OpenAI API access"
+  :type '(choice string (const nil))
+  :group 'ktz)
+
+
+(defcustom ktz-lex-ltex-ls-path nil
+  "Path to ltex-ls"
   :type '(choice string (const nil))
   :group 'ktz)
 

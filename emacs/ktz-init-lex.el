@@ -1,21 +1,29 @@
 (defun ktz--init-lex ()
-  (use-package lsp-ltex
-    :config
-    (defun ktz--lex-ltex-hook ()
-      (require 'lsp-ltex)
-      (lsp))  ; or lsp-deferred
+  ;; (when ktz-lex-ltex-ls-path
+  ;;   (use-package eglot-ltex
+  ;;     :config
+  ;;     (defun ktz--lex-ltex-hook ()
+  ;;       (require 'eglot-ltex)
+  ;;       (eglot-ensure))
 
-    :hook
-    (org-mode . ktz--lex-ltex-hook)
-    (markdown-mode . ktz--lex-ltex-hook)
-    :init (setq lsp-ltex-version "16.0.0")) ;; still required?
+  ;;     :hook (text-mode . ktz--lex-ltex-hook)
+  ;;     :init (setq
+  ;;            eglot-ltex-server-path ktz-lex-ltex-ls-path
+  ;;            eglot-ltex-communication-channel 'stdio)))
 
   (use-package gptel
-    :custom
-    (gptel-api-key ktz-lex-openai-api-key)
-    (gptel-model 'gpt-4o-mini)
     :config
-    (global-set-key (kbd "C-c q") 'gptel-send)))
+    (when ktz-lex-openai-api-key
+      (setq gptel-api-key ktz-lex-openai-api-key)
+      (setq gptel-model 'gpt-4o-mini))
+    (global-set-key (kbd "C-c q") 'gptel-send))
+
+  (defun ktz--lex-latex-hook ()
+    (visual-line-fill-column-mode)
+    (eglot-ensure))
+  (add-hook 'LaTeX-mode-hook #'ktz--lex-latex-hook)
+
+  )
 
 
 (defun ktz-init-lex ()

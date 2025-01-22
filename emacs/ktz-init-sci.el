@@ -82,7 +82,57 @@
       (pdf-view-mode . auto-revert)))
 
 
-  (use-package auctex)
+  ;; thanks https://www.reddit.com/r/emacs/comments/11m00fc/comment/jbhb2kj/
+  (use-package olivetti
+    :hook
+    (LaTeX-mode . olivetti-mode))
+
+  (use-package tex
+    :defer t
+    :straight auctex
+    :mode ("\\.tex\\'" . LaTeX-mode)
+
+    :hook
+    ;; (LaTeX-mode . visual-line-fill-column-mode)
+    ;; (LaTeX-mode . variable-pitch-mode)
+    ;; (LaTeX-mode . TeX-PDF-mode)
+    (LaTeX-mode . visual-line-mode)
+    (LaTeX-mode . flyspell-mode)
+    (LaTeX-mode . reftex-mode)
+
+    :custom
+    (TeX-electric-math (cons "$" "$"))
+    (TeX-save-query nil)
+    (LaTeX-electric-left-right-brace t)
+    ;; (TeX-master nil) ; ?
+    ;; (TeX-auto-save t)
+    ;; (TeX-parse-self t)
+    )
+
+  ;; :init
+
+  ;; ;; Emacs puts this in my init.el automatically
+  ;; (put 'TeX-narrow-to-group 'disabled nil)
+  ;; (put 'LaTeX-narrow-to-environment 'disabled nil))
+
+  ;; :config
+  ;; (use-package latex                    ; file that contains `LaTeX-mode-map'
+  ;;   :bind
+  ;;   (:map LaTeX-mode-map
+  ;;         ("C-x M-t b" . h-insert-bold)
+  ;;         ("C-x M-t t" . h-insert-tt)
+  ;;         ("C-x M-t i" . h-insert-italics)
+  ;;         ("C-x M-t r" . TeX-normal-mode)
+  ;;         ("C-x M-t =" . reftex-toc)
+  ;;         ("C-x M-t C-m" . TeX-command-run-all)
+  ;;         ("C-x M-t j" . LaTeX-insert-item)
+  ;;         ("C-x M-t e" . LaTeX-environment)
+  ;;         ("C-x M-t m" . TeX-insert-macro)
+  ;;         ("C-x M-t s" . LaTeX-section)
+  ;;         ("C-x M-t [" . LaTeX-narrow-to-environment)
+  ;;         ("C-x M-t ]" . widen)
+  ;;         ("C-x M-t n" . TeX-next-error))))
+
 
   ;; citar
   ;;   frontend to access bibliography

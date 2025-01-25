@@ -16,14 +16,7 @@
     (when ktz-lex-openai-api-key
       (setq gptel-api-key ktz-lex-openai-api-key)
       (setq gptel-model 'gpt-4o-mini))
-    (global-set-key (kbd "C-c q") 'gptel-send))
-
-  (defun ktz--lex-latex-hook ()
-    (visual-line-fill-column-mode)
-    (eglot-ensure))
-  (add-hook 'LaTeX-mode-hook #'ktz--lex-latex-hook)
-
-  )
+    (global-set-key (kbd "C-c q") 'gptel-send)))
 
 
 (defun ktz-init-lex ()

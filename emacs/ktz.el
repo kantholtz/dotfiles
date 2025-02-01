@@ -48,7 +48,7 @@ MESSAGE String to emit."
 
 ;; CONFIGURATION
 ;; modes and mode config
-(require 'ktz-init-minimal)
+(require 'ktz-init-min)
 (require 'ktz-splash)
 
 
@@ -58,7 +58,7 @@ MESSAGE String to emit."
 
   ;; mode initialization
   ;; always provide minimal configuration
-  (ktz--init-minimal)
+  (ktz--init-min)
 
   (setq mods '((ide      ktz-init-ide         ktz--init-ide)
                (org      ktz-init-org         ktz--init-org)

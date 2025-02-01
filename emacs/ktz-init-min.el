@@ -1,4 +1,4 @@
-;;; ktz-init-minimal.el --- Minimal initialization.
+;;; ktz-init-min.el --- Minimal initialization.
 
 ;; always only ask for y or n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -63,7 +63,7 @@
 
 
 ;; vertice/orderless/consult
-(defun ktz--init-minimal-voc ()
+(defun ktz--init-min-voc ()
 
   ;; vertical completion ui
   (use-package vertico :init (vertico-mode))
@@ -101,7 +101,7 @@
   )
 
 
-(defun ktz--init-minimal ()
+(defun ktz--init-min ()
   "Setup minimal configuration"
   (ktz-log "min" "initializing configuration")
 
@@ -171,6 +171,9 @@
   (column-number-mode t)
   (show-paren-mode t)
 
+  ;; dired
+  (setq dired-listing-switches "-alhv --group-directories-first")
+
   ;; --
 
   (global-set-key (kbd "M-<up>") 'ktz--move-line-up)
@@ -179,7 +182,7 @@
   (global-set-key (kbd "<f5>") #'bookmark-jump)
   (global-set-key (kbd "C-<f5>") #'bookmark-jump)
 
-  (ktz--init-minimal-voc)
+  (ktz--init-min-voc)
 
   ;; hooks
   (defun ktz--prog-mode-hooks ()
@@ -189,4 +192,4 @@
   (add-hook 'prog-mode-hook 'ktz--prog-mode-hooks))
 
 
-(provide 'ktz-init-minimal)
+(provide 'ktz-init-min)

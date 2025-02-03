@@ -161,6 +161,7 @@
   ;; finance
   (unless (eq system-type 'windows-nt)
     (use-package beancount
+      :straight (beancount :type git :host github :repo "beancount/beancount-mode")
       :mode ("\\.ledger\\'" . beancount-mode)
       :hook (beancount-mode . outline-minor-mode)
       :bind (:map beancount-mode-map

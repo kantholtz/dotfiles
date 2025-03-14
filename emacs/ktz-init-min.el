@@ -4,6 +4,8 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq ;; misc
+ ;; always ask before quitting
+ confirm-kill-emacs 'yes-or-no-p
  ;; now pls tell me how to deactivate this on windows aswell
  visible-bell nil
  ;; no message in scratch buffer

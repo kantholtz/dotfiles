@@ -19,8 +19,26 @@
      (concat ktz--org-files-ref "bibliography.bib")
      (concat ktz--org-files-ref "bibliography-retained.bib")))
 
+  (use-package citar
+    :hook
+    ;; completion at point
+    (LaTeX-mode . citar-capf-setup)
+    (org-mode . citar-capf-setup)
+
+    :custom
+    (citar-bibliography ktz--cite-bibfiles)
+    (citar-library-paths ktz--cite-pdfs)
+    (citar-file-extensions '("pdf" "org" "md"))
+    (citar-notes-paths ktz--cite-notes)
+    ;; also using this place to configure org-cite
+    (org-cite-global-bibliography ktz--cite-bibfiles)
+
+    :bind
+    (:map org-mode-map :package org ("C-c b" . #'citar-insert-citation)))
+
+
   (use-package org-ref
-    :after org bibtex
+    :after org bibtex citar
 
     :init
     (setq
@@ -34,88 +52,7 @@
      bibtex-autokey-year-length 4
      bibtex-autokey-name-year-separator ""
 	   bibtex-autokey-year-title-separator ""
-	   bibtex-autokey-titleword-separator ""
-	   bibtex-autokey-titlewords 1
-	   bibtex-autokey-titlewords-stretch 1
-	   bibtex-autokey-titleword-length 10)
-
-    (require 'org-ref-arxiv))
-
-  ;; org-ref integrates biblio to browse and retrieve bibtex entries
-  (use-package biblio
-    :config
-    (defun ktz--biblio-ref-add (bibtex entry)
-      "Add entry to bibtex file."
-      (with-current-buffer (find-file-noselect (car ktz--cite-bibfiles))
-        (goto-char (point-max))
-        (insert (concat "\n\n" bibtex))
-        (org-ref-clean-bibtex-entry)
-        (ktz-reformat-bib)))
-
-    (defun ktz--biblio-ref-select-and-add ()
-      "Append current entry to bibtex file."
-      (interactive)
-      (biblio--selection-forward-bibtex #'ktz--biblio-ref-add))
-
-    :bind
-    (:map biblio-selection-mode-map
-          ("A" . ktz--biblio-ref-select-and-add)))
-
-  (use-package gscholar-bibtex
-    :init
-    (setq gscholar-bibtex-database-file (car ktz--cite-bibfiles)))
-
-
-  ;; tex and pdf
-
-  (unless (eq system-type 'windows-nt)
-    (use-package pdf-tools
-      :init
-      ;; Install pdf-tools on first use
-      (pdf-tools-install)
-
-      :config
-      (global-auto-revert-mode t)
-      (setq pdf-view-display-size 'fit-page)
-
-      :hook
-      (pdf-view-mode . auto-revert)))
-
-
-  (use-package olivetti
-    :hook
-    (LaTeX-mode . olivetti-mode))
-
-  (use-package tex
-    :defer t
-    :straight auctex
-    :mode ("\\.tex\\'" . LaTeX-mode)
-
-    :hook
-    (LaTeX-mode . visual-line-mode)
-    (LaTeX-mode . flyspell-mode)
-    (LaTeX-mode . reftex-mode))
-
-  ;; citar
-  ;;   frontend to access bibliography
-
-  (use-package citar
-    :after (org-roam auctex)
-    :bind
-    (("C-c b" . citar-insert-citation)
-     :map minibuffer-local-map
-     ("M-b" . citar-insert-preset))
-
-    :config
-    (require 'citar-org)
-
-    :custom
-    (citar-bibliography ktz--cite-bibfiles)
-    (citar-library-paths ktz--cite-pdfs)
-    (citar-file-extensions '("pdf" "org" "md"))
-    (citar-notes-paths ktz--cite-notes)
-    ;; also using this place to configure org-cite
-    (org-cite-global-bibliography ktz--cite-bibfiles))
+	   bibtex-autokey-titleword-separator ""))
 
   (use-package citar-embark
     :after citar embark
@@ -138,6 +75,11 @@
            (ignore-errors
              (ktz-log "org" (format "cleaning %s" key))
              (org-ref-clean-bibtex-entry)))))))
+
+  (use-package gscholar-bibtex
+    :init
+    (setq gscholar-bibtex-database-file
+          (car ktz--cite-bibfiles)))
 
   ;; automatically clean up the library file
   ;;(add-hook 'after-save-hook 'ktz--cite-reformat-bib))

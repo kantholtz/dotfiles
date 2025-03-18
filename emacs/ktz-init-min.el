@@ -1,35 +1,39 @@
 ;;; ktz-init-min.el --- Minimal initialization.
+;;
+;;; Code:
+;;;; General configuration setup
 
 ;; always only ask for y or n
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(setq ;; misc
- ;; always ask before quitting
+(setq
+ ;; Always ask before quitting
  confirm-kill-emacs 'yes-or-no-p
- ;; now pls tell me how to deactivate this on windows aswell
+ ;; Now pls tell me how to deactivate this on windows aswell
  visible-bell nil
- ;; no message in scratch buffer
+ ;; No message in scratch buffer
  initial-scratch-message nil
- ;; follow symlinks to scm'ed files
+ ;; Follow symlinks to scm'ed files
  vc-follow-symlinks t
- ;; revert dired and others
+ ;; Revert dired and others
  global-auto-revert-non-file-buffers t
- ;; silence compiler warnings
+ ;; Silence compiler warnings
  native-comp-async-report-warnings-errors nil
- ;; wir sind hier in deutschland
+ ;; Wir sind hier in Deutschland
  calendar-week-start-day 1
- ;; gather backup files in a central directory
+ ;; Gather backup files in a central directory
  backup-directory-alist `(("." . ,(concat user-emacs-directory "backups")))
- ;; better to rely on the most widely distributed one
+ ;; Better to rely on the most widely distributed one
  explicit-shell-file-name "/bin/bash"
- ;; also use /bin/sh for tramp connections
- tramp-default-method "sshx")
+ ;; Also use /bin/sh for tramp connections
+ tramp-default-method "sshx"
+ ;; Show dictionaries before other files in dired
+ dired-listing-switches "-alhv --group-directories-first")
 
 (setq-default
  indent-tabs-mode nil
  tab-width 2
  truncate-lines t)
-
 
 ;; Buffer encoding
 (prefer-coding-system       'utf-8)
@@ -37,13 +41,6 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment   'utf-8)
-
-;; ---
-
-(defun ktz--init-config ()
-  (add-to-list
-   'load-path
-   (concat ktz-root-dir "/lib")))
 
 
 ;; move lines up and down
@@ -63,26 +60,53 @@
   (forward-line -1)
   (indent-according-to-mode))
 
+;;;; Key-bindings
 
-;; vertice/orderless/consult
+(global-set-key (kbd "M-<up>") 'ktz--move-line-up)
+(global-set-key (kbd "M-<down>") 'ktz--move-line-down)
+
+(global-set-key (kbd "<f5>") #'bookmark-jump)
+(global-set-key (kbd "C-<f5>") #'bookmark-jump)
+
+
+;;;; KTZ setup
+
+(defun ktz--init-config ()
+  (add-to-list
+   'load-path
+   (concat ktz-root-dir "/lib")))
+
+
+;;; Vertico + Orderless + Consult
 (defun ktz--init-min-voc ()
 
-  ;; vertical completion ui
+  ;; Vertico provides a performant and minimalistic vertical
+  ;; completion UI based on the default completion system.
   (use-package vertico :init (vertico-mode))
 
-  ;; remember which completions are selected frequently
+  ;; Many editors (e.g. Vim) have the feature of saving minibuffer
+  ;; history to an external file after exit. This package provides the
+  ;; same feature in Emacs.
   (use-package savehist :init (savehist-mode))
 
-  ;; space separated patterns
+  ;; This package provides an orderless completion style that divides
+  ;; the pattern into space-separated components, and matches
+  ;; candidates that match all of the components in any order.
   (use-package orderless
     :custom
     (completion-styles '(orderless basic))
     (completion-category-overrides ''(file (styles basic partial-completion))))
 
-  ;; annotations in the minibuffer
+  ;; Consult provides search and navigation commands based on the
+  ;; Emacs completion function completing-read.
+  ;; TODO https://github.com/minad/consult?tab=readme-ov-file#use-package-example
+  ;; (use-package consult ...)
+
+  ;; This package provides marginalia-mode which adds marginalia to
+  ;; the minibuffer completions.
   (use-package marginalia :init (marginalia-mode))
 
-  ;; relevant actions to use on a target determined by the context
+  ;; Relevant actions to use on a target determined by the context
   (use-package embark
     :bind
     (("C-." . embark-act)         ;; pick some comfortable binding
@@ -103,17 +127,63 @@
   )
 
 
+;;; Outline + IMenu
+;; thanks prot
+(defun ktz--init-min-outline ()
+
+  ;; Outline mode is a major mode derived from Text mode, which is
+  ;; specialized for editing outlines. It provides commands to
+  ;; navigate between entries in the outline structure, and commands
+  ;; to make parts of a buffer temporarily invisible, so that the
+  ;; outline structure may be more easily viewed.
+  (use-package outline
+    :config
+    ;; Enable visibility-cycling commands on headings in ‘outline-minor-mode’.
+    (setq outline-minor-mode-cycle t)
+    ;; Non-nil means to leave an unhidden blank line before headings.
+    (setq outline-blank-line t)
+    )
+
+
+  ;; This package teaches outline-minor-mode to highlight section
+  ;; headings, without also highlighting top-level s-expressions.
+  (use-package outline-minor-faces
+    :after outline
+    :hook (outline-minor-mode . outline-minor-faces-mode))
+
+  ;; This package provides commands for cycling the visibility of
+  ;; outline sections and code blocks. These commands are intended to
+  ;; be bound in outline-minor-mode-map and do most of the work using
+  ;; functions provided by the outline package.
+  ;; (use-package bicycle
+  ;;   :after outline)
+
+  ;; The Foldout package extends Outline mode and Outline minor mode
+  ;; with folding commands. The idea of folding is that you zoom in on
+  ;; a nested portion of the outline, while hiding its relatives at
+  ;; higher levels.
+  ;; (use-package foldout)
+  )
+
+
+;;; Initialization
 (defun ktz--init-min ()
   "Setup minimal configuration"
   (ktz-log "min" "initializing configuration")
 
-  ;; lay your weary pinky to rest
+  ;;;; Globally used modes
+
+  ;; This is a global minor mode for entering Emacs commands without
+  ;; modifier keys. It's similar to Vim's separation of command mode
+  ;; and insert mode.
   (use-package god-mode
     :config
     (global-set-key (kbd "<escape>") #'god-mode-all)
     (when ktz-god-default
       (god-mode)))
 
+  ;; This is a small Emacs package that temporarily highlights the
+  ;; current line after a given function is invoked.
   (use-package pulsar
     :config
     (setq pulsar-pulse t
@@ -122,6 +192,9 @@
           pulsar-face 'pulsar-green)
     (pulsar-global-mode 1))
 
+  ;; YASnippet is a template system for Emacs. It allows you to type
+  ;; an abbreviation and automatically expand it into function
+  ;; templates.
   (use-package yasnippet
     :config
     (straight-use-package
@@ -134,24 +207,20 @@
     :config
     (global-set-key (kbd "C-x n") 'mc/mark-next-like-this))
 
-  (use-package blank-mode)
-  (use-package which-key
-    :config (which-key-mode))
-
+  ;; Use ripgrep in Emacs. Ripgrep is a replacement for both grep
+  ;; like (search one file) and ag like (search many files) tools.
   (use-package rg
     :config
     (rg-enable-menu))
 
+  ;; Magit is a complete text-based user interface to Git.
   (use-package magit
     :init
     (setq magit-last-seen-setup-instructions "1.4.0")
     :bind (("C-x g" . magit-status)
            ("<f6>" . magit-status)))
 
-  (use-package markdown-mode
-    :hook (markdown-mode . visual-line-mode))
-
-  ;; this spawns a shell (a sh subshell in case of fish)
+  ;; This spawns a shell (a sh subshell in case of fish)
   ;; and reads the exported environment variables
   ;; and sets exec-path accordingly
   (use-package exec-path-from-shell
@@ -160,8 +229,13 @@
       (exec-path-from-shell-initialize)
       (ktz-log "min" "initialized exec-path-from-shell")))
 
-  ;; finance
+  ;;;; Finance
+  ;; At some point, there should be a ktz-init-fin.el
   (unless (eq system-type 'windows-nt)
+
+    ;; This package provides beancount-mode an Emacs major-mode
+    ;; implementing syntax highlighting, indentation, completion , and
+    ;; other facilities to edit and work with Beancount ledger files.
     (use-package beancount
       :straight (beancount :type git :host github :repo "beancount/beancount-mode")
       :mode ("\\.ledger\\'" . beancount-mode)
@@ -170,27 +244,30 @@
                   ("M-p" . beancount-goto-previous-transaction)
                   ("M-n" . beancount-goto-next-transaction))))
 
-  (auto-fill-mode t)
-  (column-number-mode t)
-  (show-paren-mode t)
-
-  ;; dired
-  (setq dired-listing-switches "-alhv --group-directories-first")
-
-  ;; --
-
-  (global-set-key (kbd "M-<up>") 'ktz--move-line-up)
-  (global-set-key (kbd "M-<down>") 'ktz--move-line-down)
-
-  (global-set-key (kbd "<f5>") #'bookmark-jump)
-  (global-set-key (kbd "C-<f5>") #'bookmark-jump)
-
   (ktz--init-min-voc)
 
-  ;; hooks
+  ;;;; Builtin globally enabled minor modes
+
+  ;; Automatically breaks lines to fit within the window width
+  (auto-fill-mode t)
+  ;; Displays the column number in the mode line
+  (column-number-mode t)
+  ;; Highlights matching parentheses
+  (show-paren-mode t)
+  ;; Displays available key bindings
+  (use-package which-key
+    :config (which-key-mode t))
+
+  ;;;; Hooks
+
+  (use-package markdown-mode
+    :hook (markdown-mode . visual-line-mode))
+
+  ;; Modes to enable for prog-modes
   (defun ktz--prog-mode-hooks ()
     (setq-default show-trailing-whitespace t)
-    (display-line-numbers-mode))
+    (display-line-numbers-mode)
+    (ktz--init-min-outline))
 
   (add-hook 'prog-mode-hook 'ktz--prog-mode-hooks))
 

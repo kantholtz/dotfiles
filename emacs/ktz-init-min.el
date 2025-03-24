@@ -141,8 +141,7 @@
     ;; Enable visibility-cycling commands on headings in ‘outline-minor-mode’.
     (setq outline-minor-mode-cycle t)
     ;; Non-nil means to leave an unhidden blank line before headings.
-    (setq outline-blank-line t)
-    )
+    (setq outline-blank-line t))
 
 
   ;; This package teaches outline-minor-mode to highlight section
@@ -214,11 +213,11 @@
     (rg-enable-menu))
 
   ;; Magit is a complete text-based user interface to Git.
-  (use-package magit
-    :init
-    (setq magit-last-seen-setup-instructions "1.4.0")
-    :bind (("C-x g" . magit-status)
-           ("<f6>" . magit-status)))
+  ;; (use-package magit
+  ;;   :init
+  ;;   (setq magit-last-seen-setup-instructions "1.4.0")
+  ;;   :bind (("C-x g" . magit-status)
+  ;;          ("<f6>" . magit-status)))
 
   ;; This spawns a shell (a sh subshell in case of fish)
   ;; and reads the exported environment variables
@@ -245,6 +244,7 @@
                   ("M-n" . beancount-goto-next-transaction))))
 
   (ktz--init-min-voc)
+  (ktz--init-min-outline)
 
   ;;;; Builtin globally enabled minor modes
 
@@ -266,8 +266,7 @@
   ;; Modes to enable for prog-modes
   (defun ktz--prog-mode-hooks ()
     (setq-default show-trailing-whitespace t)
-    (display-line-numbers-mode)
-    (ktz--init-min-outline))
+    (display-line-numbers-mode))
 
   (add-hook 'prog-mode-hook 'ktz--prog-mode-hooks))
 

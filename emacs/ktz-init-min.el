@@ -213,11 +213,10 @@
     (rg-enable-menu))
 
   ;; Magit is a complete text-based user interface to Git.
-  ;; (use-package magit
-  ;;   :init
-  ;;   (setq magit-last-seen-setup-instructions "1.4.0")
-  ;;   :bind (("C-x g" . magit-status)
-  ;;          ("<f6>" . magit-status)))
+  (use-package magit
+    :init
+    (setq magit-last-seen-setup-instructions "1.4.0")
+    :bind (("C-x g" . magit-status)))
 
   ;; This spawns a shell (a sh subshell in case of fish)
   ;; and reads the exported environment variables

@@ -1,4 +1,5 @@
 (defun ktz--init-theme ()
+  (require 'ktz-colors)
 
   (when (display-graphic-p)
     ;; disable window clutter
@@ -71,13 +72,13 @@
      modus-operandi-palette-overrides
      '(
 
-       (bg-main   "#FFFFFF")  ;; white
-       (bg-dim    "#FAFAFA")  ;; grey 50
-       (bg-active "#F5F5F5")  ;; grey 100
+       (bg-main   ktz-c-white)
+       (bg-dim    ktz-c-neutral-50)
+       (bg-active ktz-c-neutral-100)
 
-       (fg-dim   "#BDBDBD")  ;; grey 400
-       (fg-main  "#757575")  ;; grey 600
-       (fg-alt   "#000000")  ;; black
+       (fg-dim    ktz-c-neutral-400)
+       (fg-main   ktz-c-neutral-600)
+       (fg-alt    ktz-c-black)
 
        (bg-inactive bg-main)
        (border fg-dim)
@@ -629,6 +630,17 @@
         ;; headerline
         (set-face-attribute 'header-line nil
                             :background bg-dim)
+
+        ;; outline
+        (set-face-attribute 'outline-minor-1 nil
+                            :foreground cyan-intense
+                            :height 1.4)
+        (set-face-attribute 'outline-minor-2 nil
+                            :foreground cyan
+                            :height 1.3)
+        (set-face-attribute 'outline-minor-3 nil
+                            :foreground cyan-warmer
+                            :height 1.2)
 
         ;;; other packages
         ;; pulsar

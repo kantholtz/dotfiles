@@ -122,7 +122,7 @@
         (progn
           (set-cursor-color ktz-c-neutral-600)
           (setq cursor-type 'hollow))
-      (set-cursor-color (if (eq ktz-theme-current 'modus-operandi)
+      (set-cursor-color (if (eq ktz-theme-current 'modus-vivendi)
                             ktz-c-black ktz-c-white))
       (setq cursor-type 'box)))
   (add-hook 'post-command-hook #'ktz--theme-god-hook)

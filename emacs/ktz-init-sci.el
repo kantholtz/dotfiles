@@ -33,7 +33,7 @@
          (lambda (key start end)
            (goto-char start)
            (ignore-errors
-             (ktz-log "org" (format "cleaning %s" key))
+             (ktz-log "sci" (format "cleaning %s" key))
              (org-ref-clean-bibtex-entry)))))))
 
   ;; Citar provides a highly-configurable completing-read front-end to
@@ -78,33 +78,26 @@
 	   bibtex-autokey-titlewords-stretch 1
 	   bibtex-autokey-titleword-length 10))
 
-  ;; biblio.el makes it easy to browse and gather bibliographic
-  ;; references and publications from various sources, by keywords or
-  ;; by DOI. References are automatically fetched from well-curated
-  ;; sources, and formatted as BibTeX.
-  (use-package biblio
-    ;; org-ref integrates biblio to browse and retrieve bibtex entries
-    :config
-    (defun ktz--biblio-ref-add (bibtex entry)
-      "Add entry to bibtex file."
-      (with-current-buffer (find-file-noselect (car ktz--cite-bibfiles))
-        (goto-char (point-max))
-        (insert (concat "\n\n" bibtex))
-        (org-ref-clean-bibtex-entry)))
+  ;; Retrieve BibTex entries from the web
+  (use-package gscholar-bibtex
+    :init
+    (setq gscholar-bibtex-database-file (car ktz--cite-bibfiles)
+          gscholar-bibtex-default-source "Google Scholar"))
 
-    (defun ktz--biblio-ref-select-and-add ()
-      "Append current entry to bibtex file."
-      (interactive)
-      (biblio--selection-forward-bibtex #'ktz--biblio-ref-add))
+  ;; Wrap gscholar-bibtex-append-bibtex-to-database (there is no
+  ;; callback function) for cleanup
+  (defun ktz-init-sci--append-bibtex-to-database ()
+    (ktz-log "sci" "hooked into gscholar-bibtex' append function")
+    (gscholar-bibtex-guard)
+    (gscholar-bibtex-retrieve-and-show-bibtex)
+    (message gscholar-bibtex-entry-buffer-name)
+    (with-current-buffer (get-buffer gscholar-bibtex-entry-buffer-name)
+      (org-ref-clean-bibtex-entry)))
 
-    :bind
-    (:map biblio-selection-mode-map
-          ("A" . ktz--biblio-ref-select-and-add)))
 
-  ;; allows to search Google Scholar with biblio
-  (straight-use-package
-   '(biblio-gscholar.el
-     :type git :host github :repo "seanfarley/biblio-gscholar.el"))
+  (advice-add
+   'gscholar-bibtex-append-bibtex-to-database
+   :before #'ktz-init-sci--append-bibtex-to-database)
 
   ;;;; LaTeX and PDFs
   ;; ----------------------------------------
@@ -133,6 +126,10 @@
     :no-require
     :config (citar-org-roam-mode))
 
+  ;; Some other builtin modes to start with LaTeX
+  (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
+  (add-hook 'LaTeX-mode-hook 'reftex-mode)
+
   ;; Set a desired text body width to automatically resize window
   ;; margins to keep the text comfortably in the middle of the window.
   (use-package olivetti
@@ -150,19 +147,40 @@
 
   ;;;; Standby
 
-  ;; (use-package gscholar-bibtex
-  ;;   :init
-  ;;   (setq gscholar-bibtex-database-file (car ktz--cite-bibfiles)))
-  ;; (use-package gscholar-bibtex
-  ;;   :init
-  ;;   (setq gscholar-bibtex-database-file
-  ;;         (car ktz--cite-bibfiles)))
-
   ;; overleaf
   ;; (use-package git-auto-commit-mode)
 
   ;; automatically clean up the library file
   ;;(add-hook 'after-save-hook 'ktz--cite-reformat-bib))
+
+  ;; allows to search Google Scholar with biblio
+  ;; biblio.el makes it easy to browse and gather bibliographic
+  ;; references and publications from various sources, by keywords or
+  ;; by DOI. References are automatically fetched from well-curated
+  ;; sources, and formatted as BibTeX.
+  ;; (use-package biblio
+  ;;   ;; org-ref integrates biblio to browse and retrieve bibtex entries
+  ;;   :config
+  ;;   (defun ktz--biblio-ref-add (bibtex entry)
+  ;;     "Add entry to bibtex file."
+  ;;     (with-current-buffer (find-file-noselect (car ktz--cite-bibfiles))
+  ;;       (goto-char (point-max))
+  ;;       (insert (concat "\n\n" bibtex))
+  ;;       (org-ref-clean-bibtex-entry)))
+
+  ;;   (defun ktz--biblio-ref-select-and-add ()
+  ;;     "Append current entry to bibtex file."
+  ;;     (interactive)
+  ;;     (biblio--selection-forward-bibtex #'ktz--biblio-ref-add))
+
+  ;;   :bind
+  ;;   (:map biblio-selection-mode-map
+  ;;         ("A" . ktz--biblio-ref-select-and-add)))
+
+  ;; (straight-use-package
+  ;;  '(biblio-gscholar.el
+  ;;    :type git :host github :repo "seanfarley/biblio-gscholar.el"))
+
 
   ) ;; end ktz--init-sci
 

@@ -58,7 +58,7 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
 
 
 (defface ktz-modeline-indicator-base '((t :inherit 'fixed-pitch)) "")
-(set-face-attribute 'ktz-modeline-indicator-base nil :box '(:line-width 1))
+;; (set-face-attribute 'ktz-modeline-indicator-base nil :box '(:line-width 1))
 
 (defface ktz-modeline-indicator-mod
   '((t :inherit 'ktz-modeline-indicator-base))
@@ -86,12 +86,12 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
     (set-face-attribute 'mode-line nil
                         :underline border-mode-line-active
                         :overline border-mode-line-active
-                        :box `(:line-width 5 :color ,bg-mode-line-active))
+                        :box `(:line-width 3 :color ,bg-mode-line-active))
 
     (set-face-attribute 'mode-line-inactive nil
                         :underline border-mode-line-inactive
                         :overline border-mode-line-inactive
-                        :box `(:line-width 5 :color ,bg-mode-line-inactive))
+                        :box `(:line-width 3 :color ,bg-mode-line-inactive))
 
     (set-face-attribute 'ktz-modeline-fg-subtle nil
                         :foreground fg-dim)
@@ -283,6 +283,11 @@ With optional FACE, use it to propertize the BRANCH."
 
 (defun ktz--init-modeline ()
   ;; mode-line-format becomes a buffer-local variable
+
+  ;; move :underline (set for the mode-line face)
+  ;; to the very bottom instead of the font's baseline
+  (setq x-underline-at-descent-line t)
+
   (setq-default
    mode-line-format
    '("%e"

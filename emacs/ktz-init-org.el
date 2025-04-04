@@ -95,11 +95,7 @@
            ("C-c n f" . org-roam-node-find)
            ("C-c n i" . org-roam-node-insert)
            ("<f4>" . org-roam-node-find)
-           ("C-<f4>" . org-roam-node-find))
-
-    :config
-    ;; (org-roam-setup) todo: required?
-    (org-roam-db-autosync-mode))
+           ("C-<f4>" . org-roam-node-find)))
 
   ;;
   ;; agenda configuration

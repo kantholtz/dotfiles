@@ -118,8 +118,9 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
                                         bg-main fg-alt))
 
     (set-face-attribute 'ktz-modeline-indicator-god-inactive nil
-                        :foreground (when (eq ktz-theme-current 'dark)
-                                      fg-dim))
+                        :foreground fg-dim)
+    ;; :foreground (when (eq ktz-theme-current 'dark)
+    ;;               fg-dim))
     ))
 
 

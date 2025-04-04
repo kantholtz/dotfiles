@@ -13,11 +13,6 @@
   ;; TODO move to mode-line overrides
   x-underline-at-descent-line t
 
-  ;; org-todo-keyword-faces
-  ;;  '(("ARCH" . (:inherit ('regular 'org-done)))
-  ;;    ("DONE" . (:inherit ('regular 'org-done))))
-  ;; Constructs
-
   modus-themes-italic-constructs t
   modus-themes-bold-constructs t
   modus-themes-mixed-fonts t
@@ -51,8 +46,12 @@
 
 (defun ktz--theme-org-faces ()
   "Adjust org related faces"
-  (modus-themes-with-colors
 
+  ;; org-todo-keyword-faces
+  ;;  '(("ARCH" . (:inherit ('regular 'org-done)))
+  ;;    ("DONE" . (:inherit ('regular 'org-done))))
+
+  (modus-themes-with-colors
     (set-face-attribute
      'org-level-1 nil
      :box `(:line-width (-1 . 1) :color ,bg-main))
@@ -69,6 +68,8 @@
                         :foreground fg-dim)
     (set-face-attribute 'org-priority nil
                         :foreground fg-dim)
+    ;; (set-face-attribute 'org-ref-cite nil
+    ;;                     :foreground green)
 
     ;; org agenda
 
@@ -96,7 +97,6 @@
     ;; org-cite
     (set-face-attribute 'org-cite-key nil
                         :foreground green)
-
     ))
 
 
@@ -144,10 +144,6 @@
     ;; interaction elements
     (set-face-attribute 'widget-field nil
                         :background bg-active)
-    ;; headerline
-    (set-face-attribute 'header-line nil
-                        :background bg-dim)
-
     ;; outline
     ;; (set-face-attribute 'outline-minor-1 nil
     ;;                     :foreground cyan-intense
@@ -179,10 +175,10 @@
   (modus-themes-with-colors
     (custom-set-faces
      `(header-line
-       ((,c :underline ,border-mode-line-active
+       ((,c :background ,bg-mode-line-active
+            :underline ,border-mode-line-active
             :overline ,border-mode-line-active
             :box (:line-width 5 :color ,bg-mode-line-active)))))))
-
 
 ;;;; Initialization
 

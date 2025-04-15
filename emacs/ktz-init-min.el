@@ -60,6 +60,7 @@
   (forward-line -1)
   (indent-according-to-mode))
 
+
 ;;;; Key-bindings
 
 (global-set-key (kbd "M-<up>") 'ktz--move-line-up)
@@ -171,6 +172,14 @@
   (ktz-log "min" "initializing configuration")
 
   ;;;; Globally used modes
+
+  ;; buffer-move is for lazy people wanting to swap buffers without
+  ;; typing C-x b on each window.
+  (use-package buffer-move
+    :bind (("C-c <up>"    . #'buf-move-up)
+           ("C-c <down>"  . #'buf-move-down)
+           ("C-c <left>"  . #'buf-move-left)
+           ("C-c <right>" . #'buf-move-right)))
 
   ;; This is a global minor mode for entering Emacs commands without
   ;; modifier keys. It's similar to Vim's separation of command mode

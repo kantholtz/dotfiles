@@ -31,7 +31,6 @@ MESSAGE String to emit."
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 
-
 ;; use straight by default (allows to omit :straight t)
 ;; to not use straight, set :straight nil accordingly
 (setq straight-use-package-by-default t)
@@ -44,6 +43,11 @@ MESSAGE String to emit."
 
 ;; https://github.com/radian-software/straight.el/issues/1146
 (straight-use-package 'project)
+
+;; load org early to avoid conflicts
+;; TODO should only be loaded when 'org is a member of ktz-modules
+;; however, ktz-modules is nil here? dunno
+(straight-use-package 'org)
 
 
 ;; CONFIGURATION

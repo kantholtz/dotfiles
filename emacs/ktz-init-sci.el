@@ -53,8 +53,11 @@
     ;; also using this place to configure org-cite
     (org-cite-global-bibliography ktz--cite-bibfiles)
 
-    :bind
-    (:map org-mode-map :package org ("C-c b" . #'citar-insert-citation)))
+    :bind (
+           :map org-mode-map :package org
+           ("C-c b" . #'citar-insert-citation)
+           :map LaTeX-mode-map
+           ("C-c b" . #'citar-insert-citation)))
 
   ;; org-ref makes it easy to insert citations, cross-references,
   ;; indexes and glossaries as hyper-functional links into org files.

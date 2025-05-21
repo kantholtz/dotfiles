@@ -23,6 +23,9 @@
      (concat ktz--org-files-ref "bibliography.bib")
      (concat ktz--org-files-ref "bibliography-retained.bib")))
 
+  (use-package tex
+    :straight auctex)
+
   (use-package bibtex
     :config
     ;; format whole bibliography uniformly
@@ -40,6 +43,7 @@
   ;; browse and act on BibTeX, BibLaTeX, and CSL JSON bibliographic
   ;; data, and LaTeX, markdown, and org-cite editing support.
   (use-package citar
+    :after tex
     :hook
     ;; completion at point
     (LaTeX-mode . citar-capf-setup)
@@ -56,7 +60,7 @@
     :bind (
            :map org-mode-map :package org
            ("C-c b" . #'citar-insert-citation)
-           :map LaTeX-mode-map
+           :map TeX-mode-map
            ("C-c b" . #'citar-insert-citation)))
 
   ;; org-ref makes it easy to insert citations, cross-references,

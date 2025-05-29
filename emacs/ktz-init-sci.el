@@ -24,7 +24,8 @@
      (concat ktz--org-files-ref "bibliography-retained.bib")))
 
   (use-package tex
-    :straight auctex)
+    :straight auctex
+    :hook (LaTeX-mode . company-mode))
 
   (use-package bibtex
     :config

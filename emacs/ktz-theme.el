@@ -108,10 +108,12 @@
     (setq ktz-theme-current 'modus-vivendi))
 
   ;; add some space between windows
+  ;; and adjust line height
   (when (display-graphic-p)
     (setq window-divider-default-places 'bottom-only
           window-divider-default-bottom-width 15)
     (window-divider-mode)
+    (setq-default line-spacing .2)
     (modus-themes-with-colors
       (set-face-attribute 'window-divider nil :foreground bg-main)))
 

@@ -6,4 +6,4 @@ all:
     localhost:
       ansible_host: localhost
   vars:
-    ktz_dotfiles: ~/Complex/scm/dotfiles
+    ktz_dotfiles: ~/Complex/git/dotfiles

@@ -6,7 +6,7 @@ Font=Source Code Pro,10,-1,5,600,0,0,0,0,0,0,0,0,0,0,1,SemiBold
 LineSpacing=3
 
 [General]
-Name=kantholtz
+Name=kantholtz-dark
 Parent=FALLBACK/
 TerminalCenter=false
 TerminalMargin=15

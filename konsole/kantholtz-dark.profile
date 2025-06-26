@@ -1,8 +1,8 @@
 [Appearance]
 AntiAliasFonts=true
 BoldIntense=false
-ColorScheme=kantholtz-light
-Font=IBM Plex Mono Text,11,-1,5,53,0,0,0,0,0,Regular
+ColorScheme=kantholtz-dark
+Font=Source Code Pro,10,-1,5,600,0,0,0,0,0,0,0,0,0,0,1,SemiBold
 LineSpacing=3
 
 [General]

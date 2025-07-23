@@ -150,7 +150,7 @@
   ;; spell-check text in a different language
   (use-package flyspell
     :init
-    (setq ispell-dictionary "en_GB")
+    (setq ispell-dictionary "en_GB-ize")
     :hook (LaTeX-mode . flyspell-mode))
 
   ;;;; Standby

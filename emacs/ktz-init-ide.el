@@ -13,18 +13,15 @@
     :config (which-key-mode))
 
   ;; python
-  ;;   stack: conda → poetry → pyright → eglot
+  ;;   stack: pyenv → poetry → pyright → eglot
 
-  (when ktz-ide-conda-dir
-    (use-package conda
-      :custom (conda-anaconda-home ktz-ide-conda-dir)
-      :init (conda-env-autoactivate-mode t)
-      :config (conda-env-activate ktz-ide-conda-env)))
+  (use-package pyenv-mode)
+  (use-package poetry)
 
   ;; will find out about poetry
-  (use-package pet
-    :config
-    (add-hook 'python-base-mode-hook 'pet-mode -10))
+  ;; (use-package pet
+  ;;   :config
+  ;;   (add-hook 'python-base-mode-hook 'pet-mode -10))
 
   ;; IDE features
 
@@ -32,6 +29,7 @@
   ;;   ;; requires 'isort' to be installed as python module
   ;;   :hook (python-mode . isortify-mode))
 
+  ;; provides autoformatting
   (use-package apheleia
     :config
     (setf (alist-get 'isort apheleia-formatters)

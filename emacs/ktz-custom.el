@@ -56,23 +56,4 @@
   :group 'ktz)
 
 
-;; IDE
-
-;;; conda
-
-(defcustom ktz-ide-conda-dir nil
-  "Directory where the conda installation can be found"
-  :type ktz--defcustom-choice
-  :group 'ktz)
-
-(defcustom ktz-ide-conda-env "base"
-  "Default conda environment"
-  :type 'string
-  :group 'ktz)
-
-(defcustom ktz-ide-conda-paths nil
-  "Possible conda installation paths; Required for tramp+lsp."
-  :type '(repeat directory))
-
-
 (provide 'ktz-custom)

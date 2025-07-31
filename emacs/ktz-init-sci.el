@@ -23,6 +23,9 @@
      (concat ktz--org-files-ref "bibliography.bib")
      (concat ktz--org-files-ref "bibliography-retained.bib")))
 
+  (use-package typst-mode :straight
+    (:type git :host github :repo "Ziqi-Yang/typst-mode.el"))
+
   (use-package tex
     :straight auctex
     :hook (LaTeX-mode . company-mode))

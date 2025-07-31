@@ -69,6 +69,11 @@
 (global-set-key (kbd "<f5>") #'bookmark-jump)
 (global-set-key (kbd "C-<f5>") #'bookmark-jump)
 
+;; to comfortably insert a single space in god-mode
+(global-set-key
+ (kbd "C-q")
+ (lambda () (interactive)
+   (save-excursion (insert " "))))
 
 ;;;; KTZ setup
 

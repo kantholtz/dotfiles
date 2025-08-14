@@ -225,7 +225,7 @@
 
   (use-package multiple-cursors
     :config
-    (global-set-key (kbd "C-x n") 'mc/mark-next-like-this))
+    (global-set-key (kbd "C-c m") 'mc/mark-next-like-this))
 
   ;; Use ripgrep in Emacs. Ripgrep is a replacement for both grep
   ;; like (search one file) and ag like (search many files) tools.

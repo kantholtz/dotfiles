@@ -146,17 +146,18 @@
   (use-package olivetti
     :hook (LaTeX-mode . olivetti-mode))
 
-  ;; Flyspell mode is a minor mode that performs automatic
+  ;;;; Standby
+
+  ;; USING JINX NOW (initialized in min)
   ;; spell-checking of the text you type as you type it. When it finds
+  ;; Flyspell mode is a minor mode that performs automatic
   ;; a word that it does not recognize, it highlights that word. You
   ;; can use the ispell-change-dictionary command if you want to
   ;; spell-check text in a different language
-  (use-package flyspell
-    :init
-    (setq ispell-dictionary "en_GB-ize")
-    :hook (LaTeX-mode . flyspell-mode))
-
-  ;;;; Standby
+  ;; (use-package flyspell
+  ;;   :init
+  ;;   (setq ispell-dictionary "en_GB-ize")
+  ;;   :hook (LaTeX-mode . flyspell-mode))
 
   ;; overleaf
   ;; (use-package git-auto-commit-mode)

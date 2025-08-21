@@ -121,9 +121,7 @@
   (defun ktz--theme-god-hook ()
     ;; not using modus-themes-with-colors for now for performance reasons
     (if (or god-local-mode buffer-read-only)
-        (progn
-          (set-cursor-color ktz-c-neutral-600)
-          (setq cursor-type 'hollow))
+        (setq cursor-type '(hbar . 5))
       (set-cursor-color (if (eq ktz-theme-current 'modus-vivendi)
                             ktz-c-black ktz-c-white))
       (setq cursor-type 'box)))

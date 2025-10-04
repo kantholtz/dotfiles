@@ -28,7 +28,12 @@
 
   (use-package tex
     :straight auctex
-    :hook (LaTeX-mode . company-mode))
+    :custom
+    (TeX-electric-escape t)
+    (TeX-parse-self t)
+    :hook
+    (LaTeX-mode . company-mode)
+    (LaTeX-mode . jinx-mode))
 
   (use-package bibtex
     :config

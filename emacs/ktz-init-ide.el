@@ -6,8 +6,11 @@
 
   (use-package dap-mode)
 
-  (use-package company
-    :hook (prog-mode . company-mode))
+  ;; replaced with global corfu
+  ;; (use-package company
+  ;;   :hook
+  ;;   (prog-mode . company-mode)
+  ;;   (latex-mode . company-mode))
 
   (use-package which-key
     :config (which-key-mode))

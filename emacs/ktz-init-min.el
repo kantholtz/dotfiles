@@ -90,6 +90,18 @@
   ;; completion UI based on the default completion system.
   (use-package vertico :init (vertico-mode))
 
+  ;; Alternative to company with fuzzy search
+  (use-package corfu
+    :custom
+    (corfu-auto t)          ;; Enable auto completion
+    ;; (corfu-separator ?_) ;; Set to orderless separator, if not using space
+    :bind
+    (:map corfu-map
+          ("C-n" . corfu-next)
+          ("C-p" . corfu-previous))
+    :init
+    (global-corfu-mode))
+
   ;; Many editors (e.g. Vim) have the feature of saving minibuffer
   ;; history to an external file after exit. This package provides the
   ;; same feature in Emacs.

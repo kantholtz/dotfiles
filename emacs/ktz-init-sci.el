@@ -26,14 +26,28 @@
   (use-package typst-mode :straight
     (:type git :host github :repo "Ziqi-Yang/typst-mode.el"))
 
-  (use-package tex
-    :straight auctex
-    :custom
-    (TeX-electric-escape t)
-    (TeX-parse-self t)
-    :hook
-    (LaTeX-mode . company-mode)
-    (LaTeX-mode . jinx-mode))
+  ;; (use-package eglot
+  ;;   :straight
+  ;;   :hook
+  ;;   (latex-mode . eglot)
+  ;;   (latex-mode . company-mode))
+  (add-hook 'latex-mode-hook 'eglot-ensure)
+  (with-eval-after-load 'eglot
+    (add-to-list 'eglot-server-programs
+                 '(latex-mode . ("texlab"))))
+
+  ;; holy shit this worked so badly for
+  ;; multi-document latex projects:
+  ;; (use-package tex
+  ;;   :straight auctex
+  ;;   :custom
+  ;;   (TeX-electric-escape t)
+  ;;   (TeX-parse-self t)
+  ;;   :hook
+  ;;   (LaTeX-mode . company-mode)
+  ;;   (LaTeX-mode . outline-minor-mode)
+  ;;   (LaTeX-mode . reftex-mode))
+  ;; ;; (LaTeX-mode . jinx-mode))
 
   (use-package bibtex
     :config
@@ -141,10 +155,6 @@
     :after citar
     :no-require
     :config (citar-org-roam-mode))
-
-  ;; Some other builtin modes to start with LaTeX
-  (add-hook 'LaTeX-mode-hook 'outline-minor-mode)
-  (add-hook 'LaTeX-mode-hook 'reftex-mode)
 
   ;; Set a desired text body width to automatically resize window
   ;; margins to keep the text comfortably in the middle of the window.

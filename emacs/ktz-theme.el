@@ -17,8 +17,6 @@
   modus-themes-bold-constructs t
   modus-themes-mixed-fonts t
   modus-themes-variable-pitch-ui t
-
-  modus-themes-custom-auto-reload t
   modus-themes-disable-other-themes t
 
   ;; org mode related

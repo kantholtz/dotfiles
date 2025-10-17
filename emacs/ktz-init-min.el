@@ -113,7 +113,11 @@
   (use-package orderless
     :custom
     (completion-styles '(orderless basic))
-    (completion-category-overrides ''(file (styles basic partial-completion))))
+    (completion-category-overrides ''(file (styles basic partial-completion)))
+    ;; disable defaults, use our settings
+    (completion-category-defaults nil)
+    ;; Emacs 31: partial-completion behaves like substring
+    (completion-pcm-leading-wildcard t))
 
   ;; Consult provides search and navigation commands based on the
   ;; Emacs completion function completing-read.
@@ -220,7 +224,7 @@
   ;; Jinx is a fast JIT spell-checker for Emacs. Jinx highlights
   ;; misspelled words in the visible portion of the buffer.
   (use-package jinx
-    :hook (emacs-startup . global-jinx-mode)
+    :config (global-jinx-mode)
     :bind (("M-$" . jinx-correct)
            ("C-M-$" . jinx-languages)))
 
@@ -280,12 +284,20 @@
 
   ;;;; Builtin globally enabled minor modes
 
-  ;; Automatically breaks lines to fit within the window width
-  (auto-fill-mode t)
-  ;; Displays the column number in the mode line
-  (column-number-mode t)
-  ;; Highlights matching parentheses
-  (show-paren-mode t)
+  (use-package emacs
+    :custom
+    ;; disable Ispell completion function.
+    ;; try `cape-dict' as an alternative.
+    (text-mode-ispell-word-completion nil)
+
+    :config
+    ;; Automatically breaks lines to fit within the window width
+    (auto-fill-mode t)
+    ;; Displays the column number in the mode line
+    (column-number-mode t)
+    ;; Highlights matching parentheses
+    (show-paren-mode t))
+
   ;; Displays available key bindings
   (use-package which-key
     :config (which-key-mode t))

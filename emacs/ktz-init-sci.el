@@ -65,11 +65,12 @@
   ;; Citar provides a highly-configurable completing-read front-end to
   ;; browse and act on BibTeX, BibLaTeX, and CSL JSON bibliographic
   ;; data, and LaTeX, markdown, and org-cite editing support.
+  (use-package tex :straight auctex) ;; required by citar
   (use-package citar
-    :after tex
+    :after auctex
     :hook
     ;; completion at point
-    (LaTeX-mode . citar-capf-setup)
+    (LaTeX-mode . citar-capf-setup) ;; latex-mode if auctex is disabled
     (org-mode . citar-capf-setup)
 
     :custom
@@ -83,7 +84,7 @@
     :bind (
            :map org-mode-map :package org
            ("C-c b" . #'citar-insert-citation)
-           :map TeX-mode-map
+           :map tex-mode-map  ;; latex-mode-map if auctex is disabled
            ("C-c b" . #'citar-insert-citation)))
 
   ;; org-ref makes it easy to insert citations, cross-references,
@@ -159,7 +160,9 @@
   ;; Set a desired text body width to automatically resize window
   ;; margins to keep the text comfortably in the middle of the window.
   (use-package olivetti
-    :hook (LaTeX-mode . olivetti-mode))
+    :hook
+    (latex-mode . olivetti-mode)
+    (LaTeX-mode . olivetti-mode))
 
   ;;;; Standby
 

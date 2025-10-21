@@ -65,9 +65,13 @@
   ;; Citar provides a highly-configurable completing-read front-end to
   ;; browse and act on BibTeX, BibLaTeX, and CSL JSON bibliographic
   ;; data, and LaTeX, markdown, and org-cite editing support.
-  (use-package tex :straight auctex) ;; required by citar
+  ;; required by citar
+  (use-package tex :straight auctex
+    :hook (LaTeX-mode . eglot-ensure))
+
   (use-package citar
     :after auctex
+    :ensure auctex
     :hook
     ;; completion at point
     (LaTeX-mode . citar-capf-setup) ;; latex-mode if auctex is disabled
@@ -81,11 +85,12 @@
     ;; also using this place to configure org-cite
     (org-cite-global-bibliography ktz--cite-bibfiles)
 
-    :bind (
-           :map org-mode-map :package org
-           ("C-c b" . #'citar-insert-citation)
-           :map tex-mode-map  ;; latex-mode-map if auctex is disabled
-           ("C-c b" . #'citar-insert-citation)))
+    :bind (("C-c b" . citar-insert-citation)))
+  ;; :bind (
+  ;;        :map org-mode-map :package org
+  ;;        ("C-c b" . citar-insert-citation)
+  ;;        :map LaTeX-mode-map  ;; tex-mode-map if auctex is disabled
+  ;;        ("C-c b" . citar-insert-citation)))
 
   ;; org-ref makes it easy to insert citations, cross-references,
   ;; indexes and glossaries as hyper-functional links into org files.

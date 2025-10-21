@@ -15,7 +15,7 @@
     :config
     (when ktz-lex-openai-api-key
       (setq gptel-api-key ktz-lex-openai-api-key)
-      (setq gptel-model 'gpt-4o-mini))
+      (setq gptel-model 'gpt-4.1))
     (global-set-key (kbd "C-c q") 'gptel-send)))
 
 

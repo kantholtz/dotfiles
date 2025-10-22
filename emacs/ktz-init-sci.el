@@ -51,6 +51,7 @@
 
   (use-package bibtex
     :config
+    (electric-indent-local-mode -1)
     ;; format whole bibliography uniformly
     (defun ktz-reformat-bib ()
       (interactive)

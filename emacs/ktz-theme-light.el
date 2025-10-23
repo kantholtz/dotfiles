@@ -70,7 +70,7 @@
      (border-mode-line-active    fg-dim)
      (border-mode-line-inactive  fg-dim)
 
-     modeline
+     ;; modeline
      (modeline-err     red)
      (modeline-warning magenta)
      (modeline-info    green)

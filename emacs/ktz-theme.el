@@ -154,6 +154,11 @@
     ;;                     :height 1.1)
 
     ;;; other packages
+    ;; jinx
+    (when (facep 'jinx-misspelled)
+      (set-face-attribute 'jinx-misspelled nil
+                          :underline nil :foreground red :background bg-red-nuanced))
+
     ;; pulsar
     (when (facep 'pulsar-green)
       (set-face-attribute 'pulsar-green nil

@@ -224,9 +224,11 @@
   ;; Jinx is a fast JIT spell-checker for Emacs. Jinx highlights
   ;; misspelled words in the visible portion of the buffer.
   (use-package jinx
-    :config (global-jinx-mode)
-    :bind (("M-$" . jinx-correct)
-           ("C-M-$" . jinx-languages)))
+    :config
+    (setq jinx-languages "en_GB-ize")
+    (dolist (hook '(text-mode-hook conf-mode-hook))
+      (add-hook hook #'jinx-mode))
+    :bind (("C-c w" . jinx-correct)))
 
   ;; YASnippet is a template system for Emacs. It allows you to type
   ;; an abbreviation and automatically expand it into function

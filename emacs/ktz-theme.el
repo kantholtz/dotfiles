@@ -31,15 +31,15 @@
 ;;;; Face overwrite (hooked)
 
 (defun ktz--theme-modus-faces ()
-  "Adjust modus-themes-* faces."
-  (modus-themes-with-colors
-    (set-face-attribute 'modus-themes-lang-error nil
-                        :underline nil :foreground red :background bg-red-nuanced)
-    (set-face-attribute 'modus-themes-lang-warning nil
-                        :underline nil :foreground yellow :background bg-yellow-nuanced)
-    (set-face-attribute 'modus-themes-lang-note nil
-                        :underline nil :foreground fg-alt :background cyan-faint)
-    ))
+  "Adjust modus-themes-* faces.")
+;; (modus-themes-with-colors
+;;   (set-face-attribute 'modus-themes-lang-error nil
+;;                       :underline nil :foreground red :background bg-red-nuanced)
+;;   (set-face-attribute 'modus-themes-lang-warning nil
+;;                       :underline nil :foreground yellow :background bg-yellow-nuanced)
+;;   (set-face-attribute 'modus-themes-lang-note nil
+;;                       :underline nil :foreground fg-alt :background cyan-faint)
+;;   ))
 
 
 (defun ktz--theme-org-faces ()

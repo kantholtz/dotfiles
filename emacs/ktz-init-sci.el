@@ -36,19 +36,6 @@
     (add-to-list 'eglot-server-programs
                  '(latex-mode . ("texlab"))))
 
-  ;; holy shit this worked so badly for
-  ;; multi-document latex projects:
-  ;; (use-package tex
-  ;;   :straight auctex
-  ;;   :custom
-  ;;   (TeX-electric-escape t)
-  ;;   (TeX-parse-self t)
-  ;;   :hook
-  ;;   (LaTeX-mode . company-mode)
-  ;;   (LaTeX-mode . outline-minor-mode)
-  ;;   (LaTeX-mode . reftex-mode))
-  ;; ;; (LaTeX-mode . jinx-mode))
-
   (use-package bibtex
     :config
     (electric-indent-local-mode -1)
@@ -171,17 +158,6 @@
     (LaTeX-mode . olivetti-mode))
 
   ;;;; Standby
-
-  ;; USING JINX NOW (initialized in min)
-  ;; spell-checking of the text you type as you type it. When it finds
-  ;; Flyspell mode is a minor mode that performs automatic
-  ;; a word that it does not recognize, it highlights that word. You
-  ;; can use the ispell-change-dictionary command if you want to
-  ;; spell-check text in a different language
-  ;; (use-package flyspell
-  ;;   :init
-  ;;   (setq ispell-dictionary "en_GB-ize")
-  ;;   :hook (LaTeX-mode . flyspell-mode))
 
   ;; overleaf
   ;; (use-package git-auto-commit-mode)

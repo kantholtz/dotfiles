@@ -121,9 +121,13 @@
     (if (or god-local-mode buffer-read-only)
         (setq cursor-type '(hbar . 5))
       (set-cursor-color (if (eq ktz-theme-current 'modus-vivendi)
-                            ktz-c-black ktz-c-white))
+                            ktz-c-white ktz-c-black))
       (setq cursor-type 'box)))
-  (add-hook 'post-command-hook #'ktz--theme-god-hook)
+
+  (use-package god-mode
+    :hook
+    (god-mode-enabled . ktz--theme-god-hook)
+    (god-mode-disabled . ktz--theme-god-hook))
 
   ;; misc not worth their own functions
   (modus-themes-with-colors

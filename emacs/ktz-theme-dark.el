@@ -204,7 +204,7 @@
      (fg-prompt yellow)
      (bg-prompt unspecified)
 
-     (rainbow-0 fg)
+     (rainbow-0 fg-alt)
      (rainbow-1 red)
      (rainbow-2 yellow)
      (rainbow-3 green)

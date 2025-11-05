@@ -182,10 +182,10 @@
   (modus-themes-with-colors
     (custom-set-faces
      `(header-line
-       ((,c :background ,bg-mode-line-active
-            :underline ,border-mode-line-active
-            :overline ,border-mode-line-active
-            :box (:line-width 5 :color ,bg-mode-line-active)))))))
+       (( :background ,bg-mode-line-active
+          :underline ,border-mode-line-active
+          :overline ,border-mode-line-active
+          :box (:line-width 5 :color ,bg-mode-line-active)))))))
 
 ;;;; Initialization
 

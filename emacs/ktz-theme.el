@@ -196,31 +196,7 @@
     ;; disable window clutter
     (menu-bar-mode 0)
     (tool-bar-mode 0)
-    (scroll-bar-mode 0)
-
-    ;; section 6.12 "Font configurations for Org and others"
-    (if (eq system-type 'windows-nt)
-        (progn
-          (set-face-attribute
-           'variable-pitch nil
-           :foundry "IBM" :family "IBM Plex Sans"
-           :height 1.0 :width 'medium)
-
-          (set-face-attribute
-           'fixed-pitch nil
-           :family "Cascadia Mono" :foundry "outline"
-           :height 1.0 :slant 'normal :weight 'normal :width 'medium :weight 'normal))
-
-      (progn
-        (set-face-attribute
-         'variable-pitch nil
-         :foundry "IBM" :family "IBM Plex Sans"
-         :height 1.0 :width 'medium :slant 'normal)
-
-        (set-face-attribute
-         'fixed-pitch nil
-         :foundry "IBM" :family "IBM Plex Mono"
-         :height 1.0 :width 'medium :slant 'normal))))
+    (scroll-bar-mode 0))
 
   (use-package modus-themes
     ;; :straight (modus-themes-fork

@@ -226,9 +226,10 @@
   (use-package jinx
     :config
     (setq jinx-languages "en_GB-ize")
-    (dolist (hook '(text-mode-hook conf-mode-hook))
-      (add-hook hook #'jinx-mode))
-    :bind (("C-c w" . jinx-correct)))
+    ;; (dolist (hook '(text-mode-hook conf-mode-hook))
+    ;;   (add-hook hook #'jinx-mode))
+    :bind (("C-c w" . jinx-correct))
+    :hook (LaTeX-mode . jinx-mode))
 
   ;; YASnippet is a template system for Emacs. It allows you to type
   ;; an abbreviation and automatically expand it into function

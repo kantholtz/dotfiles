@@ -237,7 +237,7 @@
     ;;   vivendi: dark
     ;;   operandi: light
     (setq modus-themes-to-toggle '(modus-vivendi modus-operandi))
-    (defvar ktz-theme-current (car modus-themes-to-toggle))
+    (defvar ktz-theme-current (cdr modus-themes-to-toggle))
 
     (keymap-global-set "<f6>" #'modus-themes-toggle)
     (keymap-global-set "C-<f6>" #'modus-themes-toggle)

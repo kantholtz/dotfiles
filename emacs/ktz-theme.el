@@ -101,6 +101,8 @@
 
 (defun ktz--theme-custom-faces ()
   ;; follows modus-themes-to-toggle
+  ;; do not use custom-set-faces but set-face-attribute;
+  ;; the former saves to .emacs
   (if (eq ktz-theme-current 'modus-vivendi)
       (setq ktz-theme-current 'modus-operandi)
     (setq ktz-theme-current 'modus-vivendi))
@@ -131,6 +133,14 @@
 
   ;; misc not worth their own functions
   (modus-themes-with-colors
+    ;; header-line
+    (modus-themes-with-colors
+      (set-face-attribute
+       'header-line nil
+       :background bg-dim
+       :underline border
+       :overline border
+       :box `(:line-width 5 :color ,bg-dim)))
 
     ;; highlighting and search
     (set-face-attribute 'highlight nil
@@ -176,16 +186,7 @@
   (ktz--theme-modus-faces)
   (ktz--theme-org-faces)
   (when (fboundp 'ktz-modeline-set-faces)
-    (ktz-modeline-set-faces))
-
-  ;; move to own file at some point?
-  (modus-themes-with-colors
-    (custom-set-faces
-     `(header-line
-       (( :background ,bg-mode-line-active
-          :underline ,border-mode-line-active
-          :overline ,border-mode-line-active
-          :box (:line-width 5 :color ,bg-mode-line-active)))))))
+    (ktz-modeline-set-faces)))
 
 ;;;; Initialization
 

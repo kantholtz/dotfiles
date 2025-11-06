@@ -4,7 +4,8 @@
   "Setup programming configuration"
   (ktz-log "prog" "initializing configuration")
 
-  (use-package dap-mode)
+  ;; loads full lsp-mode as dependency...
+  ;; (use-package dap-mode)
 
   ;; replaced with global corfu
   ;; (use-package company

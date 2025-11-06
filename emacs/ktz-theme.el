@@ -123,7 +123,7 @@
     (if (or god-local-mode buffer-read-only)
         (setq cursor-type '(hbar . 5))
       (set-cursor-color (if (eq ktz-theme-current 'modus-vivendi)
-                            ktz-c-white ktz-c-black))
+                            ktz-c-black ktz-c-white))
       (setq cursor-type 'box)))
 
   (use-package god-mode

@@ -29,9 +29,9 @@
      (cyan               ,ktz-c-stone-200)
      (cyan-intense       ,ktz-c-stone-100)
 
-     (red                ,ktz-c-pink-600)
-     (bg-red-intense     ,ktz-c-pink-800)
-     (bg-red-subtle      ,ktz-c-pink-950)
+     (red                ,ktz-c-rose-600)
+     (bg-red-intense     ,ktz-c-rose-800)
+     (bg-red-subtle      ,ktz-c-rose-950)
      (bg-red-nuanced     "#2e0515")  ;; custom
 
      (green              ,ktz-c-cyan-400)

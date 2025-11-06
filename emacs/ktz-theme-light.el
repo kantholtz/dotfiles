@@ -28,10 +28,10 @@
      (cyan               ,ktz-c-neutral-700)
      (cyan-intense       ,ktz-c-neutral-900)
 
-     (red                ,ktz-c-pink-700)
-     (bg-red-intense     ,ktz-c-pink-200)
-     (bg-red-subtle      ,ktz-c-pink-100)
-     (bg-red-nuanced     ,ktz-c-pink-50)
+     (red                ,ktz-c-rose-700)
+     (bg-red-intense     ,ktz-c-rose-200)
+     (bg-red-subtle      ,ktz-c-rose-100)
+     (bg-red-nuanced     ,ktz-c-rose-50)
 
      (green              ,ktz-c-teal-600)
      (bg-green-intense   ,ktz-c-teal-200)

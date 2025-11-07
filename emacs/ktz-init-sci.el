@@ -26,6 +26,9 @@
   (use-package typst-mode :straight
     (:type git :host github :repo "Ziqi-Yang/typst-mode.el"))
 
+  (use-package tex :straight auctex
+    :hook (LaTeX-mode . eglot-ensure))
+
   ;; (use-package eglot
   ;;   :straight
   ;;   :hook
@@ -35,6 +38,9 @@
   (with-eval-after-load 'eglot
     (add-to-list 'eglot-server-programs
                  '(latex-mode . ("texlab"))))
+
+  ;; TODO just for latex
+  ;; (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
 
   (use-package bibtex
     :config
@@ -54,9 +60,6 @@
   ;; browse and act on BibTeX, BibLaTeX, and CSL JSON bibliographic
   ;; data, and LaTeX, markdown, and org-cite editing support.
   ;; required by citar
-  (use-package tex :straight auctex
-    :hook (LaTeX-mode . eglot-ensure))
-
   (use-package citar
     :after auctex
     :ensure auctex

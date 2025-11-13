@@ -122,6 +122,24 @@
            ("<f3>" . org-agenda)
            ("C-<f3>" . org-agenda)))
 
+  (use-package consult-notes
+    :straight (:type git :host github :repo "mclear-tools/consult-notes")
+    :commands (consult-notes
+               consult-notes-search-in-all-notes
+               ;; if using org-roam
+               consult-notes-org-roam-find-node
+               consult-notes-org-roam-find-node-relation)
+    :config
+    (setq consult-notes-file-dir-sources
+          `(("org"  ?o  ,ktz--org-files-org))) ;; Set notes dir(s), see below
+
+    ;; Set org-roam integration, denote integration, or org-heading integration e.g.:
+    ;; (setq consult-notes-org-headings-files '("~/path/to/file1.org"
+    ;;                                          "~/path/to/file2.org"))
+    ;; (consult-notes-org-headings-mode)
+    )
+
+
 ;;; end of ktz--init-org
   )
 

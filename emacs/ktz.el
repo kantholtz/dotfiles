@@ -34,7 +34,7 @@ MESSAGE String to emit."
 ;; use straight by default (allows to omit :straight t)
 ;; to not use straight, set :straight nil accordingly
 (setq straight-use-package-by-default t)
-(straight-use-package 'use-package)
+(setq package-enable-at-startup nil)
 
 ;; important: on some systems
 ;; (observed on headless ubuntu with emacs28-nox)
@@ -42,12 +42,12 @@ MESSAGE String to emit."
 ;; and the requiring of the ktz-init-* files matters.
 
 ;; https://github.com/radian-software/straight.el/issues/1146
-(straight-use-package 'project)
+(use-package project)
 
 ;; load org early to avoid conflicts
 ;; TODO should only be loaded when 'org is a member of ktz-modules
 ;; however, ktz-modules is nil here? dunno
-(straight-use-package 'org)
+(use-package org)
 
 
 ;; CONFIGURATION
@@ -101,7 +101,6 @@ MESSAGE String to emit."
 (when load-file-name
   (setq ktz-root-dir (file-name-directory load-file-name)))
 
-(ktz--init-config)
 (add-hook 'emacs-startup-hook 'ktz-init)
 (provide 'ktz)
 ;;; ktz.el ends here

@@ -62,7 +62,6 @@
   ;; required by citar
   (use-package citar
     :after auctex
-    :ensure auctex
     :hook
     ;; completion at point
     (LaTeX-mode . citar-capf-setup) ;; latex-mode if auctex is disabled

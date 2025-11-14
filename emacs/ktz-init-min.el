@@ -77,10 +77,10 @@
 
 ;;;; KTZ setup
 
-(defun ktz--init-config ()
-  (add-to-list
-   'load-path
-   (concat ktz-root-dir "/lib")))
+;; (defun ktz--init-config ()
+;;   (add-to-list
+;;    'load-path
+;;    (concat ktz-root-dir "/lib")))
 
 
 ;;; Vertico + Orderless + Consult

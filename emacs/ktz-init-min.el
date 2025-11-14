@@ -206,10 +206,13 @@
   ;; modifier keys. It's similar to Vim's separation of command mode
   ;; and insert mode.
   (use-package god-mode
+    :bind
+    ("<escape>" . god-mode-all)
     :config
-    (global-set-key (kbd "<escape>") #'god-mode-all)
-    (when ktz-god-default
-      (god-mode)))
+    (when ktz-god-default (god-mode))
+    :bind (:map god-local-mode-map
+                ("[" . backward-word)
+                ("]" . forward-word)))
 
   ;; This is a small Emacs package that temporarily highlights the
   ;; current line after a given function is invoked.

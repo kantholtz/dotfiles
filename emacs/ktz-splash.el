@@ -20,6 +20,11 @@
       (when quotes (nth (random (length quotes)) quotes)))))
 
 (defun ktz-splash ()
+  ;; (ktz-log "splash" (format
+  ;;                    "length=%d args=%s"
+  ;;                    (length command-line-args)
+  ;;                    command-line-args))
+
   (when (= 1 (length command-line-args))
 
     (let ((splash-buffer-name "*ktz*")

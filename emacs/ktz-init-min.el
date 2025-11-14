@@ -75,12 +75,8 @@
  (lambda () (interactive)
    (save-excursion (insert " "))))
 
-;;;; KTZ setup
 
-;; (defun ktz--init-config ()
-;;   (add-to-list
-;;    'load-path
-;;    (concat ktz-root-dir "/lib")))
+;;;; KTZ setup
 
 
 ;;; Vertico + Orderless + Consult

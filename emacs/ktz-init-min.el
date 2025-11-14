@@ -270,21 +270,6 @@
       (exec-path-from-shell-initialize)
       (ktz-log "min" "initialized exec-path-from-shell")))
 
-  ;;;; Finance
-  ;; At some point, there should be a ktz-init-fin.el
-  (unless (eq system-type 'windows-nt)
-
-    ;; This package provides beancount-mode an Emacs major-mode
-    ;; implementing syntax highlighting, indentation, completion , and
-    ;; other facilities to edit and work with Beancount ledger files.
-    (use-package beancount
-      :straight (beancount :type git :host github :repo "beancount/beancount-mode")
-      :mode ("\\.ledger\\'" . beancount-mode)
-      :hook (beancount-mode . outline-minor-mode)
-      :bind (:map beancount-mode-map
-                  ("M-p" . beancount-goto-previous-transaction)
-                  ("M-n" . beancount-goto-next-transaction))))
-
   (ktz--init-min-voc)
   (ktz--init-min-outline)
 
@@ -307,7 +292,6 @@
   ;; Displays available key bindings
   (use-package which-key
     :config (which-key-mode t))
-
   ;;;; Hooks
 
   (use-package markdown-mode

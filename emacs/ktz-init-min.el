@@ -228,7 +228,7 @@
   ;; misspelled words in the visible portion of the buffer.
   (use-package jinx
     :config
-    (setq jinx-languages "en_GB-ize")
+    (setq jinx-languages "en_GB-ize de_DE")
     ;; (dolist (hook '(text-mode-hook conf-mode-hook))
     ;;   (add-hook hook #'jinx-mode))
     :bind (("C-c w" . jinx-correct))

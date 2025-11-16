@@ -208,7 +208,17 @@
     (when ktz-god-default (god-mode))
     :bind (:map god-local-mode-map
                 ("[" . backward-word)
-                ("]" . forward-word)))
+                ("]" . forward-word)
+                ("{" . backward-paragraph)
+                ("}" . forward-paragraph)))
+
+  ;; integrate LLMs
+  (use-package gptel
+    :config
+    (when ktz-openai-api-key
+      (setq gptel-api-key ktz-openai-api-key)
+      (setq gptel-model 'gpt-4.1))
+    (global-set-key (kbd "C-c q") 'gptel-send))
 
   ;; This is a small Emacs package that temporarily highlights the
   ;; current line after a given function is invoked.

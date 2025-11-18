@@ -118,18 +118,12 @@
       (set-face-attribute 'window-divider nil :foreground bg-main)))
 
   ;; change cursor based on god-mode state
+  ;;   - todo: this hook is called many times per toggle for whatever reason...
   (defun ktz--theme-god-hook ()
-    ;; not using modus-themes-with-colors for now for performance reasons
-    (if (or god-local-mode buffer-read-only)
+    ;; (ktz-log "ktz--theme-god-hook" (format "%s" ktz-theme-current))
+    (if (or (and (boundp god-local-mode) god-local-mode) buffer-read-only)
         (setq cursor-type '(hbar . 5))
-      (set-cursor-color (if (eq ktz-theme-current 'modus-vivendi)
-                            ktz-c-black ktz-c-white))
       (setq cursor-type 'box)))
-
-  (use-package god-mode
-    :hook
-    (god-mode-enabled . ktz--theme-god-hook)
-    (god-mode-disabled . ktz--theme-god-hook))
 
   ;; misc not worth their own functions
   (modus-themes-with-colors
@@ -221,6 +215,9 @@
     (add-hook
      'modus-themes-after-load-theme-hook
      #'ktz--theme-custom-faces)
+
+    (add-hook 'god-mode-enabled-hook #'ktz--theme-god-hook)
+    (add-hook 'god-mode-disabled-hook #'ktz--theme-god-hook)
 
     (dolist (theme modus-themes-to-toggle)
       (load-theme theme :no-confirm))

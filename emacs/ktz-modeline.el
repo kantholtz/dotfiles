@@ -103,18 +103,18 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
                         :background cyan-faint)
 
     (set-face-attribute 'ktz-modeline-indicator-mod nil
-                        :background (if (eq ktz-theme-current 'light)
+                        :background (if (eq ktz-theme-current 'modus-operandi)
                                         red bg-red-nuanced)
-                        :foreground (if (eq ktz-theme-current 'light)
+                        :foreground (if (eq ktz-theme-current 'modus-operandi)
                                         bg-main red))
 
     (set-face-attribute 'ktz-modeline-indicator-rw nil
                         :foreground fg-alt)
 
     (set-face-attribute 'ktz-modeline-indicator-god-active nil
-                        :background (if (eq ktz-theme-current 'light)
+                        :background (if (eq ktz-theme-current 'modus-operandi)
                                         fg-alt bg-main)
-                        :foreground (if (eq ktz-theme-current 'light)
+                        :foreground (if (eq ktz-theme-current 'modus-operandi)
                                         bg-main fg-alt))
 
     (set-face-attribute 'ktz-modeline-indicator-god-inactive nil

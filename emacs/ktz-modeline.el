@@ -128,7 +128,7 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
 
 (defun ktz--modeline-get-god-indicator ()
   (let ((str (ktz--modeline-pad-strbox "GOD" 1)))
-    (if god-local-mode
+    (if (and (boundp 'god-local-mode) god-local-mode)
         (propertize str 'face 'ktz-modeline-indicator-god-active)
       (propertize str 'face 'ktz-modeline-indicator-god-inactive))))
 

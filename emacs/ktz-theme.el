@@ -206,8 +206,16 @@
     ;; first in the list determines default theme
     ;;   vivendi: dark
     ;;   operandi: light
-    (setq modus-themes-to-toggle '(modus-vivendi modus-operandi))
-    (defvar ktz-theme-current (cdr modus-themes-to-toggle))
+    (setq modus-themes-to-toggle
+          (if ktz-theme-default ;; t is dark, nil is light
+              '(modus-vivendi modus-operandi)
+            '(modus-operandi modus-vivendi)))
+
+    (ktz-log "theme" (format "dark default: %s, current %s"
+                             ktz-theme-default
+                             modus-themes-to-toggle))
+
+    (defvar ktz-theme-current (car modus-themes-to-toggle))
 
     (keymap-global-set "<f6>" #'modus-themes-toggle)
     (keymap-global-set "C-<f6>" #'modus-themes-toggle)

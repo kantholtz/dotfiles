@@ -1,6 +1,9 @@
 ;;; ktz-init-min.el --- Minimal initialization.
 ;;
 ;;; Code:
+
+(require 'auth-source)
+
 ;;;; General configuration setup
 
 ;; always only ask for y or n
@@ -87,16 +90,19 @@
   (use-package vertico :init (vertico-mode))
 
   ;; Alternative to company with fuzzy search
-  (use-package corfu
-    :custom
-    (corfu-auto t)          ;; Enable auto completion
-    ;; (corfu-separator ?_) ;; Set to orderless separator, if not using space
-    :bind
-    (:map corfu-map
-          ("C-n" . corfu-next)
-          ("C-p" . corfu-previous))
-    :init
-    (global-corfu-mode))
+  ;;   - currently disabled because of problems with eglot
+  ;;   - there are tipps: https://github.com/minad/corfu/wiki#configuring-corfu-for-eglot
+  ;;
+  ;; (use-package corfu
+  ;;   :custom
+  ;;   (corfu-auto t)          ;; Enable auto completion
+  ;;   ;; (corfu-separator ?_) ;; Set to orderless separator, if not using space
+  ;;   :bind
+  ;;   (:map corfu-map
+  ;;         ("C-n" . corfu-next)
+  ;;         ("C-p" . corfu-previous))
+  ;;   :init
+  ;;   (global-corfu-mode))
 
   ;; Many editors (e.g. Vim) have the feature of saving minibuffer
   ;; history to an external file after exit. This package provides the
@@ -212,13 +218,50 @@
                 ("{" . backward-paragraph)
                 ("}" . forward-paragraph)))
 
+
+  ;; TODO quick selection https://github.com/karthink/gptel/issues/680
+
+  (defun ktz-openrouter-api-key ()
+    "Load API key from auth-source, or prompt if not found."
+    (let* ((props (auth-source-search :host "openrouter.ai"
+                                      :user "apikey"
+                                      :require '(:secret)
+                                      :create t))
+           (key (plist-get (car props) :secret)))
+      (funcall key)))
+
   ;; integrate LLMs
   (use-package gptel
     :config
-    (when ktz-openai-api-key
-      (setq gptel-api-key ktz-openai-api-key)
-      (setq gptel-model 'gpt-4.1))
+    (setq gptel-model   'google/gemini-3-pro-preview
+          gptel-backend
+          (gptel-make-openai "OpenRouter" ; any name
+            :host "openrouter.ai"
+            :endpoint "/api/v1/chat/completions"
+            :stream t
+            :key 'ktz-openrouter-api-key
+            :models '(openai/gpt-4.1
+                      anthropic/claude-sonnet-4.5
+                      google/gemini-3-pro-preview)))
+
     (global-set-key (kbd "C-c q") 'gptel-send))
+
+  ;; popups with completion
+  (use-package company
+    :ensure t
+    :hook (
+           (prog-mode . company-mode)
+           (LaTeX-mode . company-mode)))
+  ;; :bind (:map company-active-map
+  ;;             ("<return>" . nil)
+  ;;             ("RET" . nil)
+  ;;             ("C-<return>" . company-complete-selection)
+  ;;             ([tab] . company-complete-selection)
+  ;;             ("TAB" . company-complete-selection)))
+
+  (use-package company-box
+    :ensure t
+    :hook (company-mode . company-box-mode))
 
   ;; This is a small Emacs package that temporarily highlights the
   ;; current line after a given function is invoked.

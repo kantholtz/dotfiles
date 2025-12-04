@@ -4,9 +4,6 @@
   (customize-group "ktz"))
 
 
-;; TODO when this gets too large, consider subgroups
-
-
 (defgroup ktz nil
   "Kantholz' dotfiles customizations")
 
@@ -31,26 +28,24 @@
   :type 'boolean
   :group 'ktz)
 
-;; follow configuration in https://github.com/joshcho/ChatGPT.el
-(defcustom ktz-openai-api-key nil
-  "OpenAI API access"
-  :type '(choice string (const nil))
-  :group 'ktz)
-
-;; (defconst ktz-light-default 'light "Load the light theme as default")
-;; (defconst ktz-dark-default 'dark "Load the dark theme as default")
 (defcustom ktz-theme-default nil
   "The ktz theme loaded by default"
-  :type '(choice (const :tag "Light" ktz--light-default)
-                 (const :tag "Dark" ktz--dark-default))
+  :type '(choice (const :tag "Dark" t)
+                 (const :tag "Light" nil))
   :group 'ktz)
 
+;; (defcustom ktz-openai-api-key nil
+;;   "OpenAI API access"
+;;   :type '(choice string (const nil))
+;;   :group 'ktz)
 
-
-;; ORG
+;; (defcustom ktz-openrouter-api-key nil
+;;   "OpenRouter API access"
+;;   :type '(choice string (const nil))
+;;   :group 'ktz)
 
 (defcustom ktz-org-dir nil
-  "Directory where the .org files reside (e.g. path/to/Roam)"
+  "Directory containing org/*org (e.g. psi:Roam)"
   :type ktz--defcustom-choice
   :group 'ktz)
 

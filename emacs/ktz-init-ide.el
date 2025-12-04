@@ -7,12 +7,6 @@
   ;; loads full lsp-mode as dependency...
   ;; (use-package dap-mode)
 
-  ;; replaced with global corfu
-  ;; (use-package company
-  ;;   :hook
-  ;;   (prog-mode . company-mode)
-  ;;   (latex-mode . company-mode))
-
   (use-package which-key
     :config (which-key-mode))
 

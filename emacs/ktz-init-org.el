@@ -8,7 +8,7 @@
   ;;      text smaller. Can also center text.
 
   (use-package visual-fill-column)
-  (use-package org-bullets)
+  ;; (use-package org-bullets)
 
   (use-package org
     :straight (:type built-in)
@@ -30,12 +30,30 @@
       (visual-line-mode)
       (visual-fill-column-mode)
 
-      (when (not (eq system-type 'windows-nt))
-        (org-bullets-mode)))
+      ;; (when (not (eq system-type 'windows-nt))
+      ;;   (org-bullets-mode))
+      )
 
     :hook
     (org-mode . ktz--org-visual-hook))
 
+  (use-package org-modern
+    :config
+    (setq
+     ;; Edit settings
+     org-auto-align-tags nil
+     org-tags-column 0
+     org-catch-invisible-edits 'show-and-error
+     org-special-ctrl-a/e t
+     org-insert-heading-respect-content t
+
+     ;; Org styling, hide markup etc.
+     org-hide-emphasis-markers t
+     org-pretty-entities t
+     org-agenda-tags-column 0
+     org-ellipsis "…")
+
+    (global-org-modern-mode))
 ;;; end ktz--init-org-base
   )
 

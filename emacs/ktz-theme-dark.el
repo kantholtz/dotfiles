@@ -10,24 +10,24 @@
   (setq
    modus-vivendi-palette-overrides
    `(
-     ;; stone
-     (bg-main   ,ktz-c-stone-900)
-     (bg-dim    ,ktz-c-stone-800)
-     (bg-active ,ktz-c-stone-700)
+     ;; zinc
+     (bg-main   ,ktz-c-zinc-900)
+     (bg-dim    ,ktz-c-zinc-800)
+     (bg-active ,ktz-c-zinc-700)
 
-     (fg-dim   ,ktz-c-stone-600)
-     (fg-main  ,ktz-c-stone-400)
+     (fg-dim   ,ktz-c-zinc-600)
+     (fg-main  ,ktz-c-zinc-400)
      (fg-alt   ,ktz-c-white)
 
      (bg-inactive bg-main)
      (border fg-dim)
 
      ;; using cyan to define additional neutral shades
-     (cyan-faint         ,ktz-c-stone-950)
-     (cyan-cooler        ,ktz-c-stone-500)
-     (cyan-warmer        ,ktz-c-stone-300)
-     (cyan               ,ktz-c-stone-200)
-     (cyan-intense       ,ktz-c-stone-100)
+     (cyan-faint         ,ktz-c-zinc-950)
+     (cyan-cooler        ,ktz-c-zinc-500)
+     (cyan-warmer        ,ktz-c-zinc-300)
+     (cyan               ,ktz-c-zinc-200)
+     (cyan-intense       ,ktz-c-zinc-100)
 
      (red                ,ktz-c-rose-600)
      (bg-red-intense     ,ktz-c-rose-800)
@@ -39,15 +39,15 @@
      (bg-green-subtle    ,ktz-c-cyan-900)
      (bg-green-nuanced   ,ktz-c-cyan-950)
 
-     (magenta             ,ktz-c-stone-200)
-     (bg-magenta-intense  ,ktz-c-stone-800)
-     (bg-magenta-subtle   ,ktz-c-stone-900)
-     (bg-magenta-nuanced  ,ktz-c-stone-950)
+     (magenta             ,ktz-c-zinc-200)
+     (bg-magenta-intense  ,ktz-c-zinc-800)
+     (bg-magenta-subtle   ,ktz-c-zinc-900)
+     (bg-magenta-nuanced  ,ktz-c-zinc-950)
 
-     (yellow             ,ktz-c-orange-200)
-     (bg-yellow-intense  ,ktz-c-orange-800)
-     (bg-yellow-subtle   ,ktz-c-orange-900)
-     (bg-yellow-nuanced  ,ktz-c-orange-950)
+     (yellow             ,ktz-c-emerald-200)
+     (bg-yellow-intense  ,ktz-c-emerald-800)
+     (bg-yellow-subtle   ,ktz-c-emerald-900)
+     (bg-yellow-nuanced  ,ktz-c-emerald-950)
 
      (blue               ,ktz-c-slate-200)
      (bg-blue-intense    ,ktz-c-slate-800)

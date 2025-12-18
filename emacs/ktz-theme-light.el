@@ -43,11 +43,10 @@
      (bg-magenta-subtle  ,ktz-c-violet-100)
      (bg-magenta-nuanced ,ktz-c-violet-50)
 
-     ;; amber
-     (yellow             ,ktz-c-amber-800)
-     (bg-yellow-intense  ,ktz-c-amber-200)
-     (bg-yellow-subtle   ,ktz-c-amber-100)
-     (bg-yellow-nuanced  ,ktz-c-amber-50)
+     (yellow             ,ktz-c-orange-800)
+     (bg-yellow-intense  ,ktz-c-orange-200)
+     (bg-yellow-subtle   ,ktz-c-orange-100)
+     (bg-yellow-nuanced  ,ktz-c-orange-50)
 
      ;; blue grey
      (blue               ,ktz-c-slate-600)

@@ -44,11 +44,13 @@ MESSAGE String to emit."
 ;; https://github.com/radian-software/straight.el/issues/1146
 (use-package project)
 
+;; dependencies
+(use-package f)
+
 ;; load org early to avoid conflicts
 ;; TODO should only be loaded when 'org is a member of ktz-modules
 ;; however, ktz-modules is nil here? dunno
 (use-package org)
-
 
 ;; CONFIGURATION
 ;; modes and mode config

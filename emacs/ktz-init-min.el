@@ -241,12 +241,26 @@
             :stream t
             :key 'ktz-openrouter-api-key
             :models '(openai/gpt-4.1
-                      anthropic/claude-sonnet-4.5
-                      google/gemini-3-pro-preview)))
+                      anthropic/claude-haiku-4.5  ;; small/fast
+                      anthropic/claude-sonnet-4.5 ;; normal/medium
+                      anthropic/claude-opus-4.5 ;; premium/medium
+                      google/gemini-3-pro-preview) ;; premium/slow
+            ))
 
     (global-set-key (kbd "C-c q") 'gptel-send))
 
-  ;; popups with completion
+  (when ktz-prompt-dir
+    (use-package gptel-prompts
+      :straight (:host github :repo "jwiegley/gptel-prompts")
+      :after (gptel)
+      :config
+      (setq gptel-prompts-directory
+            (f-join ktz-prompt-dir "prompts"))
+      (gptel-prompts-update)
+      (gptel-prompts-add-update-watchers)))
+
+
+  ;; Popups with completion
   (use-package company
     :ensure t
     :hook (

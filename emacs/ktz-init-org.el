@@ -43,9 +43,9 @@
 (defun ktz--init-org-roam ()
 
   ;; top-level directories
-  (defvar ktz--org-files-org    (concat ktz-org-dir "/org/"))
-  (defvar ktz--org-files-ref    (concat ktz-org-dir "/ref/"))
-  (defvar ktz--org-templates    (concat ktz-org-dir "/templates/"))
+  (defvar ktz--org-files-org    (f-join ktz-org-dir "org"))
+  (defvar ktz--org-files-ref    (f-join ktz-org-dir "ref"))
+  (defvar ktz--org-templates    (f-join ktz-org-dir "templates"))
 
   ;;
   ;; roam

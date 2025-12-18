@@ -7,10 +7,9 @@
 (defgroup ktz nil
   "Kantholz' dotfiles customizations")
 
-(setq ktz--defcustom-choice
-      '(choice
-        (const :tag "Disabled" nil)
-        (string :tag "Directory or File")))
+(setq ktz--defcustom-choice-dir
+      '(choice (const :tag "None" nil)
+               (directory :tag "Directory")))
 
 
 (defcustom ktz-modules '()
@@ -34,19 +33,14 @@
                  (const :tag "Light" nil))
   :group 'ktz)
 
-;; (defcustom ktz-openai-api-key nil
-;;   "OpenAI API access"
-;;   :type '(choice string (const nil))
-;;   :group 'ktz)
-
-;; (defcustom ktz-openrouter-api-key nil
-;;   "OpenRouter API access"
-;;   :type '(choice string (const nil))
-;;   :group 'ktz)
-
 (defcustom ktz-org-dir nil
-  "Directory containing org/*org (e.g. psi:Roam)"
-  :type ktz--defcustom-choice
+  "Directory containing 'org/*org' (e.g. psi:Roam/)"
+  :type ktz--defcustom-choice-dir
+  :group 'ktz)
+
+(defcustom ktz-prompt-dir nil
+  "Directory containing LLM 'prompts/*' (e.g. psi:Roam/)"
+  :type ktz--defcustom-choice-dir
   :group 'ktz)
 
 (provide 'ktz-custom)

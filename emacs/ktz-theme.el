@@ -30,75 +30,6 @@
 
 ;;;; Face overwrite (hooked)
 
-(defun ktz--theme-modus-faces ()
-  "Adjust modus-themes-* faces.")
-;; (modus-themes-with-colors
-;;   (set-face-attribute 'modus-themes-lang-error nil
-;;                       :underline nil :foreground red :background bg-red-nuanced)
-;;   (set-face-attribute 'modus-themes-lang-warning nil
-;;                       :underline nil :foreground yellow :background bg-yellow-nuanced)
-;;   (set-face-attribute 'modus-themes-lang-note nil
-;;                       :underline nil :foreground fg-alt :background cyan-faint)
-;;   ))
-
-
-(defun ktz--theme-org-faces ()
-  "Adjust org related faces"
-
-  ;; org-todo-keyword-faces
-  ;;  '(("ARCH" . (:inherit ('regular 'org-done)))
-  ;;    ("DONE" . (:inherit ('regular 'org-done))))
-
-  (modus-themes-with-colors
-    (set-face-attribute
-     'org-level-1 nil
-     :box `(:line-width (-1 . 1) :color ,bg-main))
-
-    (set-face-attribute
-     'org-level-2 nil
-     :box `(:line-width (-1 . 1) :color ,bg-main)
-     :weight 'semi-bold)
-
-
-    (set-face-attribute 'org-tag nil
-                        :foreground cyan-cooler :weight 'normal)
-    (set-face-attribute 'org-checkbox nil
-                        :foreground fg-dim)
-    (set-face-attribute 'org-priority nil
-                        :foreground fg-dim)
-    ;; (set-face-attribute 'org-ref-cite nil
-    ;;                     :foreground green)
-
-    ;; org agenda
-
-    ;; org-imminent-deadline ← org-agenda-deadline-faces
-    ;;   (missed/close deadlines)
-    ;; org-upcoming-deadline
-    ;;   (regular deadlines)
-
-    ;; org-agenda-deadline-faces:
-    ;;
-    ;;   ((1.0 . org-imminent-deadline)
-    ;;    (0.5 . org-upcoming-deadline)
-    ;;    (0.0 . org-upcoming-distant-deadline))
-    ;;
-    ;; Each car is a fraction of the head-warning time that must
-    ;; have passed for this the face in the cdr to be used for
-    ;; display.
-    (set-face-attribute 'org-upcoming-distant-deadline nil
-                        :foreground fg-dim)
-    (set-face-attribute 'org-upcoming-deadline nil
-                        :weight 'normal)
-    (set-face-attribute 'org-imminent-deadline nil
-                        :weight 'normal :foreground magenta)
-
-    ;; org-cite
-    (set-face-attribute 'org-cite-key nil
-                        :foreground green)
-    ))
-
-
-
 (defun ktz--theme-custom-faces ()
   ;; follows modus-themes-to-toggle
   ;; do not use custom-set-faces but set-face-attribute;
@@ -125,7 +56,6 @@
         (setq cursor-type '(hbar . 5))
       (setq cursor-type 'box)))
 
-  ;; misc not worth their own functions
   (modus-themes-with-colors
     ;; header-line
     (modus-themes-with-colors
@@ -150,18 +80,35 @@
     ;; interaction elements
     (set-face-attribute 'widget-field nil
                         :background bg-active)
-    ;; outline
-    ;; (set-face-attribute 'outline-minor-1 nil
-    ;;                     :foreground cyan-intense
-    ;;                     :height 1.3)
-    ;; (set-face-attribute 'outline-minor-2 nil
-    ;;                     :foreground cyan
-    ;;                     :height 1.2)
-    ;; (set-face-attribute 'outline-minor-3 nil
-    ;;                     :foreground cyan-warmer
-    ;;                     :height 1.1)
-
     ;;; other packages
+    ;; org
+    (set-face-attribute
+     'org-level-1 nil
+     :box `(:line-width (-1 . 1) :color ,bg-main))
+
+    (set-face-attribute
+     'org-level-2 nil
+     :box `(:line-width (-1 . 1) :color ,bg-main)
+     :weight 'semi-bold)
+
+    (set-face-attribute 'org-tag nil
+                        :foreground cyan-cooler :weight 'normal)
+    (set-face-attribute 'org-checkbox nil
+                        :foreground fg-alt)
+    (set-face-attribute 'org-priority nil
+                        :foreground fg-dim)
+
+    (set-face-attribute 'org-upcoming-distant-deadline nil
+                        :foreground fg-dim)
+    (set-face-attribute 'org-upcoming-deadline nil
+                        :weight 'normal)
+    (set-face-attribute 'org-imminent-deadline nil
+                        :weight 'normal :foreground magenta)
+
+    ;; org-cite
+    (set-face-attribute 'org-cite-key nil
+                        :foreground green)
+
     ;; jinx
     (when (facep 'jinx-misspelled)
       (set-face-attribute 'jinx-misspelled nil
@@ -177,8 +124,6 @@
                           :inherit 'error)))
 
   ;; more involved groups
-  (ktz--theme-modus-faces)
-  (ktz--theme-org-faces)
   (when (fboundp 'ktz-modeline-set-faces)
     (ktz-modeline-set-faces)))
 

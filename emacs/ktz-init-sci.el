@@ -12,16 +12,16 @@
   ;; ----------------------------------------
 
   (defvar ktz--cite-pdfs
-    (list (concat ktz--org-files-ref "pdfs/")))
+    (list (f-join ktz--org-files-ref "pdfs")))
 
   (defvar ktz--cite-notes
-    (list (concat ktz--org-files-ref "notes/")))
+    (list (f-join ktz--org-files-ref "notes")))
 
   (defvar ktz--cite-bibfiles
     ;; the first element is used for automatic appends by biblio
     (list
-     (concat ktz--org-files-ref "bibliography.bib")
-     (concat ktz--org-files-ref "bibliography-retained.bib")))
+     (f-join ktz--org-files-ref "bibliography.bib")
+     (f-join ktz--org-files-ref "bibliography-retained.bib")))
 
   (use-package typst-mode :straight
     (:type git :host github :repo "Ziqi-Yang/typst-mode.el"))

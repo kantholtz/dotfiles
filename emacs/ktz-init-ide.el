@@ -4,9 +4,6 @@
   "Setup programming configuration"
   (ktz-log "prog" "initializing configuration")
 
-  ;; loads full lsp-mode as dependency...
-  ;; (use-package dap-mode)
-
   (use-package which-key
     :config (which-key-mode))
 
@@ -120,7 +117,6 @@
   (use-package rainbow-mode
     :config
     (setq rainbow-x-colors nil))  ;; do not color names such as "red"
-
   ) ;; /ktz--init-ide
 
 

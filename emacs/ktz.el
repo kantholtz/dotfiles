@@ -89,7 +89,8 @@ MESSAGE String to emit."
   ;; splash screen
   (ktz-splash)
 
-  ) ;; /ktz-init
+  ;; load after modules have defined their transient prefixes
+  (require 'ktz-menu)) ;; /ktz-init
 
 
 (defun ktz-reload ()

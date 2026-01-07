@@ -2,8 +2,6 @@
 ;;
 ;;; Code:
 
-(require 'auth-source)
-
 ;;;; General configuration setup
 
 ;; always only ask for y or n
@@ -147,8 +145,7 @@
      'display-buffer-alist
      '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
        nil
-       (window-parameters (mode-line-format . none)))))
-  )
+       (window-parameters (mode-line-format . none))))))
 
 
 ;;; Outline + IMenu
@@ -217,48 +214,6 @@
                 ("]" . forward-word)
                 ("{" . backward-paragraph)
                 ("}" . forward-paragraph)))
-
-
-  ;; TODO quick selection https://github.com/karthink/gptel/issues/680
-
-  (defun ktz-openrouter-api-key ()
-    "Load API key from auth-source, or prompt if not found."
-    (let* ((props (auth-source-search :host "openrouter.ai"
-                                      :user "apikey"
-                                      :require '(:secret)
-                                      :create t))
-           (key (plist-get (car props) :secret)))
-      (funcall key)))
-
-  ;; integrate LLMs
-  (use-package gptel
-    :config
-    (setq gptel-model   'google/gemini-3-pro-preview
-          gptel-backend
-          (gptel-make-openai "OpenRouter" ; any name
-            :host "openrouter.ai"
-            :endpoint "/api/v1/chat/completions"
-            :stream t
-            :key 'ktz-openrouter-api-key
-            :models '(openai/gpt-4.1
-                      anthropic/claude-haiku-4.5  ;; small/fast
-                      anthropic/claude-sonnet-4.5 ;; normal/medium
-                      anthropic/claude-opus-4.5 ;; premium/medium
-                      google/gemini-3-pro-preview) ;; premium/slow
-            ))
-
-    (global-set-key (kbd "C-c q") 'gptel-send))
-
-  (when ktz-prompt-dir
-    (use-package gptel-prompts
-      :straight (:host github :repo "jwiegley/gptel-prompts")
-      :after (gptel)
-      :config
-      (setq gptel-prompts-directory
-            (f-join ktz-prompt-dir "prompts"))
-      (gptel-prompts-update)
-      (gptel-prompts-add-update-watchers)))
-
 
   ;; Popups with completion
   (use-package company

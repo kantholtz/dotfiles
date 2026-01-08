@@ -13,9 +13,20 @@
 ;;   - C-h f gptel-backend-models
 (defun ktz--init-llm ()
 
+  (defun ktz-openrouter-api-key ()
+    "Load API key from auth-source, or prompt if not found."
+    (let* ((props (auth-source-search :host "openrouter.ai"
+                                      :user "apikey"
+                                      :require '(:secret)
+                                      :create t))
+           (key (plist-get (car props) :secret)))
+      (funcall key)))
+
   ;; GPTEL: LLM integration
   (use-package gptel
     :config
+    (global-set-key (kbd "C-c C-q") 'gptel-send)
+
     ;; disable default OpenAI backend
     ;; https://github.com/karthink/gptel/issues/649
     (setq gptel--known-backends nil)

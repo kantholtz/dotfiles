@@ -31,7 +31,8 @@
      ("b" "bookmarks" ktz-menu--bookmarks)
      ("c" "configuration" ktz-configuration)
      ,@(when (member 'llm ktz-modules)
-         '(("g" "gptel" ktz-menu--llm)))]))
+         '(("g" "gptel" ktz-menu--llm)))
+     ("i" "imenu" imenu)]))
 
 
 (transient-define-prefix ktz-menu ()

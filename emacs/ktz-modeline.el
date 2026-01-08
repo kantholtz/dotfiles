@@ -174,16 +174,6 @@ Truncation is done up to `ktz-modeline-string-truncate-length'."
    'face 'ktz-modeline-fg-subtle))
 
 
-(defun ktz--modeline-get-conda ()
-  "Returns currently activated conda environment"
-  (propertize
-   (ktz--modeline-pad-strbox
-    (if (boundp 'conda-env-current-name)
-        (format "conda: %s" conda-env-current-name)
-      ""))
-   'face 'ktz-modeline-fg-subtle))
-
-
 ;; vc-* taken from prot (thanks!)
 
 (defvar ktz--modeline-vc-faces
@@ -266,9 +256,6 @@ With optional FACE, use it to propertize the BRANCH."
                   (face (ktz--modeline-vc-face file backend)))
         (ktz--modeline-vc-details file branch face)))
   "Mode line construct to return propertized VC branch.")
-(defvar-local ktz--modeline-conda
-    '(:eval (if (mode-line-window-selected-p) (ktz--modeline-get-conda) ""))
-  "Currently activated conda environment")
 
 
 (dolist (construct '(ktz--modeline-god-indicator
@@ -277,8 +264,7 @@ With optional FACE, use it to propertize the BRANCH."
                      ktz--modeline-position
                      ktz--modeline-major-mode
                      ktz--modeline-minor-modes
-                     ktz--modeline-vc-info
-                     ktz--modeline-conda))
+                     ktz--modeline-vc-info))
   (put construct 'risky-local-variable t))
 
 
@@ -289,17 +275,34 @@ With optional FACE, use it to propertize the BRANCH."
   ;; to the very bottom instead of the font's baseline
   (setq x-underline-at-descent-line t)
 
-  (setq-default
-   mode-line-format
-   '("%e"
-     ktz--modeline-god-indicator
-     ktz--modeline-status-indicator
-     ktz--modeline-buffer-name
-     ktz--modeline-major-mode
-     ktz--modeline-minor-modes
-     ktz--modeline-vc-info
-     ktz--modeline-conda
-     ktz--modeline-position)))
+  (setq-default mode-line-format
+                '("%e"
+                  ktz--modeline-god-indicator
+                  ktz--modeline-status-indicator
+                  ktz--modeline-buffer-name
+                  ktz--modeline-major-mode
+                  ktz--modeline-minor-modes
+                  ktz--modeline-vc-info
+                  ktz--modeline-position))
+
+  ;; the file or project name:
+  ;;  (:eval (breadcrumb-project-crumbs))
+  (setq-default header-line-format
+                '((:eval (breadcrumb-imenu-crumbs)))))
+
+
+
+;;; HEADERLINE
+
+(defun ktz-headerline-set-faces ()
+  (modus-themes-with-colors
+    (set-face-attribute
+     'header-line nil
+     :background bg-dim
+     :underline border
+     :overline border
+     :box `(:line-width 5 :color ,bg-dim))))
+
 
 
 (provide 'ktz-modeline)

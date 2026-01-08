@@ -77,8 +77,9 @@
 
     :bind-keymap ("C-c e" . ktz-eglot-map))
 
-  (use-package breadcrumb
-    :config (breadcrumb-mode))
+  (use-package breadcrumb)
+  ;; :config
+  ;; (breadcrumb-mode))
 
   (use-package ein
     :config (setq ein:output-area-inlined-images t))

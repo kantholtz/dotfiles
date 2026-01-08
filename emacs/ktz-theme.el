@@ -38,6 +38,13 @@
       (setq ktz-theme-current 'modus-operandi)
     (setq ktz-theme-current 'modus-vivendi))
 
+  ;; more involved groups
+  (when (fboundp 'ktz-modeline-set-faces)
+    (ktz-modeline-set-faces))
+
+  (when (fboundp 'ktz-headerline-set-faces)
+    (ktz-headerline-set-faces))
+
   ;; add some space between windows
   ;; and adjust line height
   (when (display-graphic-p)
@@ -56,15 +63,6 @@
         (setq cursor-type '(hbar . 5))
       (setq cursor-type 'box)))
 
-  (modus-themes-with-colors
-    ;; header-line
-    (modus-themes-with-colors
-      (set-face-attribute
-       'header-line nil
-       :background bg-dim
-       :underline border
-       :overline border
-       :box `(:line-width 5 :color ,bg-dim)))
 
     ;; highlighting and search
     (set-face-attribute 'highlight nil
@@ -123,9 +121,6 @@
       (set-face-attribute 'langtool-errline nil
                           :inherit 'error)))
 
-  ;; more involved groups
-  (when (fboundp 'ktz-modeline-set-faces)
-    (ktz-modeline-set-faces)))
 
 ;;;; Initialization
 

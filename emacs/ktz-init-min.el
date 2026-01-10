@@ -207,8 +207,14 @@
   (use-package god-mode
     :bind
     ("<escape>" . god-mode-all)
+
+    :hook
+    (god-mode-disabled . (lambda () (setq cursor-type 'box)))
+    (god-mode-enabled . (lambda () (setq cursor-type '(hbar . 5))))
+
     :config
     (when ktz-god-default (god-mode))
+
     :bind (:map god-local-mode-map
                 ("[" . backward-word)
                 ("]" . forward-word)

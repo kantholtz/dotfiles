@@ -30,6 +30,15 @@
 
 ;;;; Face overwrite (hooked)
 
+;; change cursor based on god-mode state
+;;   - todo: this hook is called many times per toggle for whatever reason...
+(defun ktz--theme-god-hook ()
+  ;; (ktz-log "ktz--theme-god-hook" (format "%s" ktz-theme-current))
+  (if (or (and (boundp god-local-mode) god-local-mode) buffer-read-only)
+      (setq cursor-type '(hbar . 5))
+    (setq cursor-type 'box)))
+
+
 (defun ktz--theme-custom-faces ()
   ;; follows modus-themes-to-toggle
   ;; do not use custom-set-faces but set-face-attribute;
@@ -55,71 +64,62 @@
     (modus-themes-with-colors
       (set-face-attribute 'window-divider nil :foreground bg-main)))
 
-  ;; change cursor based on god-mode state
-  ;;   - todo: this hook is called many times per toggle for whatever reason...
-  (defun ktz--theme-god-hook ()
-    ;; (ktz-log "ktz--theme-god-hook" (format "%s" ktz-theme-current))
-    (if (or (and (boundp god-local-mode) god-local-mode) buffer-read-only)
-        (setq cursor-type '(hbar . 5))
-      (setq cursor-type 'box)))
-
-
-    ;; highlighting and search
-    (set-face-attribute 'highlight nil
-                        :foreground green :background bg-green-subtle)
-    (set-face-attribute 'lazy-highlight nil
-                        :foreground yellow :background bg-yellow-nuanced)
-    (set-face-attribute 'isearch nil
-                        :foreground green :background bg-green-nuanced)
-    (set-face-attribute 'query-replace nil
-                        :foreground red :background bg-red-nuanced)
+  ;; highlighting and search
+  (set-face-attribute 'highlight nil
+                      :foreground green :background bg-green-subtle)
+  (set-face-attribute 'lazy-highlight nil
+                      :foreground yellow :background bg-yellow-nuanced)
+  (set-face-attribute 'isearch nil
+                      :foreground green :background bg-green-nuanced)
+  (set-face-attribute 'query-replace nil
+                      :foreground red :background bg-red-nuanced)
 
     ;;; emacs builtin
-    ;; interaction elements
-    (set-face-attribute 'widget-field nil
-                        :background bg-active)
+  ;; interaction elements
+  (set-face-attribute 'widget-field nil
+                      :background bg-active)
     ;;; other packages
-    ;; org
-    (set-face-attribute
-     'org-level-1 nil
-     :box `(:line-width (-1 . 1) :color ,bg-main))
+  ;; org
+  (set-face-attribute
+   'org-level-1 nil
+   :box `(:line-width (-1 . 1) :color ,bg-main))
 
-    (set-face-attribute
-     'org-level-2 nil
-     :box `(:line-width (-1 . 1) :color ,bg-main)
-     :weight 'semi-bold)
+  (set-face-attribute
+   'org-level-2 nil
+   :box `(:line-width (-1 . 1) :color ,bg-main)
+   :weight 'semi-bold)
 
-    (set-face-attribute 'org-tag nil
-                        :foreground cyan-cooler :weight 'normal)
-    (set-face-attribute 'org-checkbox nil
-                        :foreground fg-alt)
-    (set-face-attribute 'org-priority nil
-                        :foreground fg-dim)
+  (set-face-attribute 'org-tag nil
+                      :foreground cyan-cooler :weight 'normal)
+  (set-face-attribute 'org-checkbox nil
+                      :foreground fg-alt)
+  (set-face-attribute 'org-priority nil
+                      :foreground fg-dim)
 
-    (set-face-attribute 'org-upcoming-distant-deadline nil
-                        :foreground fg-dim)
-    (set-face-attribute 'org-upcoming-deadline nil
-                        :weight 'normal)
-    (set-face-attribute 'org-imminent-deadline nil
-                        :weight 'normal :foreground magenta)
+  (set-face-attribute 'org-upcoming-distant-deadline nil
+                      :foreground fg-dim)
+  (set-face-attribute 'org-upcoming-deadline nil
+                      :weight 'normal)
+  (set-face-attribute 'org-imminent-deadline nil
+                      :weight 'normal :foreground magenta)
 
-    ;; org-cite
-    (set-face-attribute 'org-cite-key nil
-                        :foreground green)
+  ;; org-cite
+  (set-face-attribute 'org-cite-key nil
+                      :foreground green)
 
-    ;; jinx
-    (when (facep 'jinx-misspelled)
-      (set-face-attribute 'jinx-misspelled nil
-                          :underline nil :foreground red :background bg-red-nuanced))
+  ;; jinx
+  (when (facep 'jinx-misspelled)
+    (set-face-attribute 'jinx-misspelled nil
+                        :underline nil :foreground red :background bg-red-nuanced))
 
-    ;; pulsar
-    (when (facep 'pulsar-green)
-      (set-face-attribute 'pulsar-green nil
-                          :foreground green :background bg-green-intense))
-    ;; languagetool
-    (when (facep 'langtool-errline)
-      (set-face-attribute 'langtool-errline nil
-                          :inherit 'error)))
+  ;; pulsar
+  (when (facep 'pulsar-green)
+    (set-face-attribute 'pulsar-green nil
+                        :foreground green :background bg-green-intense))
+  ;; languagetool
+  (when (facep 'langtool-errline)
+    (set-face-attribute 'langtool-errline nil
+                        :inherit 'error)))
 
 
 ;;;; Initialization

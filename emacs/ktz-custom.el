@@ -16,10 +16,10 @@
   "Select what modules to load."
   :type '(set (const :tag "IDE: programming support" ide)
               (const :tag "Org: org, roam and agenda" org)
+              (const :tag "LLM: llm integration" llm)
               (const :tag "Sci: latex, bibtex, and pdf support" sci)
               (const :tag "Server: infrastructure modes" srv)
-              (const :tag "Modeline: clean and shiny" modeline)
-              (const :tag "Theme: both dark and light" theme))
+              (const :tag "Modeline: clean and shiny" modeline))
   :group 'ktz)
 
 (defcustom ktz-god-default nil

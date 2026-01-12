@@ -253,6 +253,21 @@
 (defconst ktz-c-rose-950 "#4c0519")
 
 
+
+(defconst ktz-c-gold-50 "#fffbeb")
+(defconst ktz-c-gold-100 "#fef1ad")
+(defconst ktz-c-gold-200 "#f9dca0")
+(defconst ktz-c-gold-300 "#d7b285")
+(defconst ktz-c-gold-400 "#bf966a")
+(defconst ktz-c-gold-500 "#ac8964")
+(defconst ktz-c-gold-600 "#8a6746")
+(defconst ktz-c-gold-700 "#6b573d")
+(defconst ktz-c-gold-800 "#4e3d33")
+(defconst ktz-c-gold-900 "#382a24")
+(defconst ktz-c-gold-950 "#1b1c21")
+
+
+
 ;;;; Add themes from this package to the `custom-theme-load-path'
 
 ;; this allows to (load-theme 'ktz-*-theme) without (require ...)
@@ -285,11 +300,15 @@
     (setq-default line-spacing .1))
 
 
-  ;; add space
+  ;; add whitespace
   (use-package spacious-padding
-    :config
-    ;; (plist-put spacious-padding-widths :right-divider-width 10)
+    :config ; there's no way to update multiple properties at once?
+    (plist-put spacious-padding-widths :right-divider-width 1)
+    (plist-put spacious-padding-widths :header-line-width 6)
+    (plist-put spacious-padding-widths :internal-border-width 10)
+    (plist-put spacious-padding-widths :fringe-width 20)
     (spacious-padding-mode))
+
 
   ;; activate themes
   (use-package modus-themes

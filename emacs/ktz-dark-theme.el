@@ -1,5 +1,9 @@
 (require 'ktz-themes)
 
+
+
+
+
 (defconst ktz--themes-dark-fallback ktz-c-fuchsia-500
   "This is the default fallback value for unset colours")
 
@@ -31,11 +35,11 @@ Return palette entries for modus theme integration."
         ;; background colours come as:
         ;; intense, subtle, and nuanced
         (,(make-sym target-bg-str "intense")
-         ,(symbol-value (make-sym name-prefix "700")))
-        (,(make-sym target-bg-str "subtle")
          ,(symbol-value (make-sym name-prefix "800")))
-        (,(make-sym target-bg-str "nuanced")
+        (,(make-sym target-bg-str "subtle")
          ,(symbol-value (make-sym name-prefix "900")))
+        (,(make-sym target-bg-str "nuanced")
+         ,(symbol-value (make-sym name-prefix "950")))
 
         ))))
 
@@ -52,28 +56,36 @@ Return palette entries for modus theme integration."
 
 
 (defvar ktz-dark-palette
-  `(;; following modus-themes-list-colors
+  `(; following modus-themes-list-colors
 
     ;; base colours
-    (bg-main       ,ktz-c-zinc-900)
-    (bg-dim        ,ktz-c-zinc-800)
-    (bg-active     ,ktz-c-zinc-700)
+
+    (bg-main       "#141417")
+    (bg-dim        "#1a1a1f")
+    (bg-active     "#2a2d34")
+
     (bg-inactive   bg-dim)
 
-    (fg-main   ,ktz-c-zinc-300)
-    (fg-dim    ,ktz-c-zinc-500)
-    (fg-alt    ,ktz-c-zinc-50)
+    (fg-main   ,ktz-c-neutral-400)
+    (fg-dim    ,ktz-c-neutral-700)
+    (fg-alt    ,ktz-c-neutral-50)
 
     (border    bg-dim)
     (cursor    fg-alt)
 
     ;; highlighting colors
-    ,@(ktz--themes-dark-colour-shades 'red     'rose)    ; warm
-    ,@(ktz--themes-dark-colour-shades 'yellow  'amber)   ; warm
-    ,@(ktz--themes-dark-colour-shades 'green   'emerald) ; cold
-    ,@(ktz--themes-dark-colour-shades 'blue    'cyan)    ; cold
-    ,@(ktz--themes-dark-colour-shades 'magenta 'teal)    ; cold
-    ,@(ktz--themes-dark-colour-shades 'cyan    'zinc)    ; neutral
+    ;; concept:
+    ;;   - red, yellow, green (used semantically to render errors,
+    ;;     warnings, success or danger, risk, no danger, etc.
+    ;;   - magenta, blue, cyan: primary, secondary, tertiary (the
+    ;;     defining theme colours)
+    ,@(ktz--themes-dark-colour-shades 'red     'rose)
+    ,@(ktz--themes-dark-colour-shades 'yellow  'gold)
+    ,@(ktz--themes-dark-colour-shades 'green   'emerald)
+    ,@(ktz--themes-dark-colour-shades 'magenta 'teal)
+    ,@(ktz--themes-dark-colour-shades 'blue    'cyan)
+
+    ,@(ktz--themes-dark-colour-shades 'cyan    'neutral)    ; neutral
 
     ;; custom mappings
 
@@ -122,9 +134,14 @@ Return palette entries for modus theme integration."
 
     ;; editor ui elements
 
+    (fg-link           yellow-intense)
+    (fg-link-symbolic  yellow-intense)
+    (fg-link-visited   yellow-intense)
+
     (bg-mode-line-active   bg-active)
-    (fg-mode-line-active   fg-alt)
-    (bg-mode-line-inactive bg-dim)
+    (fg-mode-line-active   yellow-intense)
+
+    (bg-mode-line-inactive bg-inactive)
     (fg-mode-line-inactive fg-dim)
 
     ;; applies to org-mode
@@ -135,6 +152,11 @@ Return palette entries for modus theme integration."
     ,@(ktz--themes-rainbow 'rainbow              ktz--themes-dark-rainbow)
     ,@(ktz--themes-rainbow 'fg-heading           ktz--themes-dark-rainbow)
     ,@(ktz--themes-rainbow 'modus-themes-heading ktz--themes-dark-rainbow)
+
+    ;; stylistic variants
+    (underline-link unspecified)
+    (underline-link-visited unspecified)
+    (underline-link-symbolic unspecified)
 
     ;;; DISABLED COLOURS
 
@@ -152,6 +174,7 @@ Return palette entries for modus theme integration."
 
     )
   "Kantholtz' Dark Colour Palette")
+
 
 ;; for quickly reloading the theme after changes
 ;; (global-set-key

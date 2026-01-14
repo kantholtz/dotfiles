@@ -209,8 +209,7 @@ With optional FACE, use it to propertize the BRANCH."
    (propertize (char-to-string #xE0A0) 'face 'shadow)
    " "
    (propertize branch 'face face)
-   ;; " "
-   ;; (prot-modeline-diffstat file)
+   " "
    ))
 
 (defun ktz--modeline-vc-get-face (key)
@@ -220,11 +219,6 @@ With optional FACE, use it to propertize the BRANCH."
 (defun ktz--modeline-vc-face (file backend)
   "Return VC state face for FILE with BACKEND."
   (ktz--modeline-vc-get-face (vc-state file backend)))
-
-
-;; (defun ktz--modeline-get-vc-info ()
-;;   "Returns version control info if present"
-;;   (format "%s " (downcase vc-mode)))
 
 
 ;; register variables from getter functions

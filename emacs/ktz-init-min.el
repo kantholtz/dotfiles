@@ -244,7 +244,7 @@
     :config
     (setq pulsar-pulse t
           pulsar-delay 0.025
-          pulsar-iterations 10
+          pulsar-iterations 20
           pulsar-face 'pulsar-green)
     (pulsar-global-mode 1))
 

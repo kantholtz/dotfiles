@@ -14,9 +14,9 @@
   (use-package poetry)
 
   ;; will find out about poetry
-  ;; (use-package pet
-  ;;   :config
-  ;;   (add-hook 'python-base-mode-hook 'pet-mode -10))
+  (use-package pet
+    :config
+    (add-hook 'python-base-mode-hook 'pet-mode -10))
 
   ;; IDE features
 
@@ -34,17 +34,16 @@
 
     (apheleia-global-mode +1))
 
-  ;; boost performance
-  ;; (straight-use-package
-  ;;  '(eglot-booster :type git :host github :repo "https://github.com/jdtsmith/eglot-booster")
-  ;;  :after eglot
-  ;;  :config (eglot-booster-mode))
 
   ;; enable lsp support
   (use-package eglot
     :hook (python-mode . eglot-ensure)
 
     :config
+    ;; not required if `pet` works as intendet
+    ;; (add-to-list 'eglot-server-programs
+    ;;              '(python-mode . ("uv" "run" "pyright-langserver" "--stdio")))
+
     ;; (setq eldoc-idle-delay 0.3)
     ;; (setq company-idle-delay 0.3)
     ;; (setq flymake-no-changes-timeout 0.2)
@@ -81,6 +80,7 @@
   ;; :config
   ;; (breadcrumb-mode))
 
+  ;; seems abandoned unfortunately
   (use-package ein
     :config (setq ein:output-area-inlined-images t))
 

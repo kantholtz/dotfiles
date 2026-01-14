@@ -2,11 +2,8 @@
 
 
 
-
-
 (defconst ktz--themes-dark-fallback ktz-c-fuchsia-500
   "This is the default fallback value for unset colours")
-
 
 
 (defun ktz--themes-dark-colour-shades (target name)
@@ -15,33 +12,44 @@ Return palette entries for modus theme integration."
   (let ((name-prefix (format "ktz-c-%s" name))
         (target-fg-str (symbol-name target))
         (target-bg-str (format "bg-%s" target)))
-    (cl-flet ((make-sym (prefix suffix)
-                (intern (format "%s-%s" prefix suffix))))
+    (cl-flet ((s #'ktz--themes-make-symbol)
+              (v #'ktz--themes-make-colour))
 
       `(;; foreground colours come as:
         ;; *, faint, cooler, warmer, and intense
 
-        (,(make-sym target-fg-str "intense")
-         ,(symbol-value (make-sym name-prefix "200")))
-        (,target
-         ,(symbol-value (make-sym name-prefix "300")))
-        (,(make-sym target-fg-str "warmer")
-         ,(symbol-value (make-sym name-prefix "400")))
-        (,(make-sym target-fg-str "cooler")
-         ,(symbol-value (make-sym name-prefix "500")))
-        (,(make-sym target-fg-str "faint")
-         ,(symbol-value (make-sym name-prefix "800")))
+        (,(s target-fg-str "intense")  ,(v name-prefix "200"))
+        (,target                       ,(v name-prefix "300"))
+        (,(s target-fg-str "warmer")   ,(v name-prefix "400"))
+        (,(s target-fg-str "cooler")   ,(v name-prefix "500"))
+        (,(s target-fg-str "faint")    ,(v name-prefix "800"))
 
         ;; background colours come as:
         ;; intense, subtle, and nuanced
-        (,(make-sym target-bg-str "intense")
-         ,(symbol-value (make-sym name-prefix "800")))
-        (,(make-sym target-bg-str "subtle")
-         ,(symbol-value (make-sym name-prefix "900")))
-        (,(make-sym target-bg-str "nuanced")
-         ,(symbol-value (make-sym name-prefix "950")))
+        (,(s target-bg-str "intense")  ,(v name-prefix "800"))
+        (,(s target-bg-str "subtle")   ,(v name-prefix "900"))
+        (,(s target-bg-str "nuanced")  ,(v name-prefix "950"))
 
         ))))
+
+;; (ktz--themes-dark-colour-shades 'rose 'red)
+
+(defun ktz--themes-dark-colour-diff (face name)
+  "Create different diff related shades for FACE using colour NAME"
+  (let ((face-str (symbol-name face))
+        (name-str (symbol-name name)))
+    (cl-flet ((s #'ktz--themes-make-symbol))
+
+      `((,(s "bg" face-str)           ,(s "bg" name-str "subtle"))
+        (,(s "bg" face-str "faint")   ,(s "bg" name-str "nuanced"))
+        (,(s "bg" face-str "refine")  ,(s "bg" name-str "intense"))
+        (,(s "bg" face-str "fringe")  ,(s "bg" name-str "intense"))
+        (,(s "fg" face-str)           ,(s name-str))
+        (,(s "fg" face-str "intense") ,(s name-str "intense"))
+
+        ))))
+
+;;(ktz--themes-dark-colour-diff 'added 'green)
 
 (defconst ktz--themes-dark-rainbow
   '(fg-alt           ; 0
@@ -53,6 +61,16 @@ Return palette entries for modus theme integration."
     blue-intense     ; 6
     yellow-intense   ; 7
     green-intense))  ; 8
+
+
+;;; MODUS SPECIFIC DEFINITIONS
+
+(defconst ktz-dark-theme-custom-faces
+  '(
+    `(modus-themes-completion-selected
+      ((,c :foreground ,fg-alt :background ,bg-completion)))
+    `(pulsar-green
+      ((,c :foreground ,magenta :background ,bg-magenta-subtle)))))
 
 
 (defvar ktz-dark-palette
@@ -67,10 +85,10 @@ Return palette entries for modus theme integration."
     (bg-inactive   bg-dim)
 
     (fg-main   ,ktz-c-neutral-400)
-    (fg-dim    ,ktz-c-neutral-700)
+    (fg-dim    ,ktz-c-neutral-600)
     (fg-alt    ,ktz-c-neutral-50)
 
-    (border    bg-dim)
+    (border    bg-active)
     (cursor    fg-alt)
 
     ;; highlighting colors
@@ -83,7 +101,7 @@ Return palette entries for modus theme integration."
     ,@(ktz--themes-dark-colour-shades 'yellow  'gold)
     ,@(ktz--themes-dark-colour-shades 'green   'emerald)
     ,@(ktz--themes-dark-colour-shades 'magenta 'teal)
-    ,@(ktz--themes-dark-colour-shades 'blue    'cyan)
+    ,@(ktz--themes-dark-colour-shades 'blue    'gloam)
 
     ,@(ktz--themes-dark-colour-shades 'cyan    'neutral)    ; neutral
 
@@ -100,7 +118,6 @@ Return palette entries for modus theme integration."
     (warning yellow)
     (info magenta)
 
-    (bg-completion       bg-magenta-nuanced)
     (bg-hover            bg-green-nuanced)
     (bg-hover-secondary  bg-yellow-nuanced)
     (bg-hl-line          bg-active)
@@ -143,6 +160,17 @@ Return palette entries for modus theme integration."
 
     (bg-mode-line-inactive bg-inactive)
     (fg-mode-line-inactive fg-dim)
+
+    (bg-completion bg-active)
+    (fg-completion-match-0 magenta)
+    (fg-completion-match-1 blue)
+    (fg-completion-match-2 yellow)
+    (fg-completion-match-3 cyan)
+
+    ;; magit diffs
+    ,@(ktz--themes-dark-colour-diff 'added 'green)
+    ,@(ktz--themes-dark-colour-diff 'changed 'yellow)
+    ,@(ktz--themes-dark-colour-diff 'removed 'red)
 
     ;; applies to org-mode
     (prose-done comment)
@@ -198,4 +226,4 @@ Return palette entries for modus theme integration."
  'modus-vivendi-deuteranopia-palette
  'ktz-dark-palette
  nil
- nil)
+ 'ktz-dark-theme-custom-faces)

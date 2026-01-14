@@ -253,6 +253,7 @@
 (defconst ktz-c-rose-950 "#4c0519")
 
 
+;;; own tinted colours
 
 (defconst ktz-c-gold-50 "#fffbeb")
 (defconst ktz-c-gold-100 "#fef1ad")
@@ -266,9 +267,22 @@
 (defconst ktz-c-gold-900 "#382a24")
 (defconst ktz-c-gold-950 "#1b1c21")
 
+(defconst ktz-c-gloam-50 "##dfeaff")
+(defconst ktz-c-gloam-100 "#c5c9d6")
+(defconst ktz-c-gloam-200 "#c5c9d6")
+(defconst ktz-c-gloam-300 "#aaaeb9")
+(defconst ktz-c-gloam-400 "#90949d")
+(defconst ktz-c-gloam-500 "#777a81")
+(defconst ktz-c-gloam-600 "#5d5f65")
+(defconst ktz-c-gloam-700 "#434449")
+(defconst ktz-c-gloam-800 "#222538")
+(defconst ktz-c-gloam-900 "#292a2d")
+(defconst ktz-c-gloam-950 "#101013")
 
 
-;;;; Add themes from this package to the `custom-theme-load-path'
+
+
+;;;; Add Themes from this package to the `custom-theme-load-path'
 
 ;; this allows to (load-theme 'ktz-*-theme) without (require ...)
 ;;;###autoload
@@ -280,6 +294,17 @@
 (defun ktz--themes-unset-colours (value colours)
   "Returns a palette overwrite for all COLOURS with VALUE."
   (mapcar (lambda (colour) (list colour value)) colours))
+
+
+;; TODO `intern` required or just make-symbol?
+(defun ktz--themes-make-symbol (&rest crumbs)
+  "Concatenate SYMBOLS with hyphens and return a new interned symbol.
+For example, (ktz--themes-make-symbol 'fg 'main) returns 'fg-main."
+  (intern (string-join crumbs "-")))
+
+(defun ktz--themes-make-colour (&rest crumbs)
+  "Obtains the symbol value (i.e. colour code) for a constructed colour symbol"
+  (symbol-value (apply #'ktz--themes-make-symbol crumbs)))
 
 
 (defun ktz--themes-rainbow (prefix colours)
@@ -316,6 +341,7 @@
     ;;  modus-themes-list-colors
     ;;  modus-themes-list-current-colors
     ;;  modus-themes-select (for reloading)
+    ;; :hook (modus-themes-after-load-theme . (lambda ()
 
     :config
     (setq modus-themes-italic-constructs t

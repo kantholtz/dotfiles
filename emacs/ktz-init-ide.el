@@ -18,6 +18,7 @@
     :config
     (add-hook 'python-base-mode-hook 'pet-mode -10))
 
+  (use-package eldoc-box)
   ;; IDE features
 
   ;; (use-package isortify
@@ -47,34 +48,7 @@
     ;; (setq eldoc-idle-delay 0.3)
     ;; (setq company-idle-delay 0.3)
     ;; (setq flymake-no-changes-timeout 0.2)
-
-    ;; TODO this nesting does not work if god-mode is active
-
-    (defvar-keymap ktz-eglot-find-map
-      :doc "Traversal and search"
-      "r" #'xref-find-references
-      "d" #'eglot-find-declaration
-      "i" #'eglot-find-implementation
-      "t" #'eglot-find-typeDefinition)
-
-    (defvar-keymap ktz-eglot-refactor-map
-      :doc "Refactor code"
-      "r" #'eglot-rename
-      "f" #'eglot-format
-      "F" #'eglot-format-buffer)
-
-    (defvar-keymap ktz-eglot-control-map
-      :doc "Control commands"
-      "s" #'eglot-shutdown
-      "S" #'eglot-shutdown-all)
-
-    (defvar-keymap ktz-eglot-map
-      :doc "Eglot keybindings"
-      "f" `("find" . ,ktz-eglot-find-map)
-      "r" `("refactor" . ,ktz-eglot-refactor-map)
-      "c" `("control" . ,ktz-eglot-control-map))
-
-    :bind-keymap ("C-c e" . ktz-eglot-map))
+    )
 
   (use-package breadcrumb)
   ;; :config
@@ -118,6 +92,29 @@
   (use-package rainbow-mode
     :config
     (setq rainbow-x-colors nil))  ;; do not color names such as "red"
+
+  ;; ktz-menu ------------------------------------
+
+
+  (transient-define-prefix ktz-menu--ide ()
+    "IDE-related Commands"
+    ["IDE Features"
+     ["eglot"
+      ("efr" "find references" xref-find-references)
+      ("efd" "find declaration" eglot-find-declaration)
+      ("efi" "find implementation" eglot-find-implementation)
+      ("eft" "find type definition" eglot-find-typeDefinition)
+      ("err" "rename" eglot-rename)
+      ("erf" "format" eglot-format)
+      ("erF" "format buffer" eglot-format-buffer)
+      ("ecs" "control: shutdown" eglot-shutdown)
+      ("ecS" "control: shutdown all" eglot-shutdown-all)]
+     ["(f)lymake"
+      ("fd" "diagnostics (project)" flymake-show-project-diagnostics)
+      ("fn" "next error" flymake-goto-next-error)]
+     ["general"
+      ("i" "imenu" imenu)]])
+
   ) ;; /ktz--init-ide
 
 

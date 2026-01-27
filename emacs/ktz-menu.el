@@ -30,9 +30,11 @@
   `([,(ktz-menu--header)
      ("b" "bookmarks" ktz-menu--bookmarks)
      ("c" "configuration" ktz-configuration)
+     ("r" "ripgrep" rg)
+     ,@(when (member 'ide ktz-modules)
+         '(("i" "ide" ktz-menu--ide)))
      ,@(when (member 'llm ktz-modules)
-         '(("g" "gptel" ktz-menu--llm)))
-     ("i" "imenu" imenu)]))
+         '(("l" "llm" ktz-menu--llm)))]))
 
 
 (transient-define-prefix ktz-menu ()
@@ -49,6 +51,7 @@
 
 
 (global-set-key (kbd "<f2>") #'ktz-menu)
+(global-set-key (kbd "C-<f2>") #'ktz-menu)
 
 
 ;; ,(when ktz-menu--test ("t" "test" ktz-configuration))

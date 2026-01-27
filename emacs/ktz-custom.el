@@ -29,8 +29,9 @@
 
 (defcustom ktz-theme-default nil
   "The ktz theme loaded by default"
-  :type '(choice (const :tag "Dark" t)
-                 (const :tag "Light" nil))
+  :type '(choice (const :tag "Disabled" nil)
+                 (const :tag "Dark" dark)
+                 (const :tag "Light" light))
   :group 'ktz)
 
 (defcustom ktz-org-dir nil

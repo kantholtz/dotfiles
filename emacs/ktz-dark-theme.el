@@ -69,8 +69,23 @@ Return palette entries for modus theme integration."
   '(
     `(modus-themes-completion-selected
       ((,c :foreground ,fg-alt :background ,bg-completion)))
+    ;; emacs core
+    `(highlight
+      ((,c :foreground ,yellow-intense :background ,bg-yellow-subtle)))
+    ;; pulsar
     `(pulsar-green
-      ((,c :foreground ,magenta :background ,bg-magenta-subtle)))))
+      ((,c :foreground ,magenta :background ,bg-magenta-subtle)))
+    ;; flymake
+    `(flymake-error
+      ((,c :foreground ,red-warmer :background ,bg-red-nuanced :underline unspecified)))
+    ;; eglot
+    `(eglot-diagnostic-tag-unnecessary-face
+      ((,c :foreground ,fg-dim :underline unspecified)))
+    ;; magit
+    `(magit-hash
+      ((,c :foreground ,yellow-cooler :underline unspecified)))
+    ))
+
 
 
 (defvar ktz-dark-palette

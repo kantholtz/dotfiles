@@ -67,8 +67,10 @@
 
 
   (defun ktz-llm--switch-model (backend model)
-    "Stuff"
-    (message "switching to %s %s" backend model))
+    "Switch model"
+    (ktz-log "llm" (format "switching to %s/%s" backend model))
+    (setq gptel-backend (cdr (assoc backend gptel--known-backends)))
+    (setq gptel-model model))
 
   (transient-define-prefix ktz-menu--llm-models ()
     "LLM backend and model selector."
@@ -81,9 +83,9 @@
         (let ((keys (ktz-llm--generate-transient-keys)))
           ;; transform all backends to columns
           (mapcar
-           (lambda (backend-def)
-             (let* ((backend (car backend-def))
-                    (models (cdr backend-def)))
+           (lambda (backend-alist)
+             (let* ((backend (car backend-alist))
+                    (models (cdr backend-alist)))
                ;; create a vector (which represents a column)
                (vconcat
                 ;; with the backend's name as heading

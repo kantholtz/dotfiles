@@ -18,14 +18,43 @@
     :config
     (add-hook 'python-base-mode-hook 'pet-mode -10))
 
-  (use-package eldoc-box)
-  ;; IDE features
+  ;; this solves the problem of html fragments in eldoc buffers
+  ;; thanks: https://emacs.stackexchange.com/questions/80740/how-to-correctly-format-nbsp-in-eldoc-using-eglot
 
-  ;; (use-package isortify
-  ;;   ;; requires 'isort' to be installed as python module
-  ;;   :hook (python-mode . isortify-mode))
+  (defvar ktz-ide--eldoc-html-patterns
+    '(("&nbsp;" " ")
+      ("&lt;" "<")
+      ("&gt;" ">")
+      ("&amp;" "&")
+      ("&quot;" "\"")
+      ("&apos;" "'"))
+    "List of (PATTERN . REPLACEMENT) to replace in eldoc output.")
 
-  ;; provides autoformatting
+  (defun ktz-ide--string-replace-all (patterns in-string)
+    "Replace all cars from PATTERNS in IN-STRING with their pair."
+    (mapc (lambda (pattern-pair)
+            (setq in-string
+                  (string-replace (car pattern-pair) (cadr pattern-pair) in-string)))
+          patterns)
+    in-string)
+
+  (defun ktz-ide--eldoc-preprocess (orig-fun &rest args)
+    "Preprocess the docs to be displayed by eldoc to replace HTML escapes."
+    (let ((doc (car args)))
+      ;; The first argument is a list of (STRING :KEY VALUE ...) entries
+      ;; we replace the text in each such string
+      ;; see docstring of `eldoc-display-functions'
+      (when (listp doc)
+        (setq doc (mapcar
+                   (lambda (doc) (cons
+                                  (ktz-ide--string-replace-all ktz-ide--eldoc-html-patterns (car doc))
+                                  (cdr doc)))
+                   doc)))
+      (apply orig-fun (cons doc (cdr args)))))
+
+  (advice-add 'eldoc-display-in-buffer :around #'ktz-ide--eldoc-preprocess)
+
+  ;; Provides Autoformatting
   (use-package apheleia
     :config
     (setf (alist-get 'isort apheleia-formatters)

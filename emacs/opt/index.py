@@ -21,16 +21,16 @@ end
 import argparse
 import enum
 import sys
-import traceback
 from collections import Counter, defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
-from typing import Optional, TextIO
+from typing import Optional, Self, TextIO
 
 import orgparse
 from ktz.dataclasses import Builder
 from ktz.filesystem import path
+from orgparse.node import OrgRootNode
 
 # ---
 
@@ -83,8 +83,8 @@ class Org:
     category: Optional[str]
 
     @classmethod
-    def from_file(Self: "Org", fd: TextIO):
-        build = Builder(Klass=Self, immutable=True)
+    def from_file(cls: type[Self], fd: TextIO):
+        build = Builder(Klass=cls, immutable=True)
         parsed = orgparse.load(fd)
 
         # read timestamp from filename
@@ -92,15 +92,27 @@ class Org:
             created = Path(fd.name).name.split("-", maxsplit=1)[0]
             created = datetime.strptime(created, "%Y%m%d%H%M%S")
         except (IndexError, ValueError):
+            print(
+                f"could not parse filename for {fd.name}",
+                file=sys.stderr,
+            )
             return None
 
         build.add(created=created)
 
         # parsing meta information from root node
         root = parsed[0]
+        assert isinstance(root, OrgRootNode)
 
         build.add(id=root.get_property("ID"))
         meta = _parse_meta(root.body)
+
+        if "title" not in meta:
+            print(
+                f"could not read meta information for {fd.name}",
+                file=sys.stderr,
+            )
+            return
 
         build.add(
             breadcrumbs=tuple(meta["title"].split(".")),
@@ -136,11 +148,6 @@ class Org:
 # ---
 
 
-def fail(msg):
-    print(msg)
-    sys.exit(2)
-
-
 # no forward references
 def _nodefac():
     return defaultdict(Node)
@@ -152,7 +159,7 @@ class Node:
     org: Optional[Org] = None
 
 
-def read_files(roam_path) -> Node:
+def read_files(roam_path, debug: bool) -> Node:
     root = Node()
 
     # build hierarchy
@@ -173,9 +180,14 @@ def read_files(roam_path) -> Node:
                     place = place.children[crumb]
                 place.org = org
 
-        except Exception:
-            traceback.print_exc()
-            fail(f"\nGot exception for {org_path}!")
+        except Exception as exc:
+            if debug:
+                raise exc
+
+            print(
+                "parsing failed for {org_path=}",
+                file=sys.stderr,
+            )
 
     return root
 
@@ -226,9 +238,16 @@ def write_index(index_path: Path, tree: Node):
 def main(
     index_path: Path,
     roam_path: Path,
+    debug: bool,
 ):
-    tree = read_files(roam_path=roam_path)
-    write_index(index_path=index_path, tree=tree)
+    tree = read_files(
+        roam_path=roam_path,
+        debug=debug,
+    )
+    write_index(
+        index_path=index_path,
+        tree=tree,
+    )
 
 
 def parse_args() -> argparse.Namespace:
@@ -248,16 +267,43 @@ def parse_args() -> argparse.Namespace:
         help="roam directory",
     )
 
+    parser.add_argument(
+        "-d",
+        "--debug",
+        action="store_true",
+        help="enable debug mode",
+    )
+
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
+    pudb = None
+
+    if args.debug:
+        import pudb
 
     index_path = path(args.index, is_file=True)
     roam_path = path(args.roam, is_dir=True)
 
-    print("building index")
+    print(f"building index (debug={args.debug})")
     print(f"  reading from {roam_path}")
     print(f"  writing to {index_path}")
-    main(index_path=index_path, roam_path=roam_path)
+
+    try:
+        main(
+            index_path=index_path,
+            roam_path=roam_path,
+            debug=args.debug,
+        )
+
+    except Exception as exc:
+        if args.debug and pudb:
+            pudb.post_mortem()
+            raise exc
+
+        print(
+            "catched exception {exc}",
+            file=sys.stderr,
+        )

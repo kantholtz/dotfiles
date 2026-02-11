@@ -124,6 +124,14 @@
 
   ;; ktz-menu ------------------------------------
 
+  (autoload 'eglot-find-declaration "eglot" nil t)
+  (autoload 'eglot-find-implementation "eglot" nil t)
+  (autoload 'eglot-find-typeDefinition "eglot" nil t)
+  (autoload 'eglot-rename "eglot" nil t)
+  (autoload 'eglot-format "eglot" nil t)
+  (autoload 'eglot-format-buffer "eglot" nil t)
+  (autoload 'eglot-shutdown "eglot" nil t)
+  (autoload 'eglot-shutdown-all "eglot" nil t)
 
   (transient-define-prefix ktz-menu--ide ()
     "IDE-related Commands"
@@ -138,7 +146,12 @@
       ("erF" "format buffer" eglot-format-buffer)
       ("ecs" "control: shutdown" eglot-shutdown)
       ("ecS" "control: shutdown all" eglot-shutdown-all)]
-     ["(f)lymake"
+     ["project"
+      ("ps" "switch" project-switch-project)
+      ("pf" "find file" project-find-file)
+      ("pd" "find directory" project-find-dir)
+      ("pk" "kill buffers" project-kill-buffers)]
+     ["flymake"
       ("fd" "diagnostics (project)" flymake-show-project-diagnostics)
       ("fn" "next error" flymake-goto-next-error)]
      ["general"

@@ -52,6 +52,7 @@
 
 (global-set-key (kbd "<f2>") #'ktz-menu)
 (global-set-key (kbd "C-<f2>") #'ktz-menu)
+(global-set-key (kbd "C-`") #'ktz-menu)
 
 
 ;; ,(when ktz-menu--test ("t" "test" ktz-configuration))

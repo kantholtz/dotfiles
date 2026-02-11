@@ -46,6 +46,12 @@
                                      google/gemini-3-pro-preview))
           gptel-org-branching-context t))  ;; only org lineage as context
 
+  ;;; AGENTS
+
+  (use-package agent-shell)
+
+
+  ;;; MENU
 
   (defun ktz-llm--gptel-backends-to-alist (backends)
     "Transforms gptel--knwon-backends into an alist of (name . models)."

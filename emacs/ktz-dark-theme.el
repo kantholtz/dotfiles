@@ -84,6 +84,9 @@ Return palette entries for modus theme integration."
     ;; magit
     `(magit-hash
       ((,c :foreground ,yellow-cooler :underline unspecified)))
+    ;; jinx
+    `(jinx-misspelled
+      ((,c :underline unspecified :foreground ,red)))
     ))
 
 

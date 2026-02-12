@@ -71,8 +71,7 @@ MESSAGE String to emit."
                (llm      ktz-init-llm         ktz--init-llm)
                (sci      ktz-init-sci         ktz--init-sci)
                (srv      ktz-init-srv         ktz--init-srv)
-               (modeline ktz-modeline         ktz--init-modeline)
-               (theme    ktz-theme            ktz--init-theme)))
+               (modeline ktz-modeline         ktz--init-modeline)))
 
   (ktz-log "main" (format "selected modules: %s" ktz-modules))
   (dolist (moddef mods)
@@ -85,12 +84,17 @@ MESSAGE String to emit."
         (require req)
         (funcall fun))))
 
+  (when ktz-theme-default
+    (require 'ktz-themes)
+    (ktz--themes-init))
+
   (ktz-log "main" (format "initialization time: %s" (emacs-init-time)))
 
   ;; splash screen
   (ktz-splash)
 
   ;; load after modules have defined their transient prefixes
+  ;; TODO required or is it lazy anyway?
   (require 'ktz-menu)) ;; /ktz-init
 
 

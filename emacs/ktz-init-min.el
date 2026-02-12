@@ -323,7 +323,7 @@
 
   ;; Modes to enable for prog-modes
   (defun ktz--prog-mode-hooks ()
-    (setq-default show-trailing-whitespace t)
+    (setq show-trailing-whitespace t)
     (display-line-numbers-mode))
 
   (add-hook 'prog-mode-hook 'ktz--prog-mode-hooks))

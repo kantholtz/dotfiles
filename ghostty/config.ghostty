@@ -1,0 +1,8 @@
+# ghostty +list-themes
+# theme = Black Metal (Bathory)
+theme = Xcode Light hc 
+font-family = Source Code Pro Semibold
+font-size = 10
+adjust-cell-height = 20%
+cursor-style = block
+shell-integration-features = no-cursor

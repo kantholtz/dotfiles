@@ -40,10 +40,13 @@
                            :stream t
                            :key #'ktz-openrouter-api-key
                            :models '(openai/gpt-4.1
-                                     anthropic/claude-haiku-4.5  ;; small/fast
-                                     anthropic/claude-sonnet-4.5 ;; normal/medium
-                                     anthropic/claude-opus-4.5 ;; premium/medium
-                                     google/gemini-3-pro-preview))
+                                     anthropic/claude-haiku-4.5
+                                     anthropic/claude-sonnet-4.5
+                                     anthropic/claude-opus-4.5
+                                     anthropic/claude-sonnet-4.6
+                                     anthropic/claude-opus-4.6
+                                     deepseek/deepseek-v3.2
+                                     Google/Gemini-3-pro-preview))
           gptel-org-branching-context t))  ;; only org lineage as context
 
   ;;; AGENTS

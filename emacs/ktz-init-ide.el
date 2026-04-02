@@ -148,6 +148,7 @@
       ("ps" "switch" project-switch-project)
       ("pf" "find file" project-find-file)
       ("pd" "find directory" project-find-dir)
+      ("pr" "query replace (regex)" project-query-replace-regexp)
       ("pk" "kill buffers" project-kill-buffers)]
      ["flymake"
       ("fd" "diagnostics (project)" flymake-show-project-diagnostics)

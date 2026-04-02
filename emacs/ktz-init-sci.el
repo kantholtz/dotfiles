@@ -27,20 +27,13 @@
     (:type git :host github :repo "Ziqi-Yang/typst-mode.el"))
 
   (use-package tex :straight auctex
-    :hook (LaTeX-mode . eglot-ensure))
-
-  ;; (use-package eglot
-  ;;   :straight
-  ;;   :hook
-  ;;   (latex-mode . eglot)
-  ;;   (latex-mode . company-mode))
-  (add-hook 'latex-mode-hook 'eglot-ensure)
-  (with-eval-after-load 'eglot
-    (add-to-list 'eglot-server-programs
-                 '(latex-mode . ("texlab"))))
-
-  ;; TODO just for latex
-  ;; (add-hook 'eglot-managed-mode-hook (lambda () (eglot-inlay-hints-mode -1)))
+    :after eglot
+    :hook ((LaTeX-mode . eglot-ensure)
+           (LaTeX-mode . outline-minor-mode))
+    :config
+    (with-eval-after-load 'eglot
+      (add-to-list 'eglot-server-programs
+                   '(latex-mode . ("texlab")))))
 
   (use-package bibtex
     :config

@@ -67,8 +67,12 @@
 (global-set-key (kbd "M-<up>") 'ktz--move-line-up)
 (global-set-key (kbd "M-<down>") 'ktz--move-line-down)
 
+(global-set-key (kbd "<f3>") #'project-switch-project)
+(global-set-key (kbd "C-<f3>") #'project-switch-project)
+
 (global-set-key (kbd "<f5>") #'bookmark-jump)
 (global-set-key (kbd "C-<f5>") #'bookmark-jump)
+
 
 ;; to comfortably insert a single space in god-mode
 (global-set-key
@@ -217,9 +221,13 @@
 
     :bind (:map god-local-mode-map
                 ("[" . backward-word)
+                ("ü" . backward-word)
                 ("]" . forward-word)
+                ("+" . forward-word)
                 ("{" . backward-paragraph)
-                ("}" . forward-paragraph)))
+                ("Ü" . backward-paragraph)
+                ("}" . forward-paragraph)
+                ("*" . forward-paragraph)))
 
   ;; Popups with completion
   (use-package company

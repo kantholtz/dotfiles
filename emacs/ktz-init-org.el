@@ -136,9 +136,10 @@
       ;;   (org-agenda nil "a")))
       )
 
-    :bind (
-           ("<f3>" . org-agenda)
-           ("C-<f3>" . org-agenda)))
+    ;; :bind (
+    ;;        ("<f3>" . org-agenda)
+    ;;        ("C-<f3>" . org-agenda)))
+    )
 
   (use-package consult-notes
     :straight (:type git :host github :repo "mclear-tools/consult-notes")

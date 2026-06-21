@@ -37,6 +37,7 @@
     :hook
     (org-mode . ktz--org-visual-hook))
 
+  ;; on windows: install symbola font
   (use-package org-modern
     :config
     (setq

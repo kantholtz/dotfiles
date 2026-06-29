@@ -36,12 +36,14 @@
  tab-width 2
  truncate-lines t)
 
-;; Buffer encoding
+;; Buffer encoding and locales
 (prefer-coding-system       'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 (set-language-environment   'utf-8)
+
+(setq system-time-locale "C") ;; universal system default (en)
 
 
 ;; move lines up and down

@@ -33,20 +33,19 @@
 
     ;; configure desired backends and models manually
     (setq gptel-expert-commands t
-          gptel-model   'anthropic/claude-opus-4.5
+          gptel-model   'anthropic/claude-opus-4.6
           gptel-backend  (gptel-make-openai "OpenRouter" ; any name
                            :host "openrouter.ai"
                            :endpoint "/api/v1/chat/completions"
                            :stream t
                            :key #'ktz-openrouter-api-key
-                           :models '(openai/gpt-4.1
-                                     anthropic/claude-haiku-4.5
-                                     anthropic/claude-sonnet-4.5
-                                     anthropic/claude-opus-4.5
-                                     anthropic/claude-sonnet-4.6
+                           :models '(anthropic/claude-sonnet-4.6
+                                     anthropic/claude-sonnet-4.8
                                      anthropic/claude-opus-4.6
-                                     deepseek/deepseek-v3.2
-                                     Google/Gemini-3-pro-preview))
+                                     anthropic/claude-opus-4.8
+                                     z-ai/glm-5.2
+                                     deepseek/deepseek-v4-flash
+                                     deepseek/deepseek-v4-pro))
           gptel-org-branching-context t))  ;; only org lineage as context
 
   ;;; AGENTS

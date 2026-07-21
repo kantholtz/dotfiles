@@ -92,9 +92,20 @@
   ;; frontend ----------------------------------------
 
   (use-package emmet-mode)
-  (use-package jinja2-mode
-    :init (emmet-mode)
-    :mode "\\.html\\'")
+
+  (use-package web-mode
+    :ensure t
+    :mode (("\\.html\\'" . web-mode)
+           ("\\.jinja2\\'" . web-mode)
+           ("\\.j2\\'" . web-mode))
+    :config
+    (setq web-mode-engines-alist
+          '(("jinja" . "\\.jinja2\\'")
+            ("jinja" . "\\.j2\\'"))))
+
+  ;; (use-package jinja2-mode
+  ;;   :init (emmet-mode)
+  ;;   :mode "\\.html\\'")
 
   (use-package nvm
     :straight (:host github :repo "rejeep/nvm.el"))

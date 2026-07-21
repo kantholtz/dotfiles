@@ -1,4 +1,5 @@
 (defun ktz--init-srv ()
+  (use-package csv-mode)
   (use-package yaml-mode)
   (use-package fish-mode)
   (use-package nginx-mode)

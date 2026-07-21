@@ -57,10 +57,14 @@
   ;; Provides Autoformatting
   (use-package apheleia
     :config
-    (setf (alist-get 'isort apheleia-formatters)
-          '("isort" "--stdout" "-"))
-    (setf (alist-get 'python-mode apheleia-mode-alist)
-          '(isort black))
+
+    :config
+    ;; for debugging
+    ;; (setq apheleia-log-only-errors nil)
+
+    ;; replace default (black) to use ruff for sorting import and formatting.
+    (setf (alist-get 'python-mode apheleia-mode-alist) '(ruff-isort ruff))
+    (setf (alist-get 'python-ts-mode apheleia-mode-alist) '(ruff-isort ruff))
 
     (apheleia-global-mode +1))
 
